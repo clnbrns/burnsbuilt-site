@@ -173,8 +173,8 @@ section { padding: var(--space-2xl) 0; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--color-cream);
-  border-bottom: 1px solid var(--color-sand);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-sand-light, #e4dcc8);
 }
 .nav {
   display: flex;
@@ -920,7 +920,13 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
   gap: var(--space-lg);
   margin-bottom: var(--space-lg);
 }
-.footer-brand .logo-img { height: 54px; margin-bottom: var(--space-sm); }
+.footer-brand .logo-img {
+  height: 72px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
 .footer-brand p { color: rgba(245, 241, 234, 0.6); max-width: 320px; margin-top: var(--space-sm); }
 .site-footer h5 {
   color: var(--color-sand);
@@ -968,7 +974,7 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: var(--color-cream);
+    background: var(--color-white);
     border-bottom: 1px solid var(--color-sand);
     padding: var(--space-sm);
     transform: translateY(-120%);
