@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 60" width="360" height="60">
+  <!-- BurnsBuilt Inline Logo -- for nav bars -->
+
+  <!-- Small icon mark -->
+  <g transform="translate(4, 4)">
+    <circle cx="26" cy="26" r="26" fill="#1e3045"/>
+    <line x1="33" y1="5" x2="19" y2="47" stroke="#4a7c9b" stroke-width="3" stroke-linecap="round"/>
+    <text x="10" y="36" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="24" fill="#ffffff" letter-spacing="-1">BB</text>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="64" y="40" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="32" fill="#1e3045" letter-spacing="1">BURNSBUILT</text>
+</svg>
