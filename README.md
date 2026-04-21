@@ -1,6 +1,6 @@
 # BurnsBuilt.co
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colinmburns/burnsbuilt-site)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/clnbrns/burnsbuilt-site)
 
 Marketing site for **BurnsBuilt** — a father-son web development and business
 automation company based in Aledo, Texas.
