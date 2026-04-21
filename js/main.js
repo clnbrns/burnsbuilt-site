@@ -71,6 +71,16 @@
       if (firstInvalid) firstInvalid.focus();
       return;
     }
+
+    // Fire a GA4 conversion event for the lead. gtag is loaded async in <head>;
+    // guarded in case an ad blocker or offline state nukes it.
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        form_name: 'contact',
+        service_type: service.value
+      });
+    }
+
     // Valid → let the browser submit to Netlify Forms (redirects to /thanks.html).
   });
 })();
