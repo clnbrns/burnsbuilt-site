@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#1e4d8c"/>
+  <rect width="64" height="64" rx="12" fill="#1f3a5f"/>
   <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
         font-family="Inter, -apple-system, Segoe UI, sans-serif"
-        font-size="30" font-weight="800" letter-spacing="-2" fill="#ffffff">B<tspan fill="#f0924a">B</tspan></text>
+        font-size="30" font-weight="800" letter-spacing="-2" fill="#ffffff">B<tspan fill="#8fa96c">B</tspan></text>
 </svg>
