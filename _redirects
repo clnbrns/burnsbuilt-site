@@ -1,0 +1,6 @@
+# Netlify redirects — map extensionless URLs to .html so links like
+# /about, /services, /contact all resolve cleanly.
+/about        /about.html        200
+/services     /services.html     200
+/contact      /contact.html      200
+/thanks       /thanks.html       200
