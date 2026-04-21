@@ -215,6 +215,13 @@ section { padding: var(--space-2xl) 0; }
 }
 .nav-links a:hover { color: var(--color-steel); }
 .nav-links a.active { color: var(--color-steel); }
+/* Buttons inside the nav need to keep their own color scheme (specificity fix) */
+.nav-links a.btn,
+.nav-links a.btn-primary,
+.nav-links a.btn-accent { color: var(--color-white); }
+.nav-links a.btn-outline { color: var(--color-denim); }
+.nav-links a.btn-outline:hover { color: var(--color-white); }
+.nav-links a.btn.active::after { display: none; }
 .nav-links a.active::after {
   content: '';
   position: absolute;
@@ -425,6 +432,38 @@ a.service-card .link-arrow::after,
 .service-card-link .link-arrow::after { content: '↗'; transition: transform var(--transition); }
 a.service-card:hover .link-arrow::after,
 .service-card-link:hover .link-arrow::after { transform: translate(2px, -2px); }
+
+/* ---------- Trust Strip (brands worked with) ---------- */
+.trust-strip { text-align: center; padding: var(--space-lg) 0; }
+.trust-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+.trust-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-lg);
+  opacity: 0.75;
+}
+.trust-logo {
+  font-weight: 800;
+  font-size: 1.125rem;
+  letter-spacing: 0.04em;
+  color: var(--color-denim);
+  padding: 0.375rem 0;
+  transition: opacity var(--transition);
+}
+.trust-logo img { height: 32px; width: auto; display: block; }
+@media (max-width: 768px) {
+  .trust-logos { gap: var(--space-md); }
+  .trust-logo { font-size: 1rem; }
+}
 
 /* ---------- Portfolio / Our Work ---------- */
 .portfolio-grid {
