@@ -1,11 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- BurnsBuilt Icon Mark Only -- Favicon / Profile Pic / App Icon -->
-
   <circle cx="50" cy="50" r="48" fill="#1e3045"/>
-
-  <!-- Forward slash -->
   <line x1="60" y1="10" x2="40" y2="90" stroke="#4a7c9b" stroke-width="5" stroke-linecap="round"/>
-
-  <!-- BB -->
   <text x="20" y="68" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="46" fill="#ffffff" letter-spacing="-2">BB</text>
 </svg>
