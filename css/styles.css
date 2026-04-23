@@ -327,7 +327,7 @@ section { padding: var(--space-2xl) 0; }
 /* Hero illustration */
 .hero-visual {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 8 / 5;
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
   box-shadow: var(--shadow-lg);
@@ -339,6 +339,18 @@ section { padding: var(--space-2xl) 0; }
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 40%),
     radial-gradient(circle at 80% 80%, rgba(194, 178, 143, 0.35), transparent 50%);
+}
+/* When a custom hero image is provided, overlay it on the fallback gradient. */
+.hero-visual.has-image {
+  background: var(--color-denim); /* safety fallback under the image */
+}
+.hero-visual.has-image::before { display: none; }
+.hero-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 .hero-visual-card {
   position: absolute;
