@@ -4,19 +4,23 @@
 
 /* ---------- Custom Properties ---------- */
 :root {
-  /* Brand palette — exact hex, do not improvise */
-  --color-denim: #1e3045;            /* primary brand — headers, footer, dark copy */
-  --color-steel: #4a7c9b;             /* accent — links, buttons, hover */
-  --color-sand: #c2b28f;              /* warm secondary — borders, highlights */
-  --color-cream: #f5f1ea;             /* light background — alternating sections */
+  /* Brand palette — Twin Block identity v2 (from design canvas) */
+  --color-denim: #142640;             /* Harbor Navy — primary brand */
+  --color-steel: #3d5a80;             /* Steel Blue — muted secondary */
+  --color-sand: #c49a62;              /* Workshop Tan — warm accent (formerly tan) */
+  --color-cream: #f5ece0;             /* Paper Cream — warm page bg */
   --color-white: #ffffff;
-  --color-dark: #111d2b;              /* deepest shade — footer / dark hero */
+  --color-dark: #0e1a2e;              /* Ink — deepest bg */
 
-  /* Derived tones */
-  --color-denim-light: #2e4865;
-  --color-steel-dark: #3a6681;
-  --color-steel-light: #6d9cbb;
-  --color-sand-light: #d8cba9;
+  /* New tokens from design canvas */
+  --color-tan-deep: #b88850;          /* darker Workshop Tan — wordmark "Built" */
+  --color-paper: #fbf7f0;             /* lightest warm off-white */
+
+  /* Derived tones (recalibrated for new palette) */
+  --color-denim-light: #1e3a5f;       /* Navy-2 from canvas */
+  --color-steel-dark: #2d4769;
+  --color-steel-light: #6b84a5;
+  --color-sand-light: #ead9be;        /* Tan Soft from canvas */
 
   /* Semantic aliases (keep the rest of the CSS ergonomic) */
   --color-primary: var(--color-denim);
@@ -38,8 +42,10 @@
   --color-success: #3a7a55;
   --color-error: #b84545;
 
-  /* Typography */
+  /* Typography — Twin Block system */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Archivo', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Sizing */
   --max-width: 1200px;
@@ -89,8 +95,9 @@ input, textarea, select { font-family: inherit; font-size: 1rem; }
 /* ---------- Typography ---------- */
 h1, h2, h3, h4 {
   margin: 0 0 var(--space-sm);
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--color-text);
 }
@@ -101,11 +108,12 @@ h4 { font-size: 1.125rem; }
 p { margin: 0 0 var(--space-sm); }
 .eyebrow {
   display: inline-block;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-steel);
   margin-bottom: var(--space-sm);
 }
 .section-title { margin-bottom: var(--space-xs); }
@@ -398,10 +406,11 @@ section { padding: var(--space-2xl) 0; }
 .why-item p { color: var(--color-text-muted); }
 .why-number {
   display: inline-block;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--color-tan-deep);
   margin-bottom: 0.75rem;
 }
 
@@ -436,9 +445,10 @@ a.service-card:hover .link-arrow::after,
 /* ---------- Trust Strip (brands worked with) ---------- */
 .trust-strip { text-align: center; padding: var(--space-lg) 0; }
 .trust-eyebrow {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-text-muted);
   margin-bottom: var(--space-md);
@@ -520,19 +530,20 @@ a.service-card:hover .link-arrow::after,
   gap: 0.375rem;
   align-self: flex-start;
   padding: 0.25rem 0.625rem;
-  background: rgba(74, 124, 155, 0.14);
-  color: var(--color-steel-dark);
+  background: rgba(196, 154, 98, 0.15);
+  color: var(--color-tan-deep);
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 .portfolio-badge::before {
   content: '';
   width: 8px; height: 8px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--color-sand);
 }
 .portfolio-footer {
   padding: 0 var(--space-md) var(--space-md);
@@ -643,11 +654,12 @@ a.service-card:hover .link-arrow::after,
 }
 .founder-card h3 { margin-bottom: 0.25rem; }
 .founder-role {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-steel);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.18em;
   margin-bottom: var(--space-sm);
 }
 .founder-card p { color: var(--color-text-muted); }
@@ -722,11 +734,12 @@ a.service-card:hover .link-arrow::after,
   border-radius: 999px;
 }
 .pricing-tier {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-tan-deep);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.2em;
   margin-bottom: 0.25rem;
 }
 .pricing-card h3 { margin-bottom: var(--space-sm); }
@@ -879,11 +892,12 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
   padding: var(--space-md);
 }
 .info-card h4 {
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
+  letter-spacing: 0.2em;
+  color: var(--color-steel);
   margin-bottom: 0.5rem;
 }
 .info-card p { margin: 0; font-size: 1.0625rem; font-weight: 600; }
@@ -929,11 +943,12 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
 }
 .footer-brand p { color: rgba(245, 241, 234, 0.6); max-width: 320px; margin-top: var(--space-sm); }
 .site-footer h5 {
+  font-family: var(--font-mono);
   color: var(--color-sand);
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.2em;
   margin-bottom: var(--space-sm);
 }
 .footer-links { list-style: none; padding: 0; margin: 0; }

@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BurnsBuilt — Twin Block Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:     #142640;
+    --navy-2:   #1e3a5f;
+    --steel:    #3d5a80;
+    --tan:      #d9b382;
+    --tan-2:    #c49a62;
+    --tan-3:    #b88850;
+    --tan-soft: #ead9be;
+    --cream:    #f5ece0;
+    --paper:    #fbf7f0;
+    --ink:      #0e1a2e;
+  }
+  html, body { margin:0; padding:0; background:#f0eee9; font-family: 'Inter', system-ui, sans-serif; color:#0e1a2e; }
+
+  /* ——— surfaces ——— */
+  .surf-cream { background: var(--cream); }
+  .surf-paper { background: var(--paper); }
+  .surf-navy  { background: var(--navy); color: var(--cream); }
+  .surf-tan   { background: var(--tan-soft); }
+  .surf-white { background: #fff; }
+
+  .artboard-pad{
+    width:100%; height:100%; box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding: 40px; position:relative;
+  }
+  .ab-caption{
+    position:absolute; left:20px; bottom:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing:0.08em; text-transform:uppercase;
+    opacity:0.55;
+  }
+
+  /* ——————————————————————— CORE MARK ——————————————————————— */
+  /* Parametric: pass --size (block height), --gap, --father, --son, --letter */
+  .bbmark{
+    --size: 72px;
+    --gap: 6px;
+    --father: var(--navy);
+    --son: var(--tan-2);
+    --letter: var(--cream);
+    --letter-son: var(--navy);
+    display:inline-grid;
+    grid-template-columns: var(--size) var(--size);
+    gap: var(--gap);
+    width: calc(var(--size) * 2 + var(--gap));
+    height: var(--size);
+  }
+  .bbmark .blk{
+    position:relative; border-radius: calc(var(--size) * 0.06);
+    display:grid; place-items:center;
+    overflow:hidden;
+  }
+  .bbmark .blk.father{ background: var(--father); }
+  .bbmark .blk.son   { background: var(--son); }
+  .bbmark .blk span{
+    font-family:'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: calc(var(--size) * 0.68);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--letter);
+    transform: translateY(-0.02em);
+  }
+  .bbmark .blk.son span{ color: var(--letter-son); }
+  /* structural "seam" across the block (subtle) */
+  .bbmark .blk::after{
+    content:""; position:absolute; left:0; right:0; top:50%;
+    height:1px; background: rgba(255,255,255,0.15);
+    transform: translateY(-0.5px);
+    display:none;
+  }
+  .bbmark.seam .blk::after{ display:block; }
+  .bbmark.seam .blk.son::after{ background: rgba(20,38,64,0.15); }
+
+  /* wordmark variants */
+  .bb-word{
+    font-family:'Archivo', sans-serif;
+    font-weight: 800;
+    letter-spacing:-0.015em;
+    color: var(--navy);
+    line-height: 0.95;
+  }
+  .bb-word .built{ color: var(--tan-3); font-weight:700; }
+
+  .bb-caps{
+    font-family:'Archivo', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .bb-caps .bar{
+    display:inline-block; width:6px; height:6px; background: var(--tan-2);
+    border-radius:50%; margin: 0 8px; transform: translateY(-3px);
+  }
+  .bb-mono{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing:0.22em; text-transform:uppercase; color: var(--steel);
+  }
+
+  /* ——————————— LOCKUPS ——————————— */
+
+  /* A: Primary horizontal */
+  .lk-horiz{ display:flex; align-items:center; gap: 20px; }
+  .lk-horiz .txt{ display:flex; flex-direction:column; gap:8px; }
+
+  /* B: Stacked — mark centered over wordmark */
+  .lk-stack{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+
+  /* C: Inline — mark replaces the BB in "BurnsBuilt" */
+  .lk-inline{
+    display:flex; align-items:center; gap: 10px;
+    font-family:'Archivo', sans-serif; font-weight:800;
+    font-size: 42px; letter-spacing:-0.02em; color: var(--navy);
+  }
+  .lk-inline .u{ color: var(--navy); }
+  .lk-inline .t{ color: var(--tan-3); font-weight:700; }
+
+  /* D: Compact badge — mark + caps */
+  .lk-badge{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+
+  /* E: Monotone variants — just the mark on different surfaces */
+
+  /* ——————————— ARTBOARD-SPECIFIC ——————————— */
+
+  .primary-hero .bbmark{ --size: 96px; --gap: 8px; }
+  .primary-hero .name{ font-size: 52px; }
+  .primary-hero .sub{ margin-top: 4px; }
+
+  .stack-ab .bbmark{ --size: 110px; --gap: 10px; }
+  .stack-ab .name{ font-size: 42px; }
+
+  .inline-ab .bbmark{
+    --size: 44px; --gap: 4px;
+    --letter-son: var(--navy);
+  }
+
+  .mono-ab .bbmark{ --size: 120px; --gap: 10px; }
+  .mono-navy .bbmark{ --father: var(--navy); --son: var(--navy); --letter: var(--cream); --letter-son: var(--cream); }
+  .mono-tan  .bbmark{ --father: var(--tan-2); --son: var(--tan-2); --letter: var(--navy); --letter-son: var(--navy); }
+  .mono-out  .bbmark{ --father: transparent; --son: transparent; --letter: var(--navy); --letter-son: var(--navy); }
+  .mono-out  .bbmark .blk{ box-shadow: inset 0 0 0 2px var(--navy); border-radius: 8px; }
+
+  /* Motion — subtle pulse on the "son" block on hover for the primary hero */
+  .primary-hero .bbmark .blk.son{ transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
+  .primary-hero:hover .bbmark .blk.son{ transform: translateX(-4px); }
+
+  /* ——————————— USAGE SURFACES ——————————— */
+
+  /* Business cards */
+  .cards-stack{ display:flex; gap:24px; }
+  .bcard{
+    width: 440px; height: 250px; border-radius: 4px;
+    box-shadow: 0 14px 40px rgba(10,20,35,0.14), 0 2px 6px rgba(10,20,35,0.05);
+    position:relative; overflow:hidden; box-sizing:border-box;
+    padding: 26px 28px;
+  }
+  .bcard.front{ background: var(--paper); }
+  .bcard.front .top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .bcard.front .top .bbmark{ --size: 40px; --gap: 4px; }
+  .bcard.front .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color: var(--steel);
+    text-align:right; line-height:1.6;
+  }
+  .bcard.front .who{
+    position:absolute; left:28px; bottom:28px;
+    font-family:'Archivo'; font-weight:700; font-size:16px; color: var(--navy);
+    letter-spacing:-0.005em;
+  }
+  .bcard.front .role{
+    position:absolute; left:28px; bottom:12px;
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    letter-spacing:0.18em; text-transform:uppercase; color: var(--steel);
+  }
+  .bcard.front .meta{
+    position:absolute; right:28px; bottom:28px; text-align:right;
+    font-family:'JetBrains Mono', monospace; font-size:10px; color: var(--steel); line-height:1.7;
+  }
+  .bcard.front .rule{
+    position:absolute; left:28px; right:28px; top:108px; height:1px;
+    background: linear-gradient(90deg, var(--navy) 0 40%, var(--tan-2) 40% 100%);
+    opacity:0.5;
+  }
+  .bcard.back{ background: var(--navy); display:grid; place-items:center; }
+  .bcard.back .bbmark{ --size: 120px; --gap: 10px;
+    --father: var(--cream); --son: var(--tan);
+    --letter: var(--navy); --letter-son: var(--navy);
+  }
+  .bcard.back .corner{
+    position:absolute; left:22px; top:22px;
+    font-family:'JetBrains Mono', monospace; font-size:9px;
+    letter-spacing:0.28em; text-transform:uppercase; color: var(--tan);
+  }
+  .bcard.back .corner-r{
+    position:absolute; right:22px; bottom:22px;
+    font-family:'JetBrains Mono', monospace; font-size:9px;
+    letter-spacing:0.28em; text-transform:uppercase; color: var(--tan);
+  }
+
+  /* Browser */
+  .browser{
+    width: 720px; height: 440px;
+    background:#fff; border-radius: 10px; overflow:hidden;
+    box-shadow: 0 18px 50px rgba(10,20,35,0.15), 0 2px 8px rgba(10,20,35,0.08);
+    display:flex; flex-direction:column;
+  }
+  .bbar{
+    height: 36px; background:#eceae5; display:flex; align-items:center; padding:0 14px; gap:6px;
+    border-bottom:1px solid #e2dfd8;
+  }
+  .bbar .tl{ width:10px; height:10px; border-radius:50%; background:#e06b5a; }
+  .bbar .tl.y{ background:#e6b84a; } .bbar .tl.g{ background:#5ab56b; }
+  .bbar .url{
+    margin-left:14px; background:#fff; border-radius:5px; padding:4px 10px;
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:#6d7684; flex:1;
+  }
+  .bhead{
+    padding: 20px 28px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid #eee;
+  }
+  .bhead .logo{ display:flex; align-items:center; gap:12px; }
+  .bhead .logo .bbmark{ --size: 30px; --gap: 3px; }
+  .bhead .logo .name{
+    font-family:'Archivo', sans-serif; font-weight:800; font-size:18px; color: var(--navy);
+    letter-spacing:-0.015em;
+  }
+  .bhead .logo .name i{ color: var(--tan-3); font-style:normal; font-weight:700; }
+  .bnav{ display:flex; gap:22px; font-family:'Inter'; font-size:13px; color: var(--steel); font-weight:500; }
+  .bnav .cta{
+    background: var(--navy); color: var(--cream); padding:8px 14px; border-radius:4px;
+    font-family:'Archivo'; font-weight:600; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .bbody{
+    flex:1; padding: 44px 28px; display:grid; grid-template-columns: 1.25fr 1fr; gap: 28px; align-items:center;
+  }
+  .bbody h1{
+    margin:0 0 14px; font-family:'Archivo', sans-serif; font-weight:800;
+    font-size:38px; letter-spacing:-0.025em; color: var(--navy); line-height:1.02;
+  }
+  .bbody h1 em{ font-style:normal; color: var(--tan-3); }
+  .bbody p{
+    margin:0; font-family:'Inter'; font-size:14px; color: var(--steel); max-width:420px; line-height:1.55;
+  }
+  .bbody .chips{ display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    letter-spacing:0.14em; text-transform:uppercase; color: var(--navy);
+    padding: 6px 10px; border-radius: 999px; background: #fff; border:1px solid #e2dfd8;
+  }
+  .chip .dot{ width:5px; height:5px; background: var(--tan-2); border-radius:50%; }
+  .bbody .right{ display:flex; justify-content:center; }
+  .bbody .right .bbmark{ --size: 96px; --gap: 10px; }
+
+  /* Avatars */
+  .avatars{ display:flex; gap:26px; align-items:center; justify-content:center; }
+  .av{
+    width:128px; height:128px; border-radius: 28px; display:grid; place-items:center;
+    box-shadow: 0 8px 24px rgba(10,20,35,0.15); position:relative; overflow:hidden;
+  }
+  .av .bbmark{ --size: 44px; --gap: 5px; }
+  .av.v-navy{ background: var(--navy); }
+  .av.v-navy .bbmark{ --father: var(--cream); --son: var(--tan); --letter: var(--navy); --letter-son: var(--navy); }
+  .av.v-tan{ background: var(--tan); }
+  .av.v-tan .bbmark{ --father: var(--navy); --son: var(--cream); --letter: var(--cream); --letter-son: var(--navy); }
+  .av.v-cream{ background: var(--cream); border:1px solid #e5dccc; }
+  .av-caption{
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.2em;
+    text-transform:uppercase; color: var(--steel); text-align:center; margin-top:12px;
+  }
+
+  /* Invoice */
+  .invoice{
+    width: 480px; height: 580px; background:#fff; padding: 36px;
+    box-shadow: 0 18px 50px rgba(10,20,35,0.15); box-sizing:border-box; position:relative;
+    font-family:'Inter', sans-serif;
+  }
+  .inv-top{ display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #eee; padding-bottom:22px; }
+  .inv-top .bbmark{ --size: 38px; --gap: 4px; }
+  .inv-top .stamp .l{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color: var(--steel); }
+  .inv-top .stamp .n{ font-family:'JetBrains Mono', monospace; font-size:13px; color: var(--navy); margin-top:4px; }
+  .inv-to{ margin-top:22px; }
+  .inv-to .h, .inv-dates .h{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.22em; text-transform:uppercase; color: var(--steel); margin-bottom:6px; }
+  .inv-to .body{ font-size:13px; color: var(--navy); line-height:1.6; }
+  .inv-rows{ margin-top: 22px; border-top:1px solid #eee; }
+  .inv-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #f1efe9; font-size:13px; color: var(--navy); }
+  .inv-row .desc{ color:#4b586d; }
+  .inv-total{ display:flex; justify-content:space-between; margin-top:18px; padding-top:14px; border-top:2px solid var(--navy); font-family:'Archivo'; font-weight:800; color: var(--navy); }
+  .inv-foot{ position:absolute; left:36px; bottom:28px; right:36px; display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color: var(--steel); }
+
+  /* Email signature */
+  .sig{
+    width: 520px; background:#fff; border:1px solid #e6e2d8; padding: 22px 24px; border-radius:4px;
+    display:flex; align-items:center; gap:20px;
+    box-shadow: 0 4px 14px rgba(10,20,35,0.05);
+  }
+  .sig .bbmark{ --size: 56px; --gap: 6px; }
+  .sig .lines{ font-family:'Inter'; font-size:13px; color: var(--navy); line-height:1.55; flex:1; }
+  .sig .lines .n{ font-family:'Archivo'; font-weight:800; font-size:15px; letter-spacing:-0.01em; }
+  .sig .lines .r{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color: var(--steel); margin-top:2px; }
+  .sig .lines .c{ margin-top:8px; color: var(--steel); font-size:12px; }
+
+  /* Sign / van decal */
+  .sign{
+    width: 420px; height: 210px; background: var(--navy); border-radius: 6px; position:relative;
+    display:grid; place-items:center;
+    box-shadow: 0 14px 40px rgba(10,20,35,0.25);
+    overflow:hidden;
+  }
+  .sign::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:8px; background: var(--tan-2);
+  }
+  .sign::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:8px; background: var(--tan-2);
+  }
+  .sign .bbmark{ --size: 86px; --gap: 8px;
+    --father: var(--cream); --son: var(--tan); --letter: var(--navy); --letter-son: var(--navy);
+  }
+  .sign .tag{
+    position:absolute; left:22px; bottom:20px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.24em; text-transform:uppercase;
+    color: var(--tan);
+  }
+  .sign .phone{
+    position:absolute; right:22px; bottom:20px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.14em;
+    color: var(--cream);
+  }
+
+  /* Brand system artboard */
+  .specs{
+    width:100%; height:100%; padding: 36px; box-sizing:border-box;
+    display:grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .specs h4{
+    margin:0 0 14px; font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color: var(--steel);
+  }
+  .color-row{ display:flex; flex-direction:column; gap: 12px; }
+  .color-cell{
+    display:flex; align-items:center; gap:12px;
+    font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--navy);
+  }
+  .color-cell .chip2{ width:36px; height:36px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+  .type-row{ display:flex; flex-direction:column; gap:18px; }
+  .type-sample .name{ font-family:'JetBrains Mono', monospace; font-size:10px; color: var(--steel); letter-spacing:0.16em; text-transform:uppercase; margin-bottom:4px; }
+  .type-sample .s{ color: var(--navy); }
+
+  /* Construction / anatomy artboard */
+  .anatomy{
+    width:100%; height:100%; padding:36px; box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:center; align-items:center; gap:24px;
+    position:relative;
+  }
+  .anatomy .grid{
+    position:relative;
+    width: 340px; height: 170px;
+  }
+  .anatomy .bbmark{ --size: 160px; --gap: 20px; position:absolute; left:0; top:5px; }
+  .anatomy .dims{ position:absolute; inset:-20px; pointer-events:none; }
+  .anatomy .dims svg{ width:100%; height:100%; overflow:visible; }
+  .anatomy .labels{
+    display:flex; gap: 40px; margin-top:6px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.2em;
+    text-transform:uppercase; color: var(--steel);
+  }
+  .anatomy .labels .l{ display:flex; align-items:center; gap:8px; }
+  .anatomy .labels .l .d{ width:10px; height:10px; border-radius:3px; }
+
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="lib/design-canvas.jsx"></script>
+
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+const Mark = ({ size=72, gap=6, className='', style={} }) => (
+  <div className={`bbmark ${className}`} style={{ '--size': size+'px', '--gap': gap+'px', ...style }}>
+    <div className="blk father"><span>B</span></div>
+    <div className="blk son"><span>B</span></div>
+  </div>
+);
+
+/* ————————————— LOGO LOCKUPS ————————————— */
+
+// Primary — horizontal lockup
+const Primary = () => (
+  <div className="artboard-pad surf-paper primary-hero">
+    <div className="lk-horiz">
+      <Mark size={92} gap={8}/>
+      <div className="txt">
+        <div className="bb-word" style={{fontSize:44}}>Burns<span className="built">Built</span></div>
+        <div className="bb-mono" style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+          <span>Fast</span><span>IT</span><span>for</span><span>Local</span><span>Business</span>
+        </div>
+      </div>
+    </div>
+    <div className="ab-caption">Primary · Horizontal Lockup</div>
+  </div>
+);
+
+// Blueprint — Twin Block with technical/spec-drawing energy
+const Blueprint = () => (
+  <div className="artboard-pad" style={{background:'#eef0ec', overflow:'hidden'}}>
+    <div style={{
+      position:'absolute', inset:0,
+      backgroundImage:'linear-gradient(to right, rgba(20,38,64,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,38,64,0.07) 1px, transparent 1px)',
+      backgroundSize:'16px 16px', pointerEvents:'none'
+    }}/>
+    <div style={{position:'relative', display:'flex', flexDirection:'column', alignItems:'center', gap:20}}>
+      <div style={{position:'relative'}}>
+        <Mark size={110} gap={10}/>
+        {/* corner ticks */}
+        <svg style={{position:'absolute', inset:-14, width:'calc(100% + 28px)', height:'calc(100% + 28px)', overflow:'visible', pointerEvents:'none'}}>
+          <g stroke="#142640" strokeWidth="1.2" fill="none">
+            <path d="M0 8 L0 0 L8 0"/>
+            <path d="M100% 8 L100% 0 L calc(100% - 8) 0" transform="translate(248,0)"/>
+          </g>
+          <line x1="0" y1="-6" x2="120" y2="-6" stroke="#142640" strokeWidth="1" strokeDasharray="2 3"/>
+          <line x1="128" y1="-6" x2="248" y2="-6" stroke="#b88850" strokeWidth="1" strokeDasharray="2 3"/>
+          <text x="60" y="-12" fontFamily="JetBrains Mono" fontSize="8.5" fill="#142640" textAnchor="middle" letterSpacing="1.5">FATHER</text>
+          <text x="188" y="-12" fontFamily="JetBrains Mono" fontSize="8.5" fill="#b88850" textAnchor="middle" letterSpacing="1.5">SON</text>
+        </svg>
+      </div>
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:8, marginTop:12}}>
+        <div style={{fontFamily:'Space Grotesk', fontWeight:700, fontSize:28, letterSpacing:'-0.015em', color:'var(--navy)'}}>
+          burns<span style={{color:'var(--tan-3)'}}>/</span>built
+        </div>
+        <div style={{fontFamily:'JetBrains Mono', fontSize:10, letterSpacing:'0.24em', textTransform:'uppercase', color:'var(--steel)'}}>
+          Ship in Days · Not Months
+        </div>
+      </div>
+    </div>
+    <div className="ab-caption">Blueprint · Technical Lockup</div>
+  </div>
+);
+
+// Inline — the mark IS the BB in BurnsBuilt
+const Inline = () => (
+  <div className="artboard-pad surf-white inline-ab">
+    <div className="lk-inline">
+      <Mark size={52} gap={5} style={{transform:'translateY(2px)'}}/>
+      <span style={{fontSize:52, letterSpacing:'-0.025em', fontWeight:800}}>
+        <span className="u">urns</span><span className="t">uilt</span>
+      </span>
+    </div>
+    <div style={{marginTop:14}} className="bb-mono">Mark + Wordmark · Integrated</div>
+    <div className="ab-caption">Inline · Mark as Initials</div>
+  </div>
+);
+
+// Reversed — navy surface
+const Reversed = () => (
+  <div className="artboard-pad surf-navy">
+    <div className="lk-horiz">
+      <Mark size={84} gap={7} style={{'--father':'var(--cream)','--son':'var(--tan)','--letter':'var(--navy)','--letter-son':'var(--navy)'}}/>
+      <div className="txt">
+        <div style={{fontFamily:'Archivo', fontWeight:800, fontSize:38, color:'var(--cream)', letterSpacing:'-0.015em'}}>
+          Burns<span style={{color:'var(--tan)'}}>Built</span>
+        </div>
+        <div style={{fontFamily:'JetBrains Mono', fontSize:10, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--tan-soft)', opacity:0.7}}>
+          Fast IT for Local Business
+        </div>
+      </div>
+    </div>
+    <div className="ab-caption" style={{color:'var(--tan)', opacity:0.7}}>Reversed · Dark Surface</div>
+  </div>
+);
+
+// Monotone set — for single-color contexts (stamps, engraving, 1-color print)
+const Monotone = () => (
+  <div className="artboard-pad surf-cream mono-ab">
+    <div style={{display:'flex', gap:40, alignItems:'center'}}>
+      <div className="mono-navy"><Mark size={100} gap={9}/></div>
+      <div className="mono-tan"><Mark size={100} gap={9}/></div>
+      <div className="mono-out"><Mark size={100} gap={9}/></div>
+    </div>
+    <div style={{marginTop:22, display:'flex', gap:60}}>
+      <div className="bb-mono">Navy</div>
+      <div className="bb-mono" style={{marginLeft:40}}>Tan</div>
+      <div className="bb-mono" style={{marginLeft:50}}>Outline</div>
+    </div>
+    <div className="ab-caption">Monotone · Single-Color Contexts</div>
+  </div>
+);
+
+// Anatomy — construction / spec drawing
+const Anatomy = () => (
+  <div className="artboard-pad surf-paper anatomy">
+    <div className="grid">
+      <Mark size={160} gap={20}/>
+      <div className="dims">
+        <svg viewBox="0 0 380 210" preserveAspectRatio="none">
+          {/* top dimension - father */}
+          <line x1="20" y1="8" x2="180" y2="8" stroke="#3d5a80" strokeWidth="1" strokeDasharray="3 3"/>
+          <line x1="20" y1="4" x2="20" y2="12" stroke="#3d5a80"/>
+          <line x1="180" y1="4" x2="180" y2="12" stroke="#3d5a80"/>
+          <text x="100" y="-3" fontFamily="JetBrains Mono" fontSize="9" fill="#3d5a80" textAnchor="middle" letterSpacing="1.5">FATHER · 1x</text>
+          {/* top dimension - son */}
+          <line x1="200" y1="8" x2="360" y2="8" stroke="#b88850" strokeWidth="1" strokeDasharray="3 3"/>
+          <line x1="200" y1="4" x2="200" y2="12" stroke="#b88850"/>
+          <line x1="360" y1="4" x2="360" y2="12" stroke="#b88850"/>
+          <text x="280" y="-3" fontFamily="JetBrains Mono" fontSize="9" fill="#b88850" textAnchor="middle" letterSpacing="1.5">SON · 1x</text>
+          {/* gap label */}
+          <line x1="186" y1="180" x2="194" y2="180" stroke="#3d5a80" strokeWidth="1"/>
+          <text x="190" y="200" fontFamily="JetBrains Mono" fontSize="8" fill="#3d5a80" textAnchor="middle" letterSpacing="1.2">0.12x</text>
+        </svg>
+      </div>
+    </div>
+    <div className="labels">
+      <div className="l"><div className="d" style={{background:'var(--navy)'}}></div>Father · Harbor Navy</div>
+      <div className="l"><div className="d" style={{background:'var(--tan-2)'}}></div>Son · Workshop Tan</div>
+    </div>
+    <div className="ab-caption">Anatomy · Proportions</div>
+  </div>
+);
+
+/* ————————————— USAGE ————————————— */
+
+const Website = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="browser">
+      <div className="bbar">
+        <div className="tl"></div><div className="tl y"></div><div className="tl g"></div>
+        <div className="url">https://burnsbuilt.co</div>
+      </div>
+      <div className="bhead">
+        <div className="logo">
+          <Mark size={30} gap={3}/>
+          <div className="name">Burns<i>Built</i></div>
+        </div>
+        <div className="bnav" style={{alignItems:'center'}}>
+          <span>Work</span><span>Services</span><span>About</span>
+          <span className="cta">Book Intro →</span>
+        </div>
+      </div>
+      <div className="bbody">
+        <div>
+          <h1>The website your<br/>business needs — <em>shipped in days.</em></h1>
+          <p>A father-and-son shop building fast, modern websites and smart automations for the local businesses the big agencies won't touch.</p>
+          <div className="chips">
+            <div className="chip"><div className="dot"></div>5-Day Sites</div>
+            <div className="chip"><div className="dot"></div>Booking &amp; Invoicing</div>
+            <div className="chip"><div className="dot"></div>Flat Pricing</div>
+          </div>
+        </div>
+        <div className="right"><Mark size={110} gap={10}/></div>
+      </div>
+    </div>
+    <div className="ab-caption">Website · Header &amp; Hero</div>
+  </div>
+);
+
+const Cards = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="cards-stack">
+      <div className="bcard front">
+        <div className="top">
+          <Mark size={38} gap={4}/>
+          <div className="tag">Websites<br/>Automations<br/>In Days</div>
+        </div>
+        <div className="rule"></div>
+        <div className="who">Matt Burns</div>
+        <div className="role">Principal · Builder</div>
+        <div className="meta">matt@burnsbuilt.co<br/>(555) 018 · 2204<br/>burnsbuilt.co</div>
+      </div>
+      <div className="bcard back">
+        <div className="corner">B &amp; B · Est. 2026</div>
+        <Mark size={120} gap={10}
+          style={{'--father':'var(--cream)','--son':'var(--tan)','--letter':'var(--navy)','--letter-son':'var(--navy)'}}/>
+        <div className="corner-r">Fast IT · Local</div>
+      </div>
+    </div>
+    <div className="ab-caption">Business Card · Front &amp; Back</div>
+  </div>
+);
+
+const Avatars = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="avatars">
+      {/* Navy — primary mark + monogram corner */}
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <div className="av v-navy" style={{position:'relative'}}>
+          <Mark size={52} gap={5}
+            style={{'--father':'var(--cream)','--son':'var(--tan)','--letter':'var(--navy)','--letter-son':'var(--navy)'}}/>
+          <div style={{
+            position:'absolute', left:10, top:10,
+            fontFamily:'JetBrains Mono', fontSize:9, letterSpacing:'0.22em',
+            color:'var(--tan)', textTransform:'uppercase'
+          }}>BB</div>
+          <div style={{
+            position:'absolute', right:10, bottom:10,
+            width:6, height:6, borderRadius:'50%', background:'var(--tan)'
+          }}/>
+        </div>
+        <div className="av-caption">Primary</div>
+      </div>
+
+      {/* Tan — mark over wordmark strip */}
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <div className="av v-tan" style={{position:'relative', display:'flex', flexDirection:'column', gap:6, padding:'18px 0'}}>
+          <Mark size={44} gap={4}
+            style={{'--father':'var(--navy)','--son':'var(--cream)','--letter':'var(--cream)','--letter-son':'var(--navy)'}}/>
+          <div style={{
+            fontFamily:'Space Grotesk', fontWeight:700, fontSize:11,
+            letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--navy)'
+          }}>BurnsBuilt</div>
+        </div>
+        <div className="av-caption">Wordmark</div>
+      </div>
+
+      {/* Cream — mark + fast/bolt motif */}
+      <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <div className="av v-cream" style={{position:'relative'}}>
+          <Mark size={52} gap={5}/>
+          <svg viewBox="0 0 24 24" style={{
+            position:'absolute', top:10, right:10,
+            width:16, height:16
+          }}>
+            <path d="M13 2 L5 13 L11 13 L9 22 L19 10 L13 10 Z" fill="#b88850"/>
+          </svg>
+          <div style={{
+            position:'absolute', left:0, right:0, bottom:8,
+            textAlign:'center',
+            fontFamily:'JetBrains Mono', fontSize:8, letterSpacing:'0.22em',
+            color:'var(--steel)', textTransform:'uppercase'
+          }}>Fast IT</div>
+        </div>
+        <div className="av-caption">With Motif</div>
+      </div>
+    </div>
+    <div className="ab-caption">Social Avatars · Mark + Supporting Elements</div>
+  </div>
+);
+
+const Invoice = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="invoice">
+      <div className="inv-top">
+        <div style={{display:'flex', alignItems:'center', gap:10}}>
+          <Mark size={36} gap={4}/>
+          <div style={{fontFamily:'Archivo', fontWeight:800, fontSize:18, color:'var(--navy)', letterSpacing:'-0.01em'}}>
+            Burns<span style={{color:'var(--tan-3)', fontWeight:700}}>Built</span>
+          </div>
+        </div>
+        <div className="stamp" style={{textAlign:'right'}}>
+          <div className="l">Invoice</div>
+          <div className="n">BB–2026–014</div>
+        </div>
+      </div>
+      <div className="inv-to">
+        <div className="h">Billed To</div>
+        <div className="body">Northline Coffee Co.<br/>412 Market Street<br/>Durham, NC</div>
+      </div>
+      <div className="inv-rows">
+        <div className="inv-row"><span className="desc">New website · 5 pages, shipped in 4 days</span><span>$2,400</span></div>
+        <div className="inv-row"><span className="desc">Booking + invoice automation setup</span><span>$900</span></div>
+        <div className="inv-row"><span className="desc">Care &amp; updates plan (April)</span><span>$120</span></div>
+      </div>
+      <div className="inv-total"><span>Total Due</span><span>$3,420.00</span></div>
+      <div className="inv-foot"><span>Thank you.</span><span>burnsbuilt.co</span></div>
+    </div>
+    <div className="ab-caption">Invoice · Document</div>
+  </div>
+);
+
+const Signature = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="sig">
+      <Mark size={56} gap={6}/>
+      <div className="lines">
+        <div className="n">Matt Burns</div>
+        <div className="r">Principal · Builder</div>
+        <div className="c">matt@burnsbuilt.co &nbsp;·&nbsp; (555) 018-2204 &nbsp;·&nbsp; burnsbuilt.co</div>
+      </div>
+    </div>
+    <div className="ab-caption">Email Signature</div>
+  </div>
+);
+
+const Sign = () => (
+  <div className="artboard-pad" style={{background:'#eeece6'}}>
+    <div className="sign">
+      <Mark size={86} gap={8}
+        style={{'--father':'var(--cream)','--son':'var(--tan)','--letter':'var(--navy)','--letter-son':'var(--navy)'}}/>
+      <div className="tag">Burns<span style={{color:'var(--cream)'}}>Built</span> · Est. 2026</div>
+      <div className="phone">burnsbuilt.co</div>
+    </div>
+    <div className="ab-caption">Van Decal / Window Sign</div>
+  </div>
+);
+
+const System = () => (
+  <div className="artboard-pad surf-paper" style={{padding:0}}>
+    <div className="specs">
+      <div>
+        <h4>Palette</h4>
+        <div className="color-row">
+          <div className="color-cell"><div className="chip2" style={{background:'var(--navy)'}}></div><div><div>Harbor Navy</div><div style={{opacity:0.6}}>#142640</div></div></div>
+          <div className="color-cell"><div className="chip2" style={{background:'var(--tan-2)'}}></div><div><div>Workshop Tan</div><div style={{opacity:0.6}}>#c49a62</div></div></div>
+          <div className="color-cell"><div className="chip2" style={{background:'var(--tan-soft)'}}></div><div><div>Soft Tan</div><div style={{opacity:0.6}}>#ead9be</div></div></div>
+          <div className="color-cell"><div className="chip2" style={{background:'var(--cream)'}}></div><div><div>Paper Cream</div><div style={{opacity:0.6}}>#f5ece0</div></div></div>
+          <div className="color-cell"><div className="chip2" style={{background:'var(--steel)'}}></div><div><div>Steel Blue</div><div style={{opacity:0.6}}>#3d5a80</div></div></div>
+        </div>
+      </div>
+      <div>
+        <h4>Typography</h4>
+        <div className="type-row">
+          <div className="type-sample">
+            <div className="name">Display · Archivo 800</div>
+            <div className="s" style={{fontFamily:'Archivo', fontWeight:800, fontSize:34, letterSpacing:'-0.02em', lineHeight:1}}>Shipped in days.</div>
+          </div>
+          <div className="type-sample">
+            <div className="name">Caps · Archivo 700</div>
+            <div className="s" style={{fontFamily:'Archivo', fontWeight:700, fontSize:14, letterSpacing:'0.2em', textTransform:'uppercase'}}>Fast IT for Local Shops</div>
+          </div>
+          <div className="type-sample">
+            <div className="name">Mono · JetBrains Mono</div>
+            <div className="s" style={{fontFamily:'JetBrains Mono', fontSize:13, color:'var(--steel)'}}>est. 2025 · websites + automations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="ab-caption">Brand System · Palette &amp; Type</div>
+  </div>
+);
+
+function App(){
+  const { DesignCanvas, DCSection, DCArtboard } = window;
+  return (
+    <DesignCanvas>
+      <DCSection id="mark" title="Twin Block · The Mark" subtitle="The chosen direction: a father & son pair of blocks. Simple, scalable, unmistakable.">
+        <DCArtboard id="primary" label="Primary lockup" width={640} height={360}><Primary/></DCArtboard>
+        <DCArtboard id="blueprint" label="Blueprint" width={560} height={420}><Blueprint/></DCArtboard>
+        <DCArtboard id="inline" label="Inline mark" width={640} height={320}><Inline/></DCArtboard>
+        <DCArtboard id="reversed" label="Reversed (dark)" width={640} height={360}><Reversed/></DCArtboard>
+        <DCArtboard id="mono" label="Monotone set" width={760} height={360}><Monotone/></DCArtboard>
+        <DCArtboard id="anatomy" label="Anatomy" width={640} height={400}><Anatomy/></DCArtboard>
+      </DCSection>
+
+      <DCSection id="use" title="In the Wild" subtitle="Every surface a local business sees — same mark, contextual color.">
+        <DCArtboard id="web" label="Website header &amp; hero" width={860} height={520}><Website/></DCArtboard>
+        <DCArtboard id="cards" label="Business cards" width={1000} height={360}><Cards/></DCArtboard>
+        <DCArtboard id="avatars" label="Social avatars" width={620} height={280}><Avatars/></DCArtboard>
+        <DCArtboard id="invoice" label="Invoice" width={600} height={680}><Invoice/></DCArtboard>
+        <DCArtboard id="sig" label="Email signature" width={680} height={240}><Signature/></DCArtboard>
+        <DCArtboard id="sign" label="Sign / van decal" width={560} height={320}><Sign/></DCArtboard>
+      </DCSection>
+
+      <DCSection id="system" title="Brand System" subtitle="Shared tokens across every surface.">
+        <DCArtboard id="sys" label="Colors &amp; type" width={820} height={360}><System/></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
