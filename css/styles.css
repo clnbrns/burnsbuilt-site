@@ -239,6 +239,12 @@ section { padding: var(--space-2xl) 0; }
   border-radius: 2px;
 }
 .nav-cta { margin-left: var(--space-sm); }
+/* .nav-links a sets padding: 0.5rem 0 with higher specificity than .btn,
+   which was stripping horizontal padding from the CTA. Restore it here. */
+.nav-links a.btn,
+.nav-cta .btn {
+  padding: 0.625rem 1.375rem;
+}
 .nav-toggle {
   display: none;
   width: 44px;
