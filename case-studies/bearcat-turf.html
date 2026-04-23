@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bearcat Turf — Competing with National Brands on a Family Budget | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built a 136-page Astro + Cloudflare site with 44 hyper-local SEO pages and server-side conversion tracking that recovers 30–40% of ad signal — for a two-person turf installer competing with national franchises." />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Bearcat Turf — Custom SEO Site & CAPI Tracking" />
+  <meta property="og:description" content="136 pages, 44 local SEO landing pages, server-side ad signal recovery. Built on Astro + Cloudflare Workers." />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/bearcat-turf.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Marketing Site</span>
+        <h1>Bearcat Turf</h1>
+        <p class="case-tagline">Competing with national brands on a family-owned budget — a 136-page custom site, 44 hyper-local SEO pages, and server-side conversion tracking that recovers 30–40% of lost ad signal.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Astro 6</span>
+          <span class="tech-chip">Cloudflare Workers</span>
+          <span class="tech-chip">Tailwind CSS 4</span>
+          <span class="tech-chip">Meta CAPI</span>
+          <span class="tech-chip">MDX Collections</span>
+          <span class="tech-chip">Schema.org</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>136</strong><span>Pages live</span></div>
+          <div class="case-stat"><strong>44</strong><span>Local SEO pages</span></div>
+          <div class="case-stat"><strong>30–40%</strong><span>Ad signal recovered</span></div>
+          <div class="case-stat"><strong>&lt;1s</strong><span>Page load globally</span></div>
+          <div class="case-stat"><strong>&lt;90d</strong><span>Kickoff to live</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>A two-person shop competing with six-figure SEO budgets.</h2>
+          <p>Bearcat Turf is a family-owned artificial turf installer in Aledo, Texas. When Lindsey and Colin Burns started the business in 2023, they were competing against national franchise brands spending six figures a year on paid search and content — companies with dedicated SEO teams, generic landing pages for every Texas city, and aggressive PR campaigns.</p>
+          <p>The family operator's disadvantage was structural:</p>
+          <ul>
+            <li><strong>No SEO infrastructure.</strong> A generic Squarespace site with thin content competed directly against installers with dozens of optimized city-specific landing pages.</li>
+            <li><strong>No lead capture system.</strong> The contact form was a 7-field wall; the only conversion event was a Facebook Pixel page view that Safari and iOS ATT were quietly stripping out.</li>
+            <li><strong>No measurement loop.</strong> When ads stopped producing, there was no way to know whether the creative, audience, or landing page was the problem.</li>
+            <li><strong>Manual ops tax.</strong> Every quote request arrived as a raw email. Triage, project routing, and follow-up lived in one person's inbox.</li>
+          </ul>
+          <p>The core question was simple: how does a two-person, Aledo-based business outrank and out-convert multi-market operators on terms like <em>"artificial turf Aledo TX"</em> and <em>"backyard batting cage DFW"</em> — without hiring an agency that costs more than a year of install revenue?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>Treat the site as a lead-gen engine — not a brochure.</h2>
+          <p>We built a fully custom site architecture that treats SEO, local authority, and conversion tracking as first-class product features — not plugins layered on top of a template.</p>
+          <ul>
+            <li><strong>Astro 6</strong> static site generator for lightning-fast, crawler-friendly pages (136 pages, ~2-second total build).</li>
+            <li><strong>Cloudflare Workers + Static Assets</strong> for global edge delivery, with a dedicated Worker for server-side API logic.</li>
+            <li><strong>Tailwind CSS 4</strong> with a locked-in brand system that prevents design drift across dozens of pages.</li>
+            <li><strong>Meta Conversions API (CAPI)</strong> bridge that mirrors every browser Pixel event server-side with shared event-ID deduplication.</li>
+            <li><strong>Content collections (MDX)</strong> so the owner can add services by dropping a Markdown file — no code.</li>
+            <li><strong>Formspree</strong> for submissions, intercepted client-side to fire Meta + GA4 lead events before redirect.</li>
+            <li><strong>Git-connected Cloudflare deploys</strong> — push to main, live in 90 seconds.</li>
+          </ul>
+          <p>Every technical decision was weighed against one question: <strong>"Does this make it more likely a Parker County family books a walkthrough?"</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2 class="section-title">Architecture choices that compound into market position.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Programmatic local SEO</div>
+            <h3>44 city-specific landing pages from 4 data files.</h3>
+            <p>Combo pages like <em>/local/pet-turf-walsh</em> are each unique, schema-tagged, and internally linked — without the owner hand-writing 44 pages.</p>
+            <span class="feature-impact">Now ranking for "pet turf Parker County," "Walsh Ranch backyard putting greens," and 40+ long-tail terms competitors haven't touched.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Server-side conversion tracking</div>
+            <h3>Recovers 30–40% of ad signal iOS and Safari kill.</h3>
+            <p>Cloudflare Worker-based CAPI bridge fires Meta events server-side, dedupes against the browser Pixel with shared event IDs, and sends cleaner signal back to Meta.</p>
+            <span class="feature-impact">Lower cost per lead, better lookalike audiences — zero ongoing maintenance.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Drop-in photo workflow</div>
+            <h3>Add an install photo with one commit.</h3>
+            <p>Colin drops a new install photo in <em>gallery/dogs/</em>, pushes to git, and the photo appears on <em>/gallery</em>, <em>/dogs</em>, and the relevant service page — with filter tags, alt text, and schema-ready markup.</p>
+            <span class="feature-impact">No CMS. No admin panel. No $25/month subscription.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Content collection for services</div>
+            <h3>Add a service in 10 minutes.</h3>
+            <p>Adding "Concrete Pavers," "Pergolas," and "Retaining Walls" was three Markdown files with three frontmatter fields. The services appeared on <em>/services</em>, auto-linked in the footer, and generated schema-tagged detail pages.</p>
+            <span class="feature-impact">All from a single 10-minute commit.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The technical edge</span>
+          <h2>A site the size of a SaaS, the speed of a landing page.</h2>
+          <p>The <strong>CAPI bridge</strong> is a Cloudflare Worker (~100 lines of TypeScript) that receives POSTs from a custom <em>window.btSendEvent()</em> helper, enriches them with server-only fields (<em>cf-connecting-ip</em>, user-agent, event_time), and forwards to <em>graph.facebook.com</em> via <em>ctx.waitUntil()</em> — meaning the browser never waits for Meta's response. A shared <em>event_id</em> lets Meta dedupe so conversions aren't double-counted.</p>
+          <p><strong>Structured data goes deep.</strong> Every page emits LocalBusiness, BreadcrumbList, and (on city pages) a scoped Service JSON-LD block with its own <em>areaServed</em>. FAQ pages emit FAQPage schema with individual Question/Answer entities for rich-snippet eligibility.</p>
+          <p><strong>Sitemap priority is tuned per URL.</strong> Custom <em>serialize()</em> function boosts the homepage to 1.0, primary funnel pages to 0.9, and legal pages to 0.3 — telling Google exactly where to spend its crawl budget.</p>
+          <p><strong>Service-area schema is per-page.</strong> A BaseLayout prop change and a codemod injected <em>serviceAreaCity</em> props into 39 pages — each now emits its own local signal instead of inheriting the site-wide one.</p>
+          <p><strong>Dual-channel event tracking.</strong> <em>window.btSendEvent('Lead', {...})</em> fires browser Pixel, server CAPI, and GA4 simultaneously with matched IDs. One function, three destinations, zero missed signal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">The result</span>
+        <h2 class="section-title">From digital business card to compounding lead asset.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>136</strong><span>Pages live in production (from an 8-page Squarespace)</span></div>
+          <div class="result-stat"><strong>44</strong><span>Hyper-local landing pages, no competitor overlap</span></div>
+          <div class="result-stat"><strong>2,000</strong><span>Word flagship guide ranking "artificial turf drainage N. TX clay soil"</span></div>
+          <div class="result-stat"><strong>&lt;1s</strong><span>Homepage load on Cloudflare's edge network</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">Every new install photo, blog post, or service-area page extends the moat — and each extension costs the owner <strong style="color: var(--color-denim);">minutes, not dollars.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Outranked by a bigger competitor?</h2>
+          <p>Big-budget SEO is catchable — you just need an architecture that compounds. Tell us who's outranking you and we'll tell you how to flip it.</p>
+          <a href="../contact.html" class="btn btn-accent">Talk to Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="../services.html#websites">Websites</a></li>
+            <li><a href="../services.html#automation">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a></li>
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DugoutData — Automated Youth Baseball Analytics | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built DugoutData — a full-stack analytics platform ingesting live game data from 5 tournaments, 294 teams, and 5,890 box scores across the DFW youth baseball market." />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="DugoutData — Automated Youth Baseball Analytics" />
+  <meta property="og:description" content="Full-stack analytics platform. 5 tournaments, 294 teams, 5,890 box scores. Nightly automated pipeline." />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/dugoutdata.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Analytics Platform</span>
+        <h1>DugoutData</h1>
+        <p class="case-tagline">Automated youth baseball analytics covering the entire DFW regional market — 5 tournaments, 294 teams, ~5,900 box scores, refreshed nightly without a human touching a keyboard.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Python</span>
+          <span class="tech-chip">Flask</span>
+          <span class="tech-chip">SQLite</span>
+          <span class="tech-chip">Jinja2</span>
+          <span class="tech-chip">GameChanger API</span>
+          <span class="tech-chip">Scheduled Scraping</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>5</strong><span>Tournaments</span></div>
+          <div class="case-stat"><strong>294</strong><span>Teams</span></div>
+          <div class="case-stat"><strong>4,639</strong><span>Player profiles</span></div>
+          <div class="case-stat"><strong>5,890</strong><span>Box scores</span></div>
+          <div class="case-stat"><strong>Nightly</strong><span>Auto-refresh</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>Flying blind across three tournament ecosystems.</h2>
+          <p>Youth baseball coaches and parents in the DFW region were piecing rankings together by hand. Between spring tournaments, a team might play 15–20 games across Five Tool, Rocker B, TSB Classics — each with its own standings page, its own format, and zero connection to the others.</p>
+          <p>If a coach wanted to know how their 10U team actually ranked against the 70+ other teams in the region, they had to pull box scores off GameChanger, build their own spreadsheet, and do the math themselves.</p>
+          <p><strong>Nobody did. They just guessed.</strong></p>
+          <p>The ask was simple to say, hard to build: one place to see every team, ranked fairly, updated automatically, with enough context to actually trust the numbers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>One full-stack platform, zero ongoing manual work.</h2>
+          <p>We built DugoutData — a full-stack analytics platform that automatically ingests live game data from GameChanger's API, processes it through a custom multi-factor ranking algorithm, and serves it through a clean, mobile-optimized web dashboard.</p>
+          <p>The architecture is lean by design:</p>
+          <ul>
+            <li><strong>Python + Flask</strong> on the backend — fast to build, easy to maintain, easy to hand off.</li>
+            <li><strong>SQLite</strong> as the database — zero infrastructure overhead, zero cost, handles ~5,900 games without breaking a sweat.</li>
+            <li><strong>Automated scraping pipeline</strong> on a schedule that refreshes rankings without anyone touching a keyboard.</li>
+            <li><strong>Jinja2 templates</strong> with fully inline critical CSS — pages load fast even on a coach's 4G connection from a baseball field.</li>
+          </ul>
+          <p>No third-party analytics SaaS. No monthly data fees. No manual exports. Just a system that runs itself.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2 class="section-title">Built to replace a spreadsheet — and a volunteer's Sunday night.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Data pipeline</div>
+            <h3>Nightly sweep of every team, zero manual work.</h3>
+            <p>Scheduled job pulls latest box scores from the GameChanger API, parses batting and pitching lines at the individual player level, and recalculates standings automatically. 294 teams across 5 tournaments, updated every night.</p>
+            <span class="feature-impact">Replaces 30+ minutes of volunteer work per tournament refresh.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Ranking algorithm</div>
+            <h3>Regional rankings that actually mean something.</h3>
+            <p>Raw win-loss records lie. DugoutData's ranking system accounts for strength of schedule, strength of record, opponent quality tier (D1/D2/D3), and applies Bayesian confidence smoothing so teams with only 3 games don't unfairly dominate.</p>
+            <span class="feature-impact">Coaches can trust the leaderboard because the math does the heavy lifting.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Simulation</div>
+            <h3>Tournament bracket simulator.</h3>
+            <p>Before a tournament starts, DugoutData runs 10,000 simulated bracket outcomes using each team's composite rating and outputs championship, finals, and semifinals probability for every team in the field.</p>
+            <span class="feature-impact">Builds excitement before the first pitch — no manual Excel hell.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Scouting</div>
+            <h3>Scout your next opponent in seconds.</h3>
+            <p>Every team page shows a full statistical profile: batting average, OPS, ERA, run differential, last-5 game form, half-season trend, and a plain-English archetype ("Pitching-First," "Sluggers," "Boom or Bust").</p>
+            <span class="feature-impact">Understand an unfamiliar opponent's identity in under a minute.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The technical edge</span>
+          <h2>The data doesn't come easy.</h2>
+          <p>GameChanger doesn't publish a public developer API. Accessing authenticated box score data required extracting a live JWT session token using a headless browser, decoding the token expiry, and proactively refreshing it mid-run before it expires mid-scrape. <strong>We built that session management layer from scratch.</strong></p>
+          <p>The ranking algorithm runs three independent calculations — run-differential rating, raw Strength of Record, and schedule-adjusted SOR — then selects the most statistically trustworthy signal based on available data. Teams with small sample sizes are automatically blended toward a neutral baseline using Bayesian shrinkage, so a 3-game team doesn't rank above a 15-game team just because they got lucky.</p>
+          <p>Cross-tournament ranking required building a deduplication engine that identifies the same team appearing in multiple events, merges their records intelligently, and displays unified regional standings — <strong>something no individual tournament's native software even attempts.</strong></p>
+          <p>The result is ~8,000 lines of Python doing work that would take a human analyst hours, in seconds, automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">The result</span>
+        <h2 class="section-title">Concept to live platform covering an entire regional market.</h2>
+        <p class="section-lede">DugoutData went from concept to live platform covering the entire DFW youth baseball market, with a nightly automated pipeline that keeps every number current without human intervention.</p>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>294</strong><span>Teams tracked across 5 tournaments</span></div>
+          <div class="result-stat"><strong>4,639</strong><span>Individual player profiles</span></div>
+          <div class="result-stat"><strong>5,890</strong><span>Complete box scores ingested</span></div>
+          <div class="result-stat"><strong>0</strong><span>Manual spreadsheet updates</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">Coaches get regional rankings they can trust. Parents get player stats they can reference. Tournament directors get a bracket simulator that builds excitement before the first pitch. <strong style="color: var(--color-denim);">And nobody has to touch a spreadsheet again.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Got a manual process eating your week?</h2>
+          <p>If you can describe the work, we can probably automate it. Tell us what you're doing by hand — we'll tell you what it would take to stop.</p>
+          <a href="../contact.html" class="btn btn-accent">Start a Conversation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="../services.html#websites">Websites</a></li>
+            <li><a href="../services.html#automation">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a></li>
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bearcat Estimator — AI-Powered Bid Engine | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built an AI-augmented bid engine that closed the gap between a 27% realized margin and a 45% target — with PDF measurement intake and bilingual crew plans generated in seconds." />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Bearcat Estimator — AI Bid Engine" />
+  <meta property="og:description" content="From spreadsheet estimating to an AI bid engine calibrated to real P&L." />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/bearcat-estimator.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · AI + Internal Tooling</span>
+        <h1>Bearcat Estimator</h1>
+        <p class="case-tagline">An AI-augmented internal bid engine calibrated against real P&amp;L — AI-parsed PDF measurements, a margin-protected calculation engine, and bilingual crew plans generated in 15 seconds.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">React + Vite</span>
+          <span class="tech-chip">Tailwind CSS</span>
+          <span class="tech-chip">Node.js + Express</span>
+          <span class="tech-chip">Anthropic Claude API</span>
+          <span class="tech-chip">JSON Data Layer</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>27% → 45%</strong><span>Margin gap closed</span></div>
+          <div class="case-stat"><strong>$50k+</strong><span>Recoverable profit on $290k revenue</span></div>
+          <div class="case-stat"><strong>$5,475</strong><span>Single-bid correction caught</span></div>
+          <div class="case-stat"><strong>15s</strong><span>Bilingual plan generation</span></div>
+          <div class="case-stat"><strong>~$5/mo</strong><span>AI operating cost</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>A bidding process quietly leaking margin.</h2>
+          <p>Bearcat Turf installs artificial turf for residential, commercial, and sports projects across the DFW metro. The bidding process was a daily friction point:</p>
+          <ul>
+            <li><strong>Estimates lived in spreadsheets</strong> — and the formulas hadn't been recalibrated against real costs in over a year.</li>
+            <li><strong>Material prices drifted constantly.</strong> TurfHub raised nail prices $55 → $59 in three months. The spreadsheet didn't catch it.</li>
+            <li><strong>iPhone measurements got re-typed.</strong> The crew used CamToPlan in the field, then someone manually re-entered every dimension into the bid sheet.</li>
+            <li><strong>Margin reality didn't match margin theory.</strong> A review of 24 closed jobs showed an actual gross margin of <strong>27%</strong> against a target of <strong>45%</strong> — a ~$8,700 annual leak hidden inside scope items the spreadsheet didn't capture.</li>
+            <li><strong>Crew handoff was English-only.</strong> Plans for the install crew — most of whom work in Spanish — were translated ad-hoc, often in the truck on the way to the job.</li>
+          </ul>
+          <p>The owner needed a single tool that could turn a customer call, a measurement PDF, and a turf selection into an accurate bid in minutes — and then turn that bid into a Spanish-language playbook for the crew leader.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>Everything that changes weekly lives in editable files — not code.</h2>
+          <p>We built Bearcat Estimator — a focused internal web app that runs on the owner's laptop and any mobile device, with a calculation engine calibrated to the company's real P&amp;L.</p>
+          <ul>
+            <li><strong>React + Vite + Tailwind</strong> — fast, mobile-friendly, zero-build dev loop.</li>
+            <li><strong>Node.js + Express</strong> — lightweight API, runs anywhere.</li>
+            <li><strong>Anthropic Claude API (Sonnet 4.5)</strong> — PDF parsing + bilingual translation in one provider.</li>
+            <li><strong>Editable JSON files</strong> — owner can update prices in 30 seconds, no developer needed.</li>
+          </ul>
+          <p>New turf product? Edit one line. Nail prices went up? Edit one line. <strong>The owner is the one updating the data, the way it should be.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2 class="section-title">Four features that pulled a full half-day back every week.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> AI measurement intake</div>
+            <h3>100% of manual re-entry eliminated.</h3>
+            <p>Crew uploads the CamToPlan PDF from the field. Claude parses it, extracts dimensions, square footage, zone labels, scope notes, and obstructions — and auto-fills the bid form with confidence indicators.</p>
+            <span class="feature-impact">~10 minutes saved per bid × dozens of bids per week = a full half-day reclaimed.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Calibrated calculation engine</div>
+            <h3>Hidden margin recovered.</h3>
+            <p>Roll-width optimizer with irregular-shape detection, min-day labor floor, $8/SF DFW market guardrail, live YTD-margin reference next to the slider. Caught one bid over-ordering 3,449 SF of turf — a $5,475 single-job correction.</p>
+            <span class="feature-impact">Closed the gap between target margin (45%) and realized margin (27%). $50k+ recoverable on $290k revenue.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Bilingual crew plans</div>
+            <h3>Spanish playbook in 15 seconds.</h3>
+            <p>One click generates a complete project walkthrough in English and Spanish, side by side — regional Spanish dialect of US construction crews. Materials, tools, phase-by-phase tasks, warnings, embedded PDF preview. Pricing stripped before the AI sees it.</p>
+            <span class="feature-impact">Crew leaders arrive on-site aligned on materials and sequence. Crew never sees money.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Pricing presets</div>
+            <h3>Three-tier pricing with one click.</h3>
+            <p>Flip between Commercial (22%) / Good (25%) / Better (30%) / Best (35%) margin presets with a single click, sell price recalculating live.</p>
+            <span class="feature-impact">Same bid, three pricing strategies, instant comparison. No retyping, no duplicate spreadsheets.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The technical edge</span>
+          <h2>Small surface area, big operational leverage.</h2>
+          <ul>
+            <li><strong>One provider, two AI workloads.</strong> Anthropic Claude for both parsing and translation — PDFs stream in as base64, structured JSON streams back. ~$0.02 per parse. Under $5/month at this client's volume.</li>
+            <li><strong>Pure-function calculation engine.</strong> All pricing math in one isolated module with no I/O — easy to test, audit, swap. Every line item produces an explainable cost breakdown.</li>
+            <li><strong>Editable JSON over hardcoded constants.</strong> Product catalog, component costs, settings, even the company's YTD margin benchmark — all in two JSON files. Owner updates pricing without touching code or redeploying.</li>
+            <li><strong>Stateless API + local persistence.</strong> Estimates save as individual JSON files. No database, no migrations, no backups to manage. Ready to migrate to Postgres or sync to QuickBooks when the business needs it.</li>
+            <li><strong>Designed for incremental upgrades.</strong> QuickBooks integration, Twilio SMS to the crew leader, deal status tracking — all scoped, none required for v1.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">The result</span>
+        <h2 class="section-title">Spreadsheet workflow → AI-augmented bid system.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>27% → 45%</strong><span>Margin gap closing on every new bid</span></div>
+          <div class="result-stat"><strong>$50k+</strong><span>Recoverable profit identified on $290k annual revenue</span></div>
+          <div class="result-stat"><strong>0</strong><span>Manual PDF re-entries</span></div>
+          <div class="result-stat"><strong>2</strong><span>Languages, one click, 15 seconds</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">The owner drops a measurement PDF in, picks a turf product, and gets a defensible, margin-protected estimate — then a one-click bilingual project plan for the crew. The estimator is internal-facing, but the impact is customer-facing: <strong style="color: var(--color-denim);">faster turnaround, fewer re-bids, cleaner job execution, and a margin trajectory that finally matches the target.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Got a spreadsheet running your business?</h2>
+          <p>Spreadsheets don't catch drift. AI-augmented tools do. Tell us what yours is doing and we'll scope what it would take to replace it with something calibrated to your real numbers.</p>
+          <a href="../contact.html" class="btn btn-accent">Talk About Your Process</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="../services.html#websites">Websites</a></li>
+            <li><a href="../services.html#automation">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a></li>
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

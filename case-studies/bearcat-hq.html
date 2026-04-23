@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bearcat HQ — A Purpose-Built CRM for a Growing Turf Business | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt replaced spreadsheets, Gmail, and QuickBooks with a custom Next.js CRM — ingesting leads from every channel, automating follow-up, and surfacing $3.1M of open pipeline on a single dashboard." />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Bearcat HQ — Custom CRM Case Study" />
+  <meta property="og:description" content="$3.1M open pipeline on one dashboard. Built in 3 weeks." />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/bearcat-hq.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Custom CRM</span>
+        <h1>Bearcat HQ</h1>
+        <p class="case-tagline">A custom CRM and communication hub that replaced spreadsheets + Gmail + QuickBooks — surfacing $3.1M of open pipeline on a single dashboard, built in 3 weeks of focused work.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Next.js 15</span>
+          <span class="tech-chip">React Server Components</span>
+          <span class="tech-chip">Prisma</span>
+          <span class="tech-chip">SQLite → Postgres</span>
+          <span class="tech-chip">HMAC Webhooks</span>
+          <span class="tech-chip">Gmail API</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>415</strong><span>Contacts migrated</span></div>
+          <div class="case-stat"><strong>$3.1M</strong><span>Open pipeline</span></div>
+          <div class="case-stat"><strong>154</strong><span>Active estimates</span></div>
+          <div class="case-stat"><strong>1,000+</strong><span>Emails rendered inline</span></div>
+          <div class="case-stat"><strong>3 weeks</strong><span>Concept to live</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>A patchwork of tools that didn't talk to each other.</h2>
+          <p>Bearcat Turf is a fast-growing artificial turf installer in the DFW metroplex, serving residential and commercial clients across Parker, Tarrant, Collin, and Wise counties. Its operations were a patchwork of disconnected tools:</p>
+          <ul>
+            <li><strong>Leads came in through four different channels</strong> — website form, Meta Lead Ads, Google Ads, word-of-mouth. None of them talked to each other.</li>
+            <li><strong>Estimates and invoices lived in QuickBooks</strong> with no view of which leads to chase or which estimates were going cold.</li>
+            <li><strong>Follow-ups happened in the owner's head</strong> — or didn't happen at all. Promising leads sat in a shared inbox for weeks.</li>
+            <li><strong>Email history was trapped in Gmail</strong> — remembering what was said last August meant context-switching, searching, piecing things together.</li>
+            <li><strong>No single number answered "how is the business doing right now?"</strong> — revenue, pipeline, and active projects each lived in their own tool.</li>
+          </ul>
+          <p>Off-the-shelf CRMs could theoretically solve it — at a six-figure implementation, a dozen clicks per action, and a subscription that scales with success. Bearcat needed a CRM that <strong>worked the way it works</strong> — not the other way around.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>Deliberately modern, deliberately boring architecture.</h2>
+          <p>Bearcat HQ ingests leads from every channel, attributes them to the campaign that generated them, scores them automatically, nurtures them through drip campaigns, and surfaces the state of the entire business on a single dashboard.</p>
+          <ul>
+            <li><strong>Next.js 15 (App Router, React Server Components)</strong> — server-rendered, single codebase for UI + APIs.</li>
+            <li><strong>Prisma + SQLite (dev) / Postgres (prod)</strong> — strongly-typed data layer, 11 domain models.</li>
+            <li><strong>Webhook-first integration</strong> — Meta, Google Ads, QuickBooks, and the website all post into a single signed pipeline with HMAC verification and automatic dedup.</li>
+            <li><strong>Brand-aligned UI</strong> — custom design system in Bearcat's forest + bright-green palette. Looks like the business, not like SaaS.</li>
+          </ul>
+          <p>Architecture chosen so the business can scale without a rebuild.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2 class="section-title">Four automations that replaced an entire toolchain.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Unified inbox</div>
+            <h3>Every lead, every channel, one place.</h3>
+            <p>Meta Lead Ads flow in via a signed webhook. Google Ads leads carry gclid, web-form leads carry fbclid + UTMs via a drop-in script. Every contact shows exactly which ad, campaign, and landing page produced them.</p>
+            <span class="feature-impact">Zero data entry for incoming leads.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Auto-scoring</div>
+            <h3>Lead and deal scoring, automatic.</h3>
+            <p>Every contact scored 0–100 for fit across 8+ signals; every active estimate scored for engagement. Hot leads bubble to the top. Two dashboard widgets tell the owner where to spend the next hour.</p>
+            <span class="feature-impact">Stop triaging by gut feel.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> One-click follow-up</div>
+            <h3>Full history, no Gmail hunting.</h3>
+            <p>Follow-up composer sends via Gmail or SMS in one click. Every message logged to a Slack-style thread, deep-linked into real Gmail. Drip campaigns auto-enroll new estimates for a 4-step nurture.</p>
+            <span class="feature-impact">No more "I forgot to follow up."</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Project lifecycle</div>
+            <h3>Complete a job in one click.</h3>
+            <p>"Mark Completed" closes the estimate, moves the contact to Won, ends active drips, drops the project off the active list. The dashboard always reflects reality.</p>
+            <span class="feature-impact">Pipeline stays truthful without manual hygiene.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The technical edge</span>
+          <h2>Built for scale without a rebuild.</h2>
+          <ul>
+            <li><strong>Unified event log.</strong> One polymorphic Activity table with typed channel + JSON metadata. New integrations plug in without schema changes.</li>
+            <li><strong>Attribution-aware data model.</strong> Dedicated LeadSource table captures gclid / fbclid / msclkid / utm_* / campaignId / adId / formId. Feeds channel-ROI reporting today; enables offline-conversion import back to Google/Meta tomorrow.</li>
+            <li><strong>HMAC-verified webhooks.</strong> Every inbound payload verified with SHA-256 HMAC. Rejects forged or replayed requests.</li>
+            <li><strong>Idempotent ingestion.</strong> Every sync path deduplicates on provider IDs. Re-running is always safe.</li>
+            <li><strong>Production-ready.</strong> Deployable to Vercel + Neon Postgres with zero architectural changes — one connection string flip.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">The result</span>
+        <h2 class="section-title">Not a CRM. An operating system for the business.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>415</strong><span>Contacts migrated and deduped across three data sources</span></div>
+          <div class="result-stat"><strong>$3.1M</strong><span>Open pipeline visible on one dashboard</span></div>
+          <div class="result-stat"><strong>$1.7M</strong><span>Historical revenue tracked</span></div>
+          <div class="result-stat"><strong>$0</strong><span>Ongoing SaaS cost for the CRM itself</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">154 active estimates with live engagement scores. 262 invoices with 30-day revenue tracking. Every Meta Lead Ads submission flows direct to the CRM — no Zapier, no monthly fee. 1,000+ emails across 24 key customer threads, rendered inline and linked to Gmail. <strong style="color: var(--color-denim);">The business didn't get a CRM — it got its own operating system.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Your business running on 6 different tools?</h2>
+          <p>If your data lives in five places and your follow-ups live in your head, there's a better way. Tell us what your week looks like and we'll map out what a custom OS looks like for you.</p>
+          <a href="../contact.html" class="btn btn-accent">Start a Conversation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="../services.html#websites">Websites</a></li>
+            <li><a href="../services.html#automation">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a></li>
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

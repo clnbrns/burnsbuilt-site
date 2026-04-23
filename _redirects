@@ -4,3 +4,11 @@
 /services     /services.html     200
 /contact      /contact.html      200
 /thanks       /thanks.html       200
+
+# Case study shortcuts (extensionless)
+/work                            /case-studies/                             301
+/case-studies/bearcat-turf       /case-studies/bearcat-turf.html            200
+/case-studies/bearcat-hq         /case-studies/bearcat-hq.html              200
+/case-studies/bearcat-estimator  /case-studies/bearcat-estimator.html       200
+/case-studies/lndmrk-drone       /case-studies/lndmrk-drone.html            200
+/case-studies/dugoutdata         /case-studies/dugoutdata.html              200
