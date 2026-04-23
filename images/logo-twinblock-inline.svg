@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 60" width="360" height="60">
+  <!-- BurnsBuilt — Twin Block inline lockup (for light surfaces / nav) -->
+
+  <!-- Father block: Harbor Navy with cream B -->
+  <rect x="0" y="4" width="52" height="52" rx="4" fill="#142640"/>
+  <text x="26" y="30" font-family="Arial Black, Helvetica, sans-serif" font-size="36"
+        fill="#f5ece0" text-anchor="middle" dominant-baseline="central" letter-spacing="-2">B</text>
+
+  <!-- Son block: Workshop Tan with navy B -->
+  <rect x="58" y="4" width="52" height="52" rx="4" fill="#c49a62"/>
+  <text x="84" y="30" font-family="Arial Black, Helvetica, sans-serif" font-size="36"
+        fill="#142640" text-anchor="middle" dominant-baseline="central" letter-spacing="-2">B</text>
+
+  <!-- Wordmark: Burns (navy) · Built (tan-deep) -->
+  <text x="126" y="30" font-family="Archivo, Arial Black, Helvetica, sans-serif" font-weight="800"
+        font-size="30" letter-spacing="-1" fill="#142640" dominant-baseline="central">Burns<tspan fill="#b88850">Built</tspan></text>
+</svg>
