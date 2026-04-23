@@ -618,6 +618,25 @@ a.service-card:hover .link-arrow::after,
 .cta-band h2 { color: #fff; margin-bottom: var(--space-sm); }
 .cta-band p { color: rgba(255, 255, 255, 0.85); max-width: 560px; margin: 0 auto var(--space-md); font-size: 1.0625rem; }
 .cta-band .btn-accent:hover { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25); }
+/* CTA buttons on the dark cta-band: invert to high-contrast cream so they read
+   as buttons at a glance — denim-on-denim was invisible. */
+.cta-band .btn,
+.cta-band .btn-primary,
+.cta-band .btn-accent,
+.cta-band .btn-outline {
+  background: var(--color-cream);
+  color: var(--color-denim);
+  border-color: var(--color-cream);
+}
+.cta-band .btn:hover,
+.cta-band .btn-primary:hover,
+.cta-band .btn-accent:hover,
+.cta-band .btn-outline:hover {
+  background: var(--color-sand);
+  color: var(--color-denim);
+  border-color: var(--color-sand);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
 
 /* ---------- About Page ---------- */
 .about-hero {
