@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thanks! — BurnsBuilt</title>
-  <meta name="description" content="Thanks for reaching out. We'll get back to you within one business day." />
-  <meta name="robots" content="noindex" />
+  <title>Thanks — We got your message | BurnsBuilt</title>
+  <meta name="description" content="Thanks for reaching out to BurnsBuilt. We'll get back to you within one business day — usually sooner." />
+  <meta name="robots" content="noindex,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Thanks — BurnsBuilt" />
+  <meta property="og:description" content="We got your message. We'll be in touch within one business day." />
+  <meta property="og:url" content="https://burnsbuilt.co/thanks.html" />
+  <meta name="twitter:card" content="summary" />
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,6 +26,13 @@
     function gtag(){dataLayer.push(arguments);}
     gtag("js", new Date());
     gtag("config", "G-19HZ4SSMQC");
+    // Fire the conversion on thanks-page load. Netlify only redirects here after
+    // a successful POST, so this is a reliable signal (unlike client-side handlers
+    // that can fire on validation failure).
+    gtag("event", "generate_lead", {
+      form_name: "contact",
+      page_location: "/thanks.html"
+    });
   </script>
 </head>
 <body>
@@ -46,27 +59,68 @@
   </header>
 
   <main>
+
     <section class="page-hero">
-      <div class="container">
+      <div class="container" style="text-align:center;">
         <span class="eyebrow">Message received</span>
-        <h1>Thanks — your note is in.</h1>
-        <p>We'll get back to you within one business day, usually sooner. In the meantime, have a look around.</p>
+        <h1>Thanks — we got it.</h1>
+        <p>Your note is in. One of us (Colin or Carson) will personally get back to you within one business day — usually a lot sooner.</p>
+        <p style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+          <a href="index.html" class="btn btn-primary">Back to home</a>
+          <a href="case-studies/" class="btn btn-outline">See our work</a>
+        </p>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <a href="index.html" class="btn btn-primary">Back to home</a>
-          <a href="services.html" class="btn btn-outline">See services</a>
-        </div>
+    <section class="section-alt">
+      <div class="container" style="text-align:center;max-width:640px;">
+        <h2 style="margin-bottom:0.75rem;">Need us sooner?</h2>
+        <p style="color:var(--color-text-muted);margin-bottom:1rem;">If it's urgent, reach us directly:</p>
+        <p style="font-size:1.125rem;font-weight:600;">
+          <a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+16829999240">(682) 999-9240</a>
+        </p>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom" style="border:0;padding:0;">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="case-studies/">Work</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="services.html#websites">Websites</a></li>
+            <li><a href="services.html#automation">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@burnsbuilt.co">hello@burnsbuilt.co</a></li>
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
         <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
         <div>If it says Burns Built, we built it.</div>
       </div>
