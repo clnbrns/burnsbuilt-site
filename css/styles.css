@@ -1363,6 +1363,7 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
 .cp-bt-hq     { background: linear-gradient(135deg, #142640, #1e3a5f); }
 .cp-bt-estim  { background: linear-gradient(135deg, #b88850, #142640); }
 .cp-lndmrk    { background: linear-gradient(135deg, #0e1a2e, #3d5a80); }
+.cp-msm       { background: linear-gradient(135deg, #0e1a2e, #c0392b); }
 .case-card-body { padding: var(--space-md); flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
 .case-card-tag {
   font-family: var(--font-mono);

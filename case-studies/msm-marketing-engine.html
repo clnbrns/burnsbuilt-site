@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MSM Marketing Engine — Internal AI Marketing Platform | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built a custom AI-powered marketing engine for a youth sports tournament operator. Dual-LLM ensemble drafting (Claude + Gemini), unified contact database, MailerLite + Twilio integration. Built in three weeks." />
+  <link rel="canonical" href="https://burnsbuilt.co/case-studies/msm-marketing-engine.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="MSM Marketing Engine — AI Marketing Platform Case Study" />
+  <meta property="og:description" content="100,000+ emails sent, 56.6% open rate, dual-LLM ensemble drafting. Built in 3 weeks." />
+  <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/msm-marketing-engine/hero.png" />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/msm-marketing-engine.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · AI Platform · Marketing Automation</span>
+        <h1>MSM Marketing Engine</h1>
+        <p class="case-tagline">A custom internal marketing platform for a regional youth baseball tournament operator. Two LLMs in parallel draft, score, and route every campaign — replacing a SaaS stack and a Google Drive of CSVs with a single tool that ships campaigns in 30 seconds instead of 30 minutes.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Python · FastAPI</span>
+          <span class="tech-chip">SQLModel · SQLite</span>
+          <span class="tech-chip">Anthropic Claude</span>
+          <span class="tech-chip">Google Gemini</span>
+          <span class="tech-chip">MailerLite API</span>
+          <span class="tech-chip">Twilio</span>
+          <span class="tech-chip">Tailwind</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>1,500+</strong><span>Contacts unified</span></div>
+          <div class="case-stat"><strong>121</strong><span>Campaigns shipped</span></div>
+          <div class="case-stat"><strong>100,306</strong><span>Emails sent</span></div>
+          <div class="case-stat"><strong>56.6%</strong><span>Avg open rate</span></div>
+          <div class="case-stat"><strong>3 weeks</strong><span>Concept to live</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-hero-shot">
+      <div class="container">
+        <img src="../images/case-studies/msm-marketing-engine/hero.png" alt="MSM Marketing Engine — Email Performance dashboard with AI scoring per campaign" loading="eager" />
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>Marketing run on intuition, spreadsheets, and a hard deadline.</h2>
+          <p>Middle School Matchup is a regional youth baseball tournament operator running a tight registration window — every season, dozens of schools sign up players against a hard deadline. The marketing reality going in:</p>
+          <ul>
+            <li><strong>1,500+ contacts scattered everywhere</strong> — MailerLite subscribers, Google Forms, registration CSVs, and a "new player leads" form owned by a separate franchisor.</li>
+            <li><strong>Every campaign drafted by hand</strong> in MailerLite's editor with no historical performance lookup. No way to know what worked last time, what didn't, or what to send next.</li>
+            <li><strong>"What should I send this week?"</strong> answered by gut feel. The data existed — it just wasn't accessible at the moment of the decision.</li>
+            <li><strong>Audience segmentation done in Excel</strong> — export CSV, filter, paste back. Slow, error-prone, and impossible to reuse.</li>
+            <li><strong>No view of which past campaigns moved the needle.</strong> Campaign #45 might have driven half the registrations. Nobody could tell.</li>
+          </ul>
+          <p>Off-the-shelf marketing automation could solve some of it — at a per-seat SaaS contract, a dozen clicks per action, and a learning curve longer than the registration window itself. The operator needed a tool that <strong>worked the way the season works</strong> — fast, prescriptive, and aware of its own history.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>A self-hosted marketing engine with two LLMs at the core.</h2>
+          <p>A FastAPI application with a no-build-step Tailwind frontend, designed to run on the operator's laptop or a small VPS. Four modules, one operator, one tournament cycle.</p>
+          <ul>
+            <li><strong>Unified contact database</strong> — idempotent imports from registration CSVs, MailerLite dumps, and lead lists. School-name normalization (104 raw values → 71 canonical). Live audience sizing for every preset segment.</li>
+            <li><strong>Email module (the centerpiece)</strong> — Performance, Insights, and Compose tabs that turn campaign history into prescriptive guidance. Every email goes through a dual-LLM ensemble before it's pushed.</li>
+            <li><strong>SMS module (Twilio)</strong> — bulk-send pipeline with delivery-status reporting; awaiting 10DLC carrier clearance for full parity with email.</li>
+            <li><strong>Scorecard</strong> — live KPIs across email subscribers, SMS subscribers, registered players, and social channels in a single scroll. Day-over-day and week-over-week trends without the operator opening four other tabs.</li>
+          </ul>
+          <p>The whole thing runs on Python 3.9, SQLite, and httpx. No Kubernetes, no SaaS dependencies, no monthly contract. The operator owns the code, the database, every contact, every API key.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2>What the operator actually uses every day.</h2>
+        <div class="services-grid" style="margin-top:1.5rem;">
+          <div class="service-card">
+            <h3>Composite AI Score per campaign</h3>
+            <p>Every past campaign gets a 1–100 score blending open rate (40%), click rate (20%), hook strength (20%), and audience fit (20%) — percentile-ranked across the full history. Both Anthropic and Gemini analyses surfaced side by side so disagreements are visible, not hidden.</p>
+          </div>
+          <div class="service-card">
+            <h3>Dual-LLM ensemble drafting</h3>
+            <p>Every email goes to Claude Sonnet and Gemini Flash <em>in parallel</em>, scored against a heuristic rubric (subject length, emoji density, urgency-word penalty, single-CTA bonus). The higher-scoring draft wins; the alternate is one click away. The operator sees both rationales and picks.</p>
+          </div>
+          <div class="service-card">
+            <h3>"What should I send this week?"</h3>
+            <p>The Suggested Composer reviews current registration state, top historical winners, and known pitfalls — then proposes 3 prescriptive campaigns with priority, audience, subject, body outline, and rationale. The decision the operator was making by gut, made by the system that has the data.</p>
+          </div>
+          <div class="service-card">
+            <h3>One-shot drafting</h3>
+            <p>Free-form: "Tomorrow morning, last call for 6th graders who haven't registered." The system picks the right audience preset, writes the topic and goal, drafts the email with both LLMs, and reveals the MailerLite push panel. Idea to sent: ~30 seconds.</p>
+          </div>
+          <div class="service-card">
+            <h3>Day-of-week and hour-of-day analysis</h3>
+            <p>Send-time performance derived from actual campaign history — not "best practices" or vendor recommendations. The bars show what's worked <em>for this audience</em>, not what worked for someone else's mailing list two years ago.</p>
+          </div>
+          <div class="service-card">
+            <h3>Background sync, never blocked</h3>
+            <p>MailerLite syncs run as background jobs with an in-memory ledger and polled progress UI. The operator keeps working while a 1,000-contact upload finishes — never frozen, never wondering if it's still running.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-tech">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow case-tech-eyebrow">Technical edge</span>
+          <h2>Where it gets clever.</h2>
+          <ul>
+            <li><strong>Audience-aware drafting.</strong> The audience description is woven into the system prompt so the draft cites realistic logistics for that segment. A hot-leads draft and a registered-refer-friends draft come out genuinely different in tone and structure — not just swapped subject lines.</li>
+            <li><strong>LLM output sanitization.</strong> All filter outputs from the routing model are intersected against a tag allowlist and known schema keys. Hallucinated tag names (<code>"rising_7th"</code>) get dropped at the boundary instead of silently producing zero-match audiences downstream.</li>
+            <li><strong>Two-layer caching.</strong> Settled data (MailerLite campaign analytics) caches to disk with TTL; AI suggestions cache to sessionStorage for instant reload. Cold start <strong>3.98s</strong> → hot path <strong>0.025s</strong>.</li>
+            <li><strong>Rate-limit hardening.</strong> Exponential backoff with <code>Retry-After</code> honoring on every MailerLite endpoint. Semaphore-bounded concurrency. Graceful fallback when the API rejects HTML body submission on lower plan tiers — detect, retry without body, instruct the user to paste in the editor.</li>
+            <li><strong>No build step, ever.</strong> Vanilla HTML, Tailwind via CDN, ES modules. No webpack, no <code>node_modules</code>, no devops drama. One operator, one <code>uvicorn</code> command, done.</li>
+            <li><strong>Honest about what's mocked.</strong> When franchisor permissions blocked Meta/Facebook integration, those scorecard cards were marked clearly and tracked in a public roadmap doc — not faked.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">Before / after</span>
+          <h2>What it replaced.</h2>
+          <table class="case-table">
+            <thead>
+              <tr><th>Before</th><th>After</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>CSV exports + spreadsheet filtering</td><td>Live audience presets with one-click selection</td></tr>
+              <tr><td>"I think Tuesday at 7pm works"</td><td>Day-of-week + hour-block bars on actual past performance</td></tr>
+              <tr><td>Drafting in MailerLite's editor with no context</td><td>Audience-aware ensemble draft with historical winner citations</td></tr>
+              <tr><td>Manual MailerLite group creation + subscriber upload</td><td>One-click sync + draft campaign creation</td></tr>
+              <tr><td>No view of which past campaigns worked</td><td>Composite AI Score per campaign, ranked and explained</td></tr>
+              <tr><td>30 minutes of clicks per send</td><td>~30 seconds, idea to push</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The result</span>
+          <h2>One tool, one tournament cycle, full ownership.</h2>
+          <p>Built in three weeks across one tournament cycle. <strong>121 campaigns shipped, 100,306 emails sent, 56.6% average open rate</strong> — every send drafted, scored, and routed through the engine. The operator owns the code, the database, every contact, every API key. Adding a new audience segment is a config edit, not a contract renegotiation.</p>
+          <p>What used to be a Google Drive of CSVs and a tab full of MailerLite is now one URL, one operator, one source of truth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Got a workflow that should be a tool?</h2>
+          <p>If you're running operations through spreadsheets, SaaS subscriptions, and gut feel — there's probably an internal tool that fixes it. Tell us about it.</p>
+          <p style="margin-top:1.25rem;">
+            <a href="../contact.html" class="btn btn-accent">Start a Project</a>
+            &nbsp;or call
+            <a href="tel:+16829999240" style="color:var(--color-cream);text-decoration:underline;">(682) 999-9240</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Service Areas — local SEO internal link block -->
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web design and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="/web-design/">Web Design</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li>
+            <li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
