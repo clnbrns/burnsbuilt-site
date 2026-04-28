@@ -1259,7 +1259,7 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
 }
 .case-hero-shot .container {
   position: relative;
-  margin-top: calc(-1 * var(--space-lg));
+  margin-top: var(--space-md);
 }
 .case-hero-shot img {
   display: block;
