@@ -1448,3 +1448,104 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
   color: var(--color-denim, #142640);
   text-decoration: underline;
 }
+
+/* ============================================================
+   Case Study — Before / After comparison table
+   Used in case study prose blocks (e.g. MSM Marketing Engine)
+   ============================================================ */
+.case-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  background: var(--color-paper);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(20, 38, 64, 0.06);
+}
+.case-table thead th {
+  text-align: left;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-denim);
+  background: rgba(20, 38, 64, 0.04);
+  padding: 0.875rem 1.25rem;
+  border-bottom: 2px solid var(--color-denim);
+  width: 50%;
+}
+.case-table thead th:first-child {
+  color: var(--color-text-muted);
+  border-bottom-color: rgba(20, 38, 64, 0.25);
+}
+.case-table tbody tr {
+  border-bottom: 1px solid rgba(20, 38, 64, 0.06);
+  transition: background var(--transition, 0.15s ease);
+}
+.case-table tbody tr:last-child { border-bottom: 0; }
+.case-table tbody tr:hover { background: rgba(196, 154, 98, 0.05); }
+.case-table td {
+  padding: 1rem 1.25rem;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.case-table td:first-child {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(20, 38, 64, 0.3);
+  text-decoration-thickness: 1px;
+  position: relative;
+}
+.case-table td:last-child {
+  color: var(--color-text);
+  font-weight: 500;
+  border-left: 1px solid rgba(20, 38, 64, 0.06);
+}
+
+/* Mobile: stack rows as cards */
+@media (max-width: 720px) {
+  .case-table { box-shadow: none; background: transparent; }
+  .case-table thead { display: none; }
+  .case-table, .case-table tbody { display: block; width: 100%; }
+  .case-table tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+    padding: 1rem;
+    background: var(--color-paper);
+    border-radius: var(--radius);
+    border-bottom: 0;
+    box-shadow: 0 1px 3px rgba(20, 38, 64, 0.06);
+  }
+  .case-table td {
+    display: block;
+    padding: 0;
+    border-left: 0 !important;
+  }
+  .case-table td:first-child::before {
+    content: "Before";
+    display: block;
+    font-family: var(--font-display, 'Archivo', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+  }
+  .case-table td:last-child::before {
+    content: "After";
+    display: block;
+    font-family: var(--font-display, 'Archivo', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-denim);
+    margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+  }
+}
