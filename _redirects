@@ -12,3 +12,8 @@
 /case-studies/bearcat-estimator  /case-studies/bearcat-estimator.html       200
 /case-studies/lndmrk-drone       /case-studies/lndmrk-drone.html            200
 /case-studies/dugoutdata         /case-studies/dugoutdata.html              200
+
+# New service pages
+/web-design       /web-design/         301
+/business-automation  /business-automation/  301
+/pricing          /pricing/            301
