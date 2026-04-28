@@ -1061,7 +1061,6 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
 .case-hero {
   padding: var(--space-xl) 0 var(--space-lg);
   background: var(--color-cream);
-  border-bottom: 1px solid var(--color-sand-light);
 }
 .case-hero .eyebrow { color: var(--color-tan-deep); }
 .case-hero h1 {
