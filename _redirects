@@ -18,3 +18,11 @@
 /web-design       /web-design/         301
 /business-automation  /business-automation/  301
 /pricing          /pricing/            301
+
+# Industry pages (extensionless variants)
+/industries/landscaping            /industries/landscaping/             301
+/industries/drone-services         /industries/drone-services/          301
+/industries/contractors            /industries/contractors/             301
+/industries/hvac                   /industries/hvac/                    301
+/industries/roofing                /industries/roofing/                 301
+/industries/youth-sports-analytics /industries/youth-sports-analytics/  301
