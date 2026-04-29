@@ -26,3 +26,7 @@
 /industries/hvac                   /industries/hvac/                    301
 /industries/roofing                /industries/roofing/                 301
 /industries/youth-sports-analytics /industries/youth-sports-analytics/  301
+
+# Legal & payment pages
+/terms     /terms/    301
+/pay       /pay/      301

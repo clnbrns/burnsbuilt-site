@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Hub — [Client Name] | BurnsBuilt</title>
+  <meta name="description" content="Private project hub for [Client Name]." />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../../css/styles.css" />
+
+  <style>
+    .client-header { background: var(--color-cream, #f5ece0); padding: 2rem 0; border-bottom: 1px solid rgba(20,38,64,0.08); }
+    .client-header .private-badge { display: inline-block; background: rgba(196,154,98,0.18); color: var(--color-denim); padding: 0.25rem 0.625rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+
+    .status-banner { background: var(--color-denim); color: #fff; padding: 1.25rem 1.5rem; border-radius: 8px; margin: 1.5rem 0 2rem; display: flex; align-items: center; gap: 1.25rem; }
+    .status-banner .status-icon { background: rgba(255,255,255,0.15); width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem; flex-shrink: 0; }
+    .status-banner h3 { color: #fff; margin: 0 0 0.125rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
+    .status-banner p { color: #fff; margin: 0; font-size: 1.125rem; font-weight: 600; }
+
+    .client-section { margin-bottom: 2.5rem; }
+    .client-section h2 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    .timeline { list-style: none; padding: 0; margin: 0; }
+    .timeline li { position: relative; padding: 0.875rem 0 0.875rem 2rem; border-bottom: 1px solid rgba(20,38,64,0.06); }
+    .timeline li:last-child { border-bottom: 0; }
+    .timeline li::before { content: ""; position: absolute; left: 0; top: 1.125rem; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid var(--color-text-muted); }
+    .timeline li.done::before { background: #2d8659; border-color: #2d8659; content: "✓"; color: #fff; font-size: 0.75rem; line-height: 14px; text-align: center; font-weight: bold; }
+    .timeline li.current::before { background: var(--color-sand, #c49a62); border-color: var(--color-sand, #c49a62); animation: pulse 2s infinite; }
+    .timeline li.done { color: var(--color-text-muted); }
+    .timeline li.current strong { color: var(--color-denim); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(196,154,98,0.4); } 50% { box-shadow: 0 0 0 8px rgba(196,154,98,0); } }
+
+    .deliverable-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .deliverable-card { background: var(--color-paper, #fbf7f0); padding: 1.125rem 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(20,38,64,0.06); }
+    .deliverable-card h4 { margin: 0 0 0.25rem; font-size: 1rem; }
+    .deliverable-card p { margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--color-text-muted); }
+    .deliverable-card a { font-size: 0.875rem; font-weight: 600; }
+
+    .billing-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+    .billing-actions .btn { flex: 1 1 auto; min-width: 200px; text-align: center; }
+
+    .quick-contact { background: var(--color-paper, #fbf7f0); border-radius: 8px; padding: 1.5rem; margin-top: 1rem; }
+    .quick-contact strong { display: block; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Lightweight client-portal header — no full nav, just brand + small "back to site" link -->
+  <header class="client-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span class="private-badge">🔒 Private Project Hub</span>
+        <a href="../../index.html" style="display:block;text-decoration:none;color:var(--color-denim);font-family:var(--font-display);font-weight:800;font-size:1.25rem;">BurnsBuilt</a>
+      </div>
+      <div style="font-size:0.875rem;color:var(--color-text-muted);text-align:right;">
+        Need help? Call <a href="tel:+16829999240">(682) 999-9240</a><br>
+        or <a href="../../contact.html">message us</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero" style="padding-bottom:1rem;">
+      <div class="container">
+        <span class="eyebrow">Project Hub for [Client Name]</span>
+        <h1>[Project Title]</h1>
+        <p>This page is private to your project. Bookmark it — we'll keep it updated as work progresses.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+
+        <!-- ============================================ -->
+        <!-- 1. STATUS BANNER — update this on every push  -->
+        <!-- ============================================ -->
+        <div class="status-banner">
+          <div class="status-icon">⚙️</div>
+          <div>
+            <h3>Current Status</h3>
+            <p>In Build — review staging by [Date]</p>
+          </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 2. PROJECT OVERVIEW                            -->
+        <!-- ============================================ -->
+        <div class="client-section">
+          <h2>Project Overview</h2>
+          <p>[2–3 sentences describing what we're building. e.g. "Custom 12-page marketing site for [Client], with hyper-local SEO targeting Aledo, Willow Park, and Weatherford. Includes contact form with automated lead routing, GA4 conversion tracking, and Cloudflare hosting."]</p>
+          <ul style="line-height:2;">
+            <li><strong>Package:</strong> [Standard Website]</li>
+            <li><strong>Setup investment:</strong> $[X] · paid [Date / Pending]</li>
+            <li><strong>Monthly maintenance:</strong> $[X]/mo · started [Date]</li>
+            <li><strong>Target launch date:</strong> [Date]</li>
+          </ul>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 3. TIMELINE / MILESTONES                      -->
+        <!-- ============================================ -->
+        <div class="client-section">
+          <h2>Timeline</h2>
+          <ul class="timeline">
+            <li class="done"><strong>Kickoff call</strong> · completed [Date]</li>
+            <li class="done"><strong>Discovery &amp; content collection</strong> · completed [Date]</li>
+            <li class="done"><strong>Design draft</strong> · completed [Date]</li>
+            <li class="current"><strong>Build &amp; staging</strong> · in progress, review by [Date]</li>
+            <li><strong>Client review &amp; revisions</strong> · [Date]</li>
+            <li><strong>Final approval</strong> · [Date]</li>
+            <li><strong>Launch</strong> · [Date]</li>
+          </ul>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 4. DELIVERABLES & FILES                       -->
+        <!-- ============================================ -->
+        <div class="client-section">
+          <h2>Deliverables</h2>
+          <div class="deliverable-grid">
+            <div class="deliverable-card">
+              <h4>Staging URL</h4>
+              <p>Preview the site as we build it.</p>
+              <a href="https://staging.example.com">Open staging →</a>
+            </div>
+            <div class="deliverable-card">
+              <h4>Design mockups</h4>
+              <p>Figma file with all page designs.</p>
+              <a href="https://figma.com/file/...">Open Figma →</a>
+            </div>
+            <div class="deliverable-card">
+              <h4>Content brief</h4>
+              <p>What we need from you, by section.</p>
+              <a href="#">Open brief →</a>
+            </div>
+            <div class="deliverable-card">
+              <h4>Brand assets</h4>
+              <p>Logo, colors, fonts we're using.</p>
+              <a href="#">View assets →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 5. BILLING                                    -->
+        <!-- ============================================ -->
+        <div class="client-section">
+          <h2>Billing</h2>
+          <p style="color:var(--color-text-muted);margin-bottom:1rem;">Pay your deposit, set up monthly billing, or manage your existing subscription.</p>
+          <div class="billing-actions">
+            <a href="STRIPE_DEPOSIT_LINK_HERE" class="btn btn-primary">Pay deposit ($[X])</a>
+            <a href="STRIPE_SUBSCRIPTION_LINK_HERE" class="btn btn-outline">Set up monthly ($[X]/mo)</a>
+            <a href="STRIPE_CUSTOMER_PORTAL_URL_HERE" class="btn btn-outline">Manage billing</a>
+          </div>
+          <p style="margin-top:1rem;font-size:0.875rem;color:var(--color-text-muted);">🔒 All payments are processed by Stripe. We never see your card information. Receipts and invoice history available in the Stripe Customer Portal above.</p>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- 6. CONTACT                                    -->
+        <!-- ============================================ -->
+        <div class="client-section">
+          <h2>Reach us</h2>
+          <div class="quick-contact">
+            <p style="margin:0 0 0.875rem;">During the project, reach out anytime — we keep response times tight.</p>
+            <p style="margin:0;line-height:2;">
+              <strong>Phone / text:</strong> <a href="tel:+16829999240">(682) 999-9240</a><br>
+              <strong>Form:</strong> <a href="../../contact.html">burnsbuilt.co/contact</a><br>
+              <strong>Terms:</strong> <a href="/terms/">Terms &amp; Conditions</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:1rem;">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>This page is private to your project. <a href="../../index.html" style="color:var(--color-cream);">burnsbuilt.co</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

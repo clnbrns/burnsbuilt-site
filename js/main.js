@@ -65,6 +65,16 @@
     if (!service.value) { setInvalid(service, true); valid = false; } else { setInvalid(service, false); }
     if (!message.value.trim() || message.value.trim().length < 10) { setInvalid(message, true); valid = false; } else { setInvalid(message, false); }
 
+    var terms = form.querySelector('#terms_accepted');
+    if (terms && !terms.checked) {
+      var termsGroup = terms.closest('.form-group');
+      if (termsGroup) termsGroup.classList.add('is-invalid');
+      valid = false;
+    } else if (terms) {
+      var termsGroup2 = terms.closest('.form-group');
+      if (termsGroup2) termsGroup2.classList.remove('is-invalid');
+    }
+
     if (!valid) {
       e.preventDefault();
       const firstInvalid = form.querySelector('.is-invalid');

@@ -1549,3 +1549,30 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
     margin-top: 0.5rem;
   }
 }
+
+
+/* ============================================================
+   Form — Terms checkbox
+   ============================================================ */
+.form-group-checkbox { margin-top: 0.25rem; }
+.checkbox-label {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  cursor: pointer;
+  color: var(--color-text, #1a1a1a);
+}
+.checkbox-label input[type="checkbox"] {
+  margin-top: 0.2rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-denim, #142640);
+}
+.checkbox-label a { color: var(--color-denim, #142640); font-weight: 600; text-decoration: underline; }
+.form-group-checkbox .form-error { display: none; margin-top: 0.5rem; padding-left: 1.75rem; }
+.form-group-checkbox.is-invalid .form-error { display: block; }
+.form-group-checkbox.is-invalid .checkbox-label input[type="checkbox"] { outline: 2px solid #c0392b; outline-offset: 2px; }

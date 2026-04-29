@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pay for Your Project — BurnsBuilt</title>
+  <meta name="description" content="Pay your deposit or set up monthly maintenance billing for BurnsBuilt projects. Secure payment via Stripe. From $250 deposit." />
+  <link rel="canonical" href="https://burnsbuilt.co/pay/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pay for Your Project — BurnsBuilt" />
+  <meta property="og:description" content="Secure deposit and monthly billing payment via Stripe." />
+  <meta property="og:url" content="https://burnsbuilt.co/pay/" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-19HZ4SSMQC");</script>
+
+  <style>
+    .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .pay-card { background: var(--color-paper, #fbf7f0); border-radius: var(--radius, 8px); padding: 1.75rem; box-shadow: 0 1px 3px rgba(20,38,64,0.08); display: flex; flex-direction: column; }
+    .pay-card h3 { margin: 0 0 0.25rem; font-size: 1.25rem; }
+    .pay-card .price { font-size: 2rem; font-weight: 800; color: var(--color-denim); margin: 0.5rem 0 0.125rem; line-height: 1; }
+    .pay-card .price-meta { color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: 1rem; }
+    .pay-card .recurring-tag { display: inline-block; background: rgba(196,154,98,0.18); color: var(--color-denim); padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .pay-card ul { list-style: none; padding: 0; margin: 0 0 1.25rem; line-height: 1.85; flex: 1; }
+    .pay-card .btn { width: 100%; text-align: center; }
+    .pay-section-divider { border-top: 1px solid rgba(20,38,64,0.1); margin: 3rem 0 0; padding-top: 2rem; }
+    .pay-custom { background: var(--color-denim); color: #fff; border-radius: var(--radius, 8px); padding: 2rem; text-align: center; margin-top: 2rem; }
+    .pay-custom h3 { color: #fff; margin: 0 0 0.5rem; }
+    .pay-custom p { color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 1.25rem; }
+    .pay-secure-note { text-align: center; color: var(--color-text-muted); font-size: 0.875rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home"><img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" /></a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../case-studies/">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Payment</span>
+        <h1>Pay for your project.</h1>
+        <p>Secure payment via Stripe. Pick the package you discussed with us. Your card information stays with Stripe — we never see it.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Website packages — one-time setup</h2>
+        <div class="pay-grid">
+
+          <div class="pay-card">
+            <h3>Basic Website</h3>
+            <p class="price">$500</p>
+            <p class="price-meta">one-time setup</p>
+            <ul>
+              <li>✓ 5–8 pages</li>
+              <li>✓ Mobile-friendly design</li>
+              <li>✓ Contact form + notifications</li>
+              <li>✓ Basic on-page SEO</li>
+              <li>✓ Hosting &amp; SSL</li>
+            </ul>
+            <a href="STRIPE_LINK_WEB_BASIC" class="btn btn-primary">Pay $500 deposit</a>
+          </div>
+
+          <div class="pay-card">
+            <h3>Standard Website</h3>
+            <p class="price">$750</p>
+            <p class="price-meta">one-time setup</p>
+            <ul>
+              <li>✓ 10–15 pages</li>
+              <li>✓ Custom design</li>
+              <li>✓ Expanded local SEO</li>
+              <li>✓ GA4 conversion tracking</li>
+              <li>✓ Schema markup</li>
+            </ul>
+            <a href="STRIPE_LINK_WEB_STANDARD" class="btn btn-primary">Pay $750 deposit</a>
+          </div>
+
+          <div class="pay-card">
+            <h3>Custom Website</h3>
+            <p class="price">$1,000+</p>
+            <p class="price-meta">starting · quoted by scope</p>
+            <ul>
+              <li>✓ Open scope, quoted by need</li>
+              <li>✓ Hyper-local SEO matrices</li>
+              <li>✓ Meta CAPI tracking</li>
+              <li>✓ Advanced integrations</li>
+              <li>✓ See <a href="../case-studies/bearcat-turf.html">Bearcat Turf</a></li>
+            </ul>
+            <a href="STRIPE_LINK_WEB_CUSTOM" class="btn btn-primary">Pay deposit</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <h2>Website maintenance — monthly</h2>
+        <p style="color:var(--color-text-muted);margin-bottom:1rem;">Ongoing hosting, security, monitoring, and small content edits. Cancel anytime.</p>
+        <div class="pay-grid">
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Basic Maintenance</h3>
+            <p class="price">$25</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Hosting &amp; SSL</li>
+              <li>✓ Uptime monitoring</li>
+              <li>✓ Security patches</li>
+              <li>✓ Small content edits</li>
+            </ul>
+            <a href="STRIPE_LINK_MAINT_BASIC" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Standard Maintenance</h3>
+            <p class="price">$35</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Everything in Basic</li>
+              <li>✓ Monthly content updates</li>
+              <li>✓ Performance reports</li>
+              <li>✓ Priority response</li>
+            </ul>
+            <a href="STRIPE_LINK_MAINT_STANDARD" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Custom Maintenance</h3>
+            <p class="price">$50</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Everything in Standard</li>
+              <li>✓ Larger content additions</li>
+              <li>✓ Dedicated quarterly review</li>
+              <li>✓ Pro-tier features</li>
+            </ul>
+            <a href="STRIPE_LINK_MAINT_CUSTOM" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Automation — one-time setup</h2>
+        <div class="pay-grid">
+
+          <div class="pay-card">
+            <h3>Starter Automation</h3>
+            <p class="price">$250</p>
+            <p class="price-meta">one-time setup</p>
+            <ul>
+              <li>✓ One core automation</li>
+              <li>✓ Wired into existing tools</li>
+              <li>✓ Live in days</li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_STARTER" class="btn btn-primary">Pay $250 deposit</a>
+          </div>
+
+          <div class="pay-card">
+            <h3>Growth Automation</h3>
+            <p class="price">$500–$1,000</p>
+            <p class="price-meta">one-time setup</p>
+            <ul>
+              <li>✓ 3–5 connected automations</li>
+              <li>✓ Custom dashboard</li>
+              <li>✓ Reporting &amp; analytics</li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_GROWTH" class="btn btn-primary">Pay deposit</a>
+          </div>
+
+          <div class="pay-card">
+            <h3>Custom Automation</h3>
+            <p class="price">$3,000+</p>
+            <p class="price-meta">starting · quoted by scope</p>
+            <ul>
+              <li>✓ Custom-built CRMs</li>
+              <li>✓ AI-powered tools</li>
+              <li>✓ Multi-system integration</li>
+              <li>✓ See <a href="../case-studies/bearcat-hq.html">Bearcat HQ</a></li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_CUSTOM" class="btn btn-primary">Pay deposit</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <h2>Automation maintenance — monthly</h2>
+        <div class="pay-grid">
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Starter Maintenance</h3>
+            <p class="price">$25</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Monitoring &amp; tweaks</li>
+              <li>✓ Hosting included</li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_MAINT_STARTER" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Growth Maintenance</h3>
+            <p class="price">$75</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Optimization &amp; additions</li>
+              <li>✓ Monthly review</li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_MAINT_GROWTH" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+          <div class="pay-card">
+            <span class="recurring-tag">Recurring</span>
+            <h3>Custom Maintenance</h3>
+            <p class="price">$200</p>
+            <p class="price-meta">per month</p>
+            <ul>
+              <li>✓ Full ongoing support</li>
+              <li>✓ Dedicated dev hours</li>
+            </ul>
+            <a href="STRIPE_LINK_AUTO_MAINT_CUSTOM" class="btn btn-primary">Set up subscription</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="pay-custom">
+          <h3>Don't see your package?</h3>
+          <p>If we sent you a custom quote, we'll send you a Stripe link directly. Or if you haven't talked to us yet, start with a free quote.</p>
+          <a href="../contact.html" class="btn btn-accent">Get a Custom Quote</a>
+        </div>
+
+        <p class="pay-secure-note">🔒 All payments are processed securely by Stripe. BurnsBuilt never sees your card information. Need a different payment method? <a href="../contact.html">Contact us</a> for ACH or check options.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home"><img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" /></a>
+          <p>A father-son web design and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div><h5>Company</h5><ul class="footer-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../case-studies/">Work</a></li><li><a href="../contact.html">Contact</a></li><li><a href="/terms/">Terms &amp; Conditions</a></li></ul></div>
+        <div><h5>Services</h5><ul class="footer-links"><li><a href="/web-design/">Web Design</a></li><li><a href="/business-automation/">Business Automation</a></li><li><a href="/pricing/">Pricing</a></li></ul></div>
+        <div><h5>Get in touch</h5><ul class="footer-links"><li><a href="tel:+16829999240">(682) 999-9240</a></li><li>Aledo, Texas</li></ul></div>
+      </div>
+      <div class="footer-bottom"><div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div><div>If it says Burns Built, we built it.</div></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
