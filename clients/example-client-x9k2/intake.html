@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Intake — [Client Name] | BurnsBuilt</title>
+  <meta name="description" content="Structured intake form for [Client Name]'s BurnsBuilt project." />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../../css/styles.css" />
+
+  <style>
+    .intake-progress { background: var(--color-cream); padding: 1rem 0; border-bottom: 1px solid rgba(20,38,64,0.08); position: sticky; top: 0; z-index: 50; }
+    .intake-progress .container { display: flex; gap: 0.5rem; align-items: center; font-size: 0.875rem; color: var(--color-text-muted); }
+    .intake-progress strong { color: var(--color-denim); }
+
+    .intake-form { max-width: 720px; margin: 0 auto; }
+    .intake-section { background: var(--color-paper, #fbf7f0); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(20,38,64,0.06); }
+    .intake-section h2 { font-size: 1.25rem; margin: 0 0 0.25rem; color: var(--color-denim); }
+    .intake-section .section-help { color: var(--color-text-muted); font-size: 0.9375rem; margin: 0 0 1.5rem; }
+
+    .intake-form .form-group { margin-bottom: 1.25rem; }
+    .intake-form label { display: block; font-weight: 600; margin-bottom: 0.375rem; font-size: 0.9375rem; }
+    .intake-form .help { display: block; font-size: 0.8125rem; color: var(--color-text-muted); margin-top: 0.25rem; font-weight: 400; }
+    .intake-form input[type="text"],
+    .intake-form input[type="email"],
+    .intake-form input[type="tel"],
+    .intake-form input[type="url"],
+    .intake-form input[type="date"],
+    .intake-form input[type="number"],
+    .intake-form select,
+    .intake-form textarea {
+      width: 100%; padding: 0.625rem 0.875rem; border: 1px solid rgba(20,38,64,0.15); border-radius: 6px; font: inherit; font-size: 0.9375rem; background: #fff;
+    }
+    .intake-form input:focus, .intake-form select:focus, .intake-form textarea:focus {
+      outline: 2px solid var(--color-sand, #c49a62); outline-offset: 1px; border-color: var(--color-sand);
+    }
+    .intake-form textarea { min-height: 100px; resize: vertical; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+
+    .checkbox-group label { display: flex; align-items: flex-start; gap: 0.5rem; font-weight: 400; font-size: 0.9375rem; margin-bottom: 0.5rem; cursor: pointer; }
+    .checkbox-group input[type="checkbox"] { margin-top: 0.25rem; }
+
+    .submit-row { background: var(--color-denim); color: #fff; padding: 1.5rem 2rem; border-radius: 8px; text-align: center; }
+    .submit-row p { color: rgba(255,255,255,0.85); margin: 0 0 1rem; font-size: 0.9375rem; }
+    .submit-row .btn { background: var(--color-sand); color: var(--color-denim); border-color: var(--color-sand); }
+    .submit-row .btn:hover { background: #fff; color: var(--color-denim); }
+
+    .required-marker { color: #c0392b; margin-left: 2px; }
+  </style>
+</head>
+<body>
+
+  <header class="client-header" style="background: var(--color-cream, #f5ece0); padding: 1.5rem 0; border-bottom: 1px solid rgba(20,38,64,0.08);">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span style="display:inline-block;background:rgba(196,154,98,0.18);color:var(--color-denim);padding:0.25rem 0.625rem;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">🔒 Project Intake</span>
+        <a href="../../index.html" style="display:block;text-decoration:none;color:var(--color-denim);font-family:var(--font-display);font-weight:800;font-size:1.25rem;">BurnsBuilt</a>
+      </div>
+      <div style="font-size:0.875rem;color:var(--color-text-muted);text-align:right;">
+        <a href="./index.html" style="color:var(--color-denim);">← Back to project hub</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="intake-progress">
+    <div class="container">
+      <span>Project intake for <strong>[Client Name]</strong> — takes about 10 minutes</span>
+    </div>
+  </div>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Step 1 of 1</span>
+        <h1>Let's get oriented.</h1>
+        <p>The more detail you give us here, the faster we move. Anything you don't know off the top of your head — skip it. We'll fill in the gaps on the kickoff call.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <form
+          name="client-intake"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          action="./thanks-intake.html"
+          class="intake-form"
+          novalidate>
+
+          <input type="hidden" name="form-name" value="client-intake" />
+          <input type="hidden" name="client_slug" value="[slug]" />
+          <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+          <!-- ============================================ -->
+          <!-- 1. Business basics                            -->
+          <!-- ============================================ -->
+          <div class="intake-section">
+            <h2>1. Business basics</h2>
+            <p class="section-help">Tell us who you are.</p>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="legal_name">Legal business name <span class="required-marker">*</span></label>
+                <input type="text" id="legal_name" name="legal_name" required />
+              </div>
+              <div class="form-group">
+                <label for="dba">Doing business as (DBA)</label>
+                <input type="text" id="dba" name="dba" />
+                <span class="help">If different from legal name</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="owner_name">Primary contact / owner <span class="required-marker">*</span></label>
+                <input type="text" id="owner_name" name="owner_name" required />
+              </div>
+              <div class="form-group">
+                <label for="years_in_business">Years in business</label>
+                <input type="number" id="years_in_business" name="years_in_business" min="0" max="100" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="email">Email <span class="required-marker">*</span></label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone <span class="required-marker">*</span></label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Physical / mailing address</label>
+              <input type="text" id="address" name="address" placeholder="Street, City, ST ZIP" />
+            </div>
+
+            <div class="form-group">
+              <label for="service_area">Service area</label>
+              <input type="text" id="service_area" name="service_area" placeholder="e.g. Aledo, Willow Park, Weatherford, Fort Worth — 25-mile radius" />
+              <span class="help">Cities, zip codes, or "anywhere" — wherever you actually take customers from</span>
+            </div>
+
+            <div class="form-group">
+              <label for="employees">Number of employees</label>
+              <input type="text" id="employees" name="employees" placeholder="e.g. just me · 3 · 12 · seasonal crew of 8" />
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- 2. What you do                                -->
+          <!-- ============================================ -->
+          <div class="intake-section">
+            <h2>2. What you do</h2>
+            <p class="section-help">In your own words. This becomes the source for your site copy.</p>
+
+            <div class="form-group">
+              <label for="elevator_pitch">2–3 sentence elevator pitch <span class="required-marker">*</span></label>
+              <textarea id="elevator_pitch" name="elevator_pitch" required placeholder="What do you do? Who's it for? Why pick you over the next guy?"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="top_services">Top 3 services or products <span class="required-marker">*</span></label>
+              <textarea id="top_services" name="top_services" required placeholder="1.&#10;2.&#10;3."></textarea>
+              <span class="help">One per line, in your customer's language</span>
+            </div>
+
+            <div class="form-group">
+              <label for="target_customer">Who's your ideal customer? <span class="required-marker">*</span></label>
+              <textarea id="target_customer" name="target_customer" required placeholder="Demographics, needs, what makes them a fit, what makes them NOT a fit"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="differentiation">What makes you different from the next [your industry] in town?</label>
+              <textarea id="differentiation" name="differentiation"></textarea>
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- 3. Existing online presence                   -->
+          <!-- ============================================ -->
+          <div class="intake-section">
+            <h2>3. What's online today</h2>
+            <p class="section-help">Helps us figure out what to migrate vs. start fresh.</p>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="current_website">Current website URL</label>
+                <input type="url" id="current_website" name="current_website" placeholder="https://" />
+                <span class="help">Leave blank if you don't have one</span>
+              </div>
+              <div class="form-group">
+                <label for="current_platform">Current platform</label>
+                <select id="current_platform" name="current_platform">
+                  <option value="">— select —</option>
+                  <option>WordPress</option>
+                  <option>Wix</option>
+                  <option>Squarespace</option>
+                  <option>GoDaddy site builder</option>
+                  <option>Shopify</option>
+                  <option>Custom-built</option>
+                  <option>Don't know</option>
+                  <option>None / starting fresh</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="domain_registrar">Where is your domain registered?</label>
+                <select id="domain_registrar" name="domain_registrar">
+                  <option value="">— select —</option>
+                  <option>GoDaddy</option>
+                  <option>Cloudflare</option>
+                  <option>Namecheap</option>
+                  <option>Google Domains / Squarespace Domains</option>
+                  <option>Network Solutions</option>
+                  <option>Don't know</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="domain_renewal">Domain renewal date</label>
+                <input type="date" id="domain_renewal" name="domain_renewal" />
+                <span class="help">If you can find it — not critical</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="gbp_url">Google Business Profile URL</label>
+              <input type="url" id="gbp_url" name="gbp_url" placeholder="https://g.page/..." />
+            </div>
+
+            <div class="form-group">
+              <label for="social_urls">Social profiles</label>
+              <textarea id="social_urls" name="social_urls" placeholder="Facebook:&#10;Instagram:&#10;TikTok:&#10;YouTube:&#10;LinkedIn:"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Tools you currently use (check all that apply)</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="tools" value="MailerLite" /> MailerLite (email)</label>
+                <label><input type="checkbox" name="tools" value="Mailchimp" /> Mailchimp (email)</label>
+                <label><input type="checkbox" name="tools" value="Constant Contact" /> Constant Contact (email)</label>
+                <label><input type="checkbox" name="tools" value="HubSpot" /> HubSpot (CRM)</label>
+                <label><input type="checkbox" name="tools" value="Jobber" /> Jobber (field service)</label>
+                <label><input type="checkbox" name="tools" value="HouseCall Pro" /> HouseCall Pro (field service)</label>
+                <label><input type="checkbox" name="tools" value="ServiceTitan" /> ServiceTitan (HVAC/trades)</label>
+                <label><input type="checkbox" name="tools" value="QuickBooks" /> QuickBooks (accounting)</label>
+                <label><input type="checkbox" name="tools" value="Stripe" /> Stripe (payments)</label>
+                <label><input type="checkbox" name="tools" value="Square" /> Square (payments)</label>
+                <label><input type="checkbox" name="tools" value="Calendly" /> Calendly (scheduling)</label>
+                <label><input type="checkbox" name="tools" value="Twilio" /> Twilio (SMS)</label>
+                <label><input type="checkbox" name="tools" value="Notion" /> Notion (notes/docs)</label>
+                <label><input type="checkbox" name="tools" value="Airtable" /> Airtable (database)</label>
+                <label><input type="checkbox" name="tools" value="Google Workspace" /> Google Workspace (email/docs)</label>
+                <label><input type="checkbox" name="tools" value="Microsoft 365" /> Microsoft 365 (email/docs)</label>
+              </div>
+              <span class="help">Anything we should know about that's not listed? Mention it in pain points below.</span>
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- 4. Pain points & goals                        -->
+          <!-- ============================================ -->
+          <div class="intake-section">
+            <h2>4. What hurts and what you want fixed</h2>
+            <p class="section-help">Be specific. "Website is bad" tells us nothing. "Form submissions never reach my email" tells us everything.</p>
+
+            <div class="form-group">
+              <label for="pain_points">What's broken or annoying about your current setup? <span class="required-marker">*</span></label>
+              <textarea id="pain_points" name="pain_points" required placeholder="One per line. Anything that costs you time, money, or sanity."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="top_goals">Top 3 outcomes you want from this project (ranked) <span class="required-marker">*</span></label>
+              <textarea id="top_goals" name="top_goals" required placeholder="1. Most important&#10;2.&#10;3."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="success_metric">If we knocked this project out of the park, what would change about your business in 90 days?</label>
+              <textarea id="success_metric" name="success_metric" placeholder="More leads? Easier follow-up? Less time on admin? Be specific — this becomes how we measure success."></textarea>
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- 5. Logistics                                  -->
+          <!-- ============================================ -->
+          <div class="intake-section">
+            <h2>5. Logistics</h2>
+            <p class="section-help">How we work together day-to-day.</p>
+
+            <div class="field-row">
+              <div class="form-group">
+                <label for="best_channel">Best way to reach you</label>
+                <select id="best_channel" name="best_channel">
+                  <option value="">— select —</option>
+                  <option>Text</option>
+                  <option>Phone call</option>
+                  <option>Email</option>
+                  <option>Slack / Discord / Teams</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="response_window">Best time to reach you</label>
+                <input type="text" id="response_window" name="response_window" placeholder="e.g. weekday mornings · after 5pm · always available" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="other_decision_makers">Anyone else who has to approve work?</label>
+              <input type="text" id="other_decision_makers" name="other_decision_makers" placeholder="Spouse · business partner · board member · nobody" />
+            </div>
+
+            <div class="form-group">
+              <label for="urgency">Any deadline or event we're building toward?</label>
+              <input type="text" id="urgency" name="urgency" placeholder="e.g. spring rush starts March 1 · trade show April 15 · no hard deadline" />
+            </div>
+
+            <div class="form-group">
+              <label for="anything_else">Anything else we should know?</label>
+              <textarea id="anything_else" name="anything_else"></textarea>
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- Submit                                        -->
+          <!-- ============================================ -->
+          <div class="submit-row">
+            <p>That's it. We'll review before our kickoff call and come prepared with a real plan.</p>
+            <button type="submit" class="btn btn-primary">Submit intake</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:1rem;">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>This page is private to your project. <a href="../../index.html" style="color:var(--color-cream);">burnsbuilt.co</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

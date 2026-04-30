@@ -4,3 +4,6 @@
 *.log
 node_modules/
 .netlify/
+
+# Per-client internal notes (live locally only — never commit client data)
+docs/clients/
