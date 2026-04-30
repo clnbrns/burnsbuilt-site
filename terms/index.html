@@ -29,6 +29,168 @@
     .legal-prose p, .legal-prose ul { line-height: 1.7; margin-bottom: 1rem; }
     .legal-prose .effective-date { display: inline-block; background: rgba(196,154,98,0.15); color: var(--color-denim); padding: 0.5rem 0.875rem; border-radius: 4px; font-weight: 600; font-family: var(--font-mono, monospace); font-size: 0.9375rem; }
     .legal-prose .placeholder { background: rgba(196,154,98,0.08); border-left: 3px solid var(--color-sand, #c49a62); padding: 0.75rem 1rem; color: var(--color-text-muted); font-style: italic; margin: 1rem 0; }
+
+    /* Print button — visible on screen only */
+    .print-actions { display: flex; gap: 0.625rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .btn-print {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.625rem 1.125rem;
+      background: #fff;
+      color: var(--color-denim, #142640);
+      border: 1.5px solid var(--color-denim, #142640);
+      border-radius: 6px;
+      font-family: var(--font-display, 'Archivo', sans-serif);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-print:hover { background: var(--color-denim, #142640); color: #fff; }
+    .btn-print svg { width: 1rem; height: 1rem; }
+
+    /* Print-only header — hidden on screen, shown when printed */
+    .print-header { display: none; }
+
+    /* ============================================================
+       PRINT STYLES — mirror the legal-doc PDF appearance
+       ============================================================ */
+    @media print {
+      @page {
+        size: letter;
+        margin: 0.85in 0.75in;
+      }
+
+      /* Hide all site chrome */
+      .site-header, .site-footer, .service-areas,
+      .nav-toggle, .nav-links, .print-actions, .legal-toc,
+      .page-hero .eyebrow {
+        display: none !important;
+      }
+
+      /* Reset page background */
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-size: 10.5pt;
+        line-height: 1.5;
+      }
+      main { padding: 0 !important; }
+      section { padding: 0 !important; margin: 0 !important; }
+      .container { max-width: none !important; padding: 0 !important; margin: 0 !important; }
+
+      /* Print-only running header on each page */
+      .print-header {
+        display: block !important;
+        position: running(printHeader);
+        font-size: 9pt;
+        color: #142640;
+        border-bottom: 1px solid #c49a62;
+        padding-bottom: 4pt;
+        margin-bottom: 8pt;
+      }
+      .print-header strong { font-weight: 800; }
+      .print-header span { color: #5a6a82; }
+
+      @page {
+        @top-left {
+          content: "BurnsBuilt  |  Terms and Conditions";
+          font-family: 'Inter', Arial, sans-serif;
+          font-size: 9pt;
+          color: #5a6a82;
+          padding-bottom: 4pt;
+          border-bottom: 0.5pt solid #c49a62;
+        }
+        @bottom-center {
+          content: "burnsbuilt.co  |  Page " counter(page) " of " counter(pages);
+          font-family: 'Inter', Arial, sans-serif;
+          font-size: 9pt;
+          color: #5a6a82;
+        }
+      }
+
+      /* Title section */
+      .page-hero { padding: 0 !important; margin-bottom: 18pt !important; }
+      .page-hero .container { text-align: center; }
+      .legal-prose { max-width: none !important; padding-top: 0 !important; }
+
+      h1 {
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-size: 26pt !important;
+        font-weight: 800;
+        color: #142640 !important;
+        margin: 8pt 0 4pt !important;
+        text-align: center;
+        line-height: 1.1;
+      }
+      .effective-date {
+        background: transparent !important;
+        color: #142640 !important;
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-style: italic;
+        font-size: 10.5pt !important;
+        font-weight: 500 !important;
+        padding: 0 !important;
+        text-align: center;
+        display: block !important;
+      }
+      .page-hero p:not(.effective-date) {
+        text-align: left;
+        max-width: none !important;
+        font-size: 10.5pt;
+        margin-top: 14pt !important;
+      }
+
+      /* H2 = main sections — page break before each */
+      h2 {
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-size: 15pt !important;
+        font-weight: 700;
+        color: #2e5e8a !important;
+        border-bottom: 0.75pt solid #2e5e8a;
+        padding-bottom: 4pt;
+        margin-top: 22pt !important;
+        margin-bottom: 10pt !important;
+        page-break-after: avoid;
+      }
+      /* Allow first h2 to flow naturally; later H2s force a fresh top */
+      h2#scope-of-services { margin-top: 16pt !important; }
+
+      /* H3 = subsections */
+      h3 {
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-size: 11pt !important;
+        font-weight: 700;
+        color: #2e5e8a !important;
+        margin-top: 12pt !important;
+        margin-bottom: 4pt !important;
+        page-break-after: avoid;
+      }
+
+      /* Body */
+      p, ul {
+        font-size: 10.5pt !important;
+        line-height: 1.5 !important;
+        margin-bottom: 8pt !important;
+        color: #000 !important;
+        orphans: 3; widows: 3;
+      }
+      a { color: #000 !important; text-decoration: none; }
+      /* Show URL after links so printed copy retains the destination */
+      a[href^="http"]::after, a[href^="../"]::after, a[href^="/"]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #5a6a82;
+      }
+      /* Don't print URL after anchor links (TOC) — TOC is hidden anyway */
+
+      /* Section 7 liability cap — keep emphasized */
+      .legal-prose section p[style*="uppercase"],
+      p[style*="text-transform:uppercase"] {
+        font-weight: 600;
+      }
+    }
   </style>
 </head>
 <body>
@@ -52,12 +214,22 @@
 
   <main>
 
+    <!-- Print-only running header (hidden on screen) -->
+    <div class="print-header"><strong>BurnsBuilt</strong> &nbsp;|&nbsp; <span>Terms and Conditions</span></div>
+
     <section class="page-hero">
       <div class="container">
         <span class="eyebrow">Legal</span>
         <h1>Terms and Conditions</h1>
         <p class="effective-date">Effective Date: May 1, 2025</p>
         <p style="margin-top:1.5rem;max-width:760px;">These Terms and Conditions ("Agreement") govern all services provided by BurnsBuilt ("we," "us," or "our") to any client ("Client" or "you") who engages us for website development, business automation, or related services. By signing a project proposal, paying an invoice, or otherwise engaging our services, you agree to be bound by this Agreement.</p>
+
+        <div class="print-actions">
+          <button type="button" class="btn-print" onclick="window.print()" aria-label="Print or save as PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print or Save as PDF
+          </button>
+        </div>
       </div>
     </section>
 
