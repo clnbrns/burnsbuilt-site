@@ -1,8 +1,15 @@
 # Netlify configuration for BurnsBuilt.co
-# Static site — no build step required.
+# Static site + Netlify Functions for AI Lead Qualifier.
 
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  # Bundler for the AI Lead Qualifier function (uses @anthropic-ai/sdk + twilio)
+  node_bundler = "esbuild"
+  # External dependencies are resolved from package.json node_modules
+  external_node_modules = ["@anthropic-ai/sdk", "twilio"]
 
 [[headers]]
   for = "/*"
