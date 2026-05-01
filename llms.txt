@@ -46,6 +46,13 @@ Run by Colin Burns (sales, ops, project lead) and Carson Burns (development). Ba
 - **Integrations:** Stripe, MailerLite, Twilio, Meta Graph + Conversion API, Google Analytics 4, Anthropic API
 - **Tooling:** Claude Code as primary build partner
 
+## Articles & explainers
+
+- [How much does a small business website cost in 2026?](https://burnsbuilt.co/articles/website-cost-2026/) — five price tiers, what each delivers, hidden costs
+- [How long does it take to build a small business website in 2026?](https://burnsbuilt.co/articles/website-timeline-2026/) — phase-by-phase timelines, why agencies take 8–16 weeks
+- [AI for small businesses in 2026: 7 things that actually work](https://burnsbuilt.co/articles/ai-for-small-business-2026/) — concrete use cases with real costs
+- [Automation first, then AI](https://burnsbuilt.co/articles/automation-then-ai/) — the 4-level automation maturity model
+
 ## About
 
 - [About BurnsBuilt](https://burnsbuilt.co/about.html) — Colin and Carson Burns, the team behind the work

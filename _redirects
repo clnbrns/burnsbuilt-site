@@ -30,3 +30,10 @@
 # Legal & payment pages
 /terms     /terms/    301
 /pay       /pay/      301
+
+# Articles (extensionless variants)
+/articles                              /articles/                                301
+/articles/website-cost                 /articles/website-cost-2026/              301
+/articles/website-timeline             /articles/website-timeline-2026/          301
+/articles/ai-for-small-business        /articles/ai-for-small-business-2026/     301
+/articles/automation-and-ai            /articles/automation-then-ai/             301
