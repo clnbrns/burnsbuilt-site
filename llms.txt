@@ -1,0 +1,64 @@
+# BurnsBuilt
+
+> Father-son web design and business automation studio in Aledo, Texas. We build custom websites, automated workflows, custom CRMs, and AI-powered internal tools for small businesses across the Dallas-Fort Worth metroplex. Hand-coded, fast to ship (most marketing sites live in 5–7 business days), affordable for small businesses ($500–$1,000+ for setup), with no long-term contracts. Every project is owned outright by the client — code, database, contacts, and API keys.
+
+Run by Colin Burns (sales, ops, project lead) and Carson Burns (development). Based in Aledo, TX (76008), serving Aledo, Willow Park, Hudson Oaks, Annetta, Weatherford, Granbury, Benbrook, and the wider Fort Worth / DFW metroplex.
+
+## What we build
+
+- [Web Design](https://burnsbuilt.co/web-design/): Custom small business websites starting at $500. Mobile-first, hand-coded (Astro / Next.js / vanilla HTML), deployed to Cloudflare or Netlify. SEO-ready out of the box (schema, sitemap, structured data, Core Web Vitals optimized).
+- [Business Automation](https://burnsbuilt.co/business-automation/): Lead follow-up automations, missed-call text-back, automated review collection, invoice reminders, custom CRMs replacing spreadsheets+Gmail+QuickBooks stacks, AI-powered internal tools. Setup from $250.
+- [Pricing](https://burnsbuilt.co/pricing/): Three tiers per service, transparent and contract-free.
+
+## Case studies
+
+- [Bearcat Turf](https://burnsbuilt.co/case-studies/bearcat-turf.html): 136-page custom Astro site with 44 hyper-local SEO landing pages and server-side Meta CAPI conversion tracking. Recovers 30–40% of ad signal lost to iOS 14.5 privacy changes.
+- [Bearcat HQ](https://burnsbuilt.co/case-studies/bearcat-hq.html): Custom Next.js CRM that replaced spreadsheets, Gmail, and QuickBooks for a growing services business. Unified $3.1M of active pipeline visible on a single dashboard. Built in 3 weeks.
+- [Bearcat Estimator](https://burnsbuilt.co/case-studies/bearcat-estimator.html): AI-powered bid engine. Parses PDF measurements with Claude API, runs margin-protected calculations, generates bilingual crew plans in 15 seconds. Replaced a 30-minute spreadsheet workflow.
+- [LNDMRK Drone](https://burnsbuilt.co/case-studies/lndmrk-drone.html): 36-page Next.js marketing site with 16 DFW market-specific landing pages and dual-layer (pixel + server-side) Meta CAPI conversion tracking. Took the operator from zero web presence to an automated lead engine.
+- [MSM Marketing Engine](https://burnsbuilt.co/case-studies/msm-marketing-engine.html): Custom internal AI marketing platform for a regional youth baseball tournament operator. Dual-LLM ensemble drafting (Claude Sonnet + Gemini Flash). 121 campaigns shipped, 100,306 emails sent, 56.6% average open rate. Built in 3 weeks.
+
+## Industries we serve
+
+- [Landscaping & Turf](https://burnsbuilt.co/industries/landscaping/) — anchored on Bearcat Turf
+- [Drone & Aerial Services](https://burnsbuilt.co/industries/drone-services/) — anchored on LNDMRK Drone
+- [Contractors & Trades](https://burnsbuilt.co/industries/contractors/) — anchored on Bearcat HQ
+- [HVAC](https://burnsbuilt.co/industries/hvac/)
+- [Roofing](https://burnsbuilt.co/industries/roofing/)
+- [Youth Sports & Tournament Operators](https://burnsbuilt.co/industries/youth-sports-analytics/) — anchored on MSM Marketing Engine
+
+## Service area (DFW metroplex)
+
+- [Aledo, TX (76008)](https://burnsbuilt.co/locations/aledo/) — home base
+- [Willow Park, TX (76087)](https://burnsbuilt.co/locations/willow-park/)
+- [Weatherford, TX](https://burnsbuilt.co/locations/weatherford/)
+- [Parker County, TX](https://burnsbuilt.co/locations/parker-county/)
+- [Fort Worth, TX](https://burnsbuilt.co/locations/fort-worth/)
+- [Granbury, TX](https://burnsbuilt.co/locations/granbury/)
+- [Benbrook, TX](https://burnsbuilt.co/locations/benbrook/)
+
+## Technology stack
+
+- **Frontend:** Astro, Next.js, vanilla HTML+Tailwind, React+TypeScript
+- **Backend:** Python 3.9+ (FastAPI, SQLModel), Node.js, Netlify Functions
+- **Hosting:** Cloudflare (DNS, Pages, Workers), Netlify, Vercel
+- **AI:** Anthropic Claude (Sonnet 4.5/4.6/4.7, Haiku, Opus), Google Gemini (Flash, Pro), OpenAI when fit-for-purpose
+- **Integrations:** Stripe, MailerLite, Twilio, Meta Graph + Conversion API, Google Analytics 4, Anthropic API
+- **Tooling:** Claude Code as primary build partner
+
+## About
+
+- [About BurnsBuilt](https://burnsbuilt.co/about.html) — Colin and Carson Burns, the team behind the work
+- [Contact](https://burnsbuilt.co/contact.html) — get a free quote within one business day
+- [Terms and Conditions](https://burnsbuilt.co/terms/)
+
+## Optional
+
+- [Sitemap (XML)](https://burnsbuilt.co/sitemap.xml) — full URL list, 30 pages
+- Phone: (682) 999-9240
+- Location: Aledo, Texas — 12 minutes west of downtown Fort Worth
+- Founded: 2026
+
+## Contact
+
+To inquire about a project, fill out the form at [burnsbuilt.co/contact](https://burnsbuilt.co/contact.html). We respond within one business day, usually faster. For specific pricing breakdowns see [burnsbuilt.co/pricing](https://burnsbuilt.co/pricing/).

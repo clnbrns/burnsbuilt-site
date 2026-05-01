@@ -1,6 +1,75 @@
+# BurnsBuilt — robots.txt
+# Generic search engines & AI crawlers all welcome, with a few exclusions
+
 User-agent: *
 Allow: /
 Disallow: /thanks.html
+Disallow: /clients/
+
+# ---- AI crawlers (explicit allow + disallow paths) ----
+# OpenAI
+User-agent: GPTBot
+Allow: /
+Disallow: /clients/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /clients/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /clients/
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+Disallow: /clients/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /clients/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /clients/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /clients/
+
+# Google AI training (separate from Googlebot — controls Gemini training only)
+User-agent: Google-Extended
+Allow: /
+Disallow: /clients/
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /clients/
+
+# Common Crawl (used by many LLMs as training data)
+User-agent: CCBot
+Allow: /
+Disallow: /clients/
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /clients/
+
+User-agent: FacebookBot
+Allow: /
+Disallow: /clients/
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+Disallow: /clients/
+
+# DuckDuckGo AI
+User-agent: DuckAssistBot
+Allow: /
 Disallow: /clients/
 
 Sitemap: https://burnsbuilt.co/sitemap.xml
