@@ -1,0 +1,23 @@
+{
+  "name": "BurnsBuilt",
+  "short_name": "BurnsBuilt",
+  "description": "Father-son web design and business automation company in Aledo, TX. Serving the DFW metroplex.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5ece0",
+  "theme_color": "#142640",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

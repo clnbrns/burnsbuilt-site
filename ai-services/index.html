@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Services for Small Businesses — Aledo &amp; DFW, TX | BurnsBuilt</title>
+  <meta name="description" content="Production AI tools for DFW small businesses. Custom CRMs, AI-powered bid engines, dual-LLM marketing platforms, lead qualification. Built by the team behind MSM Marketing Engine and Bearcat Estimator." />
+  <link rel="canonical" href="https://burnsbuilt.co/ai-services/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Services for Small Businesses — DFW | BurnsBuilt" />
+  <meta property="og:description" content="The DFW shop building real production AI for small businesses. MSM Marketing Engine, Bearcat Estimator, AI Lead Qualifier — and the same playbook for you." />
+  <meta property="og:url" content="https://burnsbuilt.co/ai-services/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "AI Integration and Custom AI Tooling",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "BurnsBuilt",
+      "url": "https://burnsbuilt.co",
+      "telephone": "+1-682-999-9240",
+      "address": {"@type": "PostalAddress", "addressLocality": "Aledo", "addressRegion": "TX", "postalCode": "76008", "addressCountry": "US"}
+    },
+    "areaServed": [
+      {"@type": "City", "name": "Aledo"},
+      {"@type": "City", "name": "Fort Worth"},
+      {"@type": "City", "name": "Weatherford"},
+      {"@type": "AdministrativeArea", "name": "Parker County"},
+      {"@type": "AdministrativeArea", "name": "Tarrant County"}
+    ],
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "500",
+      "highPrice": "10000",
+      "offerCount": "3"
+    },
+    "description": "Production AI tools for small businesses: lead qualifiers, custom CRMs, AI-powered bid engines, dual-LLM marketing platforms, missed-call AI summarizers. Built with Anthropic Claude, Google Gemini, and OpenAI."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "What kinds of AI tools do you actually build?", "acceptedAnswer": {"@type": "Answer", "text": "Production-grade AI integrations for specific business problems: lead qualification (we run our own — see the AI Lead Qualifier), automated customer response drafting, PDF/document parsing for quotes and invoices, custom CRMs with natural-language search, internal analytics chatbots, and dual-LLM ensemble marketing platforms. We don't build generic chatbots or 'AI sales agents' — those don't work in production."}},
+      {"@type": "Question", "name": "Which AI models do you use?", "acceptedAnswer": {"@type": "Answer", "text": "Anthropic Claude (Sonnet 4.5/4.6/4.7 for nuanced work, Haiku for cheap classification), Google Gemini (Pro for multimodal, Flash for high-volume), and OpenAI when fit-for-purpose. For most small-business use cases Claude Sonnet is the right default — about $0.005 per typical API call. Most of our internal tools (MSM Marketing Engine) use a dual-LLM ensemble, calling two models in parallel and presenting the higher-scoring output."}},
+      {"@type": "Question", "name": "How much does an AI feature cost to build and run?", "acceptedAnswer": {"@type": "Answer", "text": "Setup: $500 for a single-feature integration (e.g. AI lead qualifier), $1,500–$5,000 for multi-feature workflows, $5,000+ for full custom AI platforms like MSM Marketing Engine. Variable cost: typically $5–$50/month in API fees for most small business volumes. A 100-lead/month operation running an AI lead qualifier costs about $1.30 in Claude API fees."}},
+      {"@type": "Question", "name": "Do I need to be technical to use what you build?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every AI tool we build runs in the background of your existing workflow. Lead qualifier fires when your form gets a submission. PDF parser runs when a customer emails you a quote request. You don't 'use' AI — the AI is just there, doing the work invisibly. The only thing you 'use' is the output: a drafted email, a scored lead, a parsed bid."}},
+      {"@type": "Question", "name": "How are you different from the 'AI agency' down the street?", "acceptedAnswer": {"@type": "Answer", "text": "Three differences. First, we build for small businesses, not enterprise — our pricing reflects that ($500–$10K, not $50K+). Second, we ship working AI in production, not slide decks (see MSM Marketing Engine: 100,306 emails sent, 56.6% open rate). Third, we don't sell autonomous 'AI sales agents' or magic chatbots — we build focused integrations that solve specific bottlenecks with humans still in the loop."}}
+    ]
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-19HZ4SSMQC");</script>
+
+  <style>
+    .ai-hero { background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-paper) 100%); }
+    .stack-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .stack-pills .pill { font-family: var(--font-mono, monospace); font-size: 0.8125rem; background: rgba(20,38,64,0.06); color: var(--color-denim); padding: 0.375rem 0.75rem; border-radius: 999px; border: 1px solid rgba(20,38,64,0.1); }
+    .ai-use-case { background: var(--color-paper, #fbf7f0); border-radius: 8px; padding: 1.5rem 1.75rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(20,38,64,0.06); }
+    .ai-use-case h3 { color: var(--color-denim); margin: 0 0 0.5rem; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; }
+    .ai-use-case .ai-tag { font-size: 0.75rem; font-family: var(--font-mono, monospace); background: var(--color-denim); color: #fff; padding: 0.125rem 0.5rem; border-radius: 4px; font-weight: 700; letter-spacing: 0.04em; }
+    .ai-use-case p { margin: 0 0 0.5rem; line-height: 1.6; }
+    .ai-use-case .ai-meta { font-size: 0.8125rem; color: var(--color-text-muted); margin-top: 0.5rem; }
+    .ai-use-case .ai-meta strong { color: var(--color-denim); font-family: var(--font-mono, monospace); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home"><img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt — AI services DFW" class="logo-img" width="360" height="60" /></a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html" class="active">Services</a></li>
+          <li><a href="../case-studies/">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero ai-hero">
+      <div class="container">
+        <span class="eyebrow">AI Services · Aledo, Fort Worth, DFW</span>
+        <h1>Real production AI for small businesses.</h1>
+        <p>The DFW shop building actual shipped AI tools — not slide decks, not "AI strategy workshops." We've built dual-LLM marketing platforms, AI-powered bid engines, lead qualifiers, and PDF-parsing internal tools. Same playbook, your business.</p>
+        <div class="stack-pills">
+          <span class="pill">Anthropic Claude</span>
+          <span class="pill">Google Gemini</span>
+          <span class="pill">OpenAI</span>
+          <span class="pill">Python · FastAPI</span>
+          <span class="pill">Node · Netlify Functions</span>
+          <span class="pill">Twilio</span>
+          <span class="pill">Stripe</span>
+        </div>
+        <p style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="../contact.html" class="btn btn-primary">Get a Free Quote</a>
+          <a href="../case-studies/msm-marketing-engine.html" class="btn btn-outline">See MSM Marketing Engine</a>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Why most small businesses get AI wrong</h2>
+        <p>The "AI agency down the street" sells you autonomous sales agents, generic chatbots, and "AI strategy" engagements that produce slide decks. None of it ships. None of it pays back. The actual game in 2026 is the opposite: <strong>focused AI integrations that solve one specific bottleneck inside an already-functional workflow.</strong></p>
+        <p>We've shipped exactly that pattern. <a href="../case-studies/msm-marketing-engine.html">MSM Marketing Engine</a> ships campaigns in 30 seconds instead of 30 minutes. <a href="../case-studies/bearcat-estimator.html">Bearcat Estimator</a> turns a 30-minute manual bid into a 15-second AI-parsed quote. Our own AI Lead Qualifier (yes — the one running on this site right now) scores every contact form submission and texts the analysis in under a minute.</p>
+        <p style="margin-top:1.25rem;"><a href="../articles/automation-then-ai/" class="link-arrow">Read why automation comes before AI →</a></p>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <h2>What we actually build</h2>
+        <p style="margin-bottom:1.5rem;">Six categories of production AI work. Each is something we've shipped or could ship inside a week.</p>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">SHIPPED</span> AI Lead Qualifier</h3>
+          <p>Form submission → Claude scores 1–100 + drafts personalized reply + texts you the analysis. We run this on burnsbuilt.co itself. Going from "I'll respond within a business day" to "I responded in 8 minutes with a tailored quote" is the difference between losing leads and closing them.</p>
+          <p class="ai-meta"><strong>Setup: $500–$1,500</strong> · <strong>Run cost: ~$1.30/mo per 100 leads</strong> · 1–2 days to ship</p>
+        </div>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">SHIPPED</span> AI bid engines / quote calculators</h3>
+          <p>Customer emails a 12-page PDF (architectural plan, scope of work, RFP). Claude with vision extracts dimensions, materials, quantities into structured data. Your bid calculator runs the math against historical cost data. Output: an accurate bid in 15 seconds. <a href="../case-studies/bearcat-estimator.html">Bearcat Estimator</a> is the canonical example.</p>
+          <p class="ai-meta"><strong>Setup: $3,000–$8,000</strong> depending on document complexity · <strong>Run cost: ~$0.05–$0.10 per document</strong></p>
+        </div>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">SHIPPED</span> Dual-LLM marketing platforms</h3>
+          <p>Every email goes to Claude and Gemini in parallel, gets scored against a heuristic rubric, and the higher-scoring draft is presented as primary with the alternate one click away. <a href="../case-studies/msm-marketing-engine.html">MSM Marketing Engine</a> shipped 121 campaigns and 100,306 emails this way, with a 56.6% average open rate.</p>
+          <p class="ai-meta"><strong>Setup: $5,000–$10,000+</strong> · <strong>Run cost: ~$20–$50/mo</strong> at moderate volume</p>
+        </div>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">PROVEN</span> Missed-call AI summarizer</h3>
+          <p>Customer leaves a voicemail. AI listens, transcribes, and texts you a plain-English summary so you don't have to listen. Combined with missed-call text-back ("Hey, sorry we missed you"), most service businesses recover 30%+ of missed calls.</p>
+          <p class="ai-meta"><strong>Setup: $500–$1,500</strong> · <strong>Run cost: ~$5/mo</strong> at moderate call volume</p>
+        </div>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">PROVEN</span> Internal data analytics in plain English</h3>
+          <p>Your customer database, invoicing, and campaign data wired into an LLM. Ask: "What's my best month-over-month trend? Which service has the highest margin? Which customer hasn't booked in 6 months?" Get actual answers from your real data, in 30 seconds, from your phone.</p>
+          <p class="ai-meta"><strong>Setup: $2,000–$8,000</strong> depending on data complexity · <strong>Run cost: ~$20–$60/mo</strong></p>
+        </div>
+
+        <div class="ai-use-case">
+          <h3><span class="ai-tag">PROVEN</span> Customer support chatbot (with guardrails)</h3>
+          <p>Chat widget on your site that answers FAQs using your actual content. Bounded — only answers from your knowledge base, escalates to a form fill or call when it can't. Handles 80%+ of the common questions, frees you up for the ones that need a human.</p>
+          <p class="ai-meta"><strong>Setup: $500–$2,000</strong> · <strong>Run cost: ~$10–$30/mo</strong></p>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Pricing &amp; how it fits</h2>
+        <p style="margin-bottom:1.25rem;">AI work lives inside our <a href="../business-automation/">Business Automation</a> service line. Pricing scales with scope:</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Single AI feature</h3>
+            <p style="font-size:1.5rem;font-weight:700;color:var(--color-denim);margin-bottom:0.25rem;">$500–$1,500</p>
+            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;">setup &nbsp;·&nbsp; + $25–$50/mo</p>
+            <p>One focused integration: AI lead qualifier, missed-call summarizer, drafted-reply bot. Wired into your existing tools. Live in 1–2 weeks.</p>
+          </div>
+          <div class="service-card">
+            <h3>Multi-feature AI</h3>
+            <p style="font-size:1.5rem;font-weight:700;color:var(--color-denim);margin-bottom:0.25rem;">$2,000–$5,000</p>
+            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;">setup &nbsp;·&nbsp; + $75–$150/mo</p>
+            <p>3–5 connected AI features inside a custom dashboard. Quote calculators, lead pipelines, customer support, internal analytics — combined.</p>
+          </div>
+          <div class="service-card">
+            <h3>Custom AI platform</h3>
+            <p style="font-size:1.5rem;font-weight:700;color:var(--color-denim);margin-bottom:0.25rem;">$5,000–$10,000+</p>
+            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;">setup &nbsp;·&nbsp; + $200/mo</p>
+            <p>Full custom internal platforms like <a href="../case-studies/msm-marketing-engine.html">MSM Marketing Engine</a> or <a href="../case-studies/bearcat-estimator.html">Bearcat Estimator</a>. Dual-LLM ensembles, vision-based parsing, real production scale.</p>
+          </div>
+        </div>
+        <p style="margin-top:1.25rem;"><a href="../pricing/" class="link-arrow">See full pricing →</a></p>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <h2>Recent AI work</h2>
+        <div class="case-index" style="margin-top:1.5rem;">
+          <a href="../case-studies/msm-marketing-engine.html" class="case-card">
+            <div class="case-card-preview cp-msm has-image"><img class="cover" src="../images/case-studies/msm-marketing-engine/hero.png" alt="MSM Marketing Engine — dual-LLM marketing platform" loading="lazy" /><span>MSM Marketing Engine</span></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">AI Platform · Marketing Automation</span>
+              <h3>Two LLMs, one tournament, zero spreadsheets</h3>
+              <p>Custom dual-LLM marketing platform shipping 121 campaigns and 100,306 emails with a 56.6% average open rate. Built in 3 weeks.</p>
+              <div class="case-card-meta"><span>FastAPI · Claude · Gemini</span><span class="arrow">Read case study →</span></div>
+            </div>
+          </a>
+          <a href="../case-studies/bearcat-estimator.html" class="case-card">
+            <div class="case-card-preview cp-bt-estim has-image"><img class="cover" src="../images/case-studies/bearcat-estimator/hero.png" alt="Bearcat Estimator — AI-powered bid engine" loading="lazy" /><span>Bearcat Estimator</span></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">AI + Internal Tooling</span>
+              <h3>From spreadsheet to AI-powered bid engine</h3>
+              <p>AI-parsed PDF measurements, margin-protected calculation engine, bilingual crew plans generated in 15 seconds.</p>
+              <div class="case-card-meta"><span>React · Claude API</span><span class="arrow">Read case study →</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>How it works</h2>
+        <div class="services-grid" style="margin-top:1.5rem;">
+          <div class="service-card">
+            <h3>1. 20-min audit call</h3>
+            <p>You describe the repetitive task that's bothering you. We tell you in plain English whether AI can fix it, what it'd cost, and whether you're ready (per the <a href="../articles/automation-then-ai/">automation-then-AI</a> framework). Free.</p>
+          </div>
+          <div class="service-card">
+            <h3>2. Fixed quote in 24 hours</h3>
+            <p>If we're a fit, you get a written scope and fixed quote — no hourly billing, no surprises. We tell you exactly what's included and what's out of scope.</p>
+          </div>
+          <div class="service-card">
+            <h3>3. Build &amp; ship</h3>
+            <p>Single-feature builds: 1–2 weeks. Multi-feature: 2–4 weeks. Custom platforms: 3–8 weeks. You see staging links throughout. We don't ship blind.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <h2>Frequently asked</h2>
+        <div style="margin-top:1.5rem;">
+
+          <h3>What kinds of AI tools do you actually build?</h3>
+          <p>Production-grade AI integrations for specific business problems: lead qualification (we run our own — see the AI Lead Qualifier), automated customer response drafting, PDF/document parsing for quotes and invoices, custom CRMs with natural-language search, internal analytics chatbots, and dual-LLM ensemble marketing platforms. <strong>We don't build generic chatbots or "AI sales agents"</strong> — those don't work in production.</p>
+
+          <h3>Which AI models do you use?</h3>
+          <p>Anthropic Claude (Sonnet 4.5/4.6/4.7 for nuanced work, Haiku for cheap classification), Google Gemini (Pro for multimodal, Flash for high-volume), and OpenAI when fit-for-purpose. For most small-business use cases Claude Sonnet is the right default — about $0.005 per typical API call. Most of our internal tools (MSM Marketing Engine) use a dual-LLM ensemble, calling two models in parallel and presenting the higher-scoring output.</p>
+
+          <h3>How much does an AI feature cost to build and run?</h3>
+          <p>Setup: $500 for a single-feature integration (e.g. AI lead qualifier), $1,500–$5,000 for multi-feature workflows, $5,000+ for full custom AI platforms like MSM Marketing Engine. Variable cost: typically $5–$50/month in API fees for most small business volumes. A 100-lead/month operation running an AI lead qualifier costs about $1.30 in Claude API fees.</p>
+
+          <h3>Do I need to be technical to use what you build?</h3>
+          <p>No. Every AI tool we build runs in the background of your existing workflow. Lead qualifier fires when your form gets a submission. PDF parser runs when a customer emails you a quote request. You don't "use" AI — the AI is just there, doing the work invisibly. The only thing you "use" is the output: a drafted email, a scored lead, a parsed bid.</p>
+
+          <h3>How are you different from the "AI agency" down the street?</h3>
+          <p>Three differences. <strong>First</strong>, we build for small businesses, not enterprise — our pricing reflects that ($500–$10K, not $50K+). <strong>Second</strong>, we ship working AI in production, not slide decks (see MSM Marketing Engine: 100,306 emails sent, 56.6% open rate). <strong>Third</strong>, we don't sell autonomous "AI sales agents" or magic chatbots — we build focused integrations that solve specific bottlenecks with humans still in the loop.</p>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Related reading</h2>
+        <ul style="line-height:2;">
+          <li><a href="../articles/ai-for-small-business-2026/">AI for small businesses in 2026: 7 things that actually work</a></li>
+          <li><a href="../articles/automation-then-ai/">Automation first, then AI. The order matters.</a></li>
+          <li><a href="../industries/youth-sports-analytics/">Marketing &amp; analytics platforms for youth sports operators</a> — anchored on MSM</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="cta-band">
+          <h2>What's the AI feature you'd actually use?</h2>
+          <p>Tell us the repetitive task eating your week. We'll tell you in 24 hours whether AI can fix it, what it'd cost, and whether you're ready.</p>
+          <p style="margin-top:1.25rem;">
+            <a href="../contact.html" class="btn btn-accent">Get a Free Quote</a>
+            &nbsp;or call
+            <a href="tel:+16829999240" style="color:var(--color-cream);text-decoration:underline;">(682) 999-9240</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home"><img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" /></a>
+          <p>A father-son web design and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div><h5>Company</h5><ul class="footer-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../case-studies/">Work</a></li><li><a href="/articles/">Articles</a></li><li><a href="../contact.html">Contact</a></li><li><a href="/terms/">Terms &amp; Conditions</a></li></ul></div>
+        <div><h5>Services</h5><ul class="footer-links"><li><a href="/web-design/">Web Design</a></li><li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li></ul></div>
+        <div><h5>Get in touch</h5><ul class="footer-links"><li><a href="tel:+16829999240">(682) 999-9240</a></li><li>Aledo, Texas</li></ul></div>
+      </div>
+      <div class="footer-bottom"><div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div><div>If it says Burns Built, we built it.</div></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

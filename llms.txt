@@ -7,6 +7,7 @@ Run by Colin Burns (sales, ops, project lead) and Carson Burns (development). Ba
 ## What we build
 
 - [Web Design](https://burnsbuilt.co/web-design/): Custom small business websites starting at $500. Mobile-first, hand-coded (Astro / Next.js / vanilla HTML), deployed to Cloudflare or Netlify. SEO-ready out of the box (schema, sitemap, structured data, Core Web Vitals optimized).
+- [AI Services](https://burnsbuilt.co/ai-services/): Production AI tools — lead qualifiers, AI-powered bid engines, dual-LLM marketing platforms, document parsing, internal analytics chatbots. Anthropic Claude, Google Gemini, OpenAI. Setup from $500.
 - [Business Automation](https://burnsbuilt.co/business-automation/): Lead follow-up automations, missed-call text-back, automated review collection, invoice reminders, custom CRMs replacing spreadsheets+Gmail+QuickBooks stacks, AI-powered internal tools. Setup from $250.
 - [Pricing](https://burnsbuilt.co/pricing/): Three tiers per service, transparent and contract-free.
 

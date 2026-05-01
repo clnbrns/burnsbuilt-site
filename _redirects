@@ -37,3 +37,6 @@
 /articles/website-timeline             /articles/website-timeline-2026/          301
 /articles/ai-for-small-business        /articles/ai-for-small-business-2026/     301
 /articles/automation-and-ai            /articles/automation-then-ai/             301
+
+# AI Services page (extensionless)
+/ai-services      /ai-services/      301
