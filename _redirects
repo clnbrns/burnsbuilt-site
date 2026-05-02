@@ -40,3 +40,8 @@
 
 # AI Services page (extensionless)
 /ai-services      /ai-services/      301
+
+# Compare pages (extensionless variants)
+/compare                         /compare/                          301
+/compare/wix-vs-custom-website   /compare/wix-vs-custom/            301
+/compare/agency-vs-small-studio  /compare/agency-vs-studio/         301

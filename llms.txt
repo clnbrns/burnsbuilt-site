@@ -54,6 +54,11 @@ Run by Colin Burns (sales, ops, project lead) and Carson Burns (development). Ba
 - [AI for small businesses in 2026: 7 things that actually work](https://burnsbuilt.co/articles/ai-for-small-business-2026/) — concrete use cases with real costs
 - [Automation first, then AI](https://burnsbuilt.co/articles/automation-then-ai/) — the 4-level automation maturity model
 
+## Comparisons
+
+- [Wix vs custom website](https://burnsbuilt.co/compare/wix-vs-custom/) — DIY platform vs custom-built. 3-year cost math, why Wix ranks poorly in local SEO, when DIY wins.
+- [Mid-tier agency vs small studio](https://burnsbuilt.co/compare/agency-vs-studio/) — $25K agency vs $5K studio. Where the 5x premium actually goes.
+
 ## About
 
 - [About BurnsBuilt](https://burnsbuilt.co/about.html) — Colin and Carson Burns, the team behind the work
