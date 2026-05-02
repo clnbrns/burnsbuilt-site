@@ -31,10 +31,12 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import twilio from "twilio";
+import { getStore } from "@netlify/blobs";
 
 // ---- Lazy clients (only init when needed; allows function to load if env is partial) ----
 const getAnthropic = () => new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const getTwilio = () => twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const getLeadsStore = () => getStore("leads");
 
 // ---- Claude prompt ----
 const SYSTEM_PROMPT = `You are a sales analyst at BurnsBuilt — a father-son web design and business automation shop in Aledo, TX, serving the DFW metroplex. Colin runs sales and ops. Carson does most of the building. They sell three things: custom websites, business automation (lead follow-up, missed-call text-back, custom CRMs, AI tools), and combinations of both.
@@ -254,8 +256,40 @@ export const handler = async (event) => {
   // ---- Step 3: Resend email (optional, richer payload) ----
   const emailResult = await sendResendEmail(buildResendEmail(lead, analysis));
 
+  // ---- Step 4: Persist to Netlify Blobs for the admin dashboard ----
+  // Key format: lead-<timestamp>-<random> — gives natural reverse-chrono sort
+  // and uniqueness even if two submissions arrive in the same millisecond.
+  let storedKey = null;
+  try {
+    const ts = Date.now();
+    const rand = Math.random().toString(36).slice(2, 8);
+    storedKey = `lead-${ts}-${rand}`;
+    const record = {
+      id: storedKey,
+      received_at: new Date(ts).toISOString(),
+      lead: {
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone || null,
+        service: lead.service,
+        message: lead.message,
+      },
+      analysis,
+      status: "new",
+      status_updated_at: null,
+      notes: "",
+      sms_sent: smsResult.ok,
+      email_sent: emailResult.ok === true,
+    };
+    await getLeadsStore().setJSON(storedKey, record);
+  } catch (err) {
+    console.error("Failed to persist lead to Blobs:", err);
+    // Non-fatal — the SMS + email still went out; we just lose the dashboard entry
+  }
+
   // ---- Log full analysis to Netlify Function logs (visible in dashboard) ----
   console.log("Lead processed:", {
+    id: storedKey,
     lead: { name: lead.name, email: lead.email, service: lead.service },
     analysis,
     sms: smsResult,
@@ -267,6 +301,7 @@ export const handler = async (event) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ok: true,
+      id: storedKey,
       score: analysis.score,
       tier: analysis.suggested_tier,
       sms: smsResult.ok ? "sent" : "failed",

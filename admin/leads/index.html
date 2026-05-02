@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leads — BurnsBuilt Admin</title>
+  <meta name="description" content="Private leads dashboard." />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <style>
+    :root {
+      --denim: #142640;
+      --steel: #3d5a80;
+      --sand: #c49a62;
+      --tan-deep: #b88850;
+      --cream: #f5ece0;
+      --paper: #fbf7f0;
+      --ink: #0e1a2e;
+      --muted: #5a6a82;
+      --green: #2d8659;
+      --amber: #d97706;
+      --red: #c0392b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    .admin-header {
+      background: var(--denim);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .admin-brand {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin-brand .lock { font-size: 0.875rem; opacity: 0.7; }
+    .admin-counts { display: flex; gap: 1rem; font-size: 0.8125rem; flex-wrap: wrap; }
+    .admin-counts .pill {
+      background: rgba(255,255,255,0.1);
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .admin-counts .pill strong { font-weight: 700; }
+
+    /* Login screen */
+    .login-screen {
+      display: grid;
+      place-items: center;
+      min-height: 80vh;
+      padding: 2rem;
+    }
+    .login-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(20,38,64,0.1);
+    }
+    .login-box h1 {
+      font-family: 'Archivo', sans-serif;
+      color: var(--denim);
+      margin: 0 0 0.5rem;
+      font-size: 1.5rem;
+    }
+    .login-box p { color: var(--muted); margin: 0 0 1.5rem; font-size: 0.9375rem; }
+    .login-box input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1.5px solid rgba(20,38,64,0.15);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .login-box input:focus { outline: none; border-color: var(--denim); }
+    .login-box button {
+      width: 100%;
+      background: var(--denim);
+      color: #fff;
+      border: 0;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .login-box button:hover { background: #1c3454; }
+    .login-error { color: var(--red); font-size: 0.875rem; margin-top: 0.5rem; }
+
+    /* Dashboard */
+    .dashboard { padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      background: #fff;
+      padding: 0.75rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(20,38,64,0.06);
+    }
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-btn:hover { background: var(--paper); color: var(--denim); }
+    .filter-btn.active {
+      background: var(--denim);
+      color: #fff;
+    }
+    .filter-btn .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 0.375rem;
+    }
+    .filter-btn:not(.active) .badge {
+      background: rgba(20,38,64,0.08);
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.5rem 0.875rem;
+      border: 1.5px solid rgba(20,38,64,0.15);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+    }
+
+    /* Lead card */
+    .lead-card {
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 3px rgba(20,38,64,0.06);
+      overflow: hidden;
+      transition: box-shadow 0.15s ease;
+    }
+    .lead-card:hover { box-shadow: 0 4px 12px rgba(20,38,64,0.1); }
+    .lead-card.is-spam { opacity: 0.5; }
+
+    .lead-summary {
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      cursor: pointer;
+    }
+    .lead-score {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .lead-score.score-high { background: var(--green); }
+    .lead-score.score-mid { background: var(--amber); }
+    .lead-score.score-low { background: var(--red); }
+    .lead-score.score-spam { background: var(--muted); }
+
+    .lead-meta { min-width: 0; }
+    .lead-name {
+      font-weight: 700;
+      color: var(--denim);
+      font-size: 1rem;
+      margin: 0 0 0.125rem;
+    }
+    .lead-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .lead-tags .tag {
+      padding: 0.125rem 0.5rem;
+      background: var(--paper);
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+    .lead-tags .tag.urgency-high { background: rgba(192,57,43,0.12); color: var(--red); font-weight: 700; }
+    .lead-tags .tag.urgency-medium { background: rgba(217,119,6,0.12); color: var(--amber); }
+    .lead-tags .tag.status { background: rgba(20,38,64,0.08); color: var(--denim); }
+    .lead-tags .tag.status-new { background: rgba(196,154,98,0.2); color: var(--tan-deep); font-weight: 700; }
+    .lead-tags .tag.status-replied { background: rgba(61,90,128,0.15); color: var(--steel); }
+    .lead-tags .tag.status-won { background: rgba(45,134,89,0.15); color: var(--green); font-weight: 700; }
+    .lead-tags .tag.status-lost { background: rgba(192,57,43,0.1); color: var(--red); }
+
+    .lead-time { font-size: 0.8125rem; color: var(--muted); white-space: nowrap; }
+    .lead-toggle { color: var(--muted); font-size: 0.875rem; transition: transform 0.15s ease; }
+    .lead-card.expanded .lead-toggle { transform: rotate(90deg); }
+
+    /* Expanded body */
+    .lead-body {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid rgba(20,38,64,0.06);
+      padding-top: 1rem;
+    }
+    .lead-card.expanded .lead-body { display: block; }
+    .lead-body h4 {
+      font-family: 'Archivo', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 1rem 0 0.5rem;
+    }
+    .lead-body h4:first-child { margin-top: 0; }
+    .lead-body p { margin: 0 0 0.5rem; font-size: 0.9375rem; }
+    .lead-body .quote {
+      background: var(--paper);
+      padding: 0.875rem 1rem;
+      border-left: 3px solid var(--sand);
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-size: 0.9375rem;
+      margin: 0.5rem 0;
+    }
+    .lead-body .signals { display: flex; gap: 0.375rem; flex-wrap: wrap; margin: 0.25rem 0; }
+    .lead-body .signals .signal {
+      background: var(--paper);
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      color: var(--denim);
+    }
+    .lead-body .draft-box {
+      background: #fff;
+      border: 1px solid rgba(20,38,64,0.12);
+      border-radius: 6px;
+      padding: 1rem;
+      font-size: 0.9375rem;
+    }
+    .lead-body .draft-subject {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .lead-body .draft-subject strong { color: var(--denim); }
+    .lead-body .draft-body { white-space: pre-wrap; line-height: 1.6; }
+    .copy-btn {
+      background: var(--denim);
+      color: #fff;
+      border: 0;
+      padding: 0.5rem 0.875rem;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .copy-btn:hover { background: #1c3454; }
+    .copy-btn.copied { background: var(--green); }
+
+    /* Action row */
+    .actions-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(20,38,64,0.06);
+    }
+    .action-btn {
+      padding: 0.5rem 0.875rem;
+      border: 1.5px solid rgba(20,38,64,0.15);
+      background: #fff;
+      color: var(--denim);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .action-btn:hover { border-color: var(--denim); }
+    .action-btn.is-current { background: var(--denim); color: #fff; }
+    .action-btn.danger { border-color: rgba(192,57,43,0.3); color: var(--red); }
+    .action-btn.danger:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+    .notes-input {
+      width: 100%;
+      padding: 0.625rem;
+      border: 1.5px solid rgba(20,38,64,0.15);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* Empty + loading */
+    .empty-state, .loading-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-state h2 { color: var(--denim); margin: 0 0 0.5rem; }
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(20,38,64,0.15);
+      border-top-color: var(--denim);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .lead-summary { grid-template-columns: auto 1fr; }
+      .lead-time { grid-column: 2; font-size: 0.75rem; }
+      .filter-bar { padding: 0.5rem; }
+      .filter-btn { padding: 0.375rem 0.625rem; font-size: 0.8125rem; }
+      .admin-counts { font-size: 0.75rem; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login screen (shown if no key) -->
+  <div id="login" class="login-screen" style="display:none;">
+    <div class="login-box">
+      <h1>🔒 Admin access</h1>
+      <p>This page is private. Enter your admin key to continue.</p>
+      <form id="login-form">
+        <input type="password" id="admin-key-input" placeholder="ADMIN_KEY" autocomplete="off" autofocus />
+        <button type="submit">Sign in</button>
+        <div id="login-error" class="login-error" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown after auth) -->
+  <div id="dashboard" style="display:none;">
+    <div class="admin-header">
+      <div class="admin-brand">
+        BurnsBuilt <span class="lock">🔒 Admin</span>
+      </div>
+      <div class="admin-counts" id="counts">
+        <span class="pill"><strong id="count-total">0</strong> total</span>
+        <span class="pill"><strong id="count-new">0</strong> new</span>
+        <span class="pill"><strong id="count-replied">0</strong> replied</span>
+        <span class="pill"><strong id="count-won">0</strong> won</span>
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-status="all">All <span class="badge" id="badge-all">0</span></button>
+        <button class="filter-btn" data-status="new">New <span class="badge" id="badge-new">0</span></button>
+        <button class="filter-btn" data-status="replied">Replied <span class="badge" id="badge-replied">0</span></button>
+        <button class="filter-btn" data-status="won">Won <span class="badge" id="badge-won">0</span></button>
+        <button class="filter-btn" data-status="lost">Lost <span class="badge" id="badge-lost">0</span></button>
+        <button class="filter-btn" data-status="spam">Spam <span class="badge" id="badge-spam">0</span></button>
+        <input type="search" class="search-input" id="search" placeholder="Search name, email, message…" />
+      </div>
+
+      <div id="leads-list">
+        <div class="loading-state"><div class="spinner"></div><p>Loading leads…</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // BurnsBuilt Leads Dashboard — vanilla JS, single file
+    // ============================================================
+
+    const API = "/.netlify/functions/leads-api";
+    const KEY_STORAGE = "burnsbuilt_admin_key";
+    let adminKey = null;
+    let allLeads = [];
+    let currentFilter = "all";
+    let searchQuery = "";
+
+    // ---- Auth flow ----
+    function init() {
+      // Try URL parameter first (e.g. /admin/leads/?key=...)
+      const params = new URLSearchParams(window.location.search);
+      const urlKey = params.get("key");
+      if (urlKey) {
+        adminKey = urlKey;
+        localStorage.setItem(KEY_STORAGE, urlKey);
+        // Strip key from URL for safety
+        window.history.replaceState({}, "", window.location.pathname);
+      } else {
+        adminKey = localStorage.getItem(KEY_STORAGE);
+      }
+
+      if (adminKey) {
+        showDashboard();
+      } else {
+        showLogin();
+      }
+    }
+
+    function showLogin() {
+      document.getElementById("login").style.display = "block";
+      document.getElementById("dashboard").style.display = "none";
+    }
+
+    function showDashboard() {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      loadLeads();
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const key = document.getElementById("admin-key-input").value.trim();
+      if (!key) return;
+      // Test the key
+      try {
+        const r = await fetch(API, { headers: { "X-Admin-Key": key } });
+        if (r.status === 401) {
+          showError("Invalid key. Try again.");
+          return;
+        }
+        if (!r.ok) {
+          showError(`Server error ${r.status}. Try again in a moment.`);
+          return;
+        }
+        adminKey = key;
+        localStorage.setItem(KEY_STORAGE, key);
+        showDashboard();
+      } catch (err) {
+        showError("Network error: " + err.message);
+      }
+    });
+
+    function showError(msg) {
+      const el = document.getElementById("login-error");
+      el.textContent = msg;
+      el.style.display = "block";
+    }
+
+    // ---- Load + render leads ----
+    async function loadLeads() {
+      const list = document.getElementById("leads-list");
+      list.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading leads…</p></div>';
+
+      try {
+        const r = await fetch(API, { headers: { "X-Admin-Key": adminKey } });
+        if (r.status === 401) {
+          localStorage.removeItem(KEY_STORAGE);
+          adminKey = null;
+          showLogin();
+          return;
+        }
+        const data = await r.json();
+        if (!data.ok) throw new Error(data.error || "Failed to load");
+        allLeads = data.leads || [];
+        updateCounts(data.counts || {});
+        render();
+      } catch (err) {
+        list.innerHTML = `<div class="empty-state"><h2>Error</h2><p>${escapeHTML(err.message)}</p></div>`;
+      }
+    }
+
+    function updateCounts(counts) {
+      document.getElementById("count-total").textContent = counts.total || 0;
+      document.getElementById("count-new").textContent = counts.new || 0;
+      document.getElementById("count-replied").textContent = counts.replied || 0;
+      document.getElementById("count-won").textContent = counts.won || 0;
+      document.getElementById("badge-all").textContent = counts.total || 0;
+      document.getElementById("badge-new").textContent = counts.new || 0;
+      document.getElementById("badge-replied").textContent = counts.replied || 0;
+      document.getElementById("badge-won").textContent = counts.won || 0;
+      document.getElementById("badge-lost").textContent = counts.lost || 0;
+      document.getElementById("badge-spam").textContent = counts.spam || 0;
+    }
+
+    // ---- Filter + render ----
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.status;
+        render();
+      });
+    });
+
+    document.getElementById("search").addEventListener("input", (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      render();
+    });
+
+    function render() {
+      const list = document.getElementById("leads-list");
+      let filtered = allLeads;
+      if (currentFilter !== "all") {
+        filtered = filtered.filter((l) => l.status === currentFilter);
+      }
+      if (searchQuery) {
+        filtered = filtered.filter((l) => {
+          const haystack = `${l.lead?.name || ""} ${l.lead?.email || ""} ${l.lead?.message || ""} ${l.lead?.service || ""}`.toLowerCase();
+          return haystack.includes(searchQuery);
+        });
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="empty-state"><h2>No leads ${currentFilter !== "all" ? `with status "${currentFilter}"` : "yet"}</h2><p>${currentFilter === "all" && allLeads.length === 0 ? "When the contact form gets a submission, it'll appear here within ~10 seconds." : ""}</p></div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(renderLeadCard).join("");
+      attachLeadHandlers();
+    }
+
+    function renderLeadCard(lead) {
+      const score = lead.analysis?.score || 0;
+      const scoreClass = lead.status === "spam" ? "score-spam" : score >= 80 ? "score-high" : score >= 50 ? "score-mid" : "score-low";
+      const urgencyClass = `urgency-${lead.analysis?.urgency || "low"}`;
+      const statusClass = `status-${lead.status}`;
+      const timeAgo = formatRelativeTime(lead.received_at);
+
+      return `
+        <div class="lead-card${lead.status === "spam" ? " is-spam" : ""}" data-id="${escapeAttr(lead.id)}">
+          <div class="lead-summary">
+            <div class="lead-score ${scoreClass}">${score}</div>
+            <div class="lead-meta">
+              <p class="lead-name">${escapeHTML(lead.lead?.name || "(no name)")} · ${escapeHTML(lead.lead?.email || "(no email)")}</p>
+              <div class="lead-tags">
+                <span class="tag">${escapeHTML(lead.lead?.service || "—")}</span>
+                <span class="tag ${urgencyClass}">${(lead.analysis?.urgency || "low").toUpperCase()}</span>
+                <span class="tag status ${statusClass}">${lead.status.toUpperCase()}</span>
+                <span class="tag">${escapeHTML(lead.analysis?.suggested_tier || "—")}</span>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div class="lead-time">${timeAgo}</div>
+              <div class="lead-toggle">▶</div>
+            </div>
+          </div>
+
+          <div class="lead-body">
+            <h4>Their message</h4>
+            <div class="quote">${escapeHTML(lead.lead?.message || "")}</div>
+
+            <h4>AI analysis</h4>
+            <p><strong>Score reasoning:</strong> ${escapeHTML(lead.analysis?.score_reasoning || "—")}</p>
+            <h4>Key signals</h4>
+            <div class="signals">
+              ${(lead.analysis?.key_signals || []).map((s) => `<span class="signal">${escapeHTML(s)}</span>`).join("")}
+            </div>
+
+            <h4>Drafted reply</h4>
+            <div class="draft-box">
+              <div class="draft-subject"><strong>Subject:</strong> ${escapeHTML(lead.analysis?.drafted_email_subject || "—")}</div>
+              <div class="draft-body" id="draft-${escapeAttr(lead.id)}">${escapeHTML(lead.analysis?.drafted_email || "")}</div>
+              <button class="copy-btn" data-copy-target="draft-${escapeAttr(lead.id)}">Copy reply</button>
+              ${lead.lead?.email ? `<a href="mailto:${escapeAttr(lead.lead.email)}?subject=${encodeURIComponent(lead.analysis?.drafted_email_subject || "")}&body=${encodeURIComponent(lead.analysis?.drafted_email || "")}" style="display:inline-block;margin-top:0.5rem;margin-left:0.5rem;color:var(--denim);font-size:0.875rem;">Open in mail →</a>` : ""}
+            </div>
+
+            <h4>Notes</h4>
+            <textarea class="notes-input" data-notes-id="${escapeAttr(lead.id)}" placeholder="Internal notes about this lead…">${escapeHTML(lead.notes || "")}</textarea>
+
+            <div class="actions-row">
+              ${["new", "replied", "won", "lost", "spam"].map((s) => `
+                <button class="action-btn${lead.status === s ? " is-current" : ""}${s === "spam" ? " danger" : ""}"
+                        data-action-id="${escapeAttr(lead.id)}"
+                        data-action-status="${s}">
+                  Mark ${s}
+                </button>
+              `).join("")}
+            </div>
+
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;font-family:'JetBrains Mono',monospace;">
+              ID: ${escapeHTML(lead.id)} · received ${escapeHTML(lead.received_at)} ${lead.status_updated_at ? `· status updated ${escapeHTML(lead.status_updated_at)}` : ""}
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function attachLeadHandlers() {
+      // Toggle expand/collapse
+      document.querySelectorAll(".lead-summary").forEach((s) => {
+        s.addEventListener("click", () => {
+          s.parentElement.classList.toggle("expanded");
+        });
+      });
+
+      // Copy reply
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const target = document.getElementById(btn.dataset.copyTarget);
+          navigator.clipboard.writeText(target.textContent).then(() => {
+            btn.textContent = "✓ Copied";
+            btn.classList.add("copied");
+            setTimeout(() => {
+              btn.textContent = "Copy reply";
+              btn.classList.remove("copied");
+            }, 1500);
+          });
+        });
+      });
+
+      // Status change
+      document.querySelectorAll(".action-btn").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.actionId;
+          const status = btn.dataset.actionStatus;
+          await updateLead(id, { status });
+        });
+      });
+
+      // Notes (debounced save on blur)
+      document.querySelectorAll(".notes-input").forEach((input) => {
+        input.addEventListener("blur", async () => {
+          const id = input.dataset.notesId;
+          const notes = input.value;
+          await updateLead(id, { notes });
+        });
+        input.addEventListener("click", (e) => e.stopPropagation());
+      });
+    }
+
+    async function updateLead(id, patch) {
+      try {
+        const r = await fetch(`${API}?id=${encodeURIComponent(id)}`, {
+          method: "PATCH",
+          headers: { "X-Admin-Key": adminKey, "Content-Type": "application/json" },
+          body: JSON.stringify(patch),
+        });
+        if (!r.ok) throw new Error(`Status ${r.status}`);
+        // Refetch the list to update counts + state
+        await loadLeads();
+      } catch (err) {
+        alert("Update failed: " + err.message);
+      }
+    }
+
+    // ---- Helpers ----
+    function escapeHTML(s) {
+      if (s == null) return "";
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+    function escapeAttr(s) { return escapeHTML(s); }
+
+    function formatRelativeTime(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      const diff = Date.now() - d.getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 1) return "just now";
+      if (mins < 60) return `${mins}m ago`;
+      const hours = Math.floor(mins / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days}d ago`;
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+
+    // Auto-refresh every 60s when dashboard is visible
+    let refreshTimer;
+    function scheduleRefresh() {
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(() => {
+        if (document.visibilityState === "visible" && adminKey && document.getElementById("dashboard").style.display !== "none") {
+          loadLeads();
+        }
+      }, 60000);
+    }
+    scheduleRefresh();
+
+    // Logout / sign-out
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && e.shiftKey) {
+        if (confirm("Sign out of admin?")) {
+          localStorage.removeItem(KEY_STORAGE);
+          adminKey = null;
+          showLogin();
+        }
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

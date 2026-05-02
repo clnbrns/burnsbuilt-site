@@ -6,10 +6,10 @@
   functions = "netlify/functions"
 
 [functions]
-  # Bundler for the AI Lead Qualifier function (uses @anthropic-ai/sdk + twilio)
+  # Bundler for AI functions (uses @anthropic-ai/sdk + twilio + @netlify/blobs)
   node_bundler = "esbuild"
   # External dependencies are resolved from package.json node_modules
-  external_node_modules = ["@anthropic-ai/sdk", "twilio"]
+  external_node_modules = ["@anthropic-ai/sdk", "twilio", "@netlify/blobs"]
 
 [[headers]]
   for = "/*"
