@@ -6,10 +6,10 @@
   functions = "netlify/functions"
 
 [functions]
-  # Bundler for AI functions (uses @anthropic-ai/sdk + twilio + @netlify/blobs)
+  # Bundler for AI functions (uses twilio + @netlify/blobs; Gemini called via fetch)
   node_bundler = "esbuild"
   # External dependencies are resolved from package.json node_modules
-  external_node_modules = ["@anthropic-ai/sdk", "twilio", "@netlify/blobs"]
+  external_node_modules = ["twilio", "@netlify/blobs"]
 
 [[headers]]
   for = "/*"

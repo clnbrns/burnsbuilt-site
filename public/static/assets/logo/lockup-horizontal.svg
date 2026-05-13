@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 160" width="760" height="160">
+  <title>BurnsBuilt — Horizontal Lockup</title>
+  
+  <rect x="0" y="0" width="130" height="160" rx="6" fill="#142640"></rect>
+  <text x="65" y="125" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="140" fill="#F5ECE0" letter-spacing="-4">B</text>
+  
+  <rect x="150" y="0" width="130" height="160" rx="6" fill="#C49A62"></rect>
+  <text x="215" y="125" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="140" fill="#142640" letter-spacing="-4">B</text>
+  
+  <text x="320" y="115" font-family="Archivo, sans-serif" font-weight="800" font-size="110" fill="#142640" letter-spacing="-3">Burns<tspan fill="#B88850">Built</tspan></text>
+</svg>

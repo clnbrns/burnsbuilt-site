@@ -10,7 +10,7 @@ Two AI-powered functions support the BurnsBuilt operations stack:
 ## `lead-qualifier.js` — AI Lead Qualifier
 
 Runs every time the contact form on burnsbuilt.co receives a submission.
-Scores the lead with Claude Sonnet 4.5, sends Colin an SMS via Twilio,
+Scores the lead with Gemini 2.5 Flash, sends Colin an SMS via Twilio,
 and (optionally) emails Colin a full analysis + drafted reply via Resend.
 
 ---
@@ -25,8 +25,9 @@ From the repo root:
 npm install
 ```
 
-This installs `@anthropic-ai/sdk` and `twilio` into `node_modules/` (gitignored).
+This installs `twilio` and `@netlify/blobs` into `node_modules/` (gitignored).
 Netlify will install them automatically on each deploy via `package.json`.
+Gemini is called over plain `fetch` — no SDK dependency.
 
 ### 2. Set environment variables in Netlify
 
@@ -35,7 +36,7 @@ and add:
 
 | Variable                | Required | Value                                                           |
 | ----------------------- | -------- | --------------------------------------------------------------- |
-| `ANTHROPIC_API_KEY`     | Required | From [console.anthropic.com](https://console.anthropic.com)     |
+| `GEMINI_API_KEY`        | Required | From [aistudio.google.com](https://aistudio.google.com/app/apikey) |
 | `TWILIO_ACCOUNT_SID`    | Required | Twilio dashboard → Account Info                                 |
 | `TWILIO_AUTH_TOKEN`     | Required | Twilio dashboard → Account Info                                 |
 | `TWILIO_FROM_NUMBER`    | Required | Twilio-issued SMS number, e.g. `+12055551234`                   |
@@ -96,12 +97,12 @@ Colin can copy/paste/tweak the drafted reply and send within minutes of the lead
 ## Cost estimate
 
 Per lead processed:
-- Claude Sonnet 4.5 API call: ~$0.005 (1500 tokens out, ~500 tokens in)
+- Gemini 2.5 Flash API call: ~$0.0005 (1500 tokens out, ~500 tokens in)
 - Twilio SMS (1 segment, US): $0.008
 - Resend email: free under 3000/mo
 - Netlify Function execution: free under 125k invocations/mo
 
-**Total: ~$0.013 per lead.** A 100-lead month costs about $1.30.
+**Total: ~$0.0085 per lead.** A 100-lead month costs about $0.85. Gemini also has a generous free tier — early on this is effectively SMS cost only.
 
 ---
 
@@ -110,7 +111,7 @@ Per lead processed:
 | Symptom                          | Likely cause                                                  | Fix                                                                                  |
 | -------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | No SMS arrives                   | Missing or wrong Twilio env vars                              | Check Site config → Env vars; redeploy after editing                                |
-| SMS arrives but says "score 50, AI scoring unavailable" | Anthropic API key invalid or rate-limited                     | Check Netlify Function logs for the actual Claude error                              |
+| SMS arrives but says "score 50, AI scoring unavailable" | Gemini API key invalid or rate-limited                        | Check Netlify Function logs for the actual Gemini error                              |
 | Email channel never fires        | Resend env vars not set, or sender not verified               | Optional channel — function still works without it. To enable, set all 3 RESEND_* vars |
 | Webhook fires but nothing happens| Webhook URL wrong, or Netlify Forms isn't pointing at this form | Forms → Notifications → confirm URL = `https://burnsbuilt.co/.netlify/functions/lead-qualifier` |
 | Spam getting scored              | Honeypot bypassed                                             | Check function logs — `bot_field` value should be empty for real submissions         |
@@ -126,7 +127,7 @@ Turns a discovery call transcript + intake form into four onboarding docs (`inta
 Requires the `ADMIN_KEY` env var (any random string you choose) — used as a shared secret to gate this endpoint, since it isn't form-driven.
 
 ```
-ANTHROPIC_API_KEY    — already set (shared with lead-qualifier)
+GEMINI_API_KEY       — already set (shared with lead-qualifier)
 ADMIN_KEY            — pick any random string, e.g. `openssl rand -hex 32`
 RESEND_API_KEY       — optional, same as lead-qualifier
 RESEND_FROM_EMAIL    — optional
@@ -171,7 +172,7 @@ If Resend is configured, you also get an email with the same content rendered as
 ### Cost
 
 Per discovery summarization:
-- Claude Sonnet 4.5: ~$0.04 (≈8K output tokens, 2–4K input tokens with full transcript)
+- Gemini 2.5 Pro: ~$0.04 (≈8K output tokens, 2–4K input tokens with full transcript)
 - Resend email: free under 3000/mo
 
 **~$0.04 per discovery call summarized.** A 50-client year costs $2 in API fees, saves ~150 hours of post-call writing.

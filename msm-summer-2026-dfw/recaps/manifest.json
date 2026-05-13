@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "tournament": "MSM Summer 2026 — DFW West",
+  "_notes": "Recaps post here after games wrap. Generate via tools/msm-recap.sh — appends a new entry with title, recap, score, division, round, posted_at.",
+  "recaps": []
+}

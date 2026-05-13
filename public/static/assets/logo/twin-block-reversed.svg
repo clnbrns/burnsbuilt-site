@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 160" width="280" height="160">
+  <title>BurnsBuilt — Twin Block (Reversed)</title>
+  
+  <rect x="0" y="0" width="130" height="160" rx="6" fill="#F5ECE0"></rect>
+  <text x="65" y="125" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="140" fill="#142640" letter-spacing="-4">B</text>
+  
+  <rect x="150" y="0" width="130" height="160" rx="6" fill="#D9B382"></rect>
+  <text x="215" y="125" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="140" fill="#142640" letter-spacing="-4">B</text>
+</svg>

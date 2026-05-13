@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "tournament": "MSM Summer 2026 — DFW West",
+  "_notes": "Each team links out to its public GameChanger team page. Add the gameChanger URL from the team's GC profile (web.gc.com/teams/<id>).",
+  "divisions": [
+    {
+      "name": "6th Grade",
+      "label": "6th Grade",
+      "teams": []
+    },
+    {
+      "name": "7th Grade",
+      "label": "7th Grade",
+      "teams": []
+    },
+    {
+      "name": "8th Grade",
+      "label": "8th Grade",
+      "teams": []
+    }
+  ]
+}

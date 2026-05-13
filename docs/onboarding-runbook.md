@@ -70,7 +70,7 @@
    - Goal: identify the ONE business outcome they care about most. Everything else is supporting cast.
    - End with: "Here's what I'll send by tomorrow EOD: an SOW with deliverables, timeline, and the Stripe link for the balance. Sound good?"
 3. **Within 24 hours:**
-   - Run the recording through Claude (or an AI summarizer Netlify Function — see Phase 2 builds)
+   - Run the recording through Gemini (or an AI summarizer Netlify Function — see Phase 2 builds)
    - Fill in `01-discovery.md`
    - Draft `02-scope.md` — pull deliverables from intake + call
    - Draft `03-seo-audit.md` — baseline metrics for measuring impact
@@ -149,7 +149,7 @@ Tier?
     ├── Domain: client owns, their Cloudflare
     ├── DNS: their Cloudflare, BurnsBuilt added as user
     ├── Hosting: client's own Netlify or Vercel team, BurnsBuilt as member
-    └── Apps (Stripe / Twilio / Anthropic): always client-owned
+    └── Apps (Stripe / Twilio / Gemini): always client-owned
 ```
 
 ### Why this split

@@ -1,0 +1,92 @@
+/* BurnsBuilt — Brand Tokens
+   v1.0 · May 2026 · Aledo, TX
+   Import this on every page. */
+
+:root {
+  /* ───── Color · Primary ───── */
+  --bb-navy:        #142640;
+  --bb-tan:         #D9B382;
+  --bb-tan-2:       #C49A62;
+  --bb-tan-soft:    #EAD9BE;
+  --bb-cream:       #F5ECE0;
+  --bb-paper:       #FBF7F0;
+
+  /* ───── Color · Support ───── */
+  --bb-navy-deep:   #0D1A2D;
+  --bb-navy-2:      #1E3A5F;
+  --bb-steel:       #3D5A80;
+  --bb-tan-3:       #B88850;
+  --bb-ink:         #0E1A2E;
+  --bb-bone:        #F0EEE9;
+
+  /* ───── Color · Functional ───── */
+  --bb-rule:        rgba(20, 38, 64, 0.12);
+  --bb-success:     #2E8C5D;
+  --bb-warn:        #B8462E;
+
+  /* ───── Type ───── */
+  --bb-font-display: 'Archivo', system-ui, sans-serif;
+  --bb-font-body:    'Inter', system-ui, sans-serif;
+  --bb-font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* ───── Type Scale ───── */
+  --bb-text-display: 84px;
+  --bb-text-h1:      56px;
+  --bb-text-h2:      36px;
+  --bb-text-h3:      24px;
+  --bb-text-body-l:  18px;
+  --bb-text-body:    15px;
+  --bb-text-caption: 12px;
+  --bb-text-stamp:   10px;
+
+  /* ───── Radius ───── */
+  --bb-radius-sm: 4px;   /* badges, label chips */
+  --bb-radius-md: 6px;   /* buttons, inputs */
+  --bb-radius-lg: 10px;  /* ui cards */
+  --bb-radius-xl: 12px;  /* surface panels */
+
+  /* ───── Surface gradients ───── */
+  --bb-hero-gradient: radial-gradient(120% 90% at 20% 20%, #1E3555 0%, #142640 40%, #0D1A2D 100%);
+
+  /* ───── Spacing rhythm ───── */
+  --bb-gap-1: 4px;
+  --bb-gap-2: 8px;
+  --bb-gap-3: 12px;
+  --bb-gap-4: 16px;
+  --bb-gap-5: 20px;
+  --bb-gap-6: 24px;
+  --bb-gap-8: 32px;
+  --bb-gap-10: 40px;
+  --bb-gap-12: 56px;
+  --bb-gap-16: 80px;
+}
+
+/* ───── Defaults ───── */
+body {
+  background: var(--bb-paper);
+  color: var(--bb-ink);
+  font-family: var(--bb-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ───── Display heading helper ───── */
+.bb-display {
+  font-family: var(--bb-font-display);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: var(--bb-navy);
+}
+.bb-display em {
+  font-style: normal;
+  color: var(--bb-tan-3);
+}
+
+/* ───── Stamp / caption helper ───── */
+.bb-stamp {
+  font-family: var(--bb-font-mono);
+  font-size: var(--bb-text-stamp);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bb-steel);
+}

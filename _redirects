@@ -45,3 +45,22 @@
 /compare                         /compare/                          301
 /compare/wix-vs-custom-website   /compare/wix-vs-custom/            301
 /compare/agency-vs-small-studio  /compare/agency-vs-studio/         301
+
+# MSM Summer 2026 — DFW West tournament page
+# --- Subdomain msm.burnsbuilt.co serves the MSM page ---
+# Pass function calls through unchanged (don't rewrite to /msm-summer-2026-dfw/.netlify/...)
+https://msm.burnsbuilt.co/.netlify/*   /.netlify/:splat                       200!
+# Pass site-root assets through (apple-touch-icon, manifest, favicon)
+https://msm.burnsbuilt.co/apple-touch-icon.png   /apple-touch-icon.png        200!
+https://msm.burnsbuilt.co/site.webmanifest       /site.webmanifest            200!
+https://msm.burnsbuilt.co/favicon.svg            /favicon.svg                 200!
+# Everything else on the subdomain → MSM page
+https://msm.burnsbuilt.co/*            /msm-summer-2026-dfw/:splat            200!
+
+# Legacy aliases on burnsbuilt.co → redirect to the subdomain
+/msm                  https://msm.burnsbuilt.co/   301!
+/msm-dfw              https://msm.burnsbuilt.co/   301!
+/msm2026              https://msm.burnsbuilt.co/   301!
+/msm-summer-2026      https://msm.burnsbuilt.co/   301!
+/msm-summer-2026-dfw  https://msm.burnsbuilt.co/   301!
+/msm-summer-2026-dfw/* https://msm.burnsbuilt.co/:splat 301!
