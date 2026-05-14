@@ -64,3 +64,6 @@ https://msm.burnsbuilt.co/*            /msm-summer-2026-dfw/:splat            20
 /msm-summer-2026      https://msm.burnsbuilt.co/   301!
 /msm-summer-2026-dfw  https://msm.burnsbuilt.co/   301!
 /msm-summer-2026-dfw/* https://msm.burnsbuilt.co/:splat 301!
+
+# Personal board (noindex via meta + robots.txt)
+/board   /board/   301

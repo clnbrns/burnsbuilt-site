@@ -441,8 +441,12 @@ details.faq-item p { margin: 12px 0 0; color: var(--msm-mute); line-height: 1.65
 .sponsors { background: #fff; padding: 28px 0; border-top: 1px solid var(--msm-line); border-bottom: 1px solid var(--msm-line); }
 .sponsors .label { font-family: var(--msm-font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--msm-mute); text-align: center; margin: 0 0 14px; }
 .sponsor-row { display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; align-items: center; }
-.sponsor-row a { display: inline-flex; align-items: center; gap: 8px; color: var(--msm-secondary); font-family: var(--msm-font-display); font-weight: 800; font-size: 18px; text-decoration: none; padding: 10px 16px; border-radius: var(--msm-radius); transition: background .15s; }
-.sponsor-row a:hover { background: var(--msm-paper-2); }
+.sponsor-row a { display: inline-flex; align-items: center; gap: 8px; color: var(--msm-secondary); font-family: var(--msm-font-display); font-weight: 800; font-size: 18px; text-decoration: none; padding: 8px 14px; border-radius: var(--msm-radius); transition: background .15s, transform .15s; }
+.sponsor-row a:hover { background: var(--msm-paper-2); transform: translateY(-1px); }
+.sponsor-row a img { height: 110px; width: auto; max-width: 240px; object-fit: contain; display: block; }
+@media (max-width: 540px) {
+  .sponsor-row a img { height: 120px; max-width: 220px; }
+}
 
 /* ───── Sticky help button (mobile-first) ───── */
 .help-fab {
@@ -997,11 +1001,12 @@ input, select, textarea, button { font-size: 16px; }
     <p class="label">Powered by</p>
     <div class="sponsor-row">
       <!-- Logo files go in /assets/brand/sponsors/ — replace text spans with <img> when ready -->
-      <a href="https://www.bearcatturf.com" target="_blank" rel="noopener">
-        <span style="font-size:22px;">🌱</span> Bearcat Turf
-      </a>
-      <a href="https://burnsbuilt.co" target="_blank" rel="noopener">
-        <span style="font-size:22px;">🔨</span> BurnsBuilt
+      <a href="https://www.bearcatturf.com" target="_blank" rel="noopener" aria-label="Bearcat Turf">
+        <img src="./assets/brand/sponsors/bearcat-turf.png"
+             alt="Bearcat Turf"
+             width="120" height="120"
+             loading="lazy"
+             onerror="this.outerHTML='<span style=&quot;font-size:22px;&quot;>🌱</span> Bearcat Turf';" />
       </a>
     </div>
   </div>

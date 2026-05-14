@@ -6,6 +6,7 @@ Allow: /
 Disallow: /thanks.html
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # ---- AI crawlers (explicit allow + disallow paths) ----
 # OpenAI
@@ -13,78 +14,92 @@ User-agent: GPTBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Anthropic
 User-agent: ClaudeBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 User-agent: Claude-Web
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Google AI training (separate from Googlebot — controls Gemini training only)
 User-agent: Google-Extended
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Common Crawl (used by many LLMs as training data)
 User-agent: CCBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # Meta AI
 User-agent: Meta-ExternalAgent
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 User-agent: FacebookBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # ByteDance / TikTok
 User-agent: Bytespider
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 # DuckDuckGo AI
 User-agent: DuckAssistBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
+Disallow: /board/
 
 Sitemap: https://burnsbuilt.co/sitemap.xml
