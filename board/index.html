@@ -479,6 +479,9 @@ const STORAGE_KEY = "bb-board-v1";
 const PASS_KEY    = STORAGE_KEY + "-pass";       // stored SHA-256 hash
 const REMEMBER_KEY = STORAGE_KEY + "-remembered"; // hash, if "remember me"
 const SESSION_KEY = STORAGE_KEY + "-authed";      // session-only flag
+// Default passphrase hash baked in — every device unlocks with the same passphrase.
+// Replace this hash to change the passphrase: node -e "console.log(require('crypto').createHash('sha256').update('NEW_PASS').digest('hex'))"
+const DEFAULT_PASS_HASH = "c15dce623a893c9ea9a426f65240fe0b2ba4724c92a22846006f4856d03f736d";
 const STAGES = [
   { id: "inbox", label: "📥 Inbox" },
   { id: "week",  label: "📅 This Week" },
@@ -873,9 +876,12 @@ async function hashPass(s) {
   const buf = await crypto.subtle.digest("SHA-256", enc);
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
 }
+function getActiveHash() {
+  // Single source of truth — same passphrase across all devices.
+  return DEFAULT_PASS_HASH;
+}
 function isAuthed() {
-  const stored = localStorage.getItem(PASS_KEY);
-  if (!stored) return false;
+  const stored = getActiveHash();
   if (localStorage.getItem(REMEMBER_KEY) === stored) return true;
   if (sessionStorage.getItem(SESSION_KEY) === stored) return true;
   return false;
@@ -888,8 +894,7 @@ function showGateError(msg) {
 function runGate() {
   return new Promise((resolve) => {
     const gate = $("#gate");
-    const storedHash = localStorage.getItem(PASS_KEY);
-    const setupMode = !storedHash;
+    const activeHash = getActiveHash();
 
     if (isAuthed()) {
       gate.classList.add("hide");
@@ -897,35 +902,26 @@ function runGate() {
       return;
     }
 
-    $("#gate-mode").textContent = setupMode ? "Set a passphrase" : "Enter passphrase";
-    $("#gate-warn").hidden = !setupMode;
+    $("#gate-mode").textContent = "Enter passphrase";
+    $("#gate-warn").hidden = true;
     setTimeout(() => $("#gate-pass").focus(), 80);
 
     $("#gate-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const pass = $("#gate-pass").value;
-      if (!pass || pass.length < 4) return showGateError("Passphrase must be at least 4 characters.");
+      if (!pass) return;
       const hash = await hashPass(pass);
       const remember = $("#gate-remember").checked;
 
-      if (setupMode) {
-        localStorage.setItem(PASS_KEY, hash);
+      if (hash === activeHash) {
         sessionStorage.setItem(SESSION_KEY, hash);
         if (remember) localStorage.setItem(REMEMBER_KEY, hash);
         $("#gate-pass").value = "";
         gate.classList.add("hide");
         resolve();
       } else {
-        if (hash === storedHash) {
-          sessionStorage.setItem(SESSION_KEY, hash);
-          if (remember) localStorage.setItem(REMEMBER_KEY, hash);
-          $("#gate-pass").value = "";
-          gate.classList.add("hide");
-          resolve();
-        } else {
-          showGateError("Wrong passphrase.");
-          $("#gate-pass").value = "";
-        }
+        showGateError("Wrong passphrase.");
+        $("#gate-pass").value = "";
       }
     });
 
