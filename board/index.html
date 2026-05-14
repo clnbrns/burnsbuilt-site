@@ -300,6 +300,54 @@ header h1 .accent { color: var(--accent); }
   .header-actions .icon-btn { width: 32px; height: 32px; font-size: 14px; }
 }
 
+/* ───── GATE (passphrase lock) ───── */
+#gate {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+#gate.hide { display: none; }
+.gate-card {
+  width: 100%; max-width: 380px;
+  background: var(--surface); border: 1px solid var(--line-2);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+.gate-card h2 {
+  margin: 0 0 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.01em;
+}
+.gate-card h2 .accent { color: var(--accent); }
+.gate-card .mode {
+  font-size: 13px; color: var(--text-dim); margin: 0 0 18px;
+}
+.gate-card form { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.gate-card input[type="password"] {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+}
+.gate-card .remember {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-dim); cursor: pointer; user-select: none;
+}
+.gate-card .remember input { width: 16px; height: 16px; accent-color: var(--accent); }
+.gate-card .btn { width: 100%; padding: 12px 16px; }
+.gate-err { color: var(--danger); font-size: 13px; margin: 4px 0 0; min-height: 18px; }
+.gate-warn {
+  background: rgba(196,154,98,0.10); border: 1px solid rgba(196,154,98,0.25);
+  color: var(--accent);
+  font-size: 12px; line-height: 1.5; padding: 10px 12px; border-radius: var(--radius);
+  margin-bottom: 14px;
+}
+.gate-reset {
+  display: inline-block; margin-top: 14px;
+  font-size: 11.5px; color: var(--text-mute); text-decoration: none;
+  font-family: var(--mono); letter-spacing: 0.04em;
+}
+.gate-reset:hover { color: var(--danger); }
+
 /* Stage select for mobile move menu */
 .stage-pick {
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
@@ -317,6 +365,24 @@ header h1 .accent { color: var(--accent); }
 </head>
 <body>
 
+<!-- PASSPHRASE GATE — covers everything until unlocked -->
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <h2 id="gate-title">🔒 Board<span class="accent">.</span></h2>
+    <p class="mode" id="gate-mode">Enter passphrase</p>
+    <div class="gate-warn" id="gate-warn" hidden>
+      <strong>First time on this device.</strong> If this is your first visit anywhere, set your passphrase now — anyone who reaches this URL before you can set it instead. If you've already set one and just need to import data, type that same passphrase.
+    </div>
+    <form id="gate-form" autocomplete="off">
+      <input type="password" id="gate-pass" placeholder="Passphrase" required autocomplete="current-password" />
+      <label class="remember"><input type="checkbox" id="gate-remember" /> Remember on this device</label>
+      <button class="btn" type="submit" id="gate-submit">Unlock</button>
+      <p class="gate-err" id="gate-err"></p>
+    </form>
+    <a href="#" class="gate-reset" id="gate-reset">Forgot passphrase — wipe and start over</a>
+  </div>
+</div>
+
 <header class="top">
   <h1><span class="full">Colin's </span>Board<span class="accent">.</span></h1>
   <div class="header-actions">
@@ -324,6 +390,7 @@ header h1 .accent { color: var(--accent); }
     <button class="icon-btn" id="export-btn" title="Export JSON">⬇</button>
     <button class="icon-btn" id="import-btn" title="Import JSON">⬆</button>
     <button class="icon-btn" id="settings-btn" title="Categories">⚙</button>
+    <button class="icon-btn" id="lock-btn" title="Lock board">🔒</button>
   </div>
 </header>
 
@@ -409,6 +476,9 @@ header h1 .accent { color: var(--accent); }
  * STATE
  * ============================================================ */
 const STORAGE_KEY = "bb-board-v1";
+const PASS_KEY    = STORAGE_KEY + "-pass";       // stored SHA-256 hash
+const REMEMBER_KEY = STORAGE_KEY + "-remembered"; // hash, if "remember me"
+const SESSION_KEY = STORAGE_KEY + "-authed";      // session-only flag
 const STAGES = [
   { id: "inbox", label: "📥 Inbox" },
   { id: "week",  label: "📅 This Week" },
@@ -746,6 +816,11 @@ function saveCatEdits() {
 /* ============================================================
  * EXPORT / IMPORT
  * ============================================================ */
+$("#lock-btn").addEventListener("click", () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(REMEMBER_KEY);
+  location.reload();
+});
 $("#export-btn").addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -791,10 +866,92 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ============================================================
- * INITIAL RENDER
+ * PASSPHRASE GATE
  * ============================================================ */
-render();
+async function hashPass(s) {
+  const enc = new TextEncoder().encode(s);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function isAuthed() {
+  const stored = localStorage.getItem(PASS_KEY);
+  if (!stored) return false;
+  if (localStorage.getItem(REMEMBER_KEY) === stored) return true;
+  if (sessionStorage.getItem(SESSION_KEY) === stored) return true;
+  return false;
+}
+function showGateError(msg) {
+  const el = $("#gate-err");
+  el.textContent = msg;
+  setTimeout(() => { el.textContent = ""; }, 4000);
+}
+function runGate() {
+  return new Promise((resolve) => {
+    const gate = $("#gate");
+    const storedHash = localStorage.getItem(PASS_KEY);
+    const setupMode = !storedHash;
 
+    if (isAuthed()) {
+      gate.classList.add("hide");
+      resolve();
+      return;
+    }
+
+    $("#gate-mode").textContent = setupMode ? "Set a passphrase" : "Enter passphrase";
+    $("#gate-warn").hidden = !setupMode;
+    setTimeout(() => $("#gate-pass").focus(), 80);
+
+    $("#gate-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const pass = $("#gate-pass").value;
+      if (!pass || pass.length < 4) return showGateError("Passphrase must be at least 4 characters.");
+      const hash = await hashPass(pass);
+      const remember = $("#gate-remember").checked;
+
+      if (setupMode) {
+        localStorage.setItem(PASS_KEY, hash);
+        sessionStorage.setItem(SESSION_KEY, hash);
+        if (remember) localStorage.setItem(REMEMBER_KEY, hash);
+        $("#gate-pass").value = "";
+        gate.classList.add("hide");
+        resolve();
+      } else {
+        if (hash === storedHash) {
+          sessionStorage.setItem(SESSION_KEY, hash);
+          if (remember) localStorage.setItem(REMEMBER_KEY, hash);
+          $("#gate-pass").value = "";
+          gate.classList.add("hide");
+          resolve();
+        } else {
+          showGateError("Wrong passphrase.");
+          $("#gate-pass").value = "";
+        }
+      }
+    });
+
+    $("#gate-reset").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (!confirm("Wipe ALL board data on this device and reset passphrase? This cannot be undone unless you have a recent export.")) return;
+      localStorage.removeItem(PASS_KEY);
+      localStorage.removeItem(REMEMBER_KEY);
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_KEY + "-seen");
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    });
+  });
+}
+
+/* ============================================================
+ * INITIAL RENDER (after gate)
+ * ============================================================ */
+(async () => {
+  await runGate();
+  render();
+  seedWelcomeIfEmpty();
+})();
+
+function seedWelcomeIfEmpty() {
 // Welcome seed if board is empty AND no localStorage existed before
 if (state.cards.length === 0 && !localStorage.getItem(STORAGE_KEY + "-seen")) {
   const seedNow = new Date().toISOString();
@@ -806,6 +963,7 @@ if (state.cards.length === 0 && !localStorage.getItem(STORAGE_KEY + "-seen")) {
   localStorage.setItem(STORAGE_KEY + "-seen", "1");
   saveState();
   render();
+}
 }
 </script>
 </body>
