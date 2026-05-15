@@ -140,6 +140,35 @@ header h1 .accent { color: var(--accent); }
   .quick-add .btn { flex: 0 0 auto; }
 }
 
+/* ───── STAGE TABS (mobile only) ───── */
+.stage-tabs {
+  display: none;
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(14,26,46,0.92);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  padding: 6px 8px;
+  gap: 4px;
+}
+.stage-tabs button {
+  flex: 1; min-width: 0;
+  background: transparent; border: 0; color: var(--text-mute);
+  padding: 10px 6px; border-radius: var(--radius);
+  font-weight: 700; font-size: 12px; letter-spacing: -0.01em;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  cursor: pointer; transition: background .12s, color .12s;
+  min-height: 48px;
+}
+.stage-tabs button .lbl { font-size: 12px; }
+.stage-tabs button .cnt {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-mute); letter-spacing: 0.04em;
+}
+.stage-tabs button[aria-selected="true"] {
+  background: var(--surface); color: var(--accent);
+}
+.stage-tabs button[aria-selected="true"] .cnt { color: var(--accent); }
+
 /* ───── BOARD ───── */
 .board {
   flex: 1; min-height: 0;
@@ -149,8 +178,31 @@ header h1 .accent { color: var(--accent); }
   overflow-x: auto; overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 721px) {
   .board { grid-template-columns: repeat(4, 280px); }
+}
+
+/* Mobile: stack into single visible column via tabs */
+@media (max-width: 720px) {
+  .stage-tabs { display: flex; }
+  .board {
+    grid-template-columns: 1fr;
+    padding: 0;
+    overflow-x: hidden; overflow-y: auto;
+    gap: 0;
+  }
+  .board[data-active-stage="inbox"] .column:not([data-stage="inbox"]),
+  .board[data-active-stage="week"]  .column:not([data-stage="week"]),
+  .board[data-active-stage="today"] .column:not([data-stage="today"]),
+  .board[data-active-stage="done"]  .column:not([data-stage="done"]) {
+    display: none;
+  }
+  .column { border-radius: 0; border-left: 0; border-right: 0; border-top: 0; }
+  .col-head { font-size: 13px; padding: 10px 16px; }
+  .col-body { padding: 12px 12px max(20px, env(safe-area-inset-bottom)); }
+  .card { padding: 12px 14px; margin-bottom: 10px; }
+  .card .title { font-size: 15px; line-height: 1.4; }
+  .card .meta { font-size: 12px; }
 }
 .column {
   background: var(--col-bg);
@@ -297,7 +349,32 @@ header h1 .accent { color: var(--accent); }
 .hint-bar { display: none; }
 @media (max-width: 720px) {
   header h1 { font-size: 16px; }
-  .header-actions .icon-btn { width: 32px; height: 32px; font-size: 14px; }
+  .header-actions .icon-btn { width: 36px; height: 36px; font-size: 14px; }
+  .header-actions input[type="search"] { width: 110px; }
+  /* Quick-add: compact two-row layout */
+  .quick-add { padding: 10px 12px; gap: 6px; }
+  .quick-add input[type="text"] { flex: 1 1 100%; font-size: 16px; padding: 11px 12px; }
+  .quick-add select { flex: 1; min-width: 0; padding: 10px 8px; font-size: 14px; }
+  .quick-add .btn { padding: 10px 14px; min-height: 44px; }
+  /* Filters chip row: tighter touch targets */
+  .filters { padding: 8px 12px; }
+  .chip { padding: 8px 12px; min-height: 36px; font-size: 13px; }
+  /* Modal becomes bottom-sheet */
+  .modal-bg { padding: 0; align-items: flex-end; }
+  .modal {
+    max-width: 100%; max-height: 92dvh; max-height: 92vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .modal-body input, .modal-body select, .modal-body textarea {
+    font-size: 16px; /* prevent iOS zoom on focus */
+    padding: 11px 12px;
+  }
+  .modal footer .btn { min-height: 44px; }
+}
+@media (max-width: 380px) {
+  header.top { gap: 8px; padding: 8px 10px; }
+  header h1 { font-size: 15px; }
+  .header-actions input[type="search"] { display: none; } /* search via filter chips on narrow */
 }
 
 /* ───── GATE (passphrase lock) ───── */
@@ -405,6 +482,10 @@ header h1 .accent { color: var(--accent); }
   </select>
   <button type="submit" class="btn">+ Add</button>
 </form>
+
+<nav class="stage-tabs" id="stage-tabs" role="tablist" aria-label="Board stage">
+  <!-- buttons rendered by JS -->
+</nav>
 
 <main class="board" id="board">
   <!-- columns rendered by JS -->
@@ -597,6 +678,39 @@ function renderBoard() {
   const board = $("#board");
   const q = state.search.trim().toLowerCase();
   board.innerHTML = "";
+  // Mobile stage tabs state — default "today"
+  const activeStage = state.mobileStage || "today";
+  board.dataset.activeStage = activeStage;
+  // Pre-compute per-stage counts (respect filter + search) for tab badges
+  const stageCounts = {};
+  STAGES.forEach(s => {
+    stageCounts[s.id] = state.cards.filter(c =>
+      c.stage === s.id &&
+      (state.filter == null || c.catId === state.filter) &&
+      (q === "" || (c.title + " " + (c.desc || "")).toLowerCase().includes(q))
+    ).length;
+  });
+  // Render stage tabs (only visible on mobile via CSS)
+  const tabs = $("#stage-tabs");
+  tabs.innerHTML = STAGES.map(s => `
+    <button role="tab" data-stage="${s.id}" aria-selected="${s.id === activeStage}">
+      <span class="lbl">${s.label}</span>
+      <span class="cnt">${stageCounts[s.id]}</span>
+    </button>
+  `).join("");
+  tabs.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.mobileStage = btn.dataset.stage;
+      saveState();
+      board.dataset.activeStage = state.mobileStage;
+      tabs.querySelectorAll("button").forEach(b =>
+        b.setAttribute("aria-selected", b.dataset.stage === state.mobileStage)
+      );
+      // Scroll active column into view at top
+      const col = board.querySelector(`.column[data-stage="${state.mobileStage}"]`);
+      if (col) col.scrollIntoView({ block: "start", behavior: "smooth" });
+    });
+  });
   STAGES.forEach(s => {
     const col = document.createElement("section");
     col.className = "column"; col.dataset.stage = s.id;
