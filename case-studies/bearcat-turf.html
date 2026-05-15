@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bearcat Turf — Competing with National Brands on a Family Budget | BurnsBuilt Case Study</title>
-  <meta name="description" content="How BurnsBuilt built a 136-page Astro + Cloudflare site with 44 hyper-local SEO pages and server-side conversion tracking that recovers 30–40% of ad signal — for a two-person turf installer competing with national franchises." />
+  <title>Bearcat Turf & Outdoors — Full Website Rebuild + AI Lead Pipeline | BurnsBuilt Case Study</title>
+  <meta name="description" content="186-page custom Astro + Cloudflare Workers site with AI lead qualifier, multi-step cost calculator (11.3% conversion), bilingual EN/ES, semantic search, and server-side ad signal recovery — for a family-owned DFW turf installer." />
   <link rel="canonical" href="https://burnsbuilt.co/case-studies/bearcat-turf.html" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Bearcat Turf — Custom SEO Site & CAPI Tracking" />
-  <meta property="og:description" content="136 pages, 44 local SEO landing pages, server-side ad signal recovery. Built on Astro + Cloudflare Workers." />
+  <meta property="og:title" content="Bearcat Turf & Outdoors — AI-Augmented Lead Pipeline" />
+  <meta property="og:description" content="186-page custom site, 11.3% cost-calculator conversion rate, 8× Google Search impressions, AI lead qualifier shipping personalized replies in 60 seconds." />
   <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/bearcat-turf/hero.jpg" />
   <meta property="og:url" content="https://burnsbuilt.co/case-studies/bearcat-turf.html" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -56,25 +56,28 @@
 
     <section class="case-hero">
       <div class="container">
-        <span class="eyebrow">Case Study · Marketing Site</span>
-        <h1>Bearcat Turf</h1>
-        <p class="case-tagline">Competing with national brands on a family-owned budget — a 136-page custom site, 44 hyper-local SEO pages, and server-side conversion tracking that recovers 30–40% of lost ad signal.</p>
+        <span class="eyebrow">Case Study · Marketing Site + AI Lead Pipeline</span>
+        <h1>Bearcat Turf &amp; Outdoors</h1>
+        <p class="case-tagline">Full website rebuild + ongoing SEO, conversion, and brand work for a family-owned, woman-owned, HUB-certified DFW turf installer. A 186-page custom Astro site running on Cloudflare Workers, with an AI lead qualifier, cost calculator converting at 11.3%, bilingual EN/ES, and server-side conversion tracking across 10 capture surfaces.</p>
 
         <div class="tech-stack">
-          <span class="tech-chip">Astro 6</span>
+          <span class="tech-chip">Astro</span>
           <span class="tech-chip">Cloudflare Workers</span>
-          <span class="tech-chip">Tailwind CSS 4</span>
-          <span class="tech-chip">Meta CAPI</span>
-          <span class="tech-chip">MDX Collections</span>
-          <span class="tech-chip">Schema.org</span>
+          <span class="tech-chip">TypeScript</span>
+          <span class="tech-chip">Tailwind</span>
+          <span class="tech-chip">Anthropic Claude</span>
+          <span class="tech-chip">Google Gemini</span>
+          <span class="tech-chip">HuggingFace</span>
+          <span class="tech-chip">Resend · Quo · MailerLite</span>
+          <span class="tech-chip">Meta CAPI · GA4 · GTM</span>
         </div>
 
         <div class="case-stats">
-          <div class="case-stat"><strong>136</strong><span>Pages live</span></div>
-          <div class="case-stat"><strong>44</strong><span>Local SEO pages</span></div>
-          <div class="case-stat"><strong>30–40%</strong><span>Ad signal recovered</span></div>
-          <div class="case-stat"><strong>&lt;1s</strong><span>Page load globally</span></div>
-          <div class="case-stat"><strong>&lt;90d</strong><span>Kickoff to live</span></div>
+          <div class="case-stat"><strong>186</strong><span>Pages live (from 12)</span></div>
+          <div class="case-stat"><strong>11.3%</strong><span>Cost-calculator → lead conversion</span></div>
+          <div class="case-stat"><strong>8×</strong><span>Google Search impressions in 90 days</span></div>
+          <div class="case-stat"><strong>60s</strong><span>AI-drafted reply per inbound lead</span></div>
+          <div class="case-stat"><strong>5</strong><span>Pipeline destinations per submission</span></div>
         </div>
       </div>
     </section>
@@ -89,17 +92,10 @@
     <section>
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The challenge</span>
-          <h2>A two-person shop competing with six-figure SEO budgets.</h2>
-          <p>Bearcat Turf is a family-owned artificial turf installer in Aledo, Texas. When Lindsey and Colin Burns started the business in 2023, they were competing against national franchise brands spending six figures a year on paid search and content — companies with dedicated SEO teams, generic landing pages for every Texas city, and aggressive PR campaigns.</p>
-          <p>The family operator's disadvantage was structural:</p>
-          <ul>
-            <li><strong>No SEO infrastructure.</strong> A generic Squarespace site with thin content competed directly against installers with dozens of optimized city-specific landing pages.</li>
-            <li><strong>No lead capture system.</strong> The contact form was a 7-field wall; the only conversion event was a Facebook Pixel page view that Safari and iOS ATT were quietly stripping out.</li>
-            <li><strong>No measurement loop.</strong> When ads stopped producing, there was no way to know whether the creative, audience, or landing page was the problem.</li>
-            <li><strong>Manual ops tax.</strong> Every quote request arrived as a raw email. Triage, project routing, and follow-up lived in one person's inbox.</li>
-          </ul>
-          <p>The core question was simple: how does a two-person, Aledo-based business outrank and out-convert multi-market operators on terms like <em>"artificial turf Aledo TX"</em> and <em>"backyard batting cage DFW"</em> — without hiring an agency that costs more than a year of install revenue?</p>
+          <span class="eyebrow">The brief</span>
+          <h2>A 6-figure-install business relying entirely on referrals.</h2>
+          <p>Bearcat Turf &amp; Outdoors is a family-owned, woman-owned, HUB-certified artificial turf installer in Aledo, Texas, serving the Dallas–Fort Worth metroplex. When they came to us, their site was on a templated platform: slow, hard to update, generic copy, no measurable conversion path.</p>
+          <p>They were doing 6-figure installs by relying entirely on referrals — leaving organic search, paid search, and a real digital sales funnel on the table. They needed a sales tool, not a brochure.</p>
         </div>
       </div>
     </section>
@@ -107,19 +103,10 @@
     <section class="section-alt">
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The solution</span>
-          <h2>Treat the site as a lead-gen engine — not a brochure.</h2>
-          <p>We built a fully custom site architecture that treats SEO, local authority, and conversion tracking as first-class product features — not plugins layered on top of a template.</p>
-          <ul>
-            <li><strong>Astro 6</strong> static site generator for lightning-fast, crawler-friendly pages (136 pages, ~2-second total build).</li>
-            <li><strong>Cloudflare Workers + Static Assets</strong> for global edge delivery, with a dedicated Worker for server-side API logic.</li>
-            <li><strong>Tailwind CSS 4</strong> with a locked-in brand system that prevents design drift across dozens of pages.</li>
-            <li><strong>Meta Conversions API (CAPI)</strong> bridge that mirrors every browser Pixel event server-side with shared event-ID deduplication.</li>
-            <li><strong>Content collections (MDX)</strong> so the owner can add services by dropping a Markdown file — no code.</li>
-            <li><strong>Formspree</strong> for submissions, intercepted client-side to fire Meta + GA4 lead events before redirect.</li>
-            <li><strong>Git-connected Cloudflare deploys</strong> — push to main, live in 90 seconds.</li>
-          </ul>
-          <p>Every technical decision was weighed against one question: <strong>"Does this make it more likely a Parker County family books a walkthrough?"</strong></p>
+          <span class="eyebrow">What we built</span>
+          <h2>A 186-page custom Astro site with deep integrations across the lead pipeline.</h2>
+          <p>Not a template. A purpose-built sales engine that qualifies leads at intake, prices their project on the spot, surfaces relevant case studies, follows up automatically when they go cold, and writes the first draft of the owner's reply email.</p>
+          <p>Every inbound lead fans out in parallel to <strong>five destinations</strong>: customer estimate email, internal Slack/email notification, Quo CRM contact, MailerLite enrollment, and an AI-drafted reply ready for one-click send.</p>
         </div>
       </div>
     </section>
@@ -127,35 +114,77 @@
     <section>
       <div class="container">
         <span class="eyebrow">Key features</span>
-        <h2 class="section-title">Architecture choices that compound into market position.</h2>
+        <h2 class="section-title">Ten features that compound into a sales pipeline.</h2>
 
         <div class="feature-grid">
           <div class="feature-item">
-            <div class="feature-label"><span class="dot"></span> Programmatic local SEO</div>
-            <h3>44 city-specific landing pages from 4 data files.</h3>
-            <p>Combo pages like <em>/local/pet-turf-walsh</em> are each unique, schema-tagged, and internally linked — without the owner hand-writing 44 pages.</p>
-            <span class="feature-impact">Now ranking for "pet turf Parker County," "Walsh Ranch backyard putting greens," and 40+ long-tail terms competitors haven't touched.</span>
+            <div class="feature-label"><span class="dot"></span> Custom cost calculator</div>
+            <h3>11.3% completion-to-lead conversion.</h3>
+            <p>Multi-step, mobile-first, ZIP-gated, with real benchmark pricing by project type and tier. Industry typical: 1–3%. This one converts 4–10× over.</p>
+            <span class="feature-impact">Builds rapport while qualifying budget and scope before the owner spends a minute on the lead.</span>
           </div>
 
           <div class="feature-item">
-            <div class="feature-label"><span class="dot"></span> Server-side conversion tracking</div>
-            <h3>Recovers 30–40% of ad signal iOS and Safari kill.</h3>
-            <p>Cloudflare Worker-based CAPI bridge fires Meta events server-side, dedupes against the browser Pixel with shared event IDs, and sends cleaner signal back to Meta.</p>
-            <span class="feature-impact">Lower cost per lead, better lookalike audiences — zero ongoing maintenance.</span>
+            <div class="feature-label"><span class="dot"></span> AI lead qualifier</div>
+            <h3>Personalized draft reply in 60 seconds.</h3>
+            <p>Every inbound lead is read by Claude / Gemini. A personalized draft email lands in the owners' inbox ready to send — pulling per-lead context: project type, square footage, urgency, comparison signals.</p>
+            <span class="feature-impact">Time-to-first-touch goes from hours to under a minute, with no template feel.</span>
           </div>
 
           <div class="feature-item">
-            <div class="feature-label"><span class="dot"></span> Drop-in photo workflow</div>
-            <h3>Add an install photo with one commit.</h3>
-            <p>Colin drops a new install photo in <em>gallery/dogs/</em>, pushes to git, and the photo appears on <em>/gallery</em>, <em>/dogs</em>, and the relevant service page — with filter tags, alt text, and schema-ready markup.</p>
-            <span class="feature-impact">No CMS. No admin panel. No $25/month subscription.</span>
+            <div class="feature-label"><span class="dot"></span> Batting cage configurator</div>
+            <h3>Real-time pricing for backyard + commercial cages.</h3>
+            <p>Live pricing engine for backyard, school, and training-facility cage builds. Cimarron dealer integration. Owners can see margin, the customer sees a defensible number.</p>
+            <span class="feature-impact">Opens a second product line with its own qualified intake.</span>
           </div>
 
           <div class="feature-item">
-            <div class="feature-label"><span class="dot"></span> Content collection for services</div>
-            <h3>Add a service in 10 minutes.</h3>
-            <p>Adding "Concrete Pavers," "Pergolas," and "Retaining Walls" was three Markdown files with three frontmatter fields. The services appeared on <em>/services</em>, auto-linked in the footer, and generated schema-tagged detail pages.</p>
-            <span class="feature-impact">All from a single 10-minute commit.</span>
+            <div class="feature-label"><span class="dot"></span> Baseball field ROI calculator</div>
+            <h3>Email-gated PDF analysis for ADs.</h3>
+            <p>Multi-field portfolio model with email-gated PDF analysis for school athletic directors and club programs. Multi-year cost-of-ownership comparison vs. natural grass.</p>
+            <span class="feature-impact">Pulls high-ticket institutional leads that referrals can't reach.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> 24-hour scheduled follow-up</div>
+            <h3>Personalized HTML email with 3 matched case studies.</h3>
+            <p>Every cost-calculator submission receives a personalized HTML email 24 hours later with 3 case studies matched to their project type. Built on Resend's <em>scheduled_at</em> — no queue infrastructure needed.</p>
+            <span class="feature-impact">Recovers the leads who almost-converted on first visit.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Semantic site search</div>
+            <h3>Cmd+K natural-language search across 127 pages.</h3>
+            <p>HuggingFace BGE embeddings, cosine-similarity ranking on every query. Users find "drainage on clay soil" without knowing the exact page title.</p>
+            <span class="feature-impact">Lowers bounce on a site too deep to navigate by menu alone.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Bilingual EN/ES</div>
+            <h3>Full Spanish landing flow, not auto-translated chrome.</h3>
+            <p>Helsinki-NLP translation pipeline, full <em>hreflang</em> wiring, dedicated Spanish landing + contact flows. Spanish-speaking customers get a real experience, not a Google-translated half-effort.</p>
+            <span class="feature-impact">Captures a meaningful slice of DFW that competitors don't speak to.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> 40+ city service-area pages</div>
+            <h3>AI-batch-generated with differentiated content.</h3>
+            <p>Each city page is unique — not a templated copy-paste. Neighborhood detail, local schema, its own conversion path. AI-batched but human-reviewed.</p>
+            <span class="feature-impact">Ranking for "pet turf [city]" across the entire DFW metroplex.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Full conversion pipeline</div>
+            <h3>10 lead-capture surfaces × 4 channels.</h3>
+            <p>Meta Pixel + server-side Conversions API (via Cloudflare Worker), GA4 + GTM, Google Ads conversion tracking — wired into every form. Server-side recovers 30–40% of signal that iOS and Safari strip from browser pixels.</p>
+            <span class="feature-impact">Lower CPL, better lookalikes, honest attribution.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Lead routing infrastructure</div>
+            <h3>One submission, five parallel destinations.</h3>
+            <p>Every form submission fans out: customer estimate email, internal notification, Quo CRM contact, MailerLite enrollment, AI follow-up draft. All logged for durable audit.</p>
+            <span class="feature-impact">Lead never falls through the cracks; ops never bottleneck on triage.</span>
           </div>
         </div>
       </div>
@@ -164,30 +193,45 @@
     <section class="tech-detail">
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The technical edge</span>
+          <span class="eyebrow">Technical highlights</span>
           <h2>A site the size of a SaaS, the speed of a landing page.</h2>
-          <p>The <strong>CAPI bridge</strong> is a Cloudflare Worker (~100 lines of TypeScript) that receives POSTs from a custom <em>window.btSendEvent()</em> helper, enriches them with server-only fields (<em>cf-connecting-ip</em>, user-agent, event_time), and forwards to <em>graph.facebook.com</em> via <em>ctx.waitUntil()</em> — meaning the browser never waits for Meta's response. A shared <em>event_id</em> lets Meta dedupe so conversions aren't double-counted.</p>
-          <p><strong>Structured data goes deep.</strong> Every page emits LocalBusiness, BreadcrumbList, and (on city pages) a scoped Service JSON-LD block with its own <em>areaServed</em>. FAQ pages emit FAQPage schema with individual Question/Answer entities for rich-snippet eligibility.</p>
-          <p><strong>Sitemap priority is tuned per URL.</strong> Custom <em>serialize()</em> function boosts the homepage to 1.0, primary funnel pages to 0.9, and legal pages to 0.3 — telling Google exactly where to spend its crawl budget.</p>
-          <p><strong>Service-area schema is per-page.</strong> A BaseLayout prop change and a codemod injected <em>serviceAreaCity</em> props into 39 pages — each now emits its own local signal instead of inheriting the site-wide one.</p>
-          <p><strong>Dual-channel event tracking.</strong> <em>window.btSendEvent('Lead', {...})</em> fires browser Pixel, server CAPI, and GA4 simultaneously with matched IDs. One function, three destinations, zero missed signal.</p>
+          <ul>
+            <li><strong>Cloudflare Workers as the application backbone.</strong> Every form, every API integration, every redirect lives in a single TypeScript Worker. No backend server, no database hosting bill, sub-50ms cold starts globally.</li>
+            <li><strong>Astro SSG + Workers Sites.</strong> Entire site statically generated at build time and served from Cloudflare's edge. 186 pages, Tailwind utility classes, full Astro Image pipeline producing responsive WebP variants for every photo (~1,800 image variants at build).</li>
+            <li><strong>AI integrations done right — not chatbots.</strong> Used for the work that actually moves the needle: alt-text generation (Gemini Vision), brand-voice lead reply drafts (Anthropic Claude), semantic search embeddings (HuggingFace BGE), translation pipelines (Helsinki-NLP), per-city page content (AI-batched).</li>
+            <li><strong>Brand redesign mid-engagement.</strong> When the client commissioned a new brand identity — typographic wordmark, 7-color palette, 4-font stack, 60+ logo variants — we shipped the full visual migration across 200+ pages, 14 email templates, schema metadata, OG share cards, and favicons in a single coordinated deploy. CSS-variable architecture meant changing one file flipped the entire site's color scheme.</li>
+            <li><strong>SEO infrastructure as code.</strong> JSON-LD generated per page from data sources, sitemap with <em>lastmod</em> timestamps, IndexNow ping pipeline (Bing/Yandex), 18 legacy-URL 301 redirects in the Worker, www→apex canonicalization, <em>llms.txt</em> for LLM-friendly content indexing.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <section class="section-alt">
       <div class="container">
-        <span class="eyebrow">The result</span>
+        <span class="eyebrow">Outcomes — first 90 days</span>
         <h2 class="section-title">From digital business card to compounding lead asset.</h2>
 
         <div class="result-grid">
-          <div class="result-stat"><strong>136</strong><span>Pages live in production (from an 8-page Squarespace)</span></div>
-          <div class="result-stat"><strong>44</strong><span>Hyper-local landing pages, no competitor overlap</span></div>
-          <div class="result-stat"><strong>2,000</strong><span>Word flagship guide ranking "artificial turf drainage N. TX clay soil"</span></div>
-          <div class="result-stat"><strong>&lt;1s</strong><span>Homepage load on Cloudflare's edge network</span></div>
+          <div class="result-stat"><strong>~50 → 400+</strong><span>Google Search impressions / day (8× growth)</span></div>
+          <div class="result-stat"><strong>12 → 186</strong><span>Indexable pages</span></div>
+          <div class="result-stat"><strong>11.3%</strong><span>Cost calculator → lead conversion rate</span></div>
+          <div class="result-stat"><strong>1.73 avg</strong><span>Brand search position · 35% CTR on "bearcat turf"</span></div>
+          <div class="result-stat"><strong>8</strong><span>Schema rich-result types live (LocalBusiness, Article, CreativeWork, Place, BreadcrumbList, FAQPage, HowTo, Service)</span></div>
+          <div class="result-stat"><strong>1 → 5</strong><span>Pipeline destinations per submission</span></div>
         </div>
 
-        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">Every new install photo, blog post, or service-area page extends the moat — and each extension costs the owner <strong style="color: var(--color-denim);">minutes, not dollars.</strong></p>
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">Most service-business websites are brochures. This one is a sales tool — it qualifies leads at intake, prices their project on the spot, surfaces relevant case studies, follows up automatically when they go cold, and writes the first draft of the owners' reply. <strong style="color: var(--color-denim);">The owners walk yards instead of filling out spreadsheets.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">Why this build matters</span>
+          <h2>Infrastructure that scales without operational overhead.</h2>
+          <p>Zero servers to maintain. Sub-cent per AI inference. Cloudflare edge for global performance. Every integration logged for durable audit trails. Owner-editable content collections. AI is the icing — the underlying site was already useful before any model was in the loop.</p>
+          <p>This is what we mean by <strong>vertical AI for blue-collar SMBs</strong> — built around the owner's actual artifacts, not glued onto a generic template.</p>
+        </div>
       </div>
     </section>
     <section>

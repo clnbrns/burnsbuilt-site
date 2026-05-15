@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burns Shuffle — Personal Music Intelligence Platform | BurnsBuilt Case Study</title>
+  <meta name="description" content="A custom-built music intelligence platform that ingests 208,000+ Spotify play events across 16 years and turns them into AI-powered playlist generation, deep taste analytics, and natural-language music discovery — shipped in one weekend at $0/month operating cost." />
+  <link rel="canonical" href="https://burnsbuilt.co/case-studies/burns-shuffle.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Burns Shuffle — Personal Music Intelligence Platform" />
+  <meta property="og:description" content="208,722 plays. 16 years. 6,151 artists enriched. 10 visualizations. One weekend. $0/month." />
+  <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/burns-shuffle/hero.png" />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/burns-shuffle.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Data Product · Personal AI Tool</span>
+        <h1>Burns Shuffle</h1>
+        <p class="case-tagline">A custom-built music intelligence platform that ingests a full Spotify listening history — 200,000+ play events across 16 years — and turns it into AI-powered playlist generation, deep taste analytics, and natural-language music discovery. Spotify-branded web experience, integrated with the user's real account, shipped in one weekend.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Python · Flask</span>
+          <span class="tech-chip">Spotify Web API</span>
+          <span class="tech-chip">Last.fm API</span>
+          <span class="tech-chip">Google Gemini</span>
+          <span class="tech-chip">Plotly.js · D3.js</span>
+          <span class="tech-chip">Cloudflare Tunnel</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>208,722</strong><span>Play events analyzed (2011–2026)</span></div>
+          <div class="case-stat"><strong>6,151</strong><span>Artists enriched with Last.fm tags</span></div>
+          <div class="case-stat"><strong>10</strong><span>Interactive visualizations shipped</span></div>
+          <div class="case-stat"><strong>~4 days</strong><span>One weekend + three evenings, end-to-end</span></div>
+          <div class="case-stat"><strong>$0/mo</strong><span>Operating cost, indefinitely</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-hero-shot">
+      <div class="container">
+        <img src="../images/case-studies/burns-shuffle/hero.png" alt="Burns Shuffle — main screenshot" loading="eager" onerror="this.style.display='none';" />
+      </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>"Wrapped" once a year isn't enough.</h2>
+          <p>Spotify gives users a five-page "Wrapped" summary once a year. The client wanted <strong>year-round, deeply personalized music intelligence</strong>: real analytics over their full listening history, AI-curated playlist generation tuned to specific moments ("dinner party with the in-laws," "youth baseball practice," "find me an artist that sounds like Radiohead"), and a discovery engine that surfaces new music adjacent to their taste — not the same 50 favorites the major streaming algorithms keep recommending.</p>
+          <p>Off-the-shelf solutions didn't exist. The user's full streaming history was sitting in a Spotify data export, unused. Taste data was scattered across multiple services. And the streaming services themselves don't expose this depth of analytics to end users.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The build</span>
+          <h2>A private web application that solves the entire workflow end-to-end.</h2>
+          <p>Burns Shuffle runs on the client's own domain via Cloudflare Tunnel, integrated with their actual Spotify account. ~2,500 lines of Python across 16 modules, 11 templates, ~1,000 lines of CSS/JS — built in one weekend plus three evenings.</p>
+          <ul>
+            <li><strong>Python 3 + Flask</strong> — stateless request handling with disk-cached enrichment data.</li>
+            <li><strong>Google Gemini 2.5 Flash</strong> — three distinct AI workloads: natural-language parsing, recommendation reranking against the user's taste profile, and grounded Q&amp;A over structured listening data.</li>
+            <li><strong>Hybrid Last.fm + LLM recommendation pipeline</strong> — deliberately bypassing Spotify's deprecated <em>/recommendations</em> endpoint.</li>
+            <li><strong>OAuth 2.0 Authorization Code flow</strong> against the Spotify Web API, with refresh-token-backed long-running background jobs.</li>
+            <li><strong>No build step</strong> — Plotly.js for choropleth/sankey/streamgraph charts, D3.js for force-directed networks and calendar heatmaps, Chart.js for analytics. All CDN-loaded.</li>
+            <li><strong>Cloudflare Tunnel</strong> exposing the user's local instance via custom subdomain with valid HTTPS. <strong>Zero hosting infrastructure, zero monthly cost.</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Six core features</span>
+        <h2 class="section-title">Year-round personalized music intelligence.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Natural-language playlists</div>
+            <h3>Type a vibe. 30 seconds later it's in your Spotify.</h3>
+            <p>"Clean upbeat music for a youth baseball team" or "moody late-night focus mix similar to Bon Iver." Gemini parses intent into a structured playlist plan, with automatic explicit-content filtering for family-friendly contexts. Auto-syncs to every Sonos in the house.</p>
+            <span class="feature-impact">From thought to Sonos in under 30 seconds.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Deep taste fingerprinting</div>
+            <h3>Your musical DNA, in a radar chart.</h3>
+            <p>Every artist in the library enriched with Last.fm's 20-year community tag dataset plus Spotify's micro-genre taxonomy, weighted by play count. The result: a radar chart showing actual scenes, eras, and moods — not generic genre labels.</p>
+            <span class="feature-impact">Knows you better than your "Daily Mix" does.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Ten interactive visualizations</div>
+            <h3>Animated maps, stream graphs, force-directed networks.</h3>
+            <p>World map of where the music came from year-by-year, genre evolution stream graph, mood arc, artist similarity network, GitHub-style calendar heatmap, Sankey flows linking era→genre→mood, year-vs-year diff, sonic diversity index over time.</p>
+            <span class="feature-impact">"Wrapped," but every day of the year.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Conversational Q&amp;A</div>
+            <h3>"Have I gotten more obsessive over time?"</h3>
+            <p>Chat-style interface for asking questions grounded in actual numbers from the listening data. Gemini is explicitly constrained to never invent statistics — it answers from the structured data or it doesn't answer.</p>
+            <span class="feature-impact">A music therapist that's read your entire library.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Outlier detection</div>
+            <h3>The secret pleasures other apps never reveal.</h3>
+            <p>Surfaces tracks the user has played heavily that don't fit their usual taste profile — the guilty-pleasure outliers that streaming algorithms hide from you in service of homogenized recommendations.</p>
+            <span class="feature-impact">Find out what you actually like, vs. what you tell people you like.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Recency-tuned discovery</div>
+            <h3>What you're "falling for lately."</h3>
+            <p>Generates playlists adjacent to the user's 30 most-recently-liked songs, filtering out anything already in heavy rotation. Seeds new music from the bleeding edge of taste evolution — not the well-worn favorites.</p>
+            <span class="feature-impact">Stop hearing the same five "discoveries" every month.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">Technical highlights</span>
+          <h2>Pragmatic stack choices, AI used where it actually helps.</h2>
+          <ul>
+            <li><strong>Off-the-shelf API limits as design constraints, not blockers.</strong> Spotify deprecated their <em>/recommendations</em> and <em>/audio-features</em> endpoints for new developer apps in late 2024. We built a hybrid Last.fm + LLM pipeline that's <em>better</em> than what Spotify's deprecated endpoints offered — because the LLM reasons over the user's real taste fingerprint rather than running generic collaborative filtering.</li>
+            <li><strong>Visual experience, not a dashboard.</strong> Spotify-branded with the official font stack, brand-green palette, equalizer animations, live progress indicators with phase-by-phase narration during long jobs, dynamic theming hooks. Music apps live or die on how they feel.</li>
+            <li><strong>No database where JSON works. No framework where vanilla works. No cloud where Cloudflare Tunnel works.</strong> Every architectural decision optimized for shipping and working — not chasing best-practices checklists.</li>
+            <li><strong>AI used thoughtfully.</strong> Gemini reasons over structured taste data, parses ambiguous natural language, and reranks algorithmically-generated candidates — the things LLMs are good at. Not used to invent track titles or fabricate stats — outputs are explicitly grounded in real data.</li>
+            <li><strong>Background processing with status polling.</strong> Multi-threaded job system with status-polling UI for anything taking more than a few seconds (taste-profile builds, playlist generation, discovery pipelines).</li>
+            <li><strong>Cloudflare Tunnel deployment.</strong> Custom subdomain, automatic TLS, valid HTTPS — without paying for a server, configuring a load balancer, or running a CDN. The user's local instance is the deployment.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">Results</span>
+        <h2 class="section-title">A weekend's work that runs reliably at zero cost.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>208,722</strong><span>Stream events analyzed across 16 years</span></div>
+          <div class="result-stat"><strong>6,151</strong><span>Unique artists enriched with cached Last.fm tags</span></div>
+          <div class="result-stat"><strong>10</strong><span>Distinct interactive charts on timeline + analysis pages</span></div>
+          <div class="result-stat"><strong>7</strong><span>Playlist generation paths (NL, by year, top tracks, vibe, sounds-like-recent, LLM-discovery, outliers)</span></div>
+          <div class="result-stat"><strong>$0/mo</strong><span>Operating cost — all services on free tiers</span></div>
+          <div class="result-stat"><strong>Sonos-integrated</strong><span>Every playlist auto-syncs to every speaker in the home</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">A comparable build from a digital agency would invoice <strong>$50K–$95K</strong>. Internal team build: <strong>~$28K</strong> loaded cost. We shipped this in a weekend at <strong style="color: var(--color-denim);">$0/month operating cost</strong> — running reliably for one user with all the features described above.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">What this demonstrates</span>
+          <h2>Off-the-shelf limits are design constraints, not blockers.</h2>
+          <p>For a prospective client considering a custom internal tool, a data product, or an API-driven web application, this project demonstrates several things:</p>
+          <ul>
+            <li><strong>We treat API limits as design constraints.</strong> When Spotify deprecated their key endpoints, most builders would've abandoned recommendation features. We built a hybrid pipeline that's actually better.</li>
+            <li><strong>We ship visual experiences, not dashboards.</strong> Music apps live or die on feel. So do internal tools your team has to use every day.</li>
+            <li><strong>We make pragmatic stack choices.</strong> No database where JSON works. No framework where vanilla ships faster. No cloud where Cloudflare Tunnel solves it free.</li>
+            <li><strong>We integrate AI where it's genuinely useful.</strong> Reasoning over structured data, parsing natural language, reranking candidates. Not "let's bolt a chatbot on."</li>
+            <li><strong>The cost story matters.</strong> Agency quote: $50K–$95K. Internal team: ~$28K. What we shipped: a weekend at $0/mo. The work is the differentiator, not the line items.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <span class="eyebrow">A look inside</span>
+        <h2 class="section-title">Screenshots.</h2>
+        <p class="section-lede">The project in the wild — UI from the live product.</p>
+        <div class="case-gallery">
+          <figure>
+            <img src="../images/case-studies/burns-shuffle/gallery-01.png" alt="Burns Shuffle — natural-language playlist generator" loading="lazy" onerror="this.parentElement.style.display='none';" />
+            <figcaption>Natural-language playlist generator with intent parsing</figcaption>
+          </figure>
+          <figure>
+            <img src="../images/case-studies/burns-shuffle/gallery-02.png" alt="Burns Shuffle — taste fingerprint radar chart" loading="lazy" onerror="this.parentElement.style.display='none';" />
+            <figcaption>Taste fingerprint radar — scenes, eras, and moods derived from full listening history</figcaption>
+          </figure>
+          <figure>
+            <img src="../images/case-studies/burns-shuffle/gallery-03.png" alt="Burns Shuffle — listening calendar heatmap and genre stream graph" loading="lazy" onerror="this.parentElement.style.display='none';" />
+            <figcaption>Listening calendar heatmap and genre evolution stream graph</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section-alt">
+      <div class="container">
+        <div style="max-width:760px;margin:0 auto;text-align:center;">
+          <span class="eyebrow">More work like this</span>
+          <h2 class="section-title">We build internal tools &amp; data products.</h2>
+          <p class="section-lede">Custom web applications, API-integrated dashboards, and AI-augmented internal tools. Pragmatic stacks, shipped fast.</p>
+          <p style="margin-top:1.5rem;">
+            <a href="../ai-services/" class="btn btn-outline">See our AI services →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Got a pile of data nobody's looking at?</h2>
+          <p>If you have data sitting in an internal system, a repetitive workflow that involves reading natural language and turning it into structured action, or an integration with a third-party API that someone told you would take "a quarter" — we can probably ship a working version this month.</p>
+          <a href="../contact.html" class="btn btn-accent">Tell Us What You'd Build</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- Service Areas — local SEO internal link block -->
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          <li><a href="/terms/">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="/web-design/">Web Design</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

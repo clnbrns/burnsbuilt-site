@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MSM Marketing Engine — Internal AI Marketing Platform | BurnsBuilt Case Study</title>
-  <meta name="description" content="How BurnsBuilt built a custom AI-powered marketing engine for a youth sports tournament operator. Dual-LLM ensemble drafting (Claude + Gemini), unified contact database, MailerLite + Twilio integration. Built in three weeks." />
+  <title>MSM Marketing Engine — One-Operator Marketing OS | BurnsBuilt Case Study</title>
+  <meta name="description" content="A one-operator marketing OS for a youth-baseball franchise. Replaced an 8-tool SaaS stack with one phone-first platform: CRM, email + SMS, AI campaign planning, branded image generation, and live tournament-day ops. 56.5% open rate, 423 players, $63K+ revenue." />
   <link rel="canonical" href="https://burnsbuilt.co/case-studies/msm-marketing-engine.html" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="MSM Marketing Engine — AI Marketing Platform Case Study" />
-  <meta property="og:description" content="100,000+ emails sent, 56.6% open rate, dual-LLM ensemble drafting. Built in 3 weeks." />
+  <meta property="og:title" content="MSM Marketing Engine — Custom Marketing OS for a Tournament Operator" />
+  <meta property="og:description" content="8 SaaS subscriptions collapsed to 1 phone-first platform. 56.5% open rate, 423 registered players, AI cost-optimized via empirical model routing." />
   <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/msm-marketing-engine/hero.png" />
   <meta property="og:url" content="https://burnsbuilt.co/case-studies/msm-marketing-engine.html" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -56,26 +56,26 @@
 
     <section class="case-hero">
       <div class="container">
-        <span class="eyebrow">Case Study · AI Platform · Marketing Automation</span>
+        <span class="eyebrow">Case Study · Custom Platform · AI-Augmented · Phone-First</span>
         <h1>MSM Marketing Engine</h1>
-        <p class="case-tagline">A custom internal marketing platform for a regional youth baseball tournament operator. Two LLMs in parallel draft, score, and route every campaign — replacing a SaaS stack and a Google Drive of CSVs with a single tool that ships campaigns in 30 seconds instead of 30 minutes.</p>
+        <p class="case-tagline">A one-operator marketing OS for a youth-baseball franchise — contact management, email + SMS, AI campaign planning, branded image generation, and live tournament-day ops, all running on a phone in a dugout. Built to replace an 8-tool SaaS stack.</p>
 
         <div class="tech-stack">
-          <span class="tech-chip">Python · FastAPI</span>
+          <span class="tech-chip">FastAPI</span>
           <span class="tech-chip">SQLModel · SQLite</span>
           <span class="tech-chip">Anthropic Claude</span>
-          <span class="tech-chip">Google Gemini</span>
-          <span class="tech-chip">MailerLite API</span>
-          <span class="tech-chip">Twilio</span>
-          <span class="tech-chip">Tailwind</span>
+          <span class="tech-chip">Google Gemini · Nano Banana</span>
+          <span class="tech-chip">HuggingFace BLIP + CLIP</span>
+          <span class="tech-chip">Twilio · Stripe · MailerLite</span>
+          <span class="tech-chip">Xero · Meta Graph · Sheets</span>
         </div>
 
         <div class="case-stats">
-          <div class="case-stat"><strong>1,500+</strong><span>Contacts unified</span></div>
-          <div class="case-stat"><strong>121</strong><span>Campaigns shipped</span></div>
-          <div class="case-stat"><strong>100,306</strong><span>Emails sent</span></div>
-          <div class="case-stat"><strong>56.6%</strong><span>Avg open rate</span></div>
-          <div class="case-stat"><strong>3 weeks</strong><span>Concept to live</span></div>
+          <div class="case-stat"><strong>56.5%</strong><span>Email open rate (industry: ~22%)</span></div>
+          <div class="case-stat"><strong>423</strong><span>Registered players · sold out the bracket</span></div>
+          <div class="case-stat"><strong>$63,680+</strong><span>Net revenue tracked this cycle</span></div>
+          <div class="case-stat"><strong>8 → 1</strong><span>SaaS subscriptions collapsed</span></div>
+          <div class="case-stat"><strong>15–25 hrs/wk</strong><span>Operator time reclaimed</span></div>
         </div>
       </div>
     </section>
@@ -89,17 +89,15 @@
     <section>
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The challenge</span>
-          <h2>Marketing run on intuition, spreadsheets, and a hard deadline.</h2>
-          <p>Middle School Matchup is a regional youth baseball tournament operator running a tight registration window — every season, dozens of schools sign up players against a hard deadline. The marketing reality going in:</p>
-          <ul>
-            <li><strong>1,500+ contacts scattered everywhere</strong> — MailerLite subscribers, Google Forms, registration CSVs, and a "new player leads" form owned by a separate franchisor.</li>
-            <li><strong>Every campaign drafted by hand</strong> in MailerLite's editor with no historical performance lookup. No way to know what worked last time, what didn't, or what to send next.</li>
-            <li><strong>"What should I send this week?"</strong> answered by gut feel. The data existed — it just wasn't accessible at the moment of the decision.</li>
-            <li><strong>Audience segmentation done in Excel</strong> — export CSV, filter, paste back. Slow, error-prone, and impossible to reuse.</li>
-            <li><strong>No view of which past campaigns moved the needle.</strong> Campaign #45 might have driven half the registrations. Nobody could tell.</li>
-          </ul>
-          <p>Off-the-shelf marketing automation could solve some of it — at a per-seat SaaS contract, a dozen clicks per action, and a learning curve longer than the registration window itself. The operator needed a tool that <strong>worked the way the season works</strong> — fast, prescriptive, and aware of its own history.</p>
+          <span class="eyebrow">The client</span>
+          <h2>One operator. Hundreds of families. A two-day tournament where everything has to go right.</h2>
+          <p>Middle School Matchup (MSM) — DFW West franchise. A youth-baseball tournament organizer serving families across the Dallas–Fort Worth metroplex. One operator, a 5-week build-up window, and a two-day tournament where everything has to go right.</p>
+        </div>
+        <div class="case-prose">
+          <span class="eyebrow">The problem</span>
+          <h2>8 SaaS tools, $300–$700/month, and 15–25 hours a week of gluing them together.</h2>
+          <p>The operator was running on a stitched-together stack: MailerLite for email, Twilio for SMS, Stripe for payments, Google Sheets for rosters, MailerLite again for segmentation, manual screenshots into Canva for social posts, Xero for accounting, and a notebook for everything in between.</p>
+          <p>Worse, the operator's spouse — a busy mom of three — needed to be able to run the platform <strong>from a phone in a dugout</strong>. Existing tools didn't make that possible. So they called us.</p>
         </div>
       </div>
     </section>
@@ -107,16 +105,21 @@
     <section class="section-alt">
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The solution</span>
-          <h2>A self-hosted marketing engine with two LLMs at the core.</h2>
-          <p>A FastAPI application with a no-build-step Tailwind frontend, designed to run on the operator's laptop or a small VPS. Four modules, one operator, one tournament cycle.</p>
+          <span class="eyebrow">What we built</span>
+          <h2>A single phone-first platform deployed at <em>msm.burnsbuilt.co</em>.</h2>
+          <p>FastAPI + SQLite, no framework on the frontend, deployed to a custom subdomain. The platform replaces the entire stack:</p>
           <ul>
-            <li><strong>Unified contact database</strong> — idempotent imports from registration CSVs, MailerLite dumps, and lead lists. School-name normalization (104 raw values → 71 canonical). Live audience sizing for every preset segment.</li>
-            <li><strong>Email module (the centerpiece)</strong> — Performance, Insights, and Compose tabs that turn campaign history into prescriptive guidance. Every email goes through a dual-LLM ensemble before it's pushed.</li>
-            <li><strong>SMS module (Twilio)</strong> — bulk-send pipeline with delivery-status reporting; awaiting 10DLC carrier clearance for full parity with email.</li>
-            <li><strong>Scorecard</strong> — live KPIs across email subscribers, SMS subscribers, registered players, and social channels in a single scroll. Day-over-day and week-over-week trends without the operator opening four other tabs.</li>
+            <li><strong>Contact CRM</strong> with intent scoring, custom audience segmentation, and SMS opt-out compliance (A2P 10DLC ready).</li>
+            <li><strong>Scorecard dashboard</strong> with live Stripe revenue, MailerLite engagement, expected franchise fees, cash on hand, and rolling 7-day metrics.</li>
+            <li><strong>AI Campaign Autopilot</strong> — Claude weekly proposes the 2–3 highest-leverage campaigns to run, picks the audience, drafts the body, queues for one-click approval.</li>
+            <li><strong>One-shot drafter</strong> — operator types "send a deadline reminder to grade 7 families" → AI picks the audience, writes the copy, drafts the campaign.</li>
+            <li><strong>Tournament-Day field experience</strong> — three big-button command center (📣 Announce · 📸 Social Post · 🚨 Emergency), live game ticker, mobile-first, designed to be operable with sticky hands and direct sunlight.</li>
+            <li><strong>Branded image generation</strong> via Nano Banana, trained on the client's brand DNA using on-brand reference photos and "anti-pattern" image analysis. Operator can pick a real photo as a base; the model preserves the subjects and adds brand elements.</li>
+            <li><strong>AI photo auto-tagger</strong> using BLIP + CLIP, so hundreds of game photos become searchable by tag (batting, celebration, golden-hour) and filterable for privacy.</li>
+            <li><strong>Voice memo intake</strong> — operator dictates a 90-second update on the drive home, Gemini transcribes, Claude extracts a structured action list.</li>
+            <li><strong>Expense ingest</strong> — drag a bank statement PDF in, Gemini categorizes every line item, ready to push to Xero.</li>
+            <li><strong>"Ask MSM" conversational agent</strong> — plain-English questions over the database via Claude tool-use. No SQL required.</li>
           </ul>
-          <p>The whole thing runs on Python 3.9, SQLite, and httpx. No Kubernetes, no SaaS dependencies, no monthly contract. The operator owns the code, the database, every contact, every API key.</p>
         </div>
       </div>
     </section>
@@ -157,49 +160,43 @@
     <section class="case-tech">
       <div class="container">
         <div class="case-prose">
-          <span class="eyebrow case-tech-eyebrow">Technical edge</span>
-          <h2>Where it gets clever.</h2>
+          <span class="eyebrow case-tech-eyebrow">Technical decisions worth talking about</span>
+          <h2>Empirically routed LLMs. Brand-trained image gen. Compliance built in.</h2>
           <ul>
-            <li><strong>Audience-aware drafting.</strong> The audience description is woven into the system prompt so the draft cites realistic logistics for that segment. A hot-leads draft and a registered-refer-friends draft come out genuinely different in tone and structure — not just swapped subject lines.</li>
-            <li><strong>LLM output sanitization.</strong> All filter outputs from the routing model are intersected against a tag allowlist and known schema keys. Hallucinated tag names (<code>"rising_7th"</code>) get dropped at the boundary instead of silently producing zero-match audiences downstream.</li>
-            <li><strong>Two-layer caching.</strong> Settled data (MailerLite campaign analytics) caches to disk with TTL; AI suggestions cache to sessionStorage for instant reload. Cold start <strong>3.98s</strong> → hot path <strong>0.025s</strong>.</li>
-            <li><strong>Rate-limit hardening.</strong> Exponential backoff with <code>Retry-After</code> honoring on every MailerLite endpoint. Semaphore-bounded concurrency. Graceful fallback when the API rejects HTML body submission on lower plan tiers — detect, retry without body, instruct the user to paste in the editor.</li>
-            <li><strong>No build step, ever.</strong> Vanilla HTML, Tailwind via CDN, ES modules. No webpack, no <code>node_modules</code>, no devops drama. One operator, one <code>uvicorn</code> command, done.</li>
-            <li><strong>Honest about what's mocked.</strong> When franchisor permissions blocked Meta/Facebook integration, those scorecard cards were marked clearly and tracked in a public roadmap doc — not faked.</li>
+            <li><strong>Hybrid LLM routing — empirically validated.</strong> We routed each AI workload to the right model based on actual data: Claude Sonnet 4.6 for drafting and planning where reasoning matters, Gemini 2.5 Flash for classification, lint, vision, and short structured output (~10× cheaper). When asked which model was more predictive of email performance, we ran the numbers across 126 sent campaigns — neither pre-send hook score correlated meaningfully with actual open rate (r = +0.045 vs +0.003). A single switch — turning off Claude for campaign analysis — saved <strong>$13–$35/month with zero quality loss</strong>. Decisions like this should be made with data, not vibes.</li>
+            <li><strong>AI-trained-on-brand image generation.</strong> Two-folder reference pipeline: on-brand photos sent as style-conditioning to every image call; off-brand images analyzed once by Gemini Vision to produce text-based "avoid this" rules injected as negative guidance. Drop photos in folders, hit Refresh — every image generation embeds the client's actual visual identity. No fine-tuning, no training data licensing, no model hosting.</li>
+            <li><strong>Compliance baked in.</strong> SMS marketing in the US requires A2P 10DLC carrier registration — 2–4 weeks, high rejection rate. We built compliance from day one: quiet-hours enforcement (8 PM – 9 AM Central), STOP/UNSUBSCRIBE/HELP keyword handling, automatic opt-out database, feature gate that disables bulk SMS until the carrier campaign is verified. When the first A2P submission failed for vague language, the platform kept working safely while we shipped revised description copy.</li>
+            <li><strong>Phone-first by design.</strong> The biggest tested interactions all work on a phone — two-tap rain-delay SMS + email to all 400+ registered families, two-tap branded Instagram post from a real photo. Real-time MailerLite + Twilio retry logic with graceful 429 backoff so a server hiccup doesn't take the dashboard down mid-tournament.</li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="case-prose">
-          <span class="eyebrow">Before / after</span>
-          <h2>What it replaced.</h2>
-          <table class="case-table">
-            <thead>
-              <tr><th>Before</th><th>After</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>CSV exports + spreadsheet filtering</td><td>Live audience presets with one-click selection</td></tr>
-              <tr><td>"I think Tuesday at 7pm works"</td><td>Day-of-week + hour-block bars on actual past performance</td></tr>
-              <tr><td>Drafting in MailerLite's editor with no context</td><td>Audience-aware ensemble draft with historical winner citations</td></tr>
-              <tr><td>Manual MailerLite group creation + subscriber upload</td><td>One-click sync + draft campaign creation</td></tr>
-              <tr><td>No view of which past campaigns worked</td><td>Composite AI Score per campaign, ranked and explained</td></tr>
-              <tr><td>30 minutes of clicks per send</td><td>~30 seconds, idea to push</td></tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </section>
 
     <section class="section-alt">
       <div class="container">
+        <span class="eyebrow">Outcomes</span>
+        <h2 class="section-title">8 tools collapsed to 1. 15–25 hours/week reclaimed.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>56.5%</strong><span>Email open rate · top-decile · industry benchmark ~22%</span></div>
+          <div class="result-stat"><strong>423</strong><span>Registered players — sold out the bracket</span></div>
+          <div class="result-stat"><strong>$63,680+</strong><span>Net revenue tracked this cycle</span></div>
+          <div class="result-stat"><strong>15–25 hrs/wk</strong><span>Operator hours saved during build-up</span></div>
+          <div class="result-stat"><strong>8 → 1</strong><span>SaaS subscriptions collapsed into one platform</span></div>
+          <div class="result-stat"><strong>$30+/mo</strong><span>AI cost-optimization win via data-driven routing</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">The operator's spouse — busy mom of three — runs a sold-out tournament from her phone in a dugout. <strong style="color: var(--color-denim);">That's the whole product.</strong></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
         <div class="case-prose">
-          <span class="eyebrow">The result</span>
-          <h2>One tool, one tournament cycle, full ownership.</h2>
-          <p>Built in three weeks across one tournament cycle. <strong>121 campaigns shipped, 100,306 emails sent, 56.6% average open rate</strong> — every send drafted, scored, and routed through the engine. The operator owns the code, the database, every contact, every API key. Adding a new audience segment is a config edit, not a contract renegotiation.</p>
-          <p>What used to be a Google Drive of CSVs and a tab full of MailerLite is now one URL, one operator, one source of truth.</p>
+          <span class="eyebrow">What's next</span>
+          <h2>Franchise-system licensing.</h2>
+          <p>The client liked the platform enough that we're now exploring franchise-system licensing — packaging it as a per-franchise SaaS for the parent organization (NCS) to roll out to dozens of regional operators. We're also designing a <strong>Tournament Director Dashboard</strong> for the franchisor itself, with cross-franchise intelligence: scheduling-fatigue analysis, sandbagging detection, and an audience marketplace for sponsors.</p>
+          <p>This is the kind of follow-on work we look for — <strong>start with one operator's pain, validate the platform, scale to an industry.</strong></p>
         </div>
       </div>
     </section>
