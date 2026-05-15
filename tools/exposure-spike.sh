@@ -31,7 +31,8 @@ fi
 
 PATH_ARG="${1:-/api/v1/events}"
 METHOD="${METHOD:-GET}"
-HOST="exposureevents.com"
+# Override with HOST="baseball.exposureevents.com" ./tools/exposure-spike.sh ...
+HOST="${EXPOSURE_HOST:-exposureevents.com}"
 # Override with TS_HEADER=X-Date ./tools/exposure-spike.sh ...
 TS_HEADER="${TS_HEADER:-Timestamp}"
 # Override with AUTH_SCHEME="HMAC " ./tools/exposure-spike.sh ...
@@ -42,8 +43,11 @@ AUTH_SCHEME="${AUTH_SCHEME:-}"
 # macOS date doesn't support %N — we synthesize fractional seconds via Python.
 TIMESTAMP=$(python3 -c "from datetime import datetime,timezone; print(datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.') + f'{datetime.now(timezone.utc).microsecond * 10:07d}' + 'Z')")
 
-# String-to-sign — Exposure docs require UPPER-CASE on the whole thing
-STRING_TO_SIGN="${EXPOSURE_API_KEY}&${METHOD}&${TIMESTAMP}&${PATH_ARG}"
+# String-to-sign — Exposure docs require UPPER-CASE on the whole thing.
+# The PHP wrapper signs the PATH only (strips query string via parse_url),
+# so we do the same for query-string requests.
+PATH_FOR_SIGNING="${PATH_ARG%%\?*}"
+STRING_TO_SIGN="${EXPOSURE_API_KEY}&${METHOD}&${TIMESTAMP}&${PATH_FOR_SIGNING}"
 STRING_TO_SIGN_UPPER=$(echo -n "$STRING_TO_SIGN" | tr '[:lower:]' '[:upper:]')
 
 # HMAC-SHA256 → base64
