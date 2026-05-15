@@ -2,43 +2,54 @@
  * BurnsBuilt — Exposure Events API Proxy
  * ==================================================================
  * Signed proxy that lets the browser fetch tournament data (schedule,
- * standings, brackets, teams) from Exposure Events.
+ * standings, teams, divisions) from Exposure Events.
  *
  * Why this exists: Exposure's API uses HMAC-SHA256 signing with a
  * secret key. That can't run in the browser without leaking the
  * secret. This Netlify Function signs the request server-side and
  * forwards it.
  *
- * Caching: in-process memory cache, 30s TTL by default. 100 viewers
- * hitting the page during a tournament → 1 upstream API call per 30s,
- * fanned out to everyone.
+ * Endpoints discovered via the spike (all on baseball.exposureevents.com):
+ *   GET /api/v1/events                          → list events (sport-scoped)
+ *   GET /api/v1/events/{id}                     → single event
+ *   GET /api/v1/games?eventid={id}              → games for an event
+ *   GET /api/v1/standings?eventid={id}          → standings
+ *   GET /api/v1/divisions?eventid={id}          → divisions
+ *   GET /api/v1/teams?eventid={id}              → teams
  *
- * ENDPOINT:
- *   GET /.netlify/functions/exposure-proxy?path=/api/v1/events/268807/games
- *   GET /.netlify/functions/exposure-proxy?path=/api/v1/events/268807/standings
+ * Caching: in-process memory cache, 30s TTL by default.
  *
- * The `path` query param is the relative URI to forward to Exposure.
- * Anything starting with `/api/v1/` is allowed; everything else is
- * rejected to prevent the proxy from being used as an open relay.
+ * QUERY STRING API:
+ *   GET /.netlify/functions/exposure-proxy?path=<basePath>&<...upstreamQuery>
+ *
+ *   The first query param `path` is required and tells us the upstream
+ *   path. All OTHER query params are forwarded to upstream verbatim.
+ *
+ *   Examples:
+ *     ?path=/api/v1/events
+ *     ?path=/api/v1/events/268807
+ *     ?path=/api/v1/games&eventid=268807
+ *     ?path=/api/v1/standings&eventid=268807
+ *
+ *   Only path values starting with /api/v1/ are allowed.
  *
  * Required env vars:
  *   EXPOSURE_API_KEY     — from Exposure director dashboard
  *   EXPOSURE_SECRET_KEY  — from Exposure director dashboard
  *
  * Optional env vars:
- *   EXPOSURE_TIMESTAMP_HEADER  — defaults to "Timestamp". If Exposure
- *                                rejects requests, try "X-Date" or "Date".
+ *   EXPOSURE_HOST              — defaults to "baseball.exposureevents.com"
  *   EXPOSURE_CACHE_TTL_MS      — defaults to 30000 (30s)
  * ==================================================================
  */
 
 import crypto from "node:crypto";
 
-const HOST = "exposureevents.com";
-const BASE_URL = `https://${HOST}`;
+const DEFAULT_HOST = "baseball.exposureevents.com";
 const ALLOWED_PATH_PREFIX = "/api/v1/";
 
-const TIMESTAMP_HEADER = process.env.EXPOSURE_TIMESTAMP_HEADER || "Timestamp";
+const HOST = process.env.EXPOSURE_HOST || DEFAULT_HOST;
+const BASE_URL = `https://${HOST}`;
 const CACHE_TTL_MS = parseInt(process.env.EXPOSURE_CACHE_TTL_MS || "30000", 10);
 
 // ---- In-process cache (resets on cold start) -----------------------
@@ -54,7 +65,6 @@ const getCached = (key) => {
 };
 const setCached = (key, data) => {
   cache.set(key, { t: Date.now(), data });
-  // Bound the cache so a long-running container can't leak memory
   if (cache.size > 50) {
     const oldest = [...cache.entries()].sort((a, b) => a[1].t - b[1].t)[0];
     if (oldest) cache.delete(oldest[0]);
@@ -67,6 +77,7 @@ const json = (statusCode, body, extraHeaders = {}) => ({
   headers: {
     "Content-Type": "application/json",
     "Cache-Control": `public, max-age=${Math.floor(CACHE_TTL_MS / 1000)}`,
+    "Access-Control-Allow-Origin": "*",
     ...extraHeaders,
   },
   body: typeof body === "string" ? body : JSON.stringify(body),
@@ -74,14 +85,13 @@ const json = (statusCode, body, extraHeaders = {}) => ({
 
 const isoTimestamp = () => {
   // Exposure example: 2012-09-27T20:33:55.3564453Z
-  const d = new Date();
-  const iso = d.toISOString().replace("Z", "");
-  // ISO gives milliseconds (3 digits). Pad to 7 digits to match their example.
+  const iso = new Date().toISOString().replace("Z", "");
   return iso + "0000Z";
 };
 
-const sign = (apiKey, secretKey, method, path, timestamp) => {
-  const stringToSign = `${apiKey}&${method}&${timestamp}&${path}`.toUpperCase();
+const sign = (apiKey, secretKey, method, pathOnly, timestamp) => {
+  // String-to-sign uses the PATH ONLY (not the query string), uppercased.
+  const stringToSign = `${apiKey}&${method}&${timestamp}&${pathOnly}`.toUpperCase();
   return crypto
     .createHmac("sha256", secretKey)
     .update(stringToSign, "utf8")
@@ -90,6 +100,19 @@ const sign = (apiKey, secretKey, method, path, timestamp) => {
 
 // ---- Handler -------------------------------------------------------
 export const handler = async (event) => {
+  // CORS preflight (for /board/ etc. on different hosts)
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: "",
+    };
+  }
+
   // ---- Validate env ----
   const apiKey = process.env.EXPOSURE_API_KEY;
   const secretKey = process.env.EXPOSURE_SECRET_KEY;
@@ -103,25 +126,32 @@ export const handler = async (event) => {
     return json(405, { error: "GET only" });
   }
 
-  // ---- Validate path ----
-  const path = event.queryStringParameters?.path;
+  // ---- Build upstream URL ----
+  const params = event.queryStringParameters || {};
+  const path = params.path;
   if (!path) {
     return json(400, {
-      error: "Missing ?path= query parameter. Example: ?path=/api/v1/events/268807/games",
+      error: "Missing ?path= query parameter. Example: ?path=/api/v1/games&eventid=268807",
     });
   }
   if (!path.startsWith(ALLOWED_PATH_PREFIX)) {
-    return json(400, {
-      error: `path must start with ${ALLOWED_PATH_PREFIX}`,
-    });
+    return json(400, { error: `path must start with ${ALLOWED_PATH_PREFIX}` });
   }
-  // Reject anything looking like a host override or scheme injection
-  if (path.includes("://") || path.includes("\n") || path.includes("..")) {
-    return json(400, { error: "Invalid path" });
+  if (path.includes("://") || path.includes("\n") || path.includes("..") || path.includes("?")) {
+    return json(400, { error: "Invalid path — must be a plain path, no scheme/query" });
   }
 
+  // Forward all other query params to upstream
+  const upstreamQuery = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (k === "path") continue;
+    upstreamQuery.append(k, v);
+  }
+  const queryString = upstreamQuery.toString();
+  const upstreamUrl = `${BASE_URL}${path}${queryString ? "?" + queryString : ""}`;
+
   // ---- Cache check ----
-  const cacheKey = "GET " + path;
+  const cacheKey = "GET " + path + "?" + queryString;
   const cached = getCached(cacheKey);
   if (cached) {
     return json(200, cached, { "X-Proxy-Cache": "HIT" });
@@ -129,9 +159,8 @@ export const handler = async (event) => {
 
   // ---- Sign + forward ----
   const timestamp = isoTimestamp();
-  const signature = sign(apiKey, secretKey, "GET", path, timestamp);
+  const signature = sign(apiKey, secretKey, "GET", path, timestamp);  // path only, no query
   const authToken = `${apiKey}.${signature}`;
-  const upstreamUrl = `${BASE_URL}${path}`;
 
   let upstream;
   try {
@@ -139,9 +168,9 @@ export const handler = async (event) => {
       method: "GET",
       headers: {
         // Exposure uses a custom "Authentication" header — not standard Authorization.
-        // (Confirmed via their official PHP wrapper, line 183.)
+        // Confirmed via their official PHP wrapper (line 183).
         Authentication: authToken,
-        [TIMESTAMP_HEADER]: timestamp,
+        Timestamp: timestamp,
         Accept: "application/json",
         "Content-Type": "application/json",
         "User-Agent": "BurnsBuilt-MSM-Proxy/1.0",
@@ -157,11 +186,10 @@ export const handler = async (event) => {
   try {
     parsed = JSON.parse(text);
   } catch {
-    parsed = { _raw: text };
+    parsed = { _raw: text.slice(0, 500) };
   }
 
   if (!upstream.ok) {
-    // Surface the error but don't cache it
     return json(upstream.status, {
       error: "Upstream returned non-2xx",
       status: upstream.status,
