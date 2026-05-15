@@ -278,79 +278,6 @@ section.alt { background: var(--msm-paper-2); }
 .schedule-fullscreen header strong { font-family: var(--msm-font-display); letter-spacing: -0.01em; }
 .schedule-fullscreen iframe { flex: 1; width: 100%; border: 0; }
 
-/* ───── Standings (live from Exposure) ───── */
-.standings-toolbar {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
-}
-.standings-tab {
-  background: #fff; border: 1px solid var(--msm-line);
-  color: var(--msm-secondary);
-  padding: 10px 18px; border-radius: 999px;
-  font-family: var(--msm-font-display); font-weight: 800; font-size: 13px;
-  letter-spacing: 0.04em; text-transform: uppercase;
-  cursor: pointer; transition: background .12s, border-color .12s, color .12s;
-}
-.standings-tab:hover { border-color: var(--msm-secondary); }
-.standings-tab[aria-selected="true"] {
-  background: var(--msm-secondary); color: #fff; border-color: var(--msm-secondary);
-}
-.standings-loading, .standings-empty {
-  background: var(--msm-paper-2); border: 2px dashed var(--msm-line);
-  border-radius: var(--msm-radius-lg); padding: 36px 24px;
-  text-align: center; color: var(--msm-mute);
-}
-.standings-empty strong {
-  display: block; color: var(--msm-secondary);
-  font-family: var(--msm-font-display); font-size: 18px; margin-bottom: 6px;
-}
-.standings-pool {
-  background: #fff; border: 1px solid var(--msm-line);
-  border-radius: var(--msm-radius-lg); margin-bottom: 18px; overflow: hidden;
-  box-shadow: var(--msm-shadow-sm);
-}
-.standings-pool-head {
-  background: var(--msm-paper-2); padding: 12px 18px;
-  border-bottom: 1px solid var(--msm-line);
-  display: flex; align-items: baseline; gap: 12px;
-}
-.standings-pool-head h3 { margin: 0; color: var(--msm-secondary); font-size: 18px; }
-.standings-pool-head .count { font-family: var(--msm-font-mono); font-size: 12px; color: var(--msm-mute); letter-spacing: 0.04em; }
-.standings-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.standings-table th, .standings-table td {
-  padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--msm-line);
-}
-.standings-table th {
-  font-family: var(--msm-font-mono); font-size: 11px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--msm-mute);
-  background: rgba(0,0,0,0.015);
-}
-.standings-table td.rank { width: 36px; text-align: center; font-family: var(--msm-font-display); font-weight: 900; color: var(--msm-primary); font-size: 15px; }
-.standings-table td.team { font-weight: 600; color: var(--msm-secondary); }
-.standings-table td.col { width: 56px; text-align: center; font-family: var(--msm-font-mono); font-size: 14px; }
-.standings-table tr:last-child td { border-bottom: 0; }
-.standings-table tr:hover td { background: rgba(0,0,0,0.015); }
-.standings-meta {
-  font-family: var(--msm-font-mono); font-size: 11px; color: var(--msm-mute);
-  text-align: center; margin: 16px 0 0; letter-spacing: 0.04em;
-}
-.standings-meta .live-dot {
-  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--msm-success, #2e8c5d); margin-right: 6px;
-  vertical-align: middle;
-  box-shadow: 0 0 0 0 rgba(46,140,93,0.6);
-  animation: livepulse 2s infinite;
-}
-@keyframes livepulse {
-  0%   { box-shadow: 0 0 0 0 rgba(46,140,93,0.5); }
-  70%  { box-shadow: 0 0 0 8px rgba(46,140,93,0); }
-  100% { box-shadow: 0 0 0 0 rgba(46,140,93,0); }
-}
-@media (max-width: 540px) {
-  .standings-table th, .standings-table td { padding: 9px 10px; font-size: 13px; }
-  .standings-table td.team { font-size: 13.5px; }
-  .standings-tab { padding: 9px 14px; font-size: 12px; min-height: 38px; }
-}
-
 /* ───── Teams (by division) ───── */
 .division { margin-bottom: 36px; }
 .division:last-child { margin-bottom: 0; }
@@ -1189,29 +1116,6 @@ input, select, textarea, button { font-size: 16px; }
   </div>
 </section>
 
-<!-- ============== STANDINGS ============== -->
-<section id="standings">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Live Standings</span>
-        <h2>Pool play standings.</h2>
-      </div>
-      <p>Pulled live from Exposure Events. Refreshes automatically during the tournament.</p>
-    </div>
-
-    <div class="standings-toolbar" id="standings-divisions" role="tablist" aria-label="Standings division">
-      <!-- division pills rendered by JS -->
-    </div>
-
-    <div id="standings-content">
-      <div class="standings-loading">Loading standings…</div>
-    </div>
-
-    <p class="standings-meta" id="standings-meta"></p>
-  </div>
-</section>
-
 <!-- ============== TEAMS ============== -->
 <section id="teams" class="alt">
   <div class="container">
@@ -1530,7 +1434,6 @@ input, select, textarea, button { font-size: 16px; }
       <div>
         <h4>On This Page</h4>
         <p><a href="#schedule">Schedule</a></p>
-        <p><a href="#standings">Standings</a></p>
         <p><a href="#teams">Teams &amp; Rosters</a></p>
         <p><a href="#geis">Photography</a></p>
         <p><a href="#conduct">Conduct</a></p>
@@ -1619,7 +1522,6 @@ input, select, textarea, button { font-size: 16px; }
 <div id="help-sheet" class="help-sheet" role="menu" aria-label="Help options">
   <a id="help-sheet-sms" href="sms:+15555555555" role="menuitem">📱 Text Tournament Director</a>
   <a href="#schedule" role="menuitem" onclick="msmCloseHelp()">📅 Jump to Schedule</a>
-  <a href="#standings" role="menuitem" onclick="msmCloseHelp()">🏆 Standings</a>
   <a href="#teams" role="menuitem" onclick="msmCloseHelp()">👥 Teams &amp; Rosters</a>
   <a href="#faq" role="menuitem" onclick="msmCloseHelp()">❓ See FAQ</a>
   <a href="https://www.google.com/maps/dir/?api=1&destination=1501+S+Pipeline+Rd+Euless+TX+76040" target="_blank" rel="noopener" role="menuitem">📍 Get Directions</a>
@@ -1798,231 +1700,41 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ─── Exposure Events API config ─── */
-const EXPOSURE_EVENT_ID = 268807;
-const EXPOSURE_PROXY = "/.netlify/functions/exposure-proxy";
-const STANDINGS_POLL_MS = 90 * 1000; // refresh every 90s while tab is visible
-
-/* ─── Standings: live, with division pills + auto-refresh ─── */
-const MSM_STANDINGS = { data: null, activeDivision: null, columns: [], lastFetch: 0 };
-
-async function msmFetchStandings() {
-  try {
-    const data = await msmFetchExposure("/api/v1/standings", { eventid: EXPOSURE_EVENT_ID });
-    MSM_STANDINGS.data = data;
-    MSM_STANDINGS.columns = data?.Columns || [];
-    MSM_STANDINGS.lastFetch = Date.now();
-    msmRenderStandings();
-  } catch (err) {
-    console.warn("Standings fetch failed:", err);
-    const content = document.getElementById("standings-content");
-    if (content && !MSM_STANDINGS.data) {
-      content.innerHTML = `<div class="standings-empty">
-        <strong>Standings will appear here once games begin.</strong>
-        Pulled live from Exposure Events. If you're seeing this on game day, refresh — or text the tournament director.
-      </div>`;
-    }
-  }
-}
-
-function msmRenderStandings() {
-  const d = MSM_STANDINGS.data;
-  const tabs = document.getElementById("standings-divisions");
-  const content = document.getElementById("standings-content");
-  const meta = document.getElementById("standings-meta");
-  if (!tabs || !content) return;
-
-  const groups = d?.Groups || [];
-  if (!groups.length) {
-    tabs.innerHTML = "";
-    content.innerHTML = `<div class="standings-empty">
-      <strong>No standings yet.</strong>
-      Standings will populate here as games are played.
-    </div>`;
-    return;
-  }
-
-  // Sort groups: 6th, 7th, 8th
-  groups.sort((a, b) => (parseInt(a.Name, 10) || 99) - (parseInt(b.Name, 10) || 99));
-
-  // Default active to first if not set
-  if (!MSM_STANDINGS.activeDivision || !groups.find(g => g.Name === MSM_STANDINGS.activeDivision)) {
-    MSM_STANDINGS.activeDivision = groups[0].Name;
-  }
-
-  // Render tabs
-  tabs.innerHTML = groups.map(g => `
-    <button class="standings-tab" data-div="${escapeHtml(g.Name)}"
-            aria-selected="${g.Name === MSM_STANDINGS.activeDivision}" role="tab" type="button">
-      ${escapeHtml(msmGradeLabel(g.Name))}
-    </button>
-  `).join("");
-  tabs.querySelectorAll(".standings-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      MSM_STANDINGS.activeDivision = btn.dataset.div;
-      msmRenderStandings();
-    });
-  });
-
-  // Render the active division's pools
-  const active = groups.find(g => g.Name === MSM_STANDINGS.activeDivision);
-  const pools = active?.List || [];
-  if (!pools.length) {
-    content.innerHTML = `<div class="standings-empty">
-      <strong>${escapeHtml(msmGradeLabel(active.Name))} — no pool data yet.</strong>
-      Pool assignments will appear once finalized.
-    </div>`;
-  } else {
-    const cols = MSM_STANDINGS.columns;
-    content.innerHTML = pools.map(pool => {
-      const teams = pool.Participants || [];
-      const rows = teams.map((t, i) => {
-        const cells = (t.Columns || []).map(c => `<td class="col">${escapeHtml(String(c ?? "-"))}</td>`).join("");
-        const cleanName = msmCleanTeamName(t.Name || "", active.Name);
-        return `<tr>
-          <td class="rank">${i + 1}</td>
-          <td class="team">${escapeHtml(cleanName)}</td>
-          ${cells}
-        </tr>`;
-      }).join("");
-      return `<div class="standings-pool">
-        <div class="standings-pool-head">
-          <h3>Pool ${escapeHtml(pool.Name)}</h3>
-          <span class="count">${teams.length} ${teams.length === 1 ? "team" : "teams"}</span>
-        </div>
-        <table class="standings-table">
-          <thead><tr>
-            <th>#</th><th>Team</th>${cols.map(c => `<th>${escapeHtml(c.Abbr || c.Name)}</th>`).join("")}
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>`;
-    }).join("");
-  }
-
-  // Last-updated meta
-  if (meta) {
-    const t = new Date(MSM_STANDINGS.lastFetch);
-    const time = t.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    meta.innerHTML = `<span class="live-dot"></span>Live · last updated ${time}`;
-  }
-}
-
-// Initial fetch + polling while tab visible
-(function() {
-  if (!document.getElementById("standings-content")) return;
-  msmFetchStandings();
-  let timer = null;
-  const startPoll = () => {
-    if (timer) return;
-    timer = setInterval(msmFetchStandings, STANDINGS_POLL_MS);
-  };
-  const stopPoll = () => { if (timer) { clearInterval(timer); timer = null; } };
-  if (!document.hidden) startPoll();
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopPoll();
-    else { msmFetchStandings(); startPoll(); }
-  });
-})();
-
-/* ─── Teams: live from Exposure Events API via signed proxy ─── */
-
-async function msmFetchExposure(path, extraParams = {}) {
-  const params = new URLSearchParams({ path, ...extraParams });
-  const r = await fetch(`${EXPOSURE_PROXY}?${params}`, { cache: "no-store" });
-  if (!r.ok) throw new Error(`proxy ${r.status}`);
-  return r.json();
-}
-
-function msmGradeLabel(divName) {
-  // Exposure returns "6th", "7th", "8th". Promote to "6th Grade" for parents.
-  if (/^\d+(st|nd|rd|th)$/.test(divName)) return `${divName} Grade`;
-  return divName;
-}
-
-function msmCleanTeamName(name, divisionName) {
-  // Strip "6th-", "7th-", "8th-" prefix from team names — cleaner display
-  return name.replace(/^\d+(st|nd|rd|th)-/i, "");
-}
-
+/* ─── Teams: load divisions, render list with GameChanger links ─── */
 (async function() {
-  const grid = document.getElementById("teams-grid");
-  if (!grid) return;
   try {
-    // Try live API first
-    const data = await msmFetchExposure("/api/v1/teams", { eventid: EXPOSURE_EVENT_ID });
-    const allTeams = data?.Teams?.Results || [];
-    if (!allTeams.length) throw new Error("no teams yet");
-
-    // Group by division name; preserve order from Exposure (6th, 7th, 8th)
-    const byDiv = {};
-    const divOrder = [];
-    allTeams.forEach(t => {
-      const dn = t.Division?.Name || "Other";
-      if (!byDiv[dn]) { byDiv[dn] = []; divOrder.push(dn); }
-      byDiv[dn].push(t);
-    });
-    // Sort divisions: 6th, 7th, 8th, then anything else
-    divOrder.sort((a, b) => {
-      const an = parseInt(a, 10) || 99;
-      const bn = parseInt(b, 10) || 99;
-      return an - bn;
-    });
-
-    grid.innerHTML = divOrder.map(divName => {
-      const teams = byDiv[divName];
-      const items = teams
-        .sort((a, b) => a.Name.localeCompare(b.Name))
-        .map(t => {
-          const displayName = msmCleanTeamName(t.Name, divName);
-          return `<div class="team-link no-link">
-            <span class="gc-mark" aria-hidden="true">⚾</span>
-            <div class="body">
-              <p class="name">${escapeHtml(displayName)}</p>
-            </div>
-          </div>`;
-        }).join("");
+    const r = await fetch("./teams/teams.json", { cache: "no-store" });
+    if (!r.ok) return;
+    const data = await r.json();
+    const divisions = (data.divisions || []).filter(d => d.teams && d.teams.length);
+    if (!divisions.length) return;
+    const grid = document.getElementById("teams-grid");
+    grid.innerHTML = divisions.map(div => {
+      const teamItems = div.teams.map(t => {
+        const isLink = t.gameChanger && !/REPLACE_ME/i.test(t.gameChanger);
+        const tag = isLink ? "a" : "div";
+        const href = isLink ? `href="${t.gameChanger}" target="_blank" rel="noopener"` : "";
+        const cls = isLink ? "team-link" : "team-link no-link";
+        const meta = [t.club, t.hometown].filter(Boolean).join(" · ");
+        return `<${tag} class="${cls}" ${href}>
+          <span class="gc-mark" aria-hidden="true">GC</span>
+          <div class="body">
+            <p class="name">${t.name}</p>
+            ${meta ? `<p class="meta">${meta}</p>` : ""}
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
+        </${tag}>`;
+      }).join("");
       return `<div class="division">
         <div class="division-head">
-          <h3>${escapeHtml(msmGradeLabel(divName))}</h3>
-          <span class="count">${teams.length} ${teams.length === 1 ? "team" : "teams"}</span>
+          <h3>${div.label || div.name}</h3>
+          <span class="count">${div.teams.length} ${div.teams.length === 1 ? "team" : "teams"}</span>
         </div>
-        <div class="team-list">${items}</div>
+        <div class="team-list">${teamItems}</div>
       </div>`;
     }).join("");
-  } catch (err) {
-    console.warn("Teams live load failed, falling back to static:", err);
-    // Fallback to local JSON if proxy is unreachable
-    try {
-      const r = await fetch("./teams/teams.json", { cache: "no-store" });
-      if (!r.ok) return;
-      const data = await r.json();
-      const divisions = (data.divisions || []).filter(d => d.teams && d.teams.length);
-      if (!divisions.length) return;
-      grid.innerHTML = divisions.map(div => {
-        const items = div.teams.map(t =>
-          `<div class="team-link no-link">
-            <span class="gc-mark" aria-hidden="true">⚾</span>
-            <div class="body"><p class="name">${escapeHtml(t.name)}</p></div>
-          </div>`
-        ).join("");
-        return `<div class="division">
-          <div class="division-head">
-            <h3>${escapeHtml(div.label || div.name)}</h3>
-            <span class="count">${div.teams.length} teams</span>
-          </div>
-          <div class="team-list">${items}</div>
-        </div>`;
-      }).join("");
-    } catch {}
-  }
+  } catch {}
 })();
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
-  );
-}
 
 /* ============================================================
  * AI FEATURES — wiring (Gemini-backed)
