@@ -130,7 +130,7 @@ export const handler = async (event) => {
   // ---- Sign + forward ----
   const timestamp = isoTimestamp();
   const signature = sign(apiKey, secretKey, "GET", path, timestamp);
-  const authHeader = `${apiKey}.${signature}`;
+  const authToken = `${apiKey}.${signature}`;
   const upstreamUrl = `${BASE_URL}${path}`;
 
   let upstream;
@@ -138,11 +138,12 @@ export const handler = async (event) => {
     upstream = await fetch(upstreamUrl, {
       method: "GET",
       headers: {
-        Authorization: authHeader,
+        // Exposure uses a custom "Authentication" header — not standard Authorization.
+        // (Confirmed via their official PHP wrapper, line 183.)
+        Authentication: authToken,
         [TIMESTAMP_HEADER]: timestamp,
         Accept: "application/json",
         "Content-Type": "application/json",
-        Host: HOST,
         "User-Agent": "BurnsBuilt-MSM-Proxy/1.0",
       },
     });

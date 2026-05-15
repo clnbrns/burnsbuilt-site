@@ -32,6 +32,11 @@ fi
 PATH_ARG="${1:-/api/v1/events}"
 METHOD="${METHOD:-GET}"
 HOST="exposureevents.com"
+# Override with TS_HEADER=X-Date ./tools/exposure-spike.sh ...
+TS_HEADER="${TS_HEADER:-Timestamp}"
+# Override with AUTH_SCHEME="HMAC " ./tools/exposure-spike.sh ...
+# (Include trailing space if you want "HMAC ApiKey.sig" instead of "ApiKey.sig")
+AUTH_SCHEME="${AUTH_SCHEME:-}"
 
 # Timestamp in ISO 8601 with 7 fractional-second digits (matches Exposure example format)
 # macOS date doesn't support %N — we synthesize fractional seconds via Python.
@@ -44,7 +49,7 @@ STRING_TO_SIGN_UPPER=$(echo -n "$STRING_TO_SIGN" | tr '[:lower:]' '[:upper:]')
 # HMAC-SHA256 → base64
 SIGNATURE=$(printf '%s' "$STRING_TO_SIGN_UPPER" | openssl dgst -sha256 -hmac "$EXPOSURE_SECRET_KEY" -binary | base64)
 
-AUTH_HEADER="Authorization: ${EXPOSURE_API_KEY}.${SIGNATURE}"
+AUTH_HEADER="Authentication: ${EXPOSURE_API_KEY}.${SIGNATURE}"
 URL="https://${HOST}${PATH_ARG}"
 
 echo "── Request ──────────────────────────────────────"
@@ -54,12 +59,13 @@ echo "  Timestamp:     $TIMESTAMP"
 echo "  String-to-sign (upper):"
 echo "    $STRING_TO_SIGN_UPPER"
 echo "  Auth header:   $AUTH_HEADER"
+echo "  TS header:     $TS_HEADER: $TIMESTAMP"
 echo "─────────────────────────────────────────────────"
 echo ""
 echo "── Response ─────────────────────────────────────"
 HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/exposure-spike-body \
   -H "$AUTH_HEADER" \
-  -H "Timestamp: $TIMESTAMP" \
+  -H "$TS_HEADER: $TIMESTAMP" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Host: $HOST" \
