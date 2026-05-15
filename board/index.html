@@ -87,6 +87,20 @@ header h1 .accent { color: var(--accent); }
   font-size: 16px;
 }
 .icon-btn:hover { background: var(--surface); border-color: var(--accent); }
+.sync-btn { position: relative; }
+.sync-btn .sync-icon { transition: transform .4s; display: inline-block; }
+.sync-btn.spinning .sync-icon { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.sync-dot {
+  position: absolute; top: 4px; right: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--text-mute);
+  border: 2px solid var(--bg);
+  box-sizing: content-box;
+}
+.sync-dot.synced  { background: #3a7a55; }
+.sync-dot.pending { background: var(--accent); }
+.sync-dot.offline { background: var(--danger); }
 @media (max-width: 720px) {
   .header-actions input[type="search"] { width: 130px; padding: 8px 10px; font-size: 14px; }
   header h1 .full { display: none; }
@@ -466,6 +480,10 @@ header h1 .accent { color: var(--accent); }
     <input type="search" id="search" placeholder="Search…" aria-label="Search cards"/>
     <button class="icon-btn" id="export-btn" title="Export JSON">⬇</button>
     <button class="icon-btn" id="import-btn" title="Import JSON">⬆</button>
+    <button class="icon-btn sync-btn" id="sync-btn" title="Sync now" aria-label="Sync now">
+      <span class="sync-icon">🔄</span>
+      <span class="sync-dot" id="sync-dot" aria-hidden="true"></span>
+    </button>
     <button class="icon-btn" id="settings-btn" title="Categories">⚙</button>
     <button class="icon-btn" id="lock-btn" title="Lock board">🔒</button>
   </div>
@@ -560,6 +578,8 @@ const STORAGE_KEY = "bb-board-v1";
 const PASS_KEY    = STORAGE_KEY + "-pass";       // stored SHA-256 hash
 const REMEMBER_KEY = STORAGE_KEY + "-remembered"; // hash, if "remember me"
 const SESSION_KEY = STORAGE_KEY + "-authed";      // session-only flag
+const SYNC_KEY_LS = STORAGE_KEY + "-syncKey";     // BOARD_KEY for /board-sync function
+const SYNC_URL    = "/.netlify/functions/board-sync";
 // Default passphrase hash baked in — every device unlocks with the same passphrase.
 // Replace this hash to change the passphrase: node -e "console.log(require('crypto').createHash('sha256').update('NEW_PASS').digest('hex'))"
 const DEFAULT_PASS_HASH = "c15dce623a893c9ea9a426f65240fe0b2ba4724c92a22846006f4856d03f736d";
@@ -587,7 +607,9 @@ function loadState() {
   } catch { return null; }
 }
 function saveState() {
+  state.lastModifiedAt = new Date().toISOString();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  scheduleSyncPush();
 }
 function uid() { return "c-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4); }
 
@@ -933,6 +955,12 @@ function saveCatEdits() {
 /* ============================================================
  * EXPORT / IMPORT
  * ============================================================ */
+$("#sync-btn").addEventListener("click", async () => {
+  if (!syncKey) { await ensureSyncKey(true); }
+  // Manual sync: pull first, then if local was newer push, then ensure state matches
+  await initialSync();
+  toast("Synced");
+});
 $("#lock-btn").addEventListener("click", () => {
   sessionStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(REMEMBER_KEY);
@@ -981,6 +1009,160 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault(); $("#search").focus();
   }
 });
+
+/* ============================================================
+ * CROSS-DEVICE SYNC
+ * ============================================================ */
+let syncKey = localStorage.getItem(SYNC_KEY_LS) || null;
+let syncDebounce = null;
+let syncInFlight = false;
+
+function setSyncStatus(status) {
+  // status: idle | pending | syncing | synced | offline | unavailable
+  const dot = $("#sync-dot");
+  const btn = $("#sync-btn");
+  if (!dot || !btn) return;
+  dot.classList.remove("synced", "pending", "offline");
+  btn.classList.remove("spinning");
+  if (status === "synced")  dot.classList.add("synced");
+  if (status === "pending") dot.classList.add("pending");
+  if (status === "offline") dot.classList.add("offline");
+  if (status === "unavailable") dot.classList.add("offline");
+  if (status === "syncing") btn.classList.add("spinning");
+  btn.title = ({
+    idle:        "Sync now",
+    pending:     "Pending sync — tap to push now",
+    syncing:     "Syncing…",
+    synced:      "All changes synced",
+    offline:     "Offline — changes saved locally, will retry",
+    unavailable: "Sync not configured on this device — tap to set key",
+  })[status] || "Sync now";
+}
+
+async function ensureSyncKey(promptIfMissing = true) {
+  if (syncKey) return syncKey;
+  if (!promptIfMissing) return null;
+  const v = prompt("Enter your sync key (set BOARD_KEY in Netlify env). One-time per device — stored in this browser only.");
+  if (!v) return null;
+  syncKey = v.trim();
+  localStorage.setItem(SYNC_KEY_LS, syncKey);
+  return syncKey;
+}
+
+function getSyncableState(s) {
+  // Strip transient UI fields before sending to server
+  return {
+    version: s.version,
+    categories: s.categories,
+    cards: s.cards,
+    mobileStage: s.mobileStage,
+    lastModifiedAt: s.lastModifiedAt,
+  };
+}
+
+async function syncPull() {
+  if (!await ensureSyncKey(false)) { setSyncStatus("unavailable"); return null; }
+  setSyncStatus("syncing");
+  try {
+    const r = await fetch(SYNC_URL, { headers: { "X-Board-Key": syncKey } });
+    if (r.status === 401) {
+      localStorage.removeItem(SYNC_KEY_LS); syncKey = null;
+      setSyncStatus("unavailable");
+      toast("Sync key invalid — please re-enter");
+      return null;
+    }
+    if (!r.ok) throw new Error(`status ${r.status}`);
+    const out = await r.json();
+    setSyncStatus("synced");
+    return out;
+  } catch (err) {
+    console.warn("syncPull failed:", err);
+    setSyncStatus("offline");
+    return null;
+  }
+}
+
+async function syncPush() {
+  if (syncInFlight) return false;
+  if (!await ensureSyncKey(false)) { setSyncStatus("unavailable"); return false; }
+  syncInFlight = true;
+  setSyncStatus("syncing");
+  try {
+    const r = await fetch(SYNC_URL, {
+      method: "POST",
+      headers: { "X-Board-Key": syncKey, "Content-Type": "application/json" },
+      body: JSON.stringify(getSyncableState(state)),
+    });
+    if (r.status === 401) {
+      localStorage.removeItem(SYNC_KEY_LS); syncKey = null;
+      setSyncStatus("unavailable");
+      toast("Sync key invalid");
+      return false;
+    }
+    if (!r.ok) throw new Error(`status ${r.status}`);
+    const out = await r.json();
+    state.serverUpdatedAt = out.updatedAt;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    setSyncStatus("synced");
+    return true;
+  } catch (err) {
+    console.warn("syncPush failed:", err);
+    setSyncStatus("offline");
+    return false;
+  } finally {
+    syncInFlight = false;
+  }
+}
+
+function scheduleSyncPush() {
+  setSyncStatus("pending");
+  if (syncDebounce) clearTimeout(syncDebounce);
+  syncDebounce = setTimeout(() => syncPush(), 1500);
+}
+
+async function initialSync() {
+  if (!await ensureSyncKey(true)) { setSyncStatus("unavailable"); return; }
+  const pulled = await syncPull();
+  if (!pulled) return; // network/auth error — keep using local
+  if (!pulled.data) {
+    // First device ever — push local up
+    if (state.cards.length > 0 || state.categories.length !== DEFAULT_CATEGORIES.length) {
+      await syncPush();
+    } else {
+      setSyncStatus("synced");
+    }
+    return;
+  }
+  const serverTime = pulled.updatedAt ? new Date(pulled.updatedAt).getTime() : 0;
+  const localTime  = state.lastModifiedAt ? new Date(state.lastModifiedAt).getTime() : 0;
+  if (localTime > serverTime) {
+    // Local has unsynced edits — push up
+    await syncPush();
+  } else if (serverTime > localTime) {
+    // Server is newer — adopt it, keep local UI state
+    const local = { filter: state.filter, search: state.search };
+    state = {
+      ...pulled.data,
+      filter: local.filter ?? null,
+      search: local.search ?? "",
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    render();
+    setSyncStatus("synced");
+  } else {
+    setSyncStatus("synced");
+  }
+}
+
+// Re-sync when tab regains focus (you switched devices)
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && syncKey) {
+    initialSync().catch(() => {});
+  }
+});
+// Re-sync when back online
+window.addEventListener("online", () => { if (syncKey) syncPush().catch(() => {}); });
+window.addEventListener("offline", () => setSyncStatus("offline"));
 
 /* ============================================================
  * PASSPHRASE GATE
@@ -1059,6 +1241,9 @@ function runGate() {
   await runGate();
   render();
   seedWelcomeIfEmpty();
+  // Kick off cross-device sync (non-blocking). If BOARD_KEY isn't set on
+  // this device, we'll prompt for it once.
+  initialSync().catch(err => console.warn("initialSync error:", err));
 })();
 
 function seedWelcomeIfEmpty() {
