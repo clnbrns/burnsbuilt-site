@@ -391,6 +391,94 @@ header h1 .accent { color: var(--accent); }
   .header-actions input[type="search"] { display: none; } /* search via filter chips on narrow */
 }
 
+/* ───── USERS (assignment) ───── */
+.user-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bg-color, var(--accent)); color: #fff;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  line-height: 1; flex-shrink: 0;
+}
+.user-avatar.lg { width: 28px; height: 28px; font-size: 12px; }
+.user-avatar.unassigned {
+  background: transparent; border: 1px dashed var(--text-mute); color: var(--text-mute);
+}
+.card .user-chip {
+  position: absolute; top: 8px; right: 8px;
+  font-size: 0;
+}
+/* header user badge */
+.user-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 8px 4px 4px;
+  background: transparent; border: 1px solid var(--line-2); border-radius: 999px;
+  cursor: pointer; transition: border-color .12s;
+}
+.user-badge:hover { border-color: var(--accent); }
+.user-badge .name { font-size: 12.5px; font-weight: 600; color: var(--text); }
+@media (max-width: 540px) {
+  .user-badge .name { display: none; }
+  .user-badge { padding: 4px; }
+}
+
+/* User-picker screen (after gate) */
+#user-picker {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+#user-picker.hide { display: none; }
+.user-picker-card {
+  width: 100%; max-width: 420px;
+  background: var(--surface); border: 1px solid var(--line-2);
+  border-radius: var(--radius-lg); padding: 32px 28px;
+  box-shadow: var(--shadow-lg); text-align: center;
+}
+.user-picker-card h2 { margin: 0 0 8px; font-size: 22px; font-weight: 800; }
+.user-picker-card p { color: var(--text-dim); font-size: 14px; margin: 0 0 22px; }
+.user-picker-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.user-pick-btn {
+  background: var(--surface-2); border: 2px solid var(--line-2);
+  border-radius: var(--radius-lg); padding: 22px 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  cursor: pointer; transition: border-color .15s, transform .1s;
+  color: var(--text);
+  font-family: inherit;
+}
+.user-pick-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.user-pick-btn .user-avatar { width: 52px; height: 52px; font-size: 22px; }
+.user-pick-btn .pname { font-size: 15px; font-weight: 700; }
+
+/* Assignee filter chips */
+.assignee-filters { display: inline-flex; gap: 4px; align-items: center; margin-left: 8px; padding-left: 8px; border-left: 1px solid var(--line); }
+.assignee-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line-2);
+  font-size: 12px; font-weight: 600; color: var(--text-dim);
+  white-space: nowrap; cursor: pointer; user-select: none;
+}
+.assignee-chip:hover { color: var(--text); border-color: var(--accent); }
+.assignee-chip.on { background: var(--surface-2); border-color: var(--accent); color: var(--text); }
+
+/* Assignee select in edit modal */
+.assignee-options {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.assignee-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px 6px 6px; border-radius: 999px;
+  background: var(--surface-2); border: 1px solid var(--line-2);
+  font-size: 13px; font-weight: 600; color: var(--text-dim);
+  cursor: pointer; user-select: none;
+}
+.assignee-opt:hover { color: var(--text); border-color: var(--accent); }
+.assignee-opt.on { background: var(--accent); color: #0E1A2E; border-color: var(--accent); }
+.assignee-opt.on .user-avatar { background: rgba(0,0,0,0.20); color: #fff; }
+
 /* ───── GATE (passphrase lock) ───── */
 #gate {
   position: fixed; inset: 0; z-index: 1000;
@@ -474,9 +562,22 @@ header h1 .accent { color: var(--accent); }
   </div>
 </div>
 
+<!-- USER PICKER — appears after gate, before board renders -->
+<div id="user-picker" class="hide" role="dialog" aria-modal="true" aria-labelledby="user-picker-title">
+  <div class="user-picker-card">
+    <h2 id="user-picker-title">Who's using this?</h2>
+    <p>Pick who you are so tasks get assigned right.</p>
+    <div class="user-picker-grid" id="user-picker-grid"></div>
+  </div>
+</div>
+
 <header class="top">
-  <h1><span class="full">Colin's </span>Board<span class="accent">.</span></h1>
+  <h1><span class="full">The </span>Board<span class="accent">.</span></h1>
   <div class="header-actions">
+    <button class="user-badge" id="user-badge" title="Switch user" type="button" hidden>
+      <span class="user-avatar lg" id="user-badge-avatar"></span>
+      <span class="name" id="user-badge-name"></span>
+    </button>
     <input type="search" id="search" placeholder="Search…" aria-label="Search cards"/>
     <button class="icon-btn" id="export-btn" title="Export JSON">⬇</button>
     <button class="icon-btn" id="import-btn" title="Import JSON">⬆</button>
@@ -528,6 +629,10 @@ header h1 .accent { color: var(--accent); }
       <div class="field">
         <label for="ed-cat">Category</label>
         <select id="ed-cat"></select>
+      </div>
+      <div class="field">
+        <label>Assigned to</label>
+        <div class="assignee-options" id="ed-assignee"></div>
       </div>
       <div class="field">
         <label for="ed-due">Due date</label>
@@ -598,6 +703,12 @@ const DEFAULT_CATEGORIES = [
   { id: "personal", label: "Personal",       color: "#9c6dd6", icon: "👤" },
   { id: "money",    label: "Financial",      color: "#1e8d83", icon: "💰" },
 ];
+// Multi-user: same on every device, synced via state. Edit emails here once known.
+const DEFAULT_USERS = [
+  { id: "colin",   name: "Colin",   email: "colinmburns@gmail.com", color: "#c49a62" },
+  { id: "lindsey", name: "Lindsey", email: "",                       color: "#3a7a55" },
+];
+const CURRENT_USER_KEY = STORAGE_KEY + "-currentUser";
 
 function loadState() {
   try {
@@ -616,13 +727,31 @@ function uid() { return "c-" + Math.random().toString(36).slice(2, 9) + Date.now
 let state = loadState() || {
   version: 1,
   categories: DEFAULT_CATEGORIES,
+  users: DEFAULT_USERS,
   cards: [],
   filter: null,    // category id or null
+  assigneeFilter: null,  // user id, "unassigned", or null (= all)
   search: "",
 };
 // migration: ensure required fields exist
 if (!state.categories) state.categories = DEFAULT_CATEGORIES;
+if (!state.users || !state.users.length) state.users = DEFAULT_USERS;
 if (!state.cards) state.cards = [];
+// Existing cards get no assignee; future cards default to current user.
+state.cards.forEach(c => { if (c.assignee === undefined) c.assignee = null; });
+
+// Current user: stored separately per-device (not synced).
+let currentUserId = localStorage.getItem(CURRENT_USER_KEY) || null;
+function getCurrentUser() {
+  return state.users.find(u => u.id === currentUserId) || null;
+}
+function setCurrentUser(id) {
+  currentUserId = id;
+  if (id) localStorage.setItem(CURRENT_USER_KEY, id);
+  else localStorage.removeItem(CURRENT_USER_KEY);
+}
+function userById(id) { return state.users.find(u => u.id === id); }
+function userInitials(u) { return (u?.name || "?").charAt(0).toUpperCase(); }
 
 let editingId = null;
 
@@ -680,6 +809,27 @@ function renderFilters() {
     el.onclick = () => { state.filter = state.filter === c.id ? null : c.id; saveState(); render(); };
     wrap.appendChild(el);
   });
+
+  // Assignee filter sub-group
+  const af = document.createElement("span");
+  af.className = "assignee-filters";
+  af.innerHTML = `
+    <button type="button" class="assignee-chip ${state.assigneeFilter === "mine" ? "on" : ""}" data-af="mine">👤 Mine</button>
+    ${state.users.filter(u => u.id !== currentUserId).map(u =>
+      `<button type="button" class="assignee-chip ${state.assigneeFilter === u.id ? "on" : ""}" data-af="${u.id}">
+        <span class="user-avatar" style="--bg-color:${u.color}">${userInitials(u)}</span> ${escapeHtml(u.name)}
+      </button>`
+    ).join("")}
+    <button type="button" class="assignee-chip ${state.assigneeFilter === "unassigned" ? "on" : ""}" data-af="unassigned">○ Unassigned</button>
+  `;
+  af.querySelectorAll(".assignee-chip").forEach(btn => {
+    btn.onclick = () => {
+      const v = btn.dataset.af;
+      state.assigneeFilter = state.assigneeFilter === v ? null : v;
+      saveState(); render();
+    };
+  });
+  wrap.appendChild(af);
 }
 function chipEl(c, count, on) {
   const el = document.createElement("button");
@@ -703,14 +853,20 @@ function renderBoard() {
   // Mobile stage tabs state — default "today"
   const activeStage = state.mobileStage || "today";
   board.dataset.activeStage = activeStage;
-  // Pre-compute per-stage counts (respect filter + search) for tab badges
+  // Shared matcher — applies category, search, AND assignee filter
+  const matches = (c) => {
+    if (c.stage && state.filter != null && c.catId !== state.filter) return false;
+    if (q !== "" && !(c.title + " " + (c.desc || "")).toLowerCase().includes(q)) return false;
+    const af = state.assigneeFilter;
+    if (af === "mine" && c.assignee !== currentUserId) return false;
+    if (af === "unassigned" && c.assignee) return false;
+    if (af && af !== "mine" && af !== "unassigned" && c.assignee !== af) return false;
+    return true;
+  };
+  // Pre-compute per-stage counts (respect filter + search + assignee) for tab badges
   const stageCounts = {};
   STAGES.forEach(s => {
-    stageCounts[s.id] = state.cards.filter(c =>
-      c.stage === s.id &&
-      (state.filter == null || c.catId === state.filter) &&
-      (q === "" || (c.title + " " + (c.desc || "")).toLowerCase().includes(q))
-    ).length;
+    stageCounts[s.id] = state.cards.filter(c => c.stage === s.id && matches(c)).length;
   });
   // Render stage tabs (only visible on mobile via CSS)
   const tabs = $("#stage-tabs");
@@ -736,11 +892,7 @@ function renderBoard() {
   STAGES.forEach(s => {
     const col = document.createElement("section");
     col.className = "column"; col.dataset.stage = s.id;
-    const cards = state.cards.filter(c =>
-      c.stage === s.id &&
-      (state.filter == null || c.catId === state.filter) &&
-      (q === "" || (c.title + " " + (c.desc || "")).toLowerCase().includes(q))
-    );
+    const cards = state.cards.filter(c => c.stage === s.id && matches(c));
     col.innerHTML = `
       <div class="col-head">${s.label} <span class="count">${cards.length}</span></div>
       <div class="col-body"></div>`;
@@ -788,7 +940,19 @@ function renderCard(c) {
   const age = ageDays(c.createdAt);
   const ageLabel = (age >= 7 && c.stage !== "done") ? `<span class="aged">aged ${age}d</span>` : "";
 
+  // Assignee chip (top-right of card)
+  let assigneeChip = "";
+  if (c.assignee) {
+    const u = userById(c.assignee);
+    if (u) {
+      assigneeChip = `<div class="user-chip" title="Assigned to ${escapeHtml(u.name)}">
+        <span class="user-avatar" style="--bg-color:${u.color}">${userInitials(u)}</span>
+      </div>`;
+    }
+  }
+
   el.innerHTML = `
+    ${assigneeChip}
     <div class="cat">${cc.icon || ""} ${escapeHtml(cc.label)}</div>
     <p class="title">${escapeHtml(c.title)}</p>
     <div class="meta">${dueLabel}${ageLabel}</div>
@@ -827,6 +991,7 @@ $("#quick-add").addEventListener("submit", (e) => {
     catId,
     stage: "inbox",
     due: null,
+    assignee: currentUserId || null,  // default: assign to me
     createdAt: new Date().toISOString(),
   });
   $("#quick-title").value = "";
@@ -855,6 +1020,25 @@ function openEditModal(id, focusStages) {
     `<option value="${x.id}" ${x.id === c.catId ? "selected" : ""}>${x.icon || ""} ${escapeHtml(x.label)}</option>`
   ).join("");
   $("#ed-due").value = c.due || "";
+  // Assignee options: each user + Unassigned
+  const opts = [{ id: null, name: "Unassigned" }].concat(state.users);
+  $("#ed-assignee").innerHTML = opts.map(u => {
+    const selected = (c.assignee || null) === (u.id || null);
+    if (!u.id) {
+      return `<button type="button" class="assignee-opt ${selected ? "on" : ""}" data-assignee="">
+        <span class="user-avatar unassigned">·</span> Unassigned
+      </button>`;
+    }
+    return `<button type="button" class="assignee-opt ${selected ? "on" : ""}" data-assignee="${u.id}">
+      <span class="user-avatar" style="--bg-color:${u.color}">${userInitials(u)}</span> ${escapeHtml(u.name)}
+    </button>`;
+  }).join("");
+  $("#ed-assignee").querySelectorAll(".assignee-opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $("#ed-assignee").querySelectorAll(".assignee-opt").forEach(x => x.classList.remove("on"));
+      btn.classList.add("on");
+    });
+  });
   $("#ed-stages").innerHTML = STAGES.map(s =>
     `<button type="button" data-stage="${s.id}" class="${s.id === c.stage ? "current" : ""}">${s.label}</button>`
   ).join("");
@@ -887,12 +1071,45 @@ $("#edit-bg").addEventListener("click", (e) => { if (e.target.id === "edit-bg") 
 $("#ed-save").addEventListener("click", () => {
   if (!editingId) return;
   const c = state.cards.find(x => x.id === editingId);
+  const prevAssignee = c.assignee || null;
   c.title = $("#ed-title").value.trim() || c.title;
   c.desc = $("#ed-desc").value.trim();
   c.catId = $("#ed-cat").value;
   c.due = $("#ed-due").value || null;
-  saveState(); render(); closeEditModal(); toast("Saved");
+  // Pick selected assignee
+  const picked = $("#ed-assignee").querySelector(".assignee-opt.on");
+  c.assignee = picked ? (picked.dataset.assignee || null) : null;
+  // If assignee changed AND new assignee isn't me, fire notification
+  if (c.assignee !== prevAssignee && c.assignee && c.assignee !== currentUserId) {
+    notifyAssignment(c).catch(err => console.warn("notify failed:", err));
+  }
+  saveState(); render(); closeEditModal();
+  toast(c.assignee !== prevAssignee && c.assignee
+    ? `Saved — assigned to ${userById(c.assignee)?.name || c.assignee}`
+    : "Saved");
 });
+
+// Notification stub — wired to backend in Phase 2.
+async function notifyAssignment(card) {
+  const assignee = userById(card.assignee);
+  const assigner = getCurrentUser();
+  if (!assignee?.email || !assigner) return;
+  try {
+    await fetch("/.netlify/functions/board-notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Board-Key": syncKey || "" },
+      body: JSON.stringify({
+        toEmail: assignee.email,
+        toName: assignee.name,
+        fromName: assigner.name,
+        cardTitle: card.title,
+        cardId: card.id,
+      }),
+    });
+  } catch (err) {
+    console.warn("notifyAssignment fetch failed:", err);
+  }
+}
 $("#ed-delete").addEventListener("click", () => {
   if (!editingId) return;
   if (!confirm("Delete this task?")) return;
@@ -1239,12 +1456,54 @@ function runGate() {
  * ============================================================ */
 (async () => {
   await runGate();
+  await ensureCurrentUser();
+  refreshUserBadge();
   render();
   seedWelcomeIfEmpty();
   // Kick off cross-device sync (non-blocking). If BOARD_KEY isn't set on
   // this device, we'll prompt for it once.
   initialSync().catch(err => console.warn("initialSync error:", err));
 })();
+
+/* ============================================================
+ * USER PICKER (after gate, before board)
+ * ============================================================ */
+function ensureCurrentUser() {
+  return new Promise((resolve) => {
+    if (getCurrentUser()) return resolve();
+    const picker = $("#user-picker");
+    const grid   = $("#user-picker-grid");
+    grid.innerHTML = state.users.map(u =>
+      `<button class="user-pick-btn" data-uid="${u.id}" type="button">
+        <span class="user-avatar lg" style="--bg-color:${u.color}">${userInitials(u)}</span>
+        <span class="pname">${escapeHtml(u.name)}</span>
+      </button>`
+    ).join("");
+    picker.classList.remove("hide");
+    grid.querySelectorAll(".user-pick-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setCurrentUser(btn.dataset.uid);
+        picker.classList.add("hide");
+        resolve();
+      });
+    });
+  });
+}
+
+function refreshUserBadge() {
+  const u = getCurrentUser();
+  const badge = $("#user-badge");
+  if (!u) { badge.hidden = true; return; }
+  badge.hidden = false;
+  $("#user-badge-avatar").style.setProperty("--bg-color", u.color);
+  $("#user-badge-avatar").textContent = userInitials(u);
+  $("#user-badge-name").textContent = u.name;
+}
+$("#user-badge").addEventListener("click", () => {
+  // Clicking the badge re-opens the user picker (lightweight switch)
+  setCurrentUser(null);
+  ensureCurrentUser().then(() => { refreshUserBadge(); render(); });
+});
 
 function seedWelcomeIfEmpty() {
 // Welcome seed if board is empty AND no localStorage existed before
