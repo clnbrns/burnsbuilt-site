@@ -706,7 +706,7 @@ const DEFAULT_CATEGORIES = [
 // Multi-user: same on every device, synced via state. Edit emails here once known.
 const DEFAULT_USERS = [
   { id: "colin",   name: "Colin",   email: "colinmburns@gmail.com", color: "#c49a62" },
-  { id: "lindsey", name: "Lindsey", email: "",                       color: "#3a7a55" },
+  { id: "lindsey", name: "Lindsey", email: "lindsey@bearcatturf.com", color: "#3a7a55" },
 ];
 const CURRENT_USER_KEY = STORAGE_KEY + "-currentUser";
 
@@ -736,6 +736,14 @@ let state = loadState() || {
 // migration: ensure required fields exist
 if (!state.categories) state.categories = DEFAULT_CATEGORIES;
 if (!state.users || !state.users.length) state.users = DEFAULT_USERS;
+// Backfill missing emails/colors from DEFAULT_USERS (in case state was synced before they were set)
+state.users.forEach((u, i) => {
+  const def = DEFAULT_USERS.find(d => d.id === u.id);
+  if (def) {
+    if (!u.email) u.email = def.email;
+    if (!u.color) u.color = def.color;
+  }
+});
 if (!state.cards) state.cards = [];
 // Existing cards get no assignee; future cards default to current user.
 state.cards.forEach(c => { if (c.assignee === undefined) c.assignee = null; });
