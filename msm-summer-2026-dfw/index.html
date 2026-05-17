@@ -337,13 +337,17 @@ section.alt { background: var(--msm-paper-2); }
 @media (max-width: 800px) { .geis { grid-template-columns: 1fr; } }
 .geis-visual {
   background: linear-gradient(135deg, var(--msm-secondary) 0%, var(--msm-secondary-dk) 100%);
-  border-radius: var(--msm-radius-lg); padding: 8px;
+  border-radius: var(--msm-radius-lg); padding: 0;
   position: relative; aspect-ratio: 4/3;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
   box-shadow: var(--msm-shadow-lg);
 }
-.geis-visual::after {
+.geis-visual:not(.has-photo)::after {
   content: "📸"; font-size: 96px; opacity: 0.85;
+}
+.geis-visual.has-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  border-radius: var(--msm-radius-lg);
 }
 .geis-steps { list-style: none; padding: 0; margin: 18px 0 24px; counter-reset: g; }
 .geis-steps li {
@@ -1181,9 +1185,8 @@ input, select, textarea, button { font-size: 16px; }
           <a href="https://www.geisphoto.com/" class="btn btn-secondary" target="_blank" rel="noopener">View Pricing</a>
         </div>
       </div>
-      <div class="geis-visual" aria-hidden="true">
-        <!-- Replace this CSS-based placeholder with a real Geis sample image when available -->
-        <!-- <img src="./assets/brand/geis-sample.jpg" alt="Sample Geis Photography portrait" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" /> -->
+      <div class="geis-visual has-photo">
+        <img src="./assets/brand/geis-sample.jpg" alt="Sample portrait from Geis Photography" loading="lazy" />
       </div>
     </div>
   </div>
