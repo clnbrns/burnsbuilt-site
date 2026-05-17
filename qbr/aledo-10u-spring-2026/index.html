@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Aledo Baseball Club 10U - Spring 2026 QBR</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --navy: #0b274d;
+  --red: #ab2532;
+  --white: #ffffff;
+  --blue: #2191fb;
+  --green: #08a045;
+  --gold: #f0a500;
+  --bg: #08111f;
+  --card: #0e1e35;
+  --card2: #111f38;
+  --border: rgba(33,145,251,0.15);
+  --muted: rgba(255,255,255,0.38);
+  --dim: rgba(255,255,255,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.deck-header {
+  background: linear-gradient(135deg, #0b1a2e 0%, #0b274d 60%, #0d1e3a 100%);
+  border-bottom: 2px solid var(--red);
+  padding: 28px 40px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.deck-header::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(171,37,50,0.12) 0%, transparent 70%);
+}
+.header-logo {
+  width: 56px; height: 56px;
+  background: var(--red);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(171,37,50,0.3);
+}
+.header-text h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 3px;
+  line-height: 1;
+  color: var(--white);
+}
+.header-text p {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.header-pills {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.pill {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.pill-green { background: rgba(8,160,69,0.18); border: 1px solid var(--green); color: var(--green); }
+.pill-red { background: rgba(171,37,50,0.18); border: 1px solid var(--red); color: #e05060; }
+.pill-blue { background: rgba(33,145,251,0.15); border: 1px solid var(--blue); color: var(--blue); }
+
+/* NAV */
+.deck-nav {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.deck-nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 14px 20px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-btn:hover { color: var(--white); }
+.nav-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* CONTENT */
+.deck-content { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+.section-sub {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* CARDS */
+.card-grid { display: grid; gap: 16px; }
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.stat-card-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.stat-card-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.stat-card-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.v-blue { color: var(--blue); }
+.v-green { color: var(--green); }
+.v-gold { color: var(--gold); }
+.v-red { color: var(--red); }
+.v-white { color: var(--white); }
+
+/* CHART CONTAINERS */
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.chart-title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+canvas { display: block; width: 100%; height: auto; }
+
+/* TOOLTIP */
+.tooltip-box {
+  position: fixed;
+  background: #1a2e4a;
+  border: 1px solid var(--blue);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  pointer-events: none;
+  display: none;
+  z-index: 1000;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.tooltip-box strong { color: var(--blue); }
+
+/* LEADERBOARD TABLE */
+.lb-table { width: 100%; border-collapse: collapse; }
+.lb-table th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.lb-table th.right { text-align: right; }
+.lb-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--dim);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+}
+.lb-table td.name-col { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 13px; }
+.lb-table td.right { text-align: right; }
+.lb-table tr:last-child td { border-bottom: none; }
+.lb-table tr.team-row td { color: var(--gold); font-weight: 600; border-top: 1px solid rgba(240,165,0,0.3); }
+.rank-num { color: var(--muted); font-size: 11px; margin-right: 8px; }
+.above { color: var(--green); }
+.below { color: var(--red); }
+.bar-inline {
+  display: inline-block;
+  height: 6px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* SCATTER */
+.scatter-wrap { position: relative; display: inline-block; width: 100%; }
+
+/* LEGEND ROW */
+.legend-row { display: flex; flex-wrap: wrap; gap: 14px 20px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.lswatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+.ldash { width: 20px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+
+/* INSIGHT BOXES */
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.insight-box {
+  background: var(--card2);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+}
+.insight-box.warn { border-left-color: var(--gold); }
+.insight-box.danger { border-left-color: var(--red); }
+.insight-box.good { border-left-color: var(--green); }
+.insight-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.insight-text { font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 700px) {
+  .deck-header { padding: 20px; flex-wrap: wrap; }
+  .deck-content { padding: 20px 16px; }
+  .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck-header">
+  <div class="header-logo">ABC</div>
+  <div class="header-text">
+    <h1>Aledo Baseball Club 10U</h1>
+    <p>Spring 2026 &nbsp;|&nbsp; Quarterly Business Review &nbsp;|&nbsp; Generated May 17, 2026</p>
+  </div>
+  <div class="header-pills">
+    <span class="pill pill-green">16 W</span>
+    <span class="pill pill-red">10 L</span>
+    <span class="pill pill-blue">61.5% Win%</span>
+  </div>
+</div>
+
+<nav class="deck-nav">
+  <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
+  <button class="nav-btn" onclick="showSection('hitting')">Hitting</button>
+  <button class="nav-btn" onclick="showSection('plate')">Plate Discipline</button>
+  <button class="nav-btn" onclick="showSection('power')">Power & Contact</button>
+  <button class="nav-btn" onclick="showSection('pitching')">Pitching</button>
+  <button class="nav-btn" onclick="showSection('trends')">Trends</button>
+</nav>
+
+<div class="deck-content">
+
+<!-- OVERVIEW -->
+<div class="section active" id="section-overview">
+  <div class="section-title">Season Overview</div>
+  <div class="section-sub">Spring 2026 &mdash; 26 games played &mdash; All stats from GameChanger CSV</div>
+
+  <div class="card-grid card-grid-4" style="margin-bottom:16px;">
+    <div class="stat-card"><div class="stat-card-label">Record</div><div class="stat-card-value v-white">16-10</div><div class="stat-card-sub">Win% .615</div></div>
+    <div class="stat-card"><div class="stat-card-label">Team AVG</div><div class="stat-card-value v-blue">.351</div><div class="stat-card-sub">163 H / 465 AB</div></div>
+    <div class="stat-card"><div class="stat-card-label">Team OPS</div><div class="stat-card-value v-gold">1.064</div><div class="stat-card-sub">OBP .477 / SLG .587</div></div>
+    <div class="stat-card"><div class="stat-card-label">Runs Scored</div><div class="stat-card-value v-green">193</div><div class="stat-card-sub">7.4 per game</div></div>
+  </div>
+
+  <div class="card-grid card-grid-4" style="margin-bottom:24px;">
+    <div class="stat-card"><div class="stat-card-label">Total RBI</div><div class="stat-card-value v-white">146</div><div class="stat-card-sub">5.6 per game</div></div>
+    <div class="stat-card"><div class="stat-card-label">Home Runs</div><div class="stat-card-value v-red">21</div><div class="stat-card-sub">0.81 per game</div></div>
+    <div class="stat-card"><div class="stat-card-label">Stolen Bases</div><div class="stat-card-value v-blue">116</div><div class="stat-card-sub">95.1% success</div></div>
+    <div class="stat-card"><div class="stat-card-label">K Rate</div><div class="stat-card-value v-gold">18.9%</div><div class="stat-card-sub">111 SO / 589 PA</div></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Win % Over Time — Season Trend</div>
+    <div style="position:relative;">
+      <canvas id="cvWin" width="1000" height="300"></canvas>
+      <div class="tooltip-box" id="ttWin"></div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-item"><div class="lswatch" style="background:var(--green)"></div>Win</div>
+      <div class="legend-item"><div class="lswatch" style="background:var(--red)"></div>Loss</div>
+      <div class="legend-item"><div class="ldash" style="background:var(--gold)"></div>Linear Trend</div>
+    </div>
+  </div>
+
+  <div class="insight-grid">
+    <div class="insight-box good"><div class="insight-label">Team Strength</div><div class="insight-text">Price Cooper, Grayson Burns, and Hawkins Key form a 1.26+ OPS core. Hudson Penny leads in walks (10) and QAB% (60.6%). Power is distributed with 21 HR across 7 players.</div></div>
+    <div class="insight-box warn"><div class="insight-label">Watch Area</div><div class="insight-text">Brayden McCans and Hawkins Key both sit at 28% K rate, highest on the team. Late-season record shows 4 losses in the last 7 games after peaking at 73% win%.</div></div>
+    <div class="insight-box good"><div class="insight-label">Baserunning</div><div class="insight-text">116 SB at 95.1% success rate is elite. Price Cooper leads with 24 SB. The team is applying pressure on every opponent.</div></div>
+    <div class="insight-box danger"><div class="insight-label">Opportunity</div><div class="insight-text">Crew Davis sits at .171 AVG but draws walks (.424 OBP). His bat-to-ball skills need development to capitalize on his on-base instincts.</div></div>
+  </div>
+</div>
+
+<!-- HITTING -->
+<div class="section" id="section-hitting">
+  <div class="section-title">Hitting Analysis</div>
+  <div class="section-sub">AVG / OBP / SLG / OPS by player vs. team baseline</div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Batting Average vs. Team (.351)</div>
+      <canvas id="cvAVG" width="520" height="380"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">OPS vs. Team (1.064)</div>
+      <canvas id="cvOPS" width="520" height="380"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">OBP vs SLG — Scatter (bubble size = PA)</div>
+    <canvas id="cvScatter" width="1000" height="360"></canvas>
+    <div class="tooltip-box" id="ttScatter"></div>
+    <div class="legend-row">
+      <div class="legend-item"><span style="font-size:10px;">Bubble size = plate appearances. Upper-right = elite. Dashed lines = team OBP/SLG baseline.</span></div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Player Leaderboard — All Hitting Stats</div>
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Player</th>
+          <th class="right">AVG</th><th class="right">OBP</th><th class="right">SLG</th><th class="right">OPS</th>
+          <th class="right">H</th><th class="right">HR</th><th class="right">RBI</th><th class="right">SB</th><th class="right">PA</th>
+        </tr>
+      </thead>
+      <tbody id="hittingTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PLATE DISCIPLINE -->
+<div class="section" id="section-plate">
+  <div class="section-title">Plate Discipline</div>
+  <div class="section-sub">BB rate, K rate, BB/K ratio, contact rate, quality at bats</div>
+
+  <div class="card-grid card-grid-4" style="margin-bottom:16px;">
+    <div class="stat-card"><div class="stat-card-label">Team BB Rate</div><div class="stat-card-value v-blue">15.8%</div><div class="stat-card-sub">93 BB / 589 PA</div></div>
+    <div class="stat-card"><div class="stat-card-label">Team K Rate</div><div class="stat-card-value v-gold">18.9%</div><div class="stat-card-sub">111 SO / 589 PA</div></div>
+    <div class="stat-card"><div class="stat-card-label">BB/K Ratio</div><div class="stat-card-value v-green">.838</div><div class="stat-card-sub">Team total</div></div>
+    <div class="stat-card"><div class="stat-card-label">Contact Rate</div><div class="stat-card-value v-white">76.1%</div><div class="stat-card-sub">(AB-K)/AB</div></div>
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Walk Rate (BB/PA) — Lower team line = 15.8%</div>
+      <canvas id="cvBB" width="520" height="340"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Strikeout Rate (SO/PA) — Lower is better — Team 18.9%</div>
+      <canvas id="cvSO" width="520" height="340"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">BB/K Ratio — Walks per strikeout (higher = better plate discipline)</div>
+    <canvas id="cvBBK" width="1000" height="260"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Quality At Bat % (QAB%) — 3+ pitches after 2 strikes, 6+ pitch ABs, XBH, BB, SAC</div>
+    <canvas id="cvQAB" width="1000" height="260"></canvas>
+  </div>
+</div>
+
+<!-- POWER & CONTACT -->
+<div class="section" id="section-power">
+  <div class="section-title">Power &amp; Contact</div>
+  <div class="section-sub">HR, XBH, SLG, hard hit balls, line drive %, contact rate, stolen bases</div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Home Runs by Player</div>
+      <canvas id="cvHR" width="520" height="300"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Stolen Bases by Player</div>
+      <canvas id="cvSB" width="520" height="300"></canvas>
+    </div>
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Extra Base Hits (XBH) by Player</div>
+      <canvas id="cvXBH" width="520" height="300"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Hard Hit Ball % (LD + Hard GB) — Team 22.97% LD</div>
+      <canvas id="cvHHB" width="520" height="300"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Contact Rate % (AB-SO)/AB — Team 76.1%</div>
+    <canvas id="cvCR" width="1000" height="260"></canvas>
+  </div>
+</div>
+
+<!-- PITCHING -->
+<div class="section" id="section-pitching">
+  <div class="section-title">Pitching</div>
+  <div class="section-sub">Staff ERA, WHIP, K rate, innings distribution — team 7.44 ERA / 2.51 WHIP</div>
+
+  <div class="card-grid card-grid-4" style="margin-bottom:16px;">
+    <div class="stat-card"><div class="stat-card-label">Team ERA</div><div class="stat-card-value v-gold">7.44</div><div class="stat-card-sub">117 ER in 94.1 IP</div></div>
+    <div class="stat-card"><div class="stat-card-label">Team WHIP</div><div class="stat-card-value v-white">2.51</div><div class="stat-card-sub">121 H + 116 BB</div></div>
+    <div class="stat-card"><div class="stat-card-label">Staff K Rate</div><div class="stat-card-value v-blue">19.4%</div><div class="stat-card-sub">104 K / 535 BF</div></div>
+    <div class="stat-card"><div class="stat-card-label">Innings Pitched</div><div class="stat-card-value v-green">94.1</div><div class="stat-card-sub">16 W / 9 L record</div></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Pitching Staff — ERA by Pitcher (pitchers with 5+ IP)</div>
+    <canvas id="cvERA" width="1000" height="280"></canvas>
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Innings Pitched Distribution</div>
+      <canvas id="cvIP" width="520" height="280"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Pitching K Rate (SO/BF) by Pitcher</div>
+      <canvas id="cvPKR" width="520" height="280"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- TRENDS -->
+<div class="section" id="section-trends">
+  <div class="section-title">Season Trends</div>
+  <div class="section-sub">Batting average and win% trajectory across all 26 games</div>
+
+  <div class="chart-card">
+    <div class="chart-title">Cumulative Batting Average — 10 Players Over 26 Games</div>
+    <canvas id="cvTrendAVG" width="1000" height="380"></canvas>
+    <div class="tooltip-box" id="ttTrend"></div>
+    <div class="legend-row" id="trendLegend"></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Win % Over Time with Linear Trend</div>
+    <canvas id="cvTrendWin" width="1000" height="300"></canvas>
+  </div>
+</div>
+
+</div><!-- /deck-content -->
+
+<div class="tooltip-box" id="ttMain"></div>
+
+<script>
+// ============================================================
+// DATA — ALL FROM CSV SOURCE, NO MEMORY
+// ============================================================
+const PLAYERS = [
+  // num, name, gp, pa, ab, avg, obp, ops, slg, h, 1b, 2b, 3b, hr, rbi, r, bb, so, kl, hbp, sac, sf, roe, sb, cs, qab, qabpct, bbk, cpct, hhb, ldpct, fbpct, gbpct, babip, barisp, xbh, tb, ps
+  { num:'1',  name:'Bowie Wingate',     gp:26, pa:51, ab:42, avg:.310, obp:.383, ops:.693, slg:.310, h:13, b1:13, b2:0,  b3:0,  hr:0,  rbi:13, r:12, bb:3,  so:6,  kl:4, hbp:2, sb:9,  cs:0, qab:17, qabpct:33.33, bbk:.500,  cpct:85.71, hhb:7,  ldpct:7.89,  fbpct:21.05, gbpct:65.79, babip:.361, barisp:.423, xbh:0,  tb:13 },
+  { num:'2',  name:'Hilton Finley',     gp:24, pa:52, ab:47, avg:.426, obp:.481, ops:1.034,slg:.553, h:20, b1:16, b2:2,  b3:2,  hr:0,  rbi:13, r:12, bb:5,  so:12, kl:4, hbp:0, sb:3,  cs:2, qab:27, qabpct:51.92, bbk:.417,  cpct:74.47, hhb:16, ldpct:24.24, fbpct:33.33, gbpct:42.42, babip:.571, barisp:.375, xbh:4,  tb:26 },
+  { num:'3',  name:'Hudson Penny',      gp:26, pa:66, ab:50, avg:.400, obp:.530, ops:1.210,slg:.680, h:20, b1:14, b2:1,  b3:2,  hr:3,  rbi:18, r:26, bb:10, so:9,  kl:1, hbp:5, sb:11, cs:0, qab:40, qabpct:60.61, bbk:1.111, cpct:82.00, hhb:22, ldpct:26.19, fbpct:28.57, gbpct:45.24, babip:.436, barisp:.318, xbh:6,  tb:34 },
+  { num:'4',  name:'Crew Davis',        gp:26, pa:59, ab:41, avg:.171, obp:.424, ops:.643, slg:.220, h:7,  b1:6,  b2:0,  b3:1,  hr:0,  rbi:8,  r:13, bb:17, so:11, kl:5, hbp:1, sb:11, cs:1, qab:27, qabpct:45.76, bbk:1.545, cpct:73.17, hhb:5,  ldpct:3.33,  fbpct:26.67, gbpct:66.67, babip:.233, barisp:.222, xbh:1,  tb:9  },
+  { num:'7',  name:'Chandler Gonzales', gp:17, pa:35, ab:29, avg:.310, obp:.429, ops:.877, slg:.448, h:9,  b1:7,  b2:1,  b3:0,  hr:1,  rbi:7,  r:9,  bb:6,  so:6,  kl:2, hbp:0, sb:5,  cs:0, qab:16, qabpct:45.71, bbk:1.000, cpct:79.31, hhb:8,  ldpct:17.39, fbpct:52.17, gbpct:26.09, babip:.364, barisp:.385, xbh:2,  tb:13 },
+  { num:'8',  name:'Price Cooper',      gp:26, pa:71, ab:59, avg:.407, obp:.507, ops:1.338,slg:.831, h:24, b1:10, b2:7,  b3:3,  hr:4,  rbi:16, r:37, bb:9,  so:11, kl:4, hbp:3, sb:24, cs:1, qab:47, qabpct:66.20, bbk:.818,  cpct:81.36, hhb:29, ldpct:35.42, fbpct:25.00, gbpct:39.58, babip:.455, barisp:.438, xbh:14, tb:49 },
+  { num:'9',  name:'Brayden McCans',    gp:26, pa:54, ab:40, avg:.300, obp:.481, ops:1.006,slg:.525, h:12, b1:8,  b2:0,  b3:3,  hr:1,  rbi:9,  r:18, bb:11, so:16, kl:5, hbp:3, sb:15, cs:0, qab:28, qabpct:51.85, bbk:.688,  cpct:60.00, hhb:10, ldpct:33.33, fbpct:20.83, gbpct:45.83, babip:.478, barisp:.211, xbh:4,  tb:21 },
+  { num:'13', name:'Hawkins Key',       gp:23, pa:57, ab:47, avg:.383, obp:.474, ops:1.261,slg:.787, h:18, b1:9,  b2:4,  b3:0,  hr:5,  rbi:20, r:13, bb:7,  so:16, kl:6, hbp:2, sb:7,  cs:0, qab:32, qabpct:56.14, bbk:.438,  cpct:65.96, hhb:18, ldpct:22.58, fbpct:32.26, gbpct:45.16, babip:.481, barisp:.500, xbh:9,  tb:37 },
+  { num:'27', name:'Grayson Burns',     gp:26, pa:64, ab:50, avg:.420, obp:.547, ops:1.267,slg:.720, h:21, b1:15, b2:1,  b3:1,  hr:4,  rbi:21, r:24, bb:12, so:11, kl:5, hbp:2, sb:18, cs:2, qab:39, qabpct:60.94, bbk:1.091, cpct:78.00, hhb:22, ldpct:33.33, fbpct:17.95, gbpct:48.72, babip:.486, barisp:.417, xbh:6,  tb:36 },
+  { num:'77', name:'Hayes Risinger',    gp:26, pa:58, ab:45, avg:.333, obp:.448, ops:1.048,slg:.600, h:15, b1:9,  b2:3,  b3:0,  hr:3,  rbi:18, r:22, bb:6,  so:9,  kl:2, hbp:5, sb:12, cs:0, qab:28, qabpct:48.28, bbk:.667,  cpct:80.00, hhb:16, ldpct:18.42, fbpct:36.84, gbpct:44.74, babip:.343, barisp:.346, xbh:6,  tb:27 },
+];
+
+const TEAM = { avg:.351, obp:.477, ops:1.064, slg:.587, bb:93, so:111, pa:589, ab:465, h:163, hr:21, r:193, rbi:146, sb:116, xbh:55, tb:273, qabpct:52.97, bbk:.838, cpct:76.13, hhbpct:22.97, era:7.442, whip:2.512 };
+
+// Pitchers from CSV (IP col=55, ERA=69, WHIP=70, BF=58, SO=72, BB=71, H=65, W=60, L=61)
+const PITCHERS = [
+  { name:'Bowie Wingate #1',     ip:9.1,  w:1, l:0, era:7.071, whip:1.607, so:8,  bb:7,  bf:44,  h:8  },
+  { name:'Hilton Finley #2',     ip:7.0,  w:3, l:0, era:12.00, whip:3.143, so:9,  bb:17, bf:45,  h:5  },
+  { name:'Hudson Penny #3',      ip:13.0, w:2, l:2, era:4.615, whip:2.154, so:8,  bb:6,  bf:66,  h:22 },
+  { name:'Chandler Gonzales #7', ip:11.0, w:3, l:0, era:1.091, whip:1.000, so:15, bb:5,  bf:44,  h:6  },
+  { name:'Price Cooper #8',      ip:14.0, w:2, l:1, era:7.286, whip:2.357, so:17, bb:14, bf:78,  h:19 },
+  { name:'Brayden McCans #9',    ip:6.0,  w:0, l:1, era:10.00, whip:3.167, so:8,  bb:10, bf:38,  h:9  },
+  { name:'Hawkins Key #13',      ip:5.2,  w:1, l:1, era:14.82, whip:4.235, so:7,  bb:7,  bf:43,  h:13 },
+  { name:'Grayson Burns #27',    ip:10.0, w:1, l:1, era:7.200, whip:3.600, so:11, bb:12, bf:72,  h:21 },
+  { name:'Hayes Risinger #77',   ip:6.1,  w:1, l:2, era:12.32, whip:3.316, so:9,  bb:13, bf:41,  h:8  },
+];
+
+const COLORS = ['#2191fb','#ab2532','#08a045','#f0a500','#e04bff','#00d4c8','#ff6b35','#a8e063','#ff9eb5','#b0c4de'];
+
+// Game-by-game data (from individual stat screenshots, cumulative AVG)
+const GAME_LABELS = [
+  'Mar 8 G1','Mar 8 G2','Mar 8 G3','Mar 21 G1','Mar 21 G2','Mar 22',
+  'Mar 28 G1','Mar 28 G2','Mar 29 G1','Mar 29 G2','Mar 29 G3',
+  'Apr 11 G1','Apr 11 G2','Apr 12','Apr 19 G1','Apr 19 G2','Apr 19 G3',
+  'May 2 G1','May 2 G2','May 3','May 9 G1','May 9 G2','May 10','May 16 G1','May 16 G2'
+];
+
+const PLAYER_TRENDS = [
+  { name:'Bowie Wingate #1',    avg:[.500,.250,.250,.400,.286,.250,.300,.273,.357,.375,.353,.368,.350,.318,.333,.308,.286,.267,.250,.265,.286,.297,.289,.317,.310] },
+  { name:'Hilton Finley #2',    avg:[.333,.500,.500,null,.400,.400,.429,.412,.421,.400,.381,.391,.400,.407,.379,.367,.375,.382,.389,.421,.425,.439,.455,.444,null] },
+  { name:'Hudson Penny #3',     avg:[.333,.250,.167,.143,.222,.250,.286,.294,.316,.318,.292,.320,.346,.321,.310,.333,.323,.364,.343,.342,.350,.357,.372,.413,.404] },
+  { name:'Crew Davis #4',       avg:[.000,.000,.167,.250,.200,.154,.133,.188,.167,.150,.136,.136,.136,.136,.125,.192,.192,.207,.200,.188,.182,.171,.167,.179,.175] },
+  { name:'Chandler Gonzales #7',avg:[.500,.500,.250,.200,.286,.333,.300,.364,.462,.400,.375,null,null,null,.333,.286,.273,null,null,null,.333,.286,.273,.320,.296] },
+  { name:'Price Cooper #8',     avg:[.500,.500,.333,.250,.300,.333,.286,.353,.368,.409,.391,.360,.393,.355,.353,.361,.342,.381,.364,.362,.347,.385,.377,.393,.414] },
+  { name:'Brayden McCans #9',   avg:[.000,.000,.000,.000,.000,.000,.000,.000,.063,.118,.167,.158,.150,.136,.174,.208,.208,.259,.310,.300,.344,.333,.324,.324,.316] },
+  { name:'Hawkins Key #13',     avg:[.667,.800,.571,.625,.667,.583,.571,.563,.529,.474,.476,.417,.385,.429,null,.452,.455,.444,.421,.425,.415,null,null,.395,.400] },
+  { name:'Grayson Burns #27',   avg:[.333,.250,.200,.167,.375,.400,.455,.462,.438,.500,.500,.435,.400,.400,.407,.393,.433,.455,.471,.459,.436,.429,.429,.422,.426] },
+  { name:'Hayes Risinger #77',  avg:[.000,.250,.200,.167,.250,.200,.250,.286,.250,.278,.300,.364,.391,.375,.360,.346,.357,.333,.323,.303,.343,.378,.378,.375,.357] },
+];
+
+const WIN_GAMES = [
+  {label:'Mar 8 G1', opp:'Diamond Elite 10U',         result:'W', score:'7-4'  },
+  {label:'Mar 8 G2', opp:'Excel Knights 10U',          result:'W', score:'12-6' },
+  {label:'Mar 8 G3', opp:'Texas Blue Chips Navy 10U',  result:'L', score:'1-10' },
+  {label:'Mar 21 G1',opp:'Arlington As Warner 10U',    result:'W', score:'5-3'  },
+  {label:'Mar 21 G2',opp:'SBA Bolts Texas Hernandez',  result:'W', score:'8-7'  },
+  {label:'Mar 22',   opp:'SBA Bolts Texas Hernandez',  result:'L', score:'4-5'  },
+  {label:'Mar 28 G1',opp:'Action 10U Garver',          result:'L', score:'6-10' },
+  {label:'Mar 28 G2',opp:'Stix Northwest 10u Black',   result:'W', score:'13-12'},
+  {label:'Mar 29 G1',opp:'Dallas Tigers Johnson 10U',  result:'W', score:'14-0' },
+  {label:'Mar 29 G2',opp:'Texas Rattlers Beavers 10U', result:'W', score:'13-2' },
+  {label:'Mar 29 G3',opp:'Texas Alpha 10U',            result:'L', score:'3-9'  },
+  {label:'Apr 11 G1',opp:'Bandit Baseball Carr 10U',   result:'W', score:'8-5'  },
+  {label:'Apr 11 G2',opp:'Furia Baseball 10u Brunk',   result:'W', score:'7-1'  },
+  {label:'Apr 12',   opp:'Dawgs 10U',                  result:'L', score:'3-8'  },
+  {label:'Apr 19 G1',opp:'Forge Baseball 10U Ross',    result:'W', score:'7-2'  },
+  {label:'Apr 19 G2',opp:'ELEVATE 9U DFW',             result:'W', score:'8-5'  },
+  {label:'Apr 19 G3',opp:'Forney Spartans Holland 10U',result:'W', score:'7-4'  },
+  {label:'May 2 G1', opp:'NTX Tribe 10U',              result:'W', score:'15-8' },
+  {label:'May 2 G2', opp:'Prosper Missions 10U Zmesk', result:'L', score:'4-11' },
+  {label:'May 3',    opp:'Texas Alpha 10U',             result:'L', score:'7-10' },
+  {label:'May 9 G1', opp:'TX Legends 10U',             result:'L', score:'4-9'  },
+  {label:'May 9 G2', opp:'DBC Elite 10U',              result:'W', score:'12-5' },
+  {label:'May 10',   opp:'TX Legends 10U',             result:'W', score:'1-0'  },
+  {label:'May 16 G1',opp:'LV Bears Harvey 10U',        result:'W', score:'14-1' },
+  {label:'May 16 G2',opp:'China Spring Cougs 10U',     result:'L', score:'8-10' },
+  {label:'May 17',   opp:'Houston 108 10U',            result:'L', score:'4-5'  },
+];
+
+// ============================================================
+// HELPERS
+// ============================================================
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+function drawHBar(canvas, items, refLine, refLabel, isLower, xmax, fmt, getVal, getColor) {
+  const ctx = canvas.getContext('2d');
+  const CW = canvas.width, CH = canvas.height;
+  const N = items.length;
+  const PAD = { left: 148, right: 70, top: 24, bottom: 28 };
+  const W = CW - PAD.left - PAD.right;
+  const H = CH - PAD.top - PAD.bottom;
+  const barH = Math.floor(H / N) - 5;
+
+  ctx.clearRect(0, 0, CW, CH);
+
+  const xPos = v => PAD.left + (v / xmax) * W;
+  const yCenter = i => PAD.top + i * (H / N) + (H / N) / 2;
+
+  // Grid
+  const steps = 6;
+  for (let i = 0; i <= steps; i++) {
+    const v = (xmax / steps) * i;
+    const x = xPos(v);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x, PAD.top); ctx.lineTo(x, PAD.top + H); ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.font = '9px DM Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(fmt(v), x, PAD.top - 6);
+  }
+
+  // Ref line
+  if (refLine !== null) {
+    const rx = xPos(refLine);
+    ctx.strokeStyle = 'rgba(240,165,0,0.8)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(rx, PAD.top - 8); ctx.lineTo(rx, PAD.top + H + 4); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(240,165,0,0.9)';
+    ctx.font = 'bold 9px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(refLabel, rx, PAD.top + H + 18);
+  }
+
+  items.forEach((p, i) => {
+    const v = getVal(p);
+    const bw = xPos(v) - xPos(0);
+    const yc = yCenter(i);
+    const color = getColor ? getColor(p, v) : (isLower ? (v <= refLine ? '#08a045' : '#ab2532') : (v >= refLine ? '#08a045' : '#ab2532'));
+
+    ctx.fillStyle = color + '28';
+    ctx.fillRect(xPos(0), yc - barH/2, bw, barH);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(xPos(0), yc - barH/2, bw, barH);
+    ctx.fillStyle = color;
+    ctx.fillRect(xPos(0), yc - barH/2, 3, barH);
+
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px DM Mono, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(fmt(v), xPos(0) + bw + 5, yc + 4);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.font = '10px DM Sans, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`#${p.num} ${p.name.split(' ')[0]} ${p.name.split(' ')[1] || ''}`, PAD.left - 6, yc + 4);
+  });
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD.left, PAD.top); ctx.lineTo(PAD.left, PAD.top + H); ctx.lineTo(PAD.left + W, PAD.top + H); ctx.stroke();
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  event.target.classList.add('active');
+  setTimeout(() => renderSection(id), 50);
+}
+
+const rendered = {};
+function renderSection(id) {
+  if (rendered[id]) return;
+  rendered[id] = true;
+  if (id === 'overview') renderOverview();
+  if (id === 'hitting') renderHitting();
+  if (id === 'plate') renderPlate();
+  if (id === 'power') renderPower();
+  if (id === 'pitching') renderPitching();
+  if (id === 'trends') renderTrends();
+}
+
+// ============================================================
+// OVERVIEW
+// ============================================================
+function renderOverview() {
+  // Win % chart
+  const canvas = document.getElementById('cvWin');
+  const ctx = canvas.getContext('2d');
+  const CW = canvas.width, CH = canvas.height;
+  const PAD = { left: 50, right: 20, top: 20, bottom: 70 };
+  const W = CW - PAD.left - PAD.right;
+  const H = CH - PAD.top - PAD.bottom;
+  const YMIN = 0.40, YMAX = 1.0;
+  const N = WIN_GAMES.length;
+
+  let w = 0, l = 0;
+  const pts = WIN_GAMES.map((g,i) => {
+    if (g.result==='W') w++; else l++;
+    return { ...g, w, l, pct: w/(w+l), i };
+  });
+
+  const xPos = i => PAD.left + (i/(N-1))*W;
+  const yPos = v => PAD.top + H - ((v-YMIN)/(YMAX-YMIN))*H;
+
+  ctx.clearRect(0,0,CW,CH);
+
+  // .500 line
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(PAD.left,yPos(.5)); ctx.lineTo(PAD.left+W,yPos(.5)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='left';
+  ctx.fillText('.500', PAD.left+W+3, yPos(.5)+4);
+
+  // Y ticks
+  [.4,.5,.6,.7,.8,.9,1.0].forEach(v => {
+    const y = yPos(v);
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD.left,y); ctx.lineTo(PAD.left+W,y); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='right';
+    ctx.fillText((v*100).toFixed(0)+'%', PAD.left-4, y+4);
+  });
+
+  // Shaded area
+  ctx.beginPath();
+  ctx.moveTo(xPos(0), yPos(pts[0].pct));
+  pts.forEach((p,i) => { if(i>0) ctx.lineTo(xPos(i), yPos(p.pct)); });
+  ctx.lineTo(xPos(N-1), yPos(YMIN));
+  ctx.lineTo(xPos(0), yPos(YMIN));
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0,PAD.top,0,PAD.top+H);
+  grad.addColorStop(0,'rgba(33,145,251,0.2)'); grad.addColorStop(1,'rgba(33,145,251,0.02)');
+  ctx.fillStyle=grad; ctx.fill();
+
+  // Line
+  ctx.strokeStyle='#2191fb'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  ctx.beginPath();
+  pts.forEach((p,i) => { i===0 ? ctx.moveTo(xPos(i),yPos(p.pct)) : ctx.lineTo(xPos(i),yPos(p.pct)); });
+  ctx.stroke();
+
+  // Trend
+  const n = pts.length;
+  let sx=0,sy=0,sxy=0,sx2=0;
+  pts.forEach((p,i) => { sx+=i; sy+=p.pct; sxy+=i*p.pct; sx2+=i*i; });
+  const slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  const intercept=(sy-slope*sx)/n;
+  ctx.strokeStyle='rgba(240,165,0,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([7,5]);
+  ctx.beginPath(); ctx.moveTo(xPos(0),yPos(intercept)); ctx.lineTo(xPos(n-1),yPos(slope*(n-1)+intercept)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Dots
+  pts.forEach((p,i) => {
+    ctx.beginPath(); ctx.arc(xPos(i),yPos(p.pct),5,0,Math.PI*2);
+    ctx.fillStyle=p.result==='W'?'#08a045':'#ab2532';
+    ctx.fill(); ctx.strokeStyle='#08111f'; ctx.lineWidth=1.5; ctx.stroke();
+  });
+
+  // X labels
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font='8px DM Sans,sans-serif'; ctx.textAlign='right';
+  pts.forEach((p,i) => {
+    ctx.save(); ctx.translate(xPos(i), PAD.top+H+5); ctx.rotate(-Math.PI/4);
+    ctx.fillText(p.label,0,0); ctx.restore();
+  });
+
+  // Axis
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.left,PAD.top); ctx.lineTo(PAD.left,PAD.top+H); ctx.lineTo(PAD.left+W,PAD.top+H); ctx.stroke();
+
+  // Tooltip
+  const tt = document.getElementById('ttWin');
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX-rect.left)*(CW/rect.width);
+    const my = (e.clientY-rect.top)*(CH/rect.height);
+    let best=18, bp=null;
+    pts.forEach((p,i) => { const d=Math.abs(mx-xPos(i)); if(d<best){best=d;bp=i;} });
+    if(bp!==null && Math.abs(my-yPos(pts[bp].pct))<40){
+      const p=pts[bp];
+      const c=p.result==='W'?'#08a045':'#ab2532';
+      tt.style.display='block';
+      tt.style.left=(e.clientX+12)+'px'; tt.style.top=(e.clientY-40)+'px';
+      tt.innerHTML=`<strong>${p.label}</strong><br>${p.opp}<br><span style="color:${c}">${p.result} ${p.score}</span><br>Record: ${p.w}-${p.l} &nbsp; Win%: <strong>${(p.pct*100).toFixed(1)}%</strong>`;
+    } else tt.style.display='none';
+  });
+  canvas.addEventListener('mouseleave', ()=>{ tt.style.display='none'; });
+}
+
+// ============================================================
+// HITTING
+// ============================================================
+function renderHitting() {
+  const sorted_avg = [...PLAYERS].sort((a,b)=>b.avg-a.avg);
+  const sorted_ops = [...PLAYERS].sort((a,b)=>b.ops-a.ops);
+
+  // AVG bar
+  drawHBar(document.getElementById('cvAVG'), sorted_avg, TEAM.avg, 'Team .351', false, 0.70,
+    v => v.toFixed(3), p => p.avg, (p,v) => v>=TEAM.avg?'#08a045':'#ab2532');
+
+  // OPS bar
+  drawHBar(document.getElementById('cvOPS'), sorted_ops, TEAM.ops, 'Team 1.064', false, 1.55,
+    v => v.toFixed(3), p => p.ops, (p,v) => v>=TEAM.ops?'#08a045':'#ab2532');
+
+  // Scatter OBP vs SLG
+  const sc = document.getElementById('cvScatter');
+  const ctx = sc.getContext('2d');
+  const CW = sc.width, CH = sc.height;
+  const PAD = {left:60, right:30, top:30, bottom:60};
+  const W = CW-PAD.left-PAD.right, H = CH-PAD.top-PAD.bottom;
+  const XMIN=0.3, XMAX=0.65, YMIN=0.2, YMAX=0.95;
+  const xp = v => PAD.left + (v-XMIN)/(XMAX-XMIN)*W;
+  const yp = v => PAD.top + H - (v-YMIN)/(YMAX-YMIN)*H;
+
+  ctx.clearRect(0,0,CW,CH);
+
+  // Grid
+  [.30,.35,.40,.45,.50,.55,.60,.65].forEach(v => {
+    ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(xp(v),PAD.top); ctx.lineTo(xp(v),PAD.top+H); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='center';
+    ctx.fillText(v.toFixed(2), xp(v), PAD.top+H+14);
+  });
+  [.2,.3,.4,.5,.6,.7,.8,.9].forEach(v => {
+    ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD.left,yp(v)); ctx.lineTo(PAD.left+W,yp(v)); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='right';
+    ctx.fillText(v.toFixed(2), PAD.left-4, yp(v)+4);
+  });
+
+  // Reference lines (team OBP / SLG)
+  ctx.strokeStyle='rgba(240,165,0,0.5)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(xp(TEAM.obp),PAD.top); ctx.lineTo(xp(TEAM.obp),PAD.top+H); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(PAD.left,yp(TEAM.slg)); ctx.lineTo(PAD.left+W,yp(TEAM.slg)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle='rgba(240,165,0,0.7)'; ctx.font='9px DM Sans,sans-serif'; ctx.textAlign='left';
+  ctx.fillText('Team OBP', xp(TEAM.obp)+4, PAD.top+14);
+  ctx.textAlign='right';
+  ctx.fillText('Team SLG', PAD.left+W, yp(TEAM.slg)-5);
+
+  // Quadrant labels
+  const ql = [['Power/Patient','Elite'],['Contact/Walk','Avg or below OPS'],['Free Swinger','Low OBP'],['Slap Hitter','All contact']];
+  ctx.font='9px DM Sans,sans-serif'; ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.textAlign='center';
+
+  // Bubbles
+  const maxPA = Math.max(...PLAYERS.map(p=>p.pa));
+  PLAYERS.forEach((p,i) => {
+    const r = 6 + (p.pa/maxPA)*16;
+    ctx.beginPath(); ctx.arc(xp(p.obp), yp(p.slg), r, 0, Math.PI*2);
+    ctx.fillStyle = COLORS[i]+'55'; ctx.fill();
+    ctx.strokeStyle = COLORS[i]; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.fillStyle=COLORS[i]; ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='center';
+    ctx.fillText(`#${p.num}`, xp(p.obp), yp(p.slg)+3);
+  });
+
+  // Axis labels
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='10px DM Sans,sans-serif'; ctx.textAlign='center';
+  ctx.fillText('OBP', PAD.left+W/2, PAD.top+H+32);
+  ctx.save(); ctx.translate(14, PAD.top+H/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('SLG', 0, 0); ctx.restore();
+
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.left,PAD.top); ctx.lineTo(PAD.left,PAD.top+H); ctx.lineTo(PAD.left+W,PAD.top+H); ctx.stroke();
+
+  // Leaderboard
+  const sorted_ops2 = [...PLAYERS].sort((a,b)=>b.ops-a.ops);
+  const tbody = document.getElementById('hittingTableBody');
+  sorted_ops2.forEach((p,i) => {
+    const above = p.ops >= TEAM.ops;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name-col"><span class="rank-num">${i+1}</span>#${p.num}</td>
+      <td class="name-col">${p.name}</td>
+      <td class="right ${p.avg>=TEAM.avg?'above':'below'}">${p.avg.toFixed(3)}</td>
+      <td class="right">${p.obp.toFixed(3)}</td>
+      <td class="right">${p.slg.toFixed(3)}</td>
+      <td class="right ${above?'above':'below'}">${p.ops.toFixed(3)}</td>
+      <td class="right">${p.h}</td>
+      <td class="right">${p.hr}</td>
+      <td class="right">${p.rbi}</td>
+      <td class="right">${p.sb}</td>
+      <td class="right">${p.pa}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  const teamrow = document.createElement('tr');
+  teamrow.className='team-row';
+  teamrow.innerHTML = `<td class="name-col" colspan="2">TEAM TOTALS</td><td class="right">${TEAM.avg.toFixed(3)}</td><td class="right">${TEAM.obp.toFixed(3)}</td><td class="right">${TEAM.slg.toFixed(3)}</td><td class="right">${TEAM.ops.toFixed(3)}</td><td class="right">${TEAM.h}</td><td class="right">${TEAM.hr}</td><td class="right">${TEAM.rbi}</td><td class="right">${TEAM.sb}</td><td class="right">${TEAM.pa}</td>`;
+  tbody.appendChild(teamrow);
+}
+
+// ============================================================
+// PLATE DISCIPLINE
+// ============================================================
+function renderPlate() {
+  const sorted_bb = [...PLAYERS].sort((a,b) => (b.bb/b.pa)-(a.bb/a.pa));
+  const sorted_so = [...PLAYERS].sort((a,b) => (a.so/a.pa)-(b.so/b.pa));
+  const sorted_bbk = [...PLAYERS].sort((a,b) => b.bbk-a.bbk);
+  const sorted_qab = [...PLAYERS].sort((a,b) => b.qabpct-a.qabpct);
+
+  const TEAM_BBR = TEAM.bb / TEAM.pa;
+  const TEAM_SOR = TEAM.so / TEAM.pa;
+
+  drawHBar(document.getElementById('cvBB'), sorted_bb, TEAM_BBR, 'Team 15.8%', false, 0.35,
+    v => (v*100).toFixed(1)+'%', p => p.bb/p.pa, (p,v) => v>=TEAM_BBR?'#08a045':'#ab2532');
+
+  drawHBar(document.getElementById('cvSO'), sorted_so, TEAM_SOR, 'Team 18.9%', true, 0.40,
+    v => (v*100).toFixed(1)+'%', p => p.so/p.pa, (p,v) => v<=TEAM_SOR?'#08a045':'#ab2532');
+
+  drawHBar(document.getElementById('cvBBK'), sorted_bbk, TEAM.bbk, 'Team .838', false, 2.0,
+    v => v.toFixed(3), p => p.bbk, (p,v) => v>=TEAM.bbk?'#08a045':'#ab2532');
+
+  drawHBar(document.getElementById('cvQAB'), sorted_qab, TEAM.qabpct, 'Team 53.0%', false, 80,
+    v => v.toFixed(1)+'%', p => p.qabpct, (p,v) => v>=TEAM.qabpct?'#08a045':'#ab2532');
+}
+
+// ============================================================
+// POWER & CONTACT
+// ============================================================
+function renderPower() {
+  const s_hr  = [...PLAYERS].sort((a,b)=>b.hr-a.hr);
+  const s_sb  = [...PLAYERS].sort((a,b)=>b.sb-a.sb);
+  const s_xbh = [...PLAYERS].sort((a,b)=>b.xbh-a.xbh);
+  const s_hhb = [...PLAYERS].sort((a,b)=>b.ldpct-a.ldpct);
+  const s_cr  = [...PLAYERS].sort((a,b)=>b.cpct-a.cpct);
+
+  drawHBar(document.getElementById('cvHR'), s_hr, null, null, false, 8,
+    v => v.toFixed(0), p => p.hr, (_,v) => v>0?'#ab2532':'rgba(255,255,255,0.2)');
+
+  drawHBar(document.getElementById('cvSB'), s_sb, null, null, false, 28,
+    v => v.toFixed(0), p => p.sb, (_,v) => '#2191fb');
+
+  drawHBar(document.getElementById('cvXBH'), s_xbh, null, null, false, 18,
+    v => v.toFixed(0), p => p.xbh, (_,v) => '#f0a500');
+
+  drawHBar(document.getElementById('cvHHB'), s_hhb, TEAM.hhbpct, 'Team 23%', false, 42,
+    v => v.toFixed(1)+'%', p => p.ldpct, (p,v) => v>=TEAM.hhbpct?'#08a045':'#ab2532');
+
+  drawHBar(document.getElementById('cvCR'), s_cr, TEAM.cpct, 'Team 76.1%', false, 100,
+    v => v.toFixed(1)+'%', p => p.cpct, (p,v) => v>=TEAM.cpct?'#08a045':'#ab2532');
+}
+
+// ============================================================
+// PITCHING
+// ============================================================
+function renderPitching() {
+  // ERA bar
+  const s_era = [...PITCHERS].sort((a,b)=>a.era-b.era);
+  const canvas = document.getElementById('cvERA');
+  const ctx = canvas.getContext('2d');
+  const CW=canvas.width, CH=canvas.height;
+  const PAD={left:160,right:80,top:24,bottom:28};
+  const W=CW-PAD.left-PAD.right, H=CH-PAD.top-PAD.bottom;
+  const N=s_era.length;
+  const barH=Math.floor(H/N)-5;
+  const XMAX=16;
+  const xPos=v=>PAD.left+(v/XMAX)*W;
+  const yCenter=i=>PAD.top+i*(H/N)+(H/N)/2;
+
+  ctx.clearRect(0,0,CW,CH);
+
+  [0,4,8,12,16].forEach(v=>{
+    const x=xPos(v);
+    ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x,PAD.top); ctx.lineTo(x,PAD.top+H); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='center';
+    ctx.fillText(v.toFixed(2), x, PAD.top-6);
+  });
+
+  // Team ERA line
+  const tx=xPos(TEAM.era);
+  ctx.strokeStyle='rgba(240,165,0,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(tx,PAD.top-8); ctx.lineTo(tx,PAD.top+H+4); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(240,165,0,0.85)'; ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Team 7.44', tx, PAD.top+H+18);
+
+  s_era.forEach((p,i)=>{
+    const bw=xPos(p.era)-xPos(0);
+    const yc=yCenter(i);
+    const color=p.era<=TEAM.era?'#08a045':'#ab2532';
+    ctx.fillStyle=color+'28'; ctx.fillRect(xPos(0),yc-barH/2,bw,barH);
+    ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.strokeRect(xPos(0),yc-barH/2,bw,barH);
+    ctx.fillStyle=color; ctx.fillRect(xPos(0),yc-barH/2,3,barH);
+    ctx.fillStyle='#fff'; ctx.font='bold 10px DM Mono,monospace'; ctx.textAlign='left';
+    ctx.fillText(p.era.toFixed(2), xPos(0)+bw+5, yc+4);
+    ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.font='10px DM Sans,sans-serif'; ctx.textAlign='right';
+    ctx.fillText(`${p.name} (${p.w}-${p.l})`, PAD.left-6, yc+4);
+  });
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.left,PAD.top); ctx.lineTo(PAD.left,PAD.top+H); ctx.lineTo(PAD.left+W,PAD.top+H); ctx.stroke();
+
+  // IP pie/donut
+  const ipCanvas = document.getElementById('cvIP');
+  const ic = ipCanvas.getContext('2d');
+  const ICW=ipCanvas.width, ICH=ipCanvas.height;
+  const cx=ICW/2, cy=ICH/2, OR=Math.min(ICW,ICH)/2-30, IR=OR*0.5;
+  const totalIP = PITCHERS.reduce((s,p)=>s+p.ip,0);
+  ic.clearRect(0,0,ICW,ICH);
+  let angle=-Math.PI/2;
+  PITCHERS.forEach((p,i)=>{
+    const slice=(p.ip/totalIP)*Math.PI*2;
+    ic.beginPath(); ic.moveTo(cx,cy); ic.arc(cx,cy,OR,angle,angle+slice); ic.closePath();
+    ic.fillStyle=COLORS[i]+'cc'; ic.fill();
+    ic.strokeStyle='#08111f'; ic.lineWidth=2; ic.stroke();
+    // Label
+    const mid=angle+slice/2;
+    const lx=cx+Math.cos(mid)*(OR+16), ly=cy+Math.sin(mid)*(OR+16);
+    if(slice>0.15) {
+      ic.fillStyle='rgba(255,255,255,0.8)'; ic.font='9px DM Sans,sans-serif'; ic.textAlign='center';
+      ic.fillText(p.name.split(' ')[1]+' '+p.ip.toFixed(1), lx, ly);
+    }
+    angle+=slice;
+  });
+  ic.beginPath(); ic.arc(cx,cy,IR,0,Math.PI*2); ic.fillStyle='#08111f'; ic.fill();
+  ic.fillStyle='rgba(255,255,255,0.7)'; ic.font='bold 11px DM Mono,monospace'; ic.textAlign='center';
+  ic.fillText('94.1 IP', cx, cy+4);
+
+  // K rate pitching
+  const s_pkr = [...PITCHERS].sort((a,b)=>(b.so/b.bf)-(a.so/a.bf));
+  const TEAM_PKR = 104/535;
+  const pkr_canvas = document.getElementById('cvPKR');
+  const pc = pkr_canvas.getContext('2d');
+  const PCW=pkr_canvas.width, PCH=pkr_canvas.height;
+  const PPAD={left:160,right:80,top:24,bottom:28};
+  const PW=PCW-PPAD.left-PPAD.right, PH=PCH-PPAD.top-PPAD.bottom;
+  const PN=s_pkr.length;
+  const pbarH=Math.floor(PH/PN)-5;
+  const pXPOS=v=>PPAD.left+(v/0.45)*PW;
+  const pYC=i=>PPAD.top+i*(PH/PN)+(PH/PN)/2;
+
+  pc.clearRect(0,0,PCW,PCH);
+  [0,.1,.2,.3,.4].forEach(v=>{
+    const x=pXPOS(v);
+    pc.strokeStyle='rgba(255,255,255,0.06)'; pc.lineWidth=1;
+    pc.beginPath(); pc.moveTo(x,PPAD.top); pc.lineTo(x,PPAD.top+PH); pc.stroke();
+    pc.fillStyle='rgba(255,255,255,0.35)'; pc.font='9px DM Mono,monospace'; pc.textAlign='center';
+    pc.fillText((v*100).toFixed(0)+'%', x, PPAD.top-6);
+  });
+  const ptx=pXPOS(TEAM_PKR);
+  pc.strokeStyle='rgba(240,165,0,0.7)'; pc.lineWidth=1.5; pc.setLineDash([5,4]);
+  pc.beginPath(); pc.moveTo(ptx,PPAD.top-8); pc.lineTo(ptx,PPAD.top+PH+4); pc.stroke();
+  pc.setLineDash([]);
+  pc.fillStyle='rgba(240,165,0,0.85)'; pc.font='bold 9px DM Sans,sans-serif'; pc.textAlign='center';
+  pc.fillText('Team 19.4%', ptx, PPAD.top+PH+18);
+
+  s_pkr.forEach((p,i)=>{
+    const v=p.so/p.bf;
+    const bw=pXPOS(v)-pXPOS(0);
+    const yc=pYC(i);
+    const color=v>=TEAM_PKR?'#08a045':'#ab2532';
+    pc.fillStyle=color+'28'; pc.fillRect(pXPOS(0),yc-pbarH/2,bw,pbarH);
+    pc.strokeStyle=color; pc.lineWidth=1.2; pc.strokeRect(pXPOS(0),yc-pbarH/2,bw,pbarH);
+    pc.fillStyle=color; pc.fillRect(pXPOS(0),yc-pbarH/2,3,pbarH);
+    pc.fillStyle='#fff'; pc.font='bold 10px DM Mono,monospace'; pc.textAlign='left';
+    pc.fillText((v*100).toFixed(1)+'%', pXPOS(0)+bw+5, yc+4);
+    pc.fillStyle='rgba(255,255,255,0.8)'; pc.font='10px DM Sans,sans-serif'; pc.textAlign='right';
+    pc.fillText(p.name, PPAD.left-6, yc+4);
+  });
+  pc.strokeStyle='rgba(255,255,255,0.15)'; pc.lineWidth=1;
+  pc.beginPath(); pc.moveTo(PPAD.left,PPAD.top); pc.lineTo(PPAD.left,PPAD.top+PH); pc.lineTo(PPAD.left+PW,PPAD.top+PH); pc.stroke();
+}
+
+// ============================================================
+// TRENDS
+// ============================================================
+function renderTrends() {
+  const canvas = document.getElementById('cvTrendAVG');
+  const ctx = canvas.getContext('2d');
+  const CW=canvas.width, CH=canvas.height;
+  const PAD={left:52,right:20,top:24,bottom:80};
+  const W=CW-PAD.left-PAD.right, H=CH-PAD.top-PAD.bottom;
+  const N=GAME_LABELS.length;
+  const YMIN=0, YMAX=0.85;
+  const xPos=i=>PAD.left+(i/(N-1))*W;
+  const yPos=v=>PAD.top+H-((v-YMIN)/(YMAX-YMIN))*H;
+
+  ctx.clearRect(0,0,CW,CH);
+
+  [0,.1,.2,.3,.4,.5,.6,.7,.8].forEach(v=>{
+    ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD.left,yPos(v)); ctx.lineTo(PAD.left+W,yPos(v)); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='right';
+    ctx.fillText(v.toFixed(3), PAD.left-4, yPos(v)+4);
+  });
+
+  PLAYER_TRENDS.forEach((p,pi)=>{
+    ctx.strokeStyle=COLORS[pi]; ctx.lineWidth=2; ctx.lineJoin='round';
+    ctx.beginPath();
+    let started=false;
+    p.avg.forEach((v,i)=>{
+      if(v===null){started=false;return;}
+      const x=xPos(i), y=yPos(v);
+      if(!started){ctx.moveTo(x,y);started=true;} else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    p.avg.forEach((v,i)=>{
+      if(v===null)return;
+      ctx.beginPath(); ctx.arc(xPos(i),yPos(v),3,0,Math.PI*2);
+      ctx.fillStyle=COLORS[pi]; ctx.fill();
+    });
+  });
+
+  ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='8px DM Sans,sans-serif'; ctx.textAlign='right';
+  GAME_LABELS.forEach((lbl,i)=>{
+    ctx.save(); ctx.translate(xPos(i),PAD.top+H+5); ctx.rotate(-Math.PI/4);
+    ctx.fillText(lbl,0,0); ctx.restore();
+  });
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(PAD.left,PAD.top); ctx.lineTo(PAD.left,PAD.top+H); ctx.lineTo(PAD.left+W,PAD.top+H); ctx.stroke();
+
+  // Legend
+  const leg = document.getElementById('trendLegend');
+  PLAYER_TRENDS.forEach((p,i)=>{
+    const item=document.createElement('div'); item.className='legend-item';
+    item.innerHTML=`<div class="lswatch" style="background:${COLORS[i]}"></div>${p.name}`;
+    leg.appendChild(item);
+  });
+
+  // Win trend (same as overview but in trends tab)
+  const wc = document.getElementById('cvTrendWin');
+  const wctx = wc.getContext('2d');
+  const WCW=wc.width, WCH=wc.height;
+  const WPAD={left:50,right:20,top:20,bottom:70};
+  const WW=WCW-WPAD.left-WPAD.right, WH=WCH-WPAD.top-WPAD.bottom;
+  const WYMIN=0.40, WYMAX=1.0;
+  const WN=WIN_GAMES.length;
+
+  let ww=0,wl=0;
+  const wpts=WIN_GAMES.map((g,i)=>{
+    if(g.result==='W')ww++;else wl++;
+    return{...g,w:ww,l:wl,pct:ww/(ww+wl),i};
+  });
+  const wxp=i=>WPAD.left+(i/(WN-1))*WW;
+  const wyp=v=>WPAD.top+WH-((v-WYMIN)/(WYMAX-WYMIN))*WH;
+
+  wctx.clearRect(0,0,WCW,WCH);
+  [.4,.5,.6,.7,.8,.9,1.0].forEach(v=>{
+    wctx.strokeStyle='rgba(255,255,255,0.05)'; wctx.lineWidth=1;
+    wctx.beginPath(); wctx.moveTo(WPAD.left,wyp(v)); wctx.lineTo(WPAD.left+WW,wyp(v)); wctx.stroke();
+    wctx.fillStyle='rgba(255,255,255,0.4)'; wctx.font='9px DM Mono,monospace'; wctx.textAlign='right';
+    wctx.fillText((v*100).toFixed(0)+'%', WPAD.left-4, wyp(v)+4);
+  });
+  wctx.strokeStyle='rgba(255,255,255,0.15)'; wctx.lineWidth=1; wctx.setLineDash([4,4]);
+  wctx.beginPath(); wctx.moveTo(WPAD.left,wyp(.5)); wctx.lineTo(WPAD.left+WW,wyp(.5)); wctx.stroke();
+  wctx.setLineDash([]);
+
+  const grad=wctx.createLinearGradient(0,WPAD.top,0,WPAD.top+WH);
+  grad.addColorStop(0,'rgba(33,145,251,0.18)'); grad.addColorStop(1,'rgba(33,145,251,0.01)');
+  wctx.beginPath();
+  wpts.forEach((p,i)=>i===0?wctx.moveTo(wxp(i),wyp(p.pct)):wctx.lineTo(wxp(i),wyp(p.pct)));
+  wctx.lineTo(wxp(WN-1),wyp(WYMIN)); wctx.lineTo(wxp(0),wyp(WYMIN)); wctx.closePath();
+  wctx.fillStyle=grad; wctx.fill();
+
+  wctx.strokeStyle='#2191fb'; wctx.lineWidth=2.5; wctx.lineJoin='round';
+  wctx.beginPath();
+  wpts.forEach((p,i)=>i===0?wctx.moveTo(wxp(i),wyp(p.pct)):wctx.lineTo(wxp(i),wyp(p.pct)));
+  wctx.stroke();
+
+  const wn=wpts.length;
+  let sx=0,sy=0,sxy=0,sx2=0;
+  wpts.forEach((p,i)=>{sx+=i;sy+=p.pct;sxy+=i*p.pct;sx2+=i*i;});
+  const slope=(wn*sxy-sx*sy)/(wn*sx2-sx*sx);
+  const intercept=(sy-slope*sx)/wn;
+  wctx.strokeStyle='rgba(240,165,0,0.7)'; wctx.lineWidth=1.5; wctx.setLineDash([7,5]);
+  wctx.beginPath(); wctx.moveTo(wxp(0),wyp(intercept)); wctx.lineTo(wxp(wn-1),wyp(slope*(wn-1)+intercept)); wctx.stroke();
+  wctx.setLineDash([]);
+
+  wpts.forEach((p,i)=>{
+    wctx.beginPath(); wctx.arc(wxp(i),wyp(p.pct),5,0,Math.PI*2);
+    wctx.fillStyle=p.result==='W'?'#08a045':'#ab2532';
+    wctx.fill(); wctx.strokeStyle='#08111f'; wctx.lineWidth=1.5; wctx.stroke();
+  });
+
+  wctx.fillStyle='rgba(255,255,255,0.4)'; wctx.font='8px DM Sans,sans-serif'; wctx.textAlign='right';
+  wpts.forEach((p,i)=>{
+    wctx.save(); wctx.translate(wxp(i),WPAD.top+WH+5); wctx.rotate(-Math.PI/4);
+    wctx.fillText(p.label,0,0); wctx.restore();
+  });
+  wctx.strokeStyle='rgba(255,255,255,0.15)'; wctx.lineWidth=1;
+  wctx.beginPath(); wctx.moveTo(WPAD.left,WPAD.top); wctx.lineTo(WPAD.left,WPAD.top+WH); wctx.lineTo(WPAD.left+WW,WPAD.top+WH); wctx.stroke();
+}
+
+// Boot
+renderSection('overview');
+</script>
+</body>
+</html>

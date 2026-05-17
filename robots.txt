@@ -7,6 +7,7 @@ Disallow: /thanks.html
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # ---- AI crawlers (explicit allow + disallow paths) ----
 # OpenAI
@@ -15,18 +16,21 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Anthropic
 User-agent: ClaudeBot
@@ -34,18 +38,21 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 User-agent: Claude-Web
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Perplexity
 User-agent: PerplexityBot
@@ -53,6 +60,7 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Google AI training (separate from Googlebot — controls Gemini training only)
 User-agent: Google-Extended
@@ -60,6 +68,7 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Apple Intelligence
 User-agent: Applebot-Extended
@@ -67,6 +76,7 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Common Crawl (used by many LLMs as training data)
 User-agent: CCBot
@@ -74,6 +84,7 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # Meta AI
 User-agent: Meta-ExternalAgent
@@ -81,12 +92,14 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 User-agent: FacebookBot
 Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # ByteDance / TikTok
 User-agent: Bytespider
@@ -94,6 +107,7 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 # DuckDuckGo AI
 User-agent: DuckAssistBot
@@ -101,5 +115,6 @@ Allow: /
 Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
+Disallow: /qbr/
 
 Sitemap: https://burnsbuilt.co/sitemap.xml

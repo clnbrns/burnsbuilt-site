@@ -47,6 +47,10 @@
 /compare/wix-vs-custom-website   /compare/wix-vs-custom/            301
 /compare/agency-vs-small-studio  /compare/agency-vs-studio/         301
 
+# DugoutData QBR decks — noindex'd via robots.txt, shareable by URL
+/qbr/aledo-10u  /qbr/aledo-10u-spring-2026/  301
+/aledo-qbr      /qbr/aledo-10u-spring-2026/  301
+
 # MSM Summer 2026 — DFW West tournament page
 # --- Subdomain msm.burnsbuilt.co serves the MSM page ---
 # Pass function calls through unchanged (don't rewrite to /msm-summer-2026-dfw/.netlify/...)
