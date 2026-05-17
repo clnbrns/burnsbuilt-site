@@ -271,10 +271,70 @@ canvas { display: block; width: 100%; height: auto; }
 .insight-text { font-size: 12px; line-height: 1.6; }
 
 @media (max-width: 700px) {
-  .deck-header { padding: 20px; flex-wrap: wrap; }
-  .deck-content { padding: 20px 16px; }
-  .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr 1fr; }
+  /* Layout */
+  .deck-header { padding: 18px 16px; gap: 14px; flex-wrap: wrap; }
+  .header-text h1 { font-size: 24px; letter-spacing: 2px; }
+  .header-text p { font-size: 10px; letter-spacing: 1.5px; }
+  .header-pills { gap: 6px; margin-left: 0; width: 100%; justify-content: flex-start; }
+  .header-pills .pill { padding: 4px 10px; font-size: 10px; }
+  .header-logo { width: 48px; height: 48px; font-size: 18px; }
+
+  .deck-nav { padding: 0 8px; }
+  .nav-btn { padding: 12px 12px; font-size: 11px; letter-spacing: 1px; }
+
+  .deck-content { padding: 22px 12px; }
+  .section-title { font-size: 20px; letter-spacing: 2px; }
+  .section-sub { font-size: 10px; letter-spacing: 1px; margin-bottom: 18px; }
+
+  /* Stat cards: 2x2 grid on phones */
+  .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 14px 16px; }
+  .stat-card-label { font-size: 9px; letter-spacing: 1.5px; }
+  .stat-card-value { font-size: 26px; letter-spacing: 1.5px; }
+  .stat-card-sub { font-size: 10px; }
+
+  /* Chart cards: horizontally scrollable; canvas keeps a readable min-width */
+  .chart-card { padding: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .chart-card canvas { min-width: 580px; width: 100%; height: auto; display: block; }
+  .chart-card canvas[width="520"] { min-width: 480px; }
+  /* Inner divs that wrap canvases (e.g. tooltip containers) get scroll too */
+  .chart-card > div { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .chart-card > div canvas { min-width: 580px; }
+
+  /* Stack the side-by-side chart pairs vertically — one chart per row reads better */
+  .deck-content > .section > .card-grid.card-grid-2:has(.chart-card),
+  .section > .card-grid.card-grid-2 { grid-template-columns: 1fr !important; }
+
+  /* Insight grid full-width */
   .insight-grid { grid-template-columns: 1fr; }
+
+  /* Leaderboard table: stays inside its chart-card scroll, keeps readable min */
+  .lb-table { min-width: 640px; }
+  .lb-table th { padding: 7px 8px; font-size: 9px; letter-spacing: 1px; }
+  .lb-table td { padding: 9px 8px; font-size: 11px; }
+  .lb-table td.name-col { font-size: 12px; }
+  .rank-num { margin-right: 4px; }
+
+  /* Legend wrap */
+  .legend-row { gap: 10px 14px; margin-top: 10px; }
+  .legend-item { font-size: 10px; }
+
+  /* Tooltip placement on touch — adjust width */
+  .tooltip-box { font-size: 11px; padding: 6px 9px; }
+}
+
+@media (max-width: 480px) {
+  /* Tighter for compact phones (iPhone SE, etc.) */
+  .deck-content { padding: 18px 10px; }
+  .deck-nav { padding: 0 6px; }
+  .nav-btn { padding: 11px 10px; font-size: 10.5px; letter-spacing: 0.8px; }
+
+  .stat-card { padding: 12px 14px; }
+  .stat-card-value { font-size: 22px; }
+  .stat-card-sub { font-size: 9.5px; }
+
+  .header-text h1 { font-size: 20px; letter-spacing: 1.5px; }
+  .header-logo { width: 42px; height: 42px; font-size: 16px; }
 }
 </style>
 </head>
