@@ -32,6 +32,10 @@
 /terms     /terms/    301
 /pay       /pay/      301
 
+# Pricing — consolidated onto /services.html (MRR pivot 2026)
+/pricing      /services.html  301
+/pricing/     /services.html  301
+
 # Articles (extensionless variants)
 /articles                              /articles/                                301
 /articles/website-cost                 /articles/website-cost-2026/              301
