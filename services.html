@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services & Pricing — BurnsBuilt</title>
-  <meta name="description" content="Website packages starting at $500 and custom business automations from $250. Clear pricing, fast delivery, ongoing support. Built by Colin and Carson Burns in Aledo, TX." />
+  <title>Pricing — Monthly Websites from $40/mo | BurnsBuilt</title>
+  <meta name="description" content="Real, custom-coded websites for small businesses — billed monthly. No setup fees. Built by Colin and Carson Burns in Aledo, TX. SEO, tracking, and updates included. Starting at $40/mo." />
   <link rel="canonical" href="https://burnsbuilt.co/services.html" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Services & Pricing — BurnsBuilt" />
-  <meta property="og:description" content="Website packages and custom business automations. Clear pricing, fast delivery." />
+  <meta property="og:title" content="Pricing — Monthly Websites from $40/mo | BurnsBuilt" />
+  <meta property="og:description" content="Real custom websites. No setup fees. Monthly plans starting at $40. SEO, tracking, and updates included." />
   <meta property="og:url" content="https://burnsbuilt.co/services.html" />
   <meta name="twitter:card" content="summary" />
 
@@ -30,6 +30,79 @@
     gtag("js", new Date());
     gtag("config", "G-19HZ4SSMQC");
   </script>
+
+  <style>
+    /* ---- Value-prop strip ---- */
+    .value-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: var(--space-md); }
+    .value-card { background: var(--color-paper, #fbf7f0); border-radius: var(--radius, 8px); padding: 1.5rem 1.25rem; }
+    .value-card .v-icon { font-size: 1.75rem; line-height: 1; margin-bottom: 0.5rem; }
+    .value-card h4 { margin: 0 0 0.5rem; font-size: 1rem; color: var(--color-denim); }
+    .value-card p { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--color-text-muted); }
+    @media (max-width: 900px) { .value-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .value-row { grid-template-columns: 1fr; } }
+
+    /* ---- Pricing tier cards ---- */
+    .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: var(--space-md); align-items: stretch; }
+    @media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; } }
+    .price-card {
+      background: #fff; border: 1px solid var(--color-border, rgba(0,0,0,0.08));
+      border-radius: 12px; padding: 1.75rem 1.5rem 1.5rem;
+      display: flex; flex-direction: column; position: relative;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .price-card.featured {
+      border: 2px solid var(--color-denim, #142640);
+      box-shadow: 0 8px 32px rgba(20,38,64,0.10);
+    }
+    .price-card.featured::before {
+      content: "Most Popular";
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--color-denim, #142640); color: #fff;
+      padding: 4px 14px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: var(--font-mono, monospace);
+    }
+    .price-card .tier-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.5rem; font-family: var(--font-mono, monospace); }
+    .price-card .price { font-size: 2.75rem; font-weight: 900; color: var(--color-denim, #142640); line-height: 1; margin-bottom: 0.25rem; font-family: var(--font-display, sans-serif); }
+    .price-card .price small { font-size: 1rem; font-weight: 500; color: var(--color-text-muted); }
+    .price-card .tier-desc { font-size: 0.9375rem; color: var(--color-text-muted); margin: 0.5rem 0 1.25rem; line-height: 1.55; }
+    .price-card ul { list-style: none; padding: 0; margin: 0 0 1.5rem; flex: 1; }
+    .price-card ul li {
+      padding: 0.5rem 0 0.5rem 1.6rem; position: relative;
+      font-size: 0.9375rem; line-height: 1.5;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .price-card ul li:last-child { border-bottom: 0; }
+    .price-card ul li::before {
+      content: "✓"; position: absolute; left: 0; top: 0.5rem;
+      color: var(--color-success, #2e8c5d); font-weight: 700;
+    }
+    .price-card ul li.highlight { font-weight: 600; color: var(--color-denim, #142640); }
+    .price-card .tier-cta { display: block; text-align: center; padding: 0.85rem 1rem; border-radius: 6px; font-weight: 700; text-decoration: none; transition: all 0.15s; }
+    .price-card .tier-cta.primary { background: var(--color-denim, #142640); color: #fff; }
+    .price-card .tier-cta.primary:hover { background: var(--color-primary-dark, #0c1a2e); }
+    .price-card .tier-cta.outline { background: transparent; color: var(--color-denim, #142640); border: 1.5px solid var(--color-denim, #142640); }
+    .price-card .tier-cta.outline:hover { background: var(--color-denim, #142640); color: #fff; }
+
+    .price-foot {
+      margin-top: 1.25rem; text-align: center; font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+    .price-foot strong { color: var(--color-denim); }
+
+    /* ---- Compare row ---- */
+    .compare-strip {
+      background: var(--color-paper, #fbf7f0); border-radius: 10px; padding: 1.75rem;
+      margin-top: var(--space-md);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
+    }
+    @media (max-width: 720px) { .compare-strip { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; } }
+    .compare-strip h3 { margin: 0 0 0.5rem; }
+    .compare-strip p { margin: 0; font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.55; }
+    .compare-strip ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+    .compare-strip ul li { font-size: 0.9375rem; padding-left: 1.5rem; position: relative; }
+    .compare-strip ul li::before { content: "→"; position: absolute; left: 0; color: var(--color-denim); font-weight: 700; }
+  </style>
 </head>
 <body>
 
@@ -45,10 +118,10 @@
         <ul class="nav-links" id="nav-menu">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="services.html" class="active">Pricing</a></li>
           <li><a href="case-studies/">Work</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li class="nav-cta"><a href="contact.html" class="btn btn-primary">Get a Quote</a></li>
+          <li class="nav-cta"><a href="contact.html" class="btn btn-primary">Get Started</a></li>
         </ul>
       </nav>
     </div>
@@ -58,41 +131,140 @@
 
     <section class="page-hero">
       <div class="container">
-        <span class="eyebrow">Services &amp; Pricing</span>
-        <h1>Straightforward pricing. No surprises.</h1>
-        <p>Here's what we build and what it costs. If you don't see exactly what you need, tell us — we'll put together a custom quote.</p>
+        <span class="eyebrow">Pricing</span>
+        <h1>Real websites. Real code. Billed monthly.</h1>
+        <p>No setup fees. No long contracts. We build your site, keep it updated every month, handle Google search, and wire your tracking. Cancel any time.</p>
       </div>
     </section>
 
-    <!-- Three core services -->
+    <!-- Value props -->
     <section>
       <div class="container">
-        <span class="eyebrow">What we build</span>
-        <h2 class="section-title">Pick a path. We'll take it from there.</h2>
-        <p class="section-lede">Three core services — each with its own dedicated page where you can dig into what's included, who it's for, and how it works.</p>
+        <span class="eyebrow">What you get</span>
+        <h2 class="section-title">Every plan, every month.</h2>
 
-        <div class="services-grid" style="margin-top:var(--space-md);">
-          <a href="web-design/" class="service-card service-card-link">
-            <h3>Web Design</h3>
-            <p style="font-size:1.5rem;font-weight:800;color:var(--color-denim);margin:0.25rem 0 0.125rem;">From $500</p>
-            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;font-size:0.9375rem;">setup &nbsp;·&nbsp; + $25/mo</p>
-            <p>Custom-built marketing websites for small businesses. Mobile-first, SEO-ready, hand-coded. Live in 5–7 business days.</p>
-            <span class="link-arrow">See web design details &amp; tiers →</span>
-          </a>
-          <a href="business-automation/" class="service-card service-card-link">
-            <h3>Business Automation</h3>
-            <p style="font-size:1.5rem;font-weight:800;color:var(--color-denim);margin:0.25rem 0 0.125rem;">From $250</p>
-            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;font-size:0.9375rem;">setup &nbsp;·&nbsp; + $25/mo</p>
-            <p>Lead follow-up, missed-call text-back, review collection, custom CRMs, AI-powered tools. Replace busywork with systems.</p>
-            <span class="link-arrow">See automation details &amp; tiers →</span>
-          </a>
-          <a href="pricing/" class="service-card service-card-link">
-            <h3>Full Pricing</h3>
-            <p style="font-size:1.5rem;font-weight:800;color:var(--color-denim);margin:0.25rem 0 0.125rem;">All tiers</p>
-            <p style="color:var(--color-text-muted);margin-bottom:0.75rem;font-size:0.9375rem;">side-by-side</p>
-            <p>Every tier of every service in one place. Plus the FAQ that answers what's included, what's not, and what month-to-month means.</p>
-            <span class="link-arrow">See full pricing →</span>
-          </a>
+        <div class="value-row">
+          <div class="value-card">
+            <div class="v-icon">🛠</div>
+            <h4>Real custom code</h4>
+            <p>Hand-built, hand-coded sites. Not a Squarespace template with your logo on it.</p>
+          </div>
+          <div class="value-card">
+            <div class="v-icon">🔄</div>
+            <h4>Frequent updates</h4>
+            <p>New copy, new photos, new pages — we make changes throughout the month so your site doesn't go stale.</p>
+          </div>
+          <div class="value-card">
+            <div class="v-icon">🔍</div>
+            <h4>Google search, handled</h4>
+            <p>Local SEO, schema markup, sitemap, Google Business Profile sync. We get you found.</p>
+          </div>
+          <div class="value-card">
+            <div class="v-icon">📊</div>
+            <h4>Tracking that works</h4>
+            <p>Google Analytics, Google Tag Manager, Meta Pixel. So your ad dollars are measurable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing tiers -->
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">Monthly plans</span>
+        <h2 class="section-title">Pick a plan. Cancel any time.</h2>
+        <p class="section-lede">Every plan includes hosting, SSL, a custom-coded site, and ongoing updates. The bigger the plan, the bigger the site and the more we do for you each month.</p>
+
+        <div class="price-grid">
+
+          <!-- STARTER -->
+          <div class="price-card">
+            <div class="tier-name">Starter</div>
+            <div class="price">$40<small> / month</small></div>
+            <p class="tier-desc">A real website for a small local business. Mobile-first. Built fast. Maintained monthly.</p>
+            <ul>
+              <li class="highlight">Custom-coded 5–8 page site</li>
+              <li>Mobile-first, sub-second load</li>
+              <li>Hosting + SSL + domain wiring</li>
+              <li>Contact form with email routing</li>
+              <li>Local SEO + Google Business Profile sync</li>
+              <li>Google Analytics (GA4)</li>
+              <li>Monthly content updates (small edits)</li>
+              <li>72-hour response time</li>
+            </ul>
+            <a href="contact.html?plan=starter" class="tier-cta outline">Start with Starter</a>
+          </div>
+
+          <!-- GROWTH (Featured) -->
+          <div class="price-card featured">
+            <div class="tier-name">Growth</div>
+            <div class="price">$80<small> / month</small></div>
+            <p class="tier-desc">Most small businesses pick this one. Built to grow with you — more pages, real SEO, ad-ready tracking.</p>
+            <ul>
+              <li class="highlight">Custom-coded 10–15 page site</li>
+              <li>Everything in Starter, plus:</li>
+              <li class="highlight">Hyper-local SEO (city + service pages)</li>
+              <li>Schema markup + technical SEO</li>
+              <li class="highlight">Google Tag Manager + Meta Pixel</li>
+              <li>Conversion tracking on every form</li>
+              <li>Lead routing to email + SMS</li>
+              <li>Biweekly updates (~2–4 changes/mo)</li>
+              <li>Monthly performance report</li>
+              <li>48-hour response time</li>
+            </ul>
+            <a href="contact.html?plan=growth" class="tier-cta primary">Start with Growth</a>
+          </div>
+
+          <!-- PRO -->
+          <div class="price-card">
+            <div class="tier-name">Pro</div>
+            <div class="price">$200<small> / month</small></div>
+            <p class="tier-desc">Multi-location, multi-service, or running paid ads. We bring the AI tools and the strategy work.</p>
+            <ul>
+              <li class="highlight">Custom-coded 20+ page site</li>
+              <li>Everything in Growth, plus:</li>
+              <li>Unlimited services + locations</li>
+              <li class="highlight">AI lead qualifier (drafts replies in 60s)</li>
+              <li>A/B testing + conversion rate optimization</li>
+              <li>Weekly updates (~6+ changes/mo)</li>
+              <li>CRM integration (Quo, HubSpot, custom)</li>
+              <li>Quarterly strategy review (60-min call)</li>
+              <li>24-hour priority response</li>
+            </ul>
+            <a href="contact.html?plan=pro" class="tier-cta outline">Start with Pro</a>
+          </div>
+
+        </div>
+
+        <p class="price-foot">
+          <strong>Pay annually, save 2 months.</strong> &nbsp;·&nbsp; No setup fees. &nbsp;·&nbsp; Cancel any time, no penalty.<br/>
+          <span style="font-size:0.8125rem;">Need something custom? <a href="contact.html">Tell us</a> and we'll quote it.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Why not Squarespace -->
+    <section>
+      <div class="container">
+        <span class="eyebrow">Comparison</span>
+        <h2 class="section-title">Why not just use Squarespace?</h2>
+        <p class="section-lede">You can. We use Squarespace clients sometimes too. But here's what you give up.</p>
+
+        <div class="compare-strip">
+          <div>
+            <h3>Squarespace at $23/mo</h3>
+            <p>Templated. Same look as 10,000 other sites. You build it. You maintain it. You handle SEO. You install tracking. You write the schema. You optimize for mobile. When something breaks, you Google it.</p>
+          </div>
+          <div>
+            <h3>BurnsBuilt at $40–$200/mo</h3>
+            <ul>
+              <li>Real code, custom to your brand and your business</li>
+              <li>We do the updates — you send us what you want changed</li>
+              <li>SEO is our job, not yours</li>
+              <li>Tracking and analytics wired correctly the first time</li>
+              <li>Built by humans in Aledo, not a template engine</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -119,14 +291,15 @@
     <section>
       <div class="container">
         <div class="cta-band">
-          <h2>Not sure which one fits?</h2>
-          <p>Tell us what your business looks like and what's eating up your time. We'll recommend the right package — or tell you honestly if you don't need us yet.</p>
+          <h2>Ready to start?</h2>
+          <p>Tell us what your business does and we'll have a quote and a mockup back to you within 2 business days. No setup fees, no long contract.</p>
           <a href="contact.html" class="btn btn-accent">Talk to Us</a>
         </div>
       </div>
     </section>
 
   </main>
+
   <!-- Service Areas — local SEO internal link block -->
   <aside class="service-areas" aria-label="Service areas">
     <div class="container">
@@ -143,8 +316,6 @@
     </div>
   </aside>
 
-
-
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -158,18 +329,19 @@
           <h5>Company</h5>
           <ul class="footer-links">
             <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-          <li><a href="case-studies/">Work</a></li>
-          <li><a href="/articles/">Articles</a></li>
+            <li><a href="services.html">Pricing</a></li>
+            <li><a href="case-studies/">Work</a></li>
+            <li><a href="/articles/">Articles</a></li>
             <li><a href="contact.html">Contact</a></li>
-          <li><a href="/terms/">Terms &amp; Conditions</a></li>
+            <li><a href="/terms/">Terms &amp; Conditions</a></li>
           </ul>
         </div>
         <div>
           <h5>Services</h5>
           <ul class="footer-links">
             <li><a href="/web-design/">Web Design</a></li>
-            <li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li>
+            <li><a href="/ai-services/">AI Services</a></li>
           </ul>
         </div>
         <div>
