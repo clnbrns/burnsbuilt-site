@@ -432,6 +432,17 @@ canvas { display: block; width: 100%; height: auto; }
     </div>
   </div>
 
+  <div class="card-grid card-grid-2" style="margin-bottom:16px;">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">BABIP — Batting Average on Balls in Play (Team .421)</div>
+      <canvas id="cvBABIP" width="520" height="340"></canvas>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">Left On Base per AB — Lower is better (Team .209)</div>
+      <canvas id="cvLOB" width="520" height="340"></canvas>
+    </div>
+  </div>
+
   <div class="chart-card">
     <div class="chart-title">Player Leaderboard — All Hitting Stats</div>
     <table class="lb-table">
@@ -613,19 +624,19 @@ canvas { display: block; width: 100%; height: auto; }
 // ============================================================
 const PLAYERS = [
   // num, name, gp, pa, ab, avg, obp, ops, slg, h, 1b, 2b, 3b, hr, rbi, r, bb, so, kl, hbp, sac, sf, roe, sb, cs, qab, qabpct, bbk, cpct, hhb, ldpct, fbpct, gbpct, babip, barisp, xbh, tb, ps
-  { num:'1',  name:'Bowie Wingate',     gp:26, pa:51, ab:42, avg:.310, obp:.383, ops:.693, slg:.310, h:13, b1:13, b2:0,  b3:0,  hr:0,  rbi:13, r:12, bb:3,  so:6,  kl:4, hbp:2, sb:9,  cs:0, qab:17, qabpct:33.33, bbk:.500,  cpct:85.71, hhb:7,  ldpct:7.89,  fbpct:21.05, gbpct:65.79, babip:.361, barisp:.423, xbh:0,  tb:13, tc:25, fa:2,  po:18, fpct:.800, e:5,  dp:0 },
-  { num:'2',  name:'Hilton Finley',     gp:24, pa:52, ab:47, avg:.426, obp:.481, ops:1.034,slg:.553, h:20, b1:16, b2:2,  b3:2,  hr:0,  rbi:13, r:12, bb:5,  so:12, kl:4, hbp:0, sb:3,  cs:2, qab:27, qabpct:51.92, bbk:.417,  cpct:74.47, hhb:16, ldpct:24.24, fbpct:33.33, gbpct:42.42, babip:.571, barisp:.375, xbh:4,  tb:26, tc:58, fa:3,  po:54, fpct:.983, e:1,  dp:2 },
-  { num:'3',  name:'Hudson Penny',      gp:26, pa:66, ab:50, avg:.400, obp:.530, ops:1.210,slg:.680, h:20, b1:14, b2:1,  b3:2,  hr:3,  rbi:18, r:26, bb:10, so:9,  kl:1, hbp:5, sb:11, cs:0, qab:40, qabpct:60.61, bbk:1.111, cpct:82.00, hhb:22, ldpct:26.19, fbpct:28.57, gbpct:45.24, babip:.436, barisp:.318, xbh:6,  tb:34, tc:31, fa:14, po:14, fpct:.903, e:3,  dp:0 },
-  { num:'4',  name:'Crew Davis',        gp:26, pa:59, ab:41, avg:.171, obp:.424, ops:.643, slg:.220, h:7,  b1:6,  b2:0,  b3:1,  hr:0,  rbi:8,  r:13, bb:17, so:11, kl:5, hbp:1, sb:11, cs:1, qab:27, qabpct:45.76, bbk:1.545, cpct:73.17, hhb:5,  ldpct:3.33,  fbpct:26.67, gbpct:66.67, babip:.233, barisp:.222, xbh:1,  tb:9,  tc:17, fa:6,  po:9,  fpct:.882, e:2,  dp:0 },
-  { num:'7',  name:'Chandler Gonzales', gp:17, pa:35, ab:29, avg:.310, obp:.429, ops:.877, slg:.448, h:9,  b1:7,  b2:1,  b3:0,  hr:1,  rbi:7,  r:9,  bb:6,  so:6,  kl:2, hbp:0, sb:5,  cs:0, qab:16, qabpct:45.71, bbk:1.000, cpct:79.31, hhb:8,  ldpct:17.39, fbpct:52.17, gbpct:26.09, babip:.364, barisp:.385, xbh:2,  tb:13, tc:39, fa:6,  po:30, fpct:.923, e:3,  dp:0 },
-  { num:'8',  name:'Price Cooper',      gp:26, pa:71, ab:59, avg:.407, obp:.507, ops:1.338,slg:.831, h:24, b1:10, b2:7,  b3:3,  hr:4,  rbi:16, r:37, bb:9,  so:11, kl:4, hbp:3, sb:24, cs:1, qab:47, qabpct:66.20, bbk:.818,  cpct:81.36, hhb:29, ldpct:35.42, fbpct:25.00, gbpct:39.58, babip:.455, barisp:.438, xbh:14, tb:49, tc:38, fa:22, po:6,  fpct:.737, e:10, dp:1 },
-  { num:'9',  name:'Brayden McCans',    gp:26, pa:54, ab:40, avg:.300, obp:.481, ops:1.006,slg:.525, h:12, b1:8,  b2:0,  b3:3,  hr:1,  rbi:9,  r:18, bb:11, so:16, kl:5, hbp:3, sb:15, cs:0, qab:28, qabpct:51.85, bbk:.688,  cpct:60.00, hhb:10, ldpct:33.33, fbpct:20.83, gbpct:45.83, babip:.478, barisp:.211, xbh:4,  tb:21, tc:18, fa:3,  po:11, fpct:.778, e:4,  dp:0 },
-  { num:'13', name:'Hawkins Key',       gp:23, pa:57, ab:47, avg:.383, obp:.474, ops:1.261,slg:.787, h:18, b1:9,  b2:4,  b3:0,  hr:5,  rbi:20, r:13, bb:7,  so:16, kl:6, hbp:2, sb:7,  cs:0, qab:32, qabpct:56.14, bbk:.438,  cpct:65.96, hhb:18, ldpct:22.58, fbpct:32.26, gbpct:45.16, babip:.481, barisp:.500, xbh:9,  tb:37, tc:80, fa:9,  po:63, fpct:.900, e:8,  dp:0 },
-  { num:'27', name:'Grayson Burns',     gp:26, pa:64, ab:50, avg:.420, obp:.547, ops:1.267,slg:.720, h:21, b1:15, b2:1,  b3:1,  hr:4,  rbi:21, r:24, bb:12, so:11, kl:5, hbp:2, sb:18, cs:2, qab:39, qabpct:60.94, bbk:1.091, cpct:78.00, hhb:22, ldpct:33.33, fbpct:17.95, gbpct:48.72, babip:.486, barisp:.417, xbh:6,  tb:36, tc:45, fa:22, po:21, fpct:.956, e:2,  dp:2 },
-  { num:'77', name:'Hayes Risinger',    gp:26, pa:58, ab:45, avg:.333, obp:.448, ops:1.048,slg:.600, h:15, b1:9,  b2:3,  b3:0,  hr:3,  rbi:18, r:22, bb:6,  so:9,  kl:2, hbp:5, sb:12, cs:0, qab:28, qabpct:48.28, bbk:.667,  cpct:80.00, hhb:16, ldpct:18.42, fbpct:36.84, gbpct:44.74, babip:.343, barisp:.346, xbh:6,  tb:27, tc:56, fa:6,  po:47, fpct:.946, e:3,  dp:2 },
+  { num:'1',  name:'Bowie Wingate',     gp:26, pa:51, ab:42, avg:.310, obp:.383, ops:.693, slg:.310, h:13, b1:13, b2:0,  b3:0,  hr:0,  rbi:13, r:12, bb:3,  so:6,  kl:4, hbp:2, sb:9,  cs:0, qab:17, qabpct:33.33, bbk:.500,  cpct:85.71, hhb:7,  ldpct:7.89,  fbpct:21.05, gbpct:65.79, babip:.361, barisp:.423, xbh:0,  tb:13, tc:25, fa:2,  po:18, fpct:.800, e:5,  dp:0, lob:18 },
+  { num:'2',  name:'Hilton Finley',     gp:24, pa:52, ab:47, avg:.426, obp:.481, ops:1.034,slg:.553, h:20, b1:16, b2:2,  b3:2,  hr:0,  rbi:13, r:12, bb:5,  so:12, kl:4, hbp:0, sb:3,  cs:2, qab:27, qabpct:51.92, bbk:.417,  cpct:74.47, hhb:16, ldpct:24.24, fbpct:33.33, gbpct:42.42, babip:.571, barisp:.375, xbh:4,  tb:26, tc:58, fa:3,  po:54, fpct:.983, e:1,  dp:2, lob:20 },
+  { num:'3',  name:'Hudson Penny',      gp:26, pa:66, ab:50, avg:.400, obp:.530, ops:1.210,slg:.680, h:20, b1:14, b2:1,  b3:2,  hr:3,  rbi:18, r:26, bb:10, so:9,  kl:1, hbp:5, sb:11, cs:0, qab:40, qabpct:60.61, bbk:1.111, cpct:82.00, hhb:22, ldpct:26.19, fbpct:28.57, gbpct:45.24, babip:.436, barisp:.318, xbh:6,  tb:34, tc:31, fa:14, po:14, fpct:.903, e:3,  dp:0, lob:20 },
+  { num:'4',  name:'Crew Davis',        gp:26, pa:59, ab:41, avg:.171, obp:.424, ops:.643, slg:.220, h:7,  b1:6,  b2:0,  b3:1,  hr:0,  rbi:8,  r:13, bb:17, so:11, kl:5, hbp:1, sb:11, cs:1, qab:27, qabpct:45.76, bbk:1.545, cpct:73.17, hhb:5,  ldpct:3.33,  fbpct:26.67, gbpct:66.67, babip:.233, barisp:.222, xbh:1,  tb:9,  tc:17, fa:6,  po:9,  fpct:.882, e:2,  dp:0, lob:31 },
+  { num:'7',  name:'Chandler Gonzales', gp:17, pa:35, ab:29, avg:.310, obp:.429, ops:.877, slg:.448, h:9,  b1:7,  b2:1,  b3:0,  hr:1,  rbi:7,  r:9,  bb:6,  so:6,  kl:2, hbp:0, sb:5,  cs:0, qab:16, qabpct:45.71, bbk:1.000, cpct:79.31, hhb:8,  ldpct:17.39, fbpct:52.17, gbpct:26.09, babip:.364, barisp:.385, xbh:2,  tb:13, tc:39, fa:6,  po:30, fpct:.923, e:3,  dp:0, lob:14 },
+  { num:'8',  name:'Price Cooper',      gp:26, pa:71, ab:59, avg:.407, obp:.507, ops:1.338,slg:.831, h:24, b1:10, b2:7,  b3:3,  hr:4,  rbi:16, r:37, bb:9,  so:11, kl:4, hbp:3, sb:24, cs:1, qab:47, qabpct:66.20, bbk:.818,  cpct:81.36, hhb:29, ldpct:35.42, fbpct:25.00, gbpct:39.58, babip:.455, barisp:.438, xbh:14, tb:49, tc:38, fa:22, po:6,  fpct:.737, e:10, dp:1, lob:17 },
+  { num:'9',  name:'Brayden McCans',    gp:26, pa:54, ab:40, avg:.300, obp:.481, ops:1.006,slg:.525, h:12, b1:8,  b2:0,  b3:3,  hr:1,  rbi:9,  r:18, bb:11, so:16, kl:5, hbp:3, sb:15, cs:0, qab:28, qabpct:51.85, bbk:.688,  cpct:60.00, hhb:10, ldpct:33.33, fbpct:20.83, gbpct:45.83, babip:.478, barisp:.211, xbh:4,  tb:21, tc:18, fa:3,  po:11, fpct:.778, e:4,  dp:0, lob:25 },
+  { num:'13', name:'Hawkins Key',       gp:23, pa:57, ab:47, avg:.383, obp:.474, ops:1.261,slg:.787, h:18, b1:9,  b2:4,  b3:0,  hr:5,  rbi:20, r:13, bb:7,  so:16, kl:6, hbp:2, sb:7,  cs:0, qab:32, qabpct:56.14, bbk:.438,  cpct:65.96, hhb:18, ldpct:22.58, fbpct:32.26, gbpct:45.16, babip:.481, barisp:.500, xbh:9,  tb:37, tc:80, fa:9,  po:63, fpct:.900, e:8,  dp:0, lob:20 },
+  { num:'27', name:'Grayson Burns',     gp:26, pa:64, ab:50, avg:.420, obp:.547, ops:1.267,slg:.720, h:21, b1:15, b2:1,  b3:1,  hr:4,  rbi:21, r:24, bb:12, so:11, kl:5, hbp:2, sb:18, cs:2, qab:39, qabpct:60.94, bbk:1.091, cpct:78.00, hhb:22, ldpct:33.33, fbpct:17.95, gbpct:48.72, babip:.486, barisp:.417, xbh:6,  tb:36, tc:45, fa:22, po:21, fpct:.956, e:2,  dp:2, lob:18 },
+  { num:'77', name:'Hayes Risinger',    gp:26, pa:58, ab:45, avg:.333, obp:.448, ops:1.048,slg:.600, h:15, b1:9,  b2:3,  b3:0,  hr:3,  rbi:18, r:22, bb:6,  so:9,  kl:2, hbp:5, sb:12, cs:0, qab:28, qabpct:48.28, bbk:.667,  cpct:80.00, hhb:16, ldpct:18.42, fbpct:36.84, gbpct:44.74, babip:.343, barisp:.346, xbh:6,  tb:27, tc:56, fa:6,  po:47, fpct:.946, e:3,  dp:2, lob:23 },
 ];
 
-const TEAM = { avg:.351, obp:.477, ops:1.064, slg:.587, bb:93, so:111, pa:589, ab:465, h:163, hr:21, r:193, rbi:146, sb:116, xbh:55, tb:273, qabpct:52.97, bbk:.838, cpct:76.13, hhbpct:22.97, era:7.442, whip:2.512, fpct:.898, tc:423, po:286, fa:94, e:43, dp:4 };
+const TEAM = { avg:.351, obp:.477, ops:1.064, slg:.587, bb:93, so:111, pa:589, ab:465, h:163, hr:21, r:193, rbi:146, sb:116, xbh:55, tb:273, qabpct:52.97, bbk:.838, cpct:76.13, hhbpct:22.97, era:7.442, whip:2.512, fpct:.898, tc:423, po:286, fa:94, e:43, dp:4, babip:.421, lob:97 };
 
 // Pitchers from CSV (IP col=55, ERA=69, WHIP=70, BF=58, SO=72, BB=71, H=65, W=60, L=61)
 const PITCHERS = [
@@ -915,6 +926,19 @@ function renderHitting() {
   // OPS bar
   drawHBar(document.getElementById('cvOPS'), sorted_ops, TEAM.ops, 'Team 1.064', false, 1.55,
     v => v.toFixed(3), p => p.ops, (p,v) => v>=TEAM.ops?'#2f9d4d':'#c43a3a');
+
+  // BABIP bar (higher = better contact / more balls finding grass, ref = team .421)
+  const sorted_babip = [...PLAYERS].sort((a,b) => b.babip - a.babip);
+  drawHBar(document.getElementById('cvBABIP'), sorted_babip, TEAM.babip, 'Team .421', false, 0.70,
+    v => v.toFixed(3), p => p.babip, (p,v) => v >= TEAM.babip ? '#2f9d4d' : '#c43a3a');
+
+  // LOB/AB bar — LOWER is better (clears runners better)
+  // Team LOB/AB = 97/465 = .209
+  const TEAM_LOBAB = TEAM.lob / TEAM.ab;
+  const lobData = PLAYERS.map(p => ({ ...p, lobab: p.lob / p.ab }));
+  const sorted_lob = [...lobData].sort((a,b) => a.lobab - b.lobab);
+  drawHBar(document.getElementById('cvLOB'), sorted_lob, TEAM_LOBAB, 'Team .209', true, 1.0,
+    v => v.toFixed(3), p => p.lobab, (p,v) => v <= TEAM_LOBAB ? '#2f9d4d' : '#c43a3a');
 
   // Scatter OBP vs SLG
   const sc = document.getElementById('cvScatter');
