@@ -9,18 +9,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 :root {
-  --navy: #0b274d;
-  --red: #ab2532;
+  /* Aledo Baseball Club — white / black / orange (OSU-family palette) */
+  --navy: #0a0a0a;          /* header base (was deep navy) */
+  --red:  #c43a3a;           /* "below team" status — kept functional */
   --white: #ffffff;
-  --blue: #2191fb;
-  --green: #08a045;
-  --gold: #f0a500;
-  --bg: #08111f;
-  --card: #0e1e35;
-  --card2: #111f38;
-  --border: rgba(33,145,251,0.15);
-  --muted: rgba(255,255,255,0.38);
-  --dim: rgba(255,255,255,0.12);
+  --blue: #ff7a00;           /* PRIMARY accent — Aledo orange (was blue) */
+  --green: #2f9d4d;          /* "above team" status — kept functional, dimmed */
+  --gold: #ffb83d;           /* trend lines / refs — warm orange tone */
+  --bg: #0a0a0a;             /* page background — near black */
+  --card: #161616;           /* card surface */
+  --card2: #1e1e1e;          /* nested card */
+  --border: rgba(255,122,0,0.18);    /* orange-tinted edges */
+  --muted: rgba(255,255,255,0.42);
+  --dim:   rgba(255,255,255,0.10);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,8 +37,8 @@ body {
 
 /* HEADER */
 .deck-header {
-  background: linear-gradient(135deg, #0b1a2e 0%, #0b274d 60%, #0d1e3a 100%);
-  border-bottom: 2px solid var(--red);
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 60%, #0a0a0a 100%);
+  border-bottom: 2px solid var(--blue);
   padding: 28px 40px 24px;
   display: flex;
   align-items: center;
@@ -51,18 +52,19 @@ body {
   right: -60px; top: -60px;
   width: 300px; height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(171,37,50,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,122,0,0.16) 0%, transparent 70%);
 }
 .header-logo {
   width: 56px; height: 56px;
-  background: var(--red);
+  background: var(--blue);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 22px;
   letter-spacing: 1px;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba(171,37,50,0.3);
+  color: #000;
+  box-shadow: 0 0 0 3px rgba(255,122,0,0.35);
 }
 .header-text h1 {
   font-family: 'Bebas Neue', sans-serif;
@@ -92,9 +94,9 @@ body {
   font-weight: 600;
   letter-spacing: 1px;
 }
-.pill-green { background: rgba(8,160,69,0.18); border: 1px solid var(--green); color: var(--green); }
-.pill-red { background: rgba(171,37,50,0.18); border: 1px solid var(--red); color: #e05060; }
-.pill-blue { background: rgba(33,145,251,0.15); border: 1px solid var(--blue); color: var(--blue); }
+.pill-green { background: rgba(47,157,77,0.18); border: 1px solid var(--green); color: var(--green); }
+.pill-red { background: rgba(196,58,58,0.18); border: 1px solid var(--red); color: #ff8888; }
+.pill-blue { background: rgba(255,122,0,0.15); border: 1px solid var(--blue); color: var(--blue); }
 
 /* NAV */
 .deck-nav {
@@ -201,7 +203,7 @@ canvas { display: block; width: 100%; height: auto; }
 /* TOOLTIP */
 .tooltip-box {
   position: fixed;
-  background: #1a2e4a;
+  background: #1a1a1a;
   border: 1px solid var(--blue);
   border-radius: 6px;
   padding: 8px 12px;
@@ -235,7 +237,7 @@ canvas { display: block; width: 100%; height: auto; }
 .lb-table td.name-col { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 13px; }
 .lb-table td.right { text-align: right; }
 .lb-table tr:last-child td { border-bottom: none; }
-.lb-table tr.team-row td { color: var(--gold); font-weight: 600; border-top: 1px solid rgba(240,165,0,0.3); }
+.lb-table tr.team-row td { color: var(--gold); font-weight: 600; border-top: 1px solid rgba(255,184,61,0.3); }
 .rank-num { color: var(--muted); font-size: 11px; margin-right: 8px; }
 .above { color: var(--green); }
 .below { color: var(--red); }
@@ -595,7 +597,7 @@ const PITCHERS = [
   { name:'Hayes Risinger #77',   ip:6.1,  w:1, l:2, era:12.32, whip:3.316, so:9,  bb:13, bf:41,  h:8  },
 ];
 
-const COLORS = ['#2191fb','#ab2532','#08a045','#f0a500','#e04bff','#00d4c8','#ff6b35','#a8e063','#ff9eb5','#b0c4de'];
+const COLORS = ['#ff7a00','#c43a3a','#2f9d4d','#ffb83d','#e04bff','#00d4c8','#ff6b35','#a8e063','#ff9eb5','#b0c4de'];
 
 // Game-by-game data (from individual stat screenshots, cumulative AVG)
 const GAME_LABELS = [
@@ -686,12 +688,12 @@ function drawHBar(canvas, items, refLine, refLabel, isLower, xmax, fmt, getVal, 
   // Ref line
   if (refLine !== null) {
     const rx = xPos(refLine);
-    ctx.strokeStyle = 'rgba(240,165,0,0.8)';
+    ctx.strokeStyle = 'rgba(255,184,61,0.8)';
     ctx.lineWidth = 1.5;
     ctx.setLineDash([5,4]);
     ctx.beginPath(); ctx.moveTo(rx, PAD.top - 8); ctx.lineTo(rx, PAD.top + H + 4); ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(240,165,0,0.9)';
+    ctx.fillStyle = 'rgba(255,184,61,0.9)';
     ctx.font = 'bold 9px DM Sans, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(refLabel, rx, PAD.top + H + 18);
@@ -701,7 +703,7 @@ function drawHBar(canvas, items, refLine, refLabel, isLower, xmax, fmt, getVal, 
     const v = getVal(p);
     const bw = xPos(v) - xPos(0);
     const yc = yCenter(i);
-    const color = getColor ? getColor(p, v) : (isLower ? (v <= refLine ? '#08a045' : '#ab2532') : (v >= refLine ? '#08a045' : '#ab2532'));
+    const color = getColor ? getColor(p, v) : (isLower ? (v <= refLine ? '#2f9d4d' : '#c43a3a') : (v >= refLine ? '#2f9d4d' : '#c43a3a'));
 
     ctx.fillStyle = color + '28';
     ctx.fillRect(xPos(0), yc - barH/2, bw, barH);
@@ -799,11 +801,11 @@ function renderOverview() {
   ctx.lineTo(xPos(0), yPos(YMIN));
   ctx.closePath();
   const grad = ctx.createLinearGradient(0,PAD.top,0,PAD.top+H);
-  grad.addColorStop(0,'rgba(33,145,251,0.2)'); grad.addColorStop(1,'rgba(33,145,251,0.02)');
+  grad.addColorStop(0,'rgba(255,122,0,0.2)'); grad.addColorStop(1,'rgba(255,122,0,0.02)');
   ctx.fillStyle=grad; ctx.fill();
 
   // Line
-  ctx.strokeStyle='#2191fb'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  ctx.strokeStyle='#ff7a00'; ctx.lineWidth=2.5; ctx.lineJoin='round';
   ctx.beginPath();
   pts.forEach((p,i) => { i===0 ? ctx.moveTo(xPos(i),yPos(p.pct)) : ctx.lineTo(xPos(i),yPos(p.pct)); });
   ctx.stroke();
@@ -814,15 +816,15 @@ function renderOverview() {
   pts.forEach((p,i) => { sx+=i; sy+=p.pct; sxy+=i*p.pct; sx2+=i*i; });
   const slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
   const intercept=(sy-slope*sx)/n;
-  ctx.strokeStyle='rgba(240,165,0,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([7,5]);
+  ctx.strokeStyle='rgba(255,184,61,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([7,5]);
   ctx.beginPath(); ctx.moveTo(xPos(0),yPos(intercept)); ctx.lineTo(xPos(n-1),yPos(slope*(n-1)+intercept)); ctx.stroke();
   ctx.setLineDash([]);
 
   // Dots
   pts.forEach((p,i) => {
     ctx.beginPath(); ctx.arc(xPos(i),yPos(p.pct),5,0,Math.PI*2);
-    ctx.fillStyle=p.result==='W'?'#08a045':'#ab2532';
-    ctx.fill(); ctx.strokeStyle='#08111f'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.fillStyle=p.result==='W'?'#2f9d4d':'#c43a3a';
+    ctx.fill(); ctx.strokeStyle='#0a0a0a'; ctx.lineWidth=1.5; ctx.stroke();
   });
 
   // X labels
@@ -846,7 +848,7 @@ function renderOverview() {
     pts.forEach((p,i) => { const d=Math.abs(mx-xPos(i)); if(d<best){best=d;bp=i;} });
     if(bp!==null && Math.abs(my-yPos(pts[bp].pct))<40){
       const p=pts[bp];
-      const c=p.result==='W'?'#08a045':'#ab2532';
+      const c=p.result==='W'?'#2f9d4d':'#c43a3a';
       tt.style.display='block';
       tt.style.left=(e.clientX+12)+'px'; tt.style.top=(e.clientY-40)+'px';
       tt.innerHTML=`<strong>${p.label}</strong><br>${p.opp}<br><span style="color:${c}">${p.result} ${p.score}</span><br>Record: ${p.w}-${p.l} &nbsp; Win%: <strong>${(p.pct*100).toFixed(1)}%</strong>`;
@@ -864,11 +866,11 @@ function renderHitting() {
 
   // AVG bar
   drawHBar(document.getElementById('cvAVG'), sorted_avg, TEAM.avg, 'Team .351', false, 0.70,
-    v => v.toFixed(3), p => p.avg, (p,v) => v>=TEAM.avg?'#08a045':'#ab2532');
+    v => v.toFixed(3), p => p.avg, (p,v) => v>=TEAM.avg?'#2f9d4d':'#c43a3a');
 
   // OPS bar
   drawHBar(document.getElementById('cvOPS'), sorted_ops, TEAM.ops, 'Team 1.064', false, 1.55,
-    v => v.toFixed(3), p => p.ops, (p,v) => v>=TEAM.ops?'#08a045':'#ab2532');
+    v => v.toFixed(3), p => p.ops, (p,v) => v>=TEAM.ops?'#2f9d4d':'#c43a3a');
 
   // Scatter OBP vs SLG
   const sc = document.getElementById('cvScatter');
@@ -897,12 +899,12 @@ function renderHitting() {
   });
 
   // Reference lines (team OBP / SLG)
-  ctx.strokeStyle='rgba(240,165,0,0.5)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+  ctx.strokeStyle='rgba(255,184,61,0.5)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
   ctx.beginPath(); ctx.moveTo(xp(TEAM.obp),PAD.top); ctx.lineTo(xp(TEAM.obp),PAD.top+H); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(PAD.left,yp(TEAM.slg)); ctx.lineTo(PAD.left+W,yp(TEAM.slg)); ctx.stroke();
   ctx.setLineDash([]);
 
-  ctx.fillStyle='rgba(240,165,0,0.7)'; ctx.font='9px DM Sans,sans-serif'; ctx.textAlign='left';
+  ctx.fillStyle='rgba(255,184,61,0.7)'; ctx.font='9px DM Sans,sans-serif'; ctx.textAlign='left';
   ctx.fillText('Team OBP', xp(TEAM.obp)+4, PAD.top+14);
   ctx.textAlign='right';
   ctx.fillText('Team SLG', PAD.left+W, yp(TEAM.slg)-5);
@@ -971,16 +973,16 @@ function renderPlate() {
   const TEAM_SOR = TEAM.so / TEAM.pa;
 
   drawHBar(document.getElementById('cvBB'), sorted_bb, TEAM_BBR, 'Team 15.8%', false, 0.35,
-    v => (v*100).toFixed(1)+'%', p => p.bb/p.pa, (p,v) => v>=TEAM_BBR?'#08a045':'#ab2532');
+    v => (v*100).toFixed(1)+'%', p => p.bb/p.pa, (p,v) => v>=TEAM_BBR?'#2f9d4d':'#c43a3a');
 
   drawHBar(document.getElementById('cvSO'), sorted_so, TEAM_SOR, 'Team 18.9%', true, 0.40,
-    v => (v*100).toFixed(1)+'%', p => p.so/p.pa, (p,v) => v<=TEAM_SOR?'#08a045':'#ab2532');
+    v => (v*100).toFixed(1)+'%', p => p.so/p.pa, (p,v) => v<=TEAM_SOR?'#2f9d4d':'#c43a3a');
 
   drawHBar(document.getElementById('cvBBK'), sorted_bbk, TEAM.bbk, 'Team .838', false, 2.0,
-    v => v.toFixed(3), p => p.bbk, (p,v) => v>=TEAM.bbk?'#08a045':'#ab2532');
+    v => v.toFixed(3), p => p.bbk, (p,v) => v>=TEAM.bbk?'#2f9d4d':'#c43a3a');
 
   drawHBar(document.getElementById('cvQAB'), sorted_qab, TEAM.qabpct, 'Team 53.0%', false, 80,
-    v => v.toFixed(1)+'%', p => p.qabpct, (p,v) => v>=TEAM.qabpct?'#08a045':'#ab2532');
+    v => v.toFixed(1)+'%', p => p.qabpct, (p,v) => v>=TEAM.qabpct?'#2f9d4d':'#c43a3a');
 }
 
 // ============================================================
@@ -994,19 +996,19 @@ function renderPower() {
   const s_cr  = [...PLAYERS].sort((a,b)=>b.cpct-a.cpct);
 
   drawHBar(document.getElementById('cvHR'), s_hr, null, null, false, 8,
-    v => v.toFixed(0), p => p.hr, (_,v) => v>0?'#ab2532':'rgba(255,255,255,0.2)');
+    v => v.toFixed(0), p => p.hr, (_,v) => v>0?'#c43a3a':'rgba(255,255,255,0.2)');
 
   drawHBar(document.getElementById('cvSB'), s_sb, null, null, false, 28,
-    v => v.toFixed(0), p => p.sb, (_,v) => '#2191fb');
+    v => v.toFixed(0), p => p.sb, (_,v) => '#ff7a00');
 
   drawHBar(document.getElementById('cvXBH'), s_xbh, null, null, false, 18,
-    v => v.toFixed(0), p => p.xbh, (_,v) => '#f0a500');
+    v => v.toFixed(0), p => p.xbh, (_,v) => '#ffb83d');
 
   drawHBar(document.getElementById('cvHHB'), s_hhb, TEAM.hhbpct, 'Team 23%', false, 42,
-    v => v.toFixed(1)+'%', p => p.ldpct, (p,v) => v>=TEAM.hhbpct?'#08a045':'#ab2532');
+    v => v.toFixed(1)+'%', p => p.ldpct, (p,v) => v>=TEAM.hhbpct?'#2f9d4d':'#c43a3a');
 
   drawHBar(document.getElementById('cvCR'), s_cr, TEAM.cpct, 'Team 76.1%', false, 100,
-    v => v.toFixed(1)+'%', p => p.cpct, (p,v) => v>=TEAM.cpct?'#08a045':'#ab2532');
+    v => v.toFixed(1)+'%', p => p.cpct, (p,v) => v>=TEAM.cpct?'#2f9d4d':'#c43a3a');
 }
 
 // ============================================================
@@ -1038,16 +1040,16 @@ function renderPitching() {
 
   // Team ERA line
   const tx=xPos(TEAM.era);
-  ctx.strokeStyle='rgba(240,165,0,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  ctx.strokeStyle='rgba(255,184,61,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
   ctx.beginPath(); ctx.moveTo(tx,PAD.top-8); ctx.lineTo(tx,PAD.top+H+4); ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle='rgba(240,165,0,0.85)'; ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='center';
+  ctx.fillStyle='rgba(255,184,61,0.85)'; ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='center';
   ctx.fillText('Team 7.44', tx, PAD.top+H+18);
 
   s_era.forEach((p,i)=>{
     const bw=xPos(p.era)-xPos(0);
     const yc=yCenter(i);
-    const color=p.era<=TEAM.era?'#08a045':'#ab2532';
+    const color=p.era<=TEAM.era?'#2f9d4d':'#c43a3a';
     ctx.fillStyle=color+'28'; ctx.fillRect(xPos(0),yc-barH/2,bw,barH);
     ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.strokeRect(xPos(0),yc-barH/2,bw,barH);
     ctx.fillStyle=color; ctx.fillRect(xPos(0),yc-barH/2,3,barH);
@@ -1071,7 +1073,7 @@ function renderPitching() {
     const slice=(p.ip/totalIP)*Math.PI*2;
     ic.beginPath(); ic.moveTo(cx,cy); ic.arc(cx,cy,OR,angle,angle+slice); ic.closePath();
     ic.fillStyle=COLORS[i]+'cc'; ic.fill();
-    ic.strokeStyle='#08111f'; ic.lineWidth=2; ic.stroke();
+    ic.strokeStyle='#0a0a0a'; ic.lineWidth=2; ic.stroke();
     // Label
     const mid=angle+slice/2;
     const lx=cx+Math.cos(mid)*(OR+16), ly=cy+Math.sin(mid)*(OR+16);
@@ -1081,7 +1083,7 @@ function renderPitching() {
     }
     angle+=slice;
   });
-  ic.beginPath(); ic.arc(cx,cy,IR,0,Math.PI*2); ic.fillStyle='#08111f'; ic.fill();
+  ic.beginPath(); ic.arc(cx,cy,IR,0,Math.PI*2); ic.fillStyle='#0a0a0a'; ic.fill();
   ic.fillStyle='rgba(255,255,255,0.7)'; ic.font='bold 11px DM Mono,monospace'; ic.textAlign='center';
   ic.fillText('94.1 IP', cx, cy+4);
 
@@ -1107,17 +1109,17 @@ function renderPitching() {
     pc.fillText((v*100).toFixed(0)+'%', x, PPAD.top-6);
   });
   const ptx=pXPOS(TEAM_PKR);
-  pc.strokeStyle='rgba(240,165,0,0.7)'; pc.lineWidth=1.5; pc.setLineDash([5,4]);
+  pc.strokeStyle='rgba(255,184,61,0.7)'; pc.lineWidth=1.5; pc.setLineDash([5,4]);
   pc.beginPath(); pc.moveTo(ptx,PPAD.top-8); pc.lineTo(ptx,PPAD.top+PH+4); pc.stroke();
   pc.setLineDash([]);
-  pc.fillStyle='rgba(240,165,0,0.85)'; pc.font='bold 9px DM Sans,sans-serif'; pc.textAlign='center';
+  pc.fillStyle='rgba(255,184,61,0.85)'; pc.font='bold 9px DM Sans,sans-serif'; pc.textAlign='center';
   pc.fillText('Team 19.4%', ptx, PPAD.top+PH+18);
 
   s_pkr.forEach((p,i)=>{
     const v=p.so/p.bf;
     const bw=pXPOS(v)-pXPOS(0);
     const yc=pYC(i);
-    const color=v>=TEAM_PKR?'#08a045':'#ab2532';
+    const color=v>=TEAM_PKR?'#2f9d4d':'#c43a3a';
     pc.fillStyle=color+'28'; pc.fillRect(pXPOS(0),yc-pbarH/2,bw,pbarH);
     pc.strokeStyle=color; pc.lineWidth=1.2; pc.strokeRect(pXPOS(0),yc-pbarH/2,bw,pbarH);
     pc.fillStyle=color; pc.fillRect(pXPOS(0),yc-pbarH/2,3,pbarH);
@@ -1215,13 +1217,13 @@ function renderTrends() {
   wctx.setLineDash([]);
 
   const grad=wctx.createLinearGradient(0,WPAD.top,0,WPAD.top+WH);
-  grad.addColorStop(0,'rgba(33,145,251,0.18)'); grad.addColorStop(1,'rgba(33,145,251,0.01)');
+  grad.addColorStop(0,'rgba(255,122,0,0.18)'); grad.addColorStop(1,'rgba(255,122,0,0.01)');
   wctx.beginPath();
   wpts.forEach((p,i)=>i===0?wctx.moveTo(wxp(i),wyp(p.pct)):wctx.lineTo(wxp(i),wyp(p.pct)));
   wctx.lineTo(wxp(WN-1),wyp(WYMIN)); wctx.lineTo(wxp(0),wyp(WYMIN)); wctx.closePath();
   wctx.fillStyle=grad; wctx.fill();
 
-  wctx.strokeStyle='#2191fb'; wctx.lineWidth=2.5; wctx.lineJoin='round';
+  wctx.strokeStyle='#ff7a00'; wctx.lineWidth=2.5; wctx.lineJoin='round';
   wctx.beginPath();
   wpts.forEach((p,i)=>i===0?wctx.moveTo(wxp(i),wyp(p.pct)):wctx.lineTo(wxp(i),wyp(p.pct)));
   wctx.stroke();
@@ -1231,14 +1233,14 @@ function renderTrends() {
   wpts.forEach((p,i)=>{sx+=i;sy+=p.pct;sxy+=i*p.pct;sx2+=i*i;});
   const slope=(wn*sxy-sx*sy)/(wn*sx2-sx*sx);
   const intercept=(sy-slope*sx)/wn;
-  wctx.strokeStyle='rgba(240,165,0,0.7)'; wctx.lineWidth=1.5; wctx.setLineDash([7,5]);
+  wctx.strokeStyle='rgba(255,184,61,0.7)'; wctx.lineWidth=1.5; wctx.setLineDash([7,5]);
   wctx.beginPath(); wctx.moveTo(wxp(0),wyp(intercept)); wctx.lineTo(wxp(wn-1),wyp(slope*(wn-1)+intercept)); wctx.stroke();
   wctx.setLineDash([]);
 
   wpts.forEach((p,i)=>{
     wctx.beginPath(); wctx.arc(wxp(i),wyp(p.pct),5,0,Math.PI*2);
-    wctx.fillStyle=p.result==='W'?'#08a045':'#ab2532';
-    wctx.fill(); wctx.strokeStyle='#08111f'; wctx.lineWidth=1.5; wctx.stroke();
+    wctx.fillStyle=p.result==='W'?'#2f9d4d':'#c43a3a';
+    wctx.fill(); wctx.strokeStyle='#0a0a0a'; wctx.lineWidth=1.5; wctx.stroke();
   });
 
   wctx.fillStyle='rgba(255,255,255,0.4)'; wctx.font='8px DM Sans,sans-serif'; wctx.textAlign='right';
