@@ -294,9 +294,11 @@ The single most important system behavior: **every metric, chart, table, and ins
 |--------------|---------------------------------|-------------------------------------------------------|
 | **National** | All US regions · 412 events     | YoY trends, top-line P&L, region health, country ROAS |
 | **Regional** | 1 region · ~64 events           | Cross-event optimization, regional campaigns, retention |
-| **TO**       | 1 tournament · 4–8 brackets     | Bracket-by-bracket fill, local outreach, event P&L    |
+| **TO**       | 1 operator · 20–25 events/yr · Spring + Fall seasons | Tournament-by-tournament fill, age-group health, season P&L, local outreach |
 
-**Implementation rule:** the React tree stays identical between tiers — only the `tier` object's data changes (`kpis`, `pnl`, `velocity`, `gaps`, `teams`, `pipeline`, `marketing`, `insights`, `ticker`). The tier dropdown swaps the data via `useState`.
+**TO scope note:** A Tournament Organizer runs ~20–25 tournaments per year across a Spring season (Feb–Jul) and a Fall season (Aug–early Dec). The TO dashboard is **season-scoped, not single-event-scoped**. Each tournament has 5–7 age groups (9U–14U typical), and the Action Center surfaces under-filled tournaments first with a per-age-group breakdown.
+
+**Implementation rule:** the React tree stays identical between tiers — only the `tier` object's data changes (`kpis`, `pnl`, `velocity`, `gaps`, `teams`, `pipeline`, `marketing`, `insights`, `ticker`). The TO tier additionally provides `tournaments[]` (array of `{ id, name, city, dates, daysOut, status, filled, capacity, revenue, ageGroups[] }`), and `RegistrationGapCenter` switches to `SeasonRegistrationCenter` rendering `TournamentRegistrationCard` widgets when `tier.id === 'to'`.
 
 ---
 

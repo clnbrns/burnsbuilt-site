@@ -95,6 +95,120 @@ function RegistrationGapCard({ gap, onAction }) {
   );
 }
 
+// ---------- TOURNAMENT REGISTRATION CARD (TO tier — multi-event season view) ----------
+function TournamentRegistrationCard({ tournament, onAction }) {
+  const t = tournament;
+  const fillPct = (t.filled / t.capacity) * 100;
+  const closed = t.status === 'closed';
+  const statusTones = {
+    closed:   { pill: 'sky',     label: 'CLOSED',    bar: 'sky'     },
+    healthy:  { pill: 'win',     label: 'ON TRACK',  bar: 'win'     },
+    warn:     { pill: 'warn',    label: 'WATCH',     bar: 'warn'    },
+    critical: { pill: 'crimson', label: 'CRITICAL',  bar: 'crimson' },
+  };
+  const tone = statusTones[t.status] || statusTones.healthy;
+
+  // Age-group chip color
+  const ageStatusBar = {
+    full:     'win',
+    healthy:  'win',
+    warn:     'warn',
+    critical: 'crimson',
+  };
+
+  return (
+    <div className={`bg-ink-700 border border-ink-500 rounded p-4 hover:border-crimson-500/40 transition-all group ${closed ? 'opacity-70' : ''}`}>
+      {/* Header: status pill · date / days out */}
+      <div className="flex items-start justify-between gap-3 mb-2.5">
+        <Pill tone={tone.pill}>{tone.label}</Pill>
+        <div className="flex flex-col items-end text-right">
+          <span className="text-[11px] text-ink-300 font-mono">{t.dates}</span>
+          <span className="text-[10.5px] text-ink-300 font-mono mt-0.5">
+            {closed
+              ? `${Math.abs(t.daysOut)}d ago`
+              : `${t.daysOut}d out`}
+          </span>
+        </div>
+      </div>
+
+      {/* Tournament name + city */}
+      <div className="mb-2.5">
+        <div className="font-display font-bold text-[14px] text-ink-50 truncate">{t.name}</div>
+        <div className="text-[11px] tabnum text-ink-200 mt-0.5 flex items-center gap-1.5">
+          <Icon name="MapPin" size={10} className="text-ink-300" />
+          {t.city}
+        </div>
+      </div>
+
+      {/* Fill bar + headline */}
+      <div className="mb-3">
+        <div className="flex items-baseline justify-between mb-1">
+          <span className="text-[11px] text-ink-200 tabnum">
+            <span className="scorenum text-[18px] text-ink-50">{t.filled}</span>
+            <span className="text-ink-300"> / {t.capacity} teams</span>
+          </span>
+          <span className="text-[11px] tabnum text-ink-100 font-semibold">{fillPct.toFixed(0)}%</span>
+        </div>
+        <Bar value={fillPct} tone={tone.bar} />
+        <div className="text-[10.5px] text-ink-300 tabnum mt-1.5">{t.revenue}</div>
+      </div>
+
+      {/* Age-group grid */}
+      <div className="mb-3 pt-3 border-t border-ink-500/60">
+        <div className="label-eyebrow text-[9px] mb-2">By Age Group</div>
+        <div className="space-y-1.5">
+          {t.ageGroups.map((g, i) => {
+            const gPct = (g.filled / g.cap) * 100;
+            const gStatus = closed
+              ? (g.filled >= g.cap ? 'full' : 'warn')
+              : (g.status || 'healthy');
+            const barTone = ageStatusBar[gStatus] || 'sky';
+            return (
+              <div key={i} className="flex items-center gap-2">
+                <div className="w-9 shrink-0">
+                  <span className="text-[11px] tabnum font-bold text-ink-100">{g.age}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <Bar value={gPct} tone={barTone} height={4} />
+                </div>
+                <div className="w-14 shrink-0 text-right">
+                  <span className="text-[10.5px] tabnum text-ink-200">
+                    <span className="text-ink-50 font-semibold">{g.filled}</span>/{g.cap}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer action */}
+      {closed ? (
+        <div className="flex items-center justify-center gap-1.5 px-2 py-1.5 bg-sky2-900 border border-sky2-500/30 text-sky2-400 text-[11px] font-semibold rounded">
+          <Icon name="CheckCircle2" size={12} strokeWidth={2.4} />
+          Event closed — {fillPct.toFixed(0)}% fill
+        </div>
+      ) : t.status === 'critical' || t.status === 'warn' ? (
+        <div className="flex gap-2 min-w-0">
+          <button onClick={() => onAction?.(t, 'campaign')} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-crimson-500 hover:bg-crimson-600 text-white text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
+            <Icon name="Megaphone" size={12} strokeWidth={2.4} />
+            Launch
+          </button>
+          <button onClick={() => onAction?.(t, 'invite')} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-ink-600 hover:bg-ink-500 border border-ink-400 text-ink-50 text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
+            <Icon name="UserPlus" size={12} strokeWidth={2.4} />
+            Invite Teams
+          </button>
+        </div>
+      ) : (
+        <button onClick={() => onAction?.(t, 'manage')} className="w-full flex items-center justify-center gap-1.5 px-2 py-1.5 bg-ink-600 hover:bg-ink-500 border border-ink-400 text-ink-100 text-[11px] font-semibold rounded transition-colors">
+          <Icon name="ArrowRight" size={12} strokeWidth={2.4} />
+          Manage Event
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ---------- TOP TEAMS LEADERBOARD ----------
 function TopTeamsTable({ teams }) {
   return (
@@ -234,4 +348,4 @@ function LiveTicker({ items }) {
   );
 }
 
-window.__W = { KpiTile, RegistrationGapCard, TopTeamsTable, InsightsBriefing, LiveTicker };
+window.__W = { KpiTile, RegistrationGapCard, TournamentRegistrationCard, TopTeamsTable, InsightsBriefing, LiveTicker };
