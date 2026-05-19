@@ -75,14 +75,14 @@ function RegistrationGapCard({ gap, onAction }) {
       </div>
 
       {gap.need > 0 ? (
-        <div className="flex gap-2">
-          <button onClick={() => onAction?.(gap, 'campaign')} className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-crimson-500 hover:bg-crimson-600 text-white text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
+        <div className="flex gap-2 min-w-0">
+          <button onClick={() => onAction?.(gap, 'campaign')} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-crimson-500 hover:bg-crimson-600 text-white text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
             <Icon name="Megaphone" size={12} strokeWidth={2.4} />
-            Launch Campaign
+            Launch
           </button>
-          <button onClick={() => onAction?.(gap, 'invite')} className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-ink-600 hover:bg-ink-500 border border-ink-400 text-ink-50 text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
+          <button onClick={() => onAction?.(gap, 'invite')} className="flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-ink-600 hover:bg-ink-500 border border-ink-400 text-ink-50 text-[11px] font-semibold rounded transition-colors whitespace-nowrap">
             <Icon name="UserPlus" size={12} strokeWidth={2.4} />
-            Invite Top Teams
+            Invite Teams
           </button>
         </div>
       ) : (

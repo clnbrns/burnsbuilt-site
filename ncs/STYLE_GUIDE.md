@@ -172,9 +172,45 @@ All components live under `widgets.jsx`, `charts.jsx`, `primitives.jsx`. Re-impl
 
 ### 6.2 RegistrationGapCard
 The "Registration Gap" widget — one card per under-filled bracket.
-- Header row: risk pill + date/region · tournament name · division mono code · big "need" count + filled/total.
-- Progress bar tone matches risk.
-- Two CTAs when `need > 0`: `Launch Campaign` (crimson) + `Invite Top Teams` (neutral). When filled, a green "locked" confirmation row replaces the buttons.
+
+**Header row** must be a horizontal flex row, NOT stacked:
+```jsx
+<div className="flex items-start justify-between gap-3 mb-3">
+  <Pill tone={tone.pill}>{tone.label}</Pill>
+  <div className="flex flex-col items-end text-right">
+    <span className="text-[11px] text-ink-300 font-mono">{date} · {region}</span>
+    <span className="scorenum text-[26px] leading-none mt-1 text-ink-50">
+      {need > 0 ? need : <Icon name="Check" size={20} className="text-win-500" />}
+    </span>
+    <span className="text-[10.5px] text-ink-200 font-mono mt-0.5">
+      {need > 0 ? "need" : ""}
+    </span>
+    <span className="text-[10.5px] text-ink-300 font-mono mt-0.5">
+      {filled}/{total} teams
+    </span>
+  </div>
+</div>
+```
+
+**Body:** tournament name (`truncate` or `line-clamp-2` max), division mono code, progress bar (tone matches risk).
+
+**CTAs (need > 0):** `Launch` (crimson) + `Invite Teams` (neutral).
+- Row uses `flex gap-2 min-w-0`.
+- Each button: `flex-1 min-w-0 whitespace-nowrap`.
+- **Do NOT** use longer labels like "Launch Campaign" or "Invite Top Teams" — they overflow the card on standard 1280px viewports (3-col grid = ~327px cards, button row content area ≤290px). Overflow gets visually clipped by adjacent cards' backgrounds and looks broken (trailing letters cut off).
+
+**CTAs (filled):** Green "Bracket full — locked in" confirmation row replaces both buttons.
+
+**Card width:** minimum **280px**. Below that, content collapses. See §6.2.1 for the parent grid contract.
+
+### 6.2.1 Registration Gap parent grid
+Never more than 3 cards per row. The parent grid must be:
+```jsx
+<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+  {gaps.map(g => <RegistrationGapCard key={g.id} {...g} />)}
+</div>
+```
+**Do not** use `grid-cols-5` or any column count > 3 — even if there are 5 brackets to show. With 5 cards in 1 row, each card becomes ~200px wide and content collapses (truncated tournament names, stacked headers, multi-line buttons). If there are more than 3 brackets, they wrap to the next row.
 
 ### 6.3 Pill
 ```jsx
