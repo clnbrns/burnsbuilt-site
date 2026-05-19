@@ -255,6 +255,16 @@ section.alt { background: var(--msm-paper-2); }
 }
 .schedule-toolbar .meta { font-family: var(--msm-font-mono); font-size: 12px; color: var(--msm-mute); letter-spacing: 0.05em; }
 .schedule-toolbar .actions { display: flex; gap: 8px; }
+.schedule-widget-wrap {
+  background: #fff;
+  border: 1px solid var(--msm-line);
+  border-radius: var(--msm-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--msm-shadow-md);
+  padding: 12px;
+}
+.schedule-widget-wrap iframe { border: 0; width: 100%; display: block; }
+
 .schedule-frame-wrap {
   position: relative; width: 100%;
   border-radius: var(--msm-radius-lg); overflow: hidden;
@@ -1088,35 +1098,32 @@ input, select, textarea, button { font-size: 16px; }
     <div class="schedule-toolbar">
       <span class="meta">⏱ Updates live · powered by Exposure Events</span>
       <div class="actions">
-        <button class="btn btn-secondary btn-sm" id="schedule-fullscreen-btn">⛶ Full Screen</button>
-        <a class="btn btn-secondary btn-sm" href="https://baseball.exposureevents.com/268807/msm-dfw-west" target="_blank" rel="noopener">↗ Open in new tab</a>
+        <a class="btn btn-secondary btn-sm" href="https://baseball.exposureevents.com/268807/msm-dfw-west" target="_blank" rel="noopener">↗ Open full page</a>
       </div>
     </div>
 
-    <div class="schedule-frame-wrap">
-      <div class="schedule-frame-scroll">
-        <iframe
-          loading="lazy"
-          src="https://baseball.exposureevents.com/268807/msm-dfw-west"
-          title="MSM DFW West Schedule"></iframe>
-      </div>
-      <!-- Mobile fallback: full-screen tap target instead of nested-scroll trap -->
-      <div class="schedule-mobile-tap">
-        <p style="margin:0 0 16px;color:var(--msm-mute);font-size:14.5px;">For the best experience on mobile, view the full schedule in fullscreen.</p>
-        <button class="btn btn-primary" onclick="msmOpenSchedule()">Tap to View Full Schedule</button>
-      </div>
+    <!-- Official Exposure Events schedule widget -->
+    <div class="schedule-widget-wrap">
+      <div id="exp-schedule-268807"
+           data-href="https://baseball.exposureevents.com/widgets/v1/schedule?eventid=268807"
+           data-responsive="true"
+           data-width="100%"
+           data-height="500px"></div>
     </div>
+    <script type="text/javascript">
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+          js = d.createElement(s);
+          js.id = id;
+          js.async = true;
+          js.src = "https://baseball.exposureevents.com/scripts/exposure.widgets.min.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }
+      })(document, "script", "exp.widgets");
+    </script>
   </div>
 </section>
-
-<!-- Schedule fullscreen overlay -->
-<div class="schedule-fullscreen" id="schedule-fullscreen" aria-hidden="true">
-  <header>
-    <strong>MSM DFW West · Schedule</strong>
-    <button class="btn btn-sm btn-ghost" onclick="msmCloseSchedule()">✕ Close</button>
-  </header>
-  <iframe id="schedule-fs-iframe" title="MSM DFW West Schedule (fullscreen)"></iframe>
-</div>
 
 <!-- ============== RECAPS (AI-drafted) ============== -->
 <section id="recaps">
@@ -1620,23 +1627,25 @@ const MSM_CONFIG = {
   });
 })();
 
-/* ─── Schedule fullscreen ─── */
+/* ─── Schedule fullscreen (deprecated — Exposure widget handles its own viewport) ─── */
 function msmOpenSchedule() {
   const fs = document.getElementById("schedule-fullscreen");
+  if (!fs) return;
   const ifr = document.getElementById("schedule-fs-iframe");
-  ifr.src = MSM_CONFIG.scheduleURL;
+  if (ifr) ifr.src = MSM_CONFIG.scheduleURL;
   fs.classList.add("open");
   fs.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 }
 function msmCloseSchedule() {
   const fs = document.getElementById("schedule-fullscreen");
+  if (!fs) return;
   fs.classList.remove("open");
   fs.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
-  // Don't blank the iframe — preserves the user's scroll position if they reopen
 }
-document.getElementById("schedule-fullscreen-btn").addEventListener("click", msmOpenSchedule);
+const _fsBtn = document.getElementById("schedule-fullscreen-btn");
+if (_fsBtn) _fsBtn.addEventListener("click", msmOpenSchedule);
 
 /* ─── Help FAB ─── */
 function msmToggleHelp(e) {
