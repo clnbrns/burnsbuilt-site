@@ -1428,49 +1428,276 @@ function CampaignsTable({ campaigns }) {
 
 // ---- TEAMS & TALENT VIEW --------------------------------------------
 function TeamsView({ tier }) {
+  const isTO = tier.id === 'to' && tier.teamsByAge;
+  const ages = isTO ? Object.keys(tier.teamsByAge) : [];
+  const [age, setAge] = useState(isTO ? '11U' : null);
+
+  if (!isTO) {
+    // Fallback for National/Regional tiers
+    return (
+      <div className="space-y-5 tier-fade">
+        <ViewHeader
+          kicker="Teams & Talent"
+          title={`Top NCS Teams · ${tier.label} Leaderboard`}
+          sub={tier.scope + ' · ' + tier.sub}
+        />
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
+          <div className="xl:col-span-7"><TopTeamsCompact teams={tier.teams.slice(0,6)} tier={tier} /></div>
+        </div>
+        <TopTeamsPanel tier={tier} />
+      </div>
+    );
+  }
+
+  const teams = tier.teamsByAge[age] || [];
+  // Sort by each leaderboard's metric
+  const byRevenue = [...teams].sort((a, b) => b.revenue - a.revenue);
+  const byNCS     = [...teams].sort((a, b) => a.ncsRank - b.ncsRank);
+  const byDD      = [...teams].sort((a, b) => a.dd.rank - b.dd.rank);
+
+  const totalRev = teams.reduce((a, t) => a + t.revenue, 0);
+  const returningPct = teams.length ? Math.round((teams.filter(t => t.returning).length / teams.length) * 100) : 0;
+
   return (
     <div className="space-y-5 tier-fade">
       <ViewHeader
         kicker="Teams & Talent"
-        title={`Top NCS Teams · ${tier.label} Leaderboard`}
-        sub={tier.scope + ' · ' + tier.sub}
+        title="Team Rankings by Age Group"
+        sub={`${tier.scope} · Revenue contribution · NCS ranking · DugoutData cross-sanctioning`}
         right={
           <div className="flex items-center gap-2">
-            <button className="px-2.5 py-1.5 text-[11.5px] font-semibold text-ink-100 bg-ink-600 border border-ink-500 hover:border-ink-400 rounded">All Divisions</button>
-            <button className="px-2.5 py-1.5 text-[11.5px] font-semibold text-ink-300 hover:text-ink-100">Returning Only</button>
+            <Pill tone="sky" icon="Activity">DugoutData synced 2h ago</Pill>
+            <button className="px-3 py-1.5 text-[11.5px] font-semibold text-ink-100 bg-ink-600 border border-ink-500 hover:border-ink-400 rounded flex items-center gap-1.5"><Icon name="Download" size={12}/> Export</button>
           </div>
         }
       />
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
-        <div className="xl:col-span-7"><TopTeamsCompact teams={tier.teams.slice(0,6)} tier={tier} /></div>
-        <div className="xl:col-span-5">
-          <div className="bg-ink-700 border border-ink-500 rounded p-4 h-full">
-            <SectionTitle kicker="Loyalty" title="Returning vs New Mix" accent="win" />
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <div className="bg-ink-800 border border-ink-500 rounded p-3 text-center">
-                <div className="scorenum text-[34px] text-win-500 tabnum leading-none">{tier.teams.filter(t=>t.returning).length}</div>
-                <div className="label-eyebrow text-[9.5px] mt-1.5">Returning</div>
-                <div className="text-[10px] text-ink-300 mt-1">avg rating {Math.round(tier.teams.filter(t=>t.returning).reduce((a,t)=>a+t.rating,0) / (tier.teams.filter(t=>t.returning).length||1))}</div>
-              </div>
-              <div className="bg-ink-800 border border-ink-500 rounded p-3 text-center">
-                <div className="scorenum text-[34px] text-crimson-400 tabnum leading-none">{tier.teams.filter(t=>!t.returning).length}</div>
-                <div className="label-eyebrow text-[9.5px] mt-1.5">New</div>
-                <div className="text-[10px] text-ink-300 mt-1">avg rating {Math.round(tier.teams.filter(t=>!t.returning).reduce((a,t)=>a+t.rating,0) / (tier.teams.filter(t=>!t.returning).length||1))}</div>
+
+      {/* Age picker */}
+      <div className="bg-ink-700 border border-ink-500 rounded p-3 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2">
+          <span className="label-eyebrow text-[9.5px] mr-1">Age Group</span>
+          {ages.map(a => (
+            <button key={a} onClick={() => setAge(a)}
+              className={`px-3 py-1.5 rounded text-[12.5px] font-bold tracking-wider tabnum transition-colors ${
+                age === a ? 'bg-crimson-500 text-white' : 'bg-ink-800 border border-ink-500 text-ink-200 hover:border-ink-400 hover:text-ink-50'
+              }`}>
+              {a}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-4 text-[11px] tabnum">
+          <div><span className="text-ink-300">Teams: </span><span className="text-ink-50 font-bold">{teams.length}</span></div>
+          <div><span className="text-ink-300">Revenue: </span><span className="text-crimson-400 font-bold">${(totalRev/1000).toFixed(1)}K</span></div>
+          <div><span className="text-ink-300">Returning: </span><span className="text-win-500 font-bold">{returningPct}%</span></div>
+        </div>
+      </div>
+
+      {/* Three leaderboards */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <RevenueLeaderboard teams={byRevenue} age={age} totalRev={totalRev} />
+        <RankingLeaderboard teams={byNCS} age={age} variant="ncs" />
+        <RankingLeaderboard teams={byDD} age={age} variant="dd" />
+      </div>
+
+      {/* Cross-source rank delta callout */}
+      <RankDeltaPanel teams={teams} age={age} />
+    </div>
+  );
+}
+
+// --- Leaderboard: by revenue to this TO ------------------------------
+function RevenueLeaderboard({ teams, age, totalRev }) {
+  const max = Math.max(...teams.map(t => t.revenue), 1);
+  return (
+    <div className="bg-ink-700 border border-ink-500 rounded overflow-hidden">
+      <div className="px-4 py-3 border-b border-ink-500 bg-gradient-to-r from-crimson-900/40 to-transparent">
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="h-[3px] w-7 bg-crimson-500"></span>
+          <span className="label-eyebrow">Top {age} · By Revenue</span>
+        </div>
+        <h2 className="font-display font-bold text-[14px] text-ink-50 tracking-tight">Highest-Paying Teams</h2>
+        <div className="text-[10.5px] text-ink-300 tabnum mt-0.5">${(totalRev/1000).toFixed(1)}K total · this season</div>
+      </div>
+      <div className="divide-y divide-ink-500/40">
+        {teams.map((t, i) => {
+          const pct = (t.revenue / max) * 100;
+          return (
+            <div key={t.name} className="px-4 py-2.5 hover:bg-ink-600/30 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className={`shrink-0 w-7 text-center scorenum text-[15px] tabnum leading-none ${i === 0 ? 'text-crimson-400' : i < 3 ? 'text-ink-50' : 'text-ink-300'}`}>{String(i+1).padStart(2,'0')}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="text-[12.5px] font-semibold text-ink-50 truncate">{t.name}</div>
+                    <div className="text-right shrink-0">
+                      <div className="scorenum text-[14px] tabnum text-crimson-400 leading-none">${(t.revenue/1000).toFixed(1)}K</div>
+                    </div>
+                  </div>
+                  <Bar value={pct} tone="crimson" height={4} />
+                  <div className="flex items-center justify-between mt-1 text-[10px] tabnum text-ink-300">
+                    <span>{t.region} · {t.events} {t.events === 1 ? 'event' : 'events'}</span>
+                    {t.returning ? <span className="text-win-500 font-semibold">RETURNING</span> : <span className="text-sky2-400 font-semibold">NEW</span>}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="mt-4 pt-3 border-t border-ink-500">
-              <div className="label-eyebrow text-[9.5px] mb-2">Season retention vs target</div>
-              <div className="flex items-baseline justify-between mb-1">
-                <span className="text-[11px] text-ink-200 tabnum">64% returning</span>
-                <span className="text-[11px] text-ink-200 tabnum">target 70%</span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// --- Leaderboard: by ranking (NCS or DugoutData) ---------------------
+function RankingLeaderboard({ teams, age, variant }) {
+  const isNCS = variant === 'ncs';
+  const accent = isNCS ? 'sky2' : 'win';
+  const headerGradient = isNCS ? 'from-sky2-900/40 to-transparent' : 'from-win-900/40 to-transparent';
+  const stripe = isNCS ? 'bg-sky2-500' : 'bg-win-500';
+  return (
+    <div className="bg-ink-700 border border-ink-500 rounded overflow-hidden">
+      <div className={`px-4 py-3 border-b border-ink-500 bg-gradient-to-r ${headerGradient}`}>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className={`h-[3px] w-7 ${stripe}`}></span>
+          <span className="label-eyebrow">Top {age} · By Ranking</span>
+        </div>
+        <h2 className="font-display font-bold text-[14px] text-ink-50 tracking-tight flex items-center gap-2">
+          {isNCS ? 'NCS Ranking' : 'DugoutData Composite'}
+          {!isNCS && <span className="px-1.5 py-0.5 bg-win-500 text-ink-900 text-[8.5px] font-bold rounded tracking-wider">CROSS-BODY</span>}
+        </h2>
+        <div className="text-[10.5px] text-ink-300 tabnum mt-0.5">
+          {isNCS ? 'NCS-internal · Strength of schedule weighted' : 'PG · USSSA · AAU · NCS · AAU composite'}
+        </div>
+      </div>
+      <div className="divide-y divide-ink-500/40">
+        {teams.map((t, i) => {
+          const rank = isNCS ? t.ncsRank : t.dd.rank;
+          const rating = t.ncsRating;
+          return (
+            <div key={t.name} className="px-4 py-2.5 hover:bg-ink-600/30 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className={`shrink-0 w-7 text-center scorenum text-[15px] tabnum leading-none ${i === 0 ? `text-${accent}-400` : i < 3 ? 'text-ink-50' : 'text-ink-300'}`}>{String(i+1).padStart(2,'0')}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <div className="text-[12.5px] font-semibold text-ink-50 truncate">{t.name}</div>
+                    <div className="text-right shrink-0">
+                      {isNCS ? (
+                        <div className={`scorenum text-[14px] tabnum text-${accent}-400 leading-none`}>{rating}</div>
+                      ) : (
+                        <div className="flex items-center gap-1.5">
+                          <span className="px-1.5 py-0.5 bg-ink-600 border border-ink-500 rounded text-[9.5px] font-mono font-bold text-ink-100">{t.dd.body}</span>
+                          <span className="text-[10px] tabnum text-ink-300">#{t.dd.bodyRank}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] tabnum text-ink-300">
+                    <span>{t.region}</span>
+                    <span className="w-0.5 h-0.5 rounded-full bg-ink-400"></span>
+                    <span>{t.record}</span>
+                    {!isNCS && (
+                      <>
+                        <span className="w-0.5 h-0.5 rounded-full bg-ink-400"></span>
+                        <span className="text-ink-200">NCS #{t.ncsRank}</span>
+                      </>
+                    )}
+                    {isNCS && (
+                      <>
+                        <span className="w-0.5 h-0.5 rounded-full bg-ink-400"></span>
+                        <span className="text-ink-200">DD #{t.dd.rank}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-              <Bar value={64 / 70 * 100} tone="win" height={6} />
-              <div className="text-[10.5px] text-ink-300 mt-2">Up from 51% Spring 25 · Loyalty Tier 2 discount driving stickiness in 11U/12U.</div>
             </div>
+          );
+        })}
+      </div>
+      {!isNCS && (
+        <div className="px-4 py-2.5 border-t border-ink-500 bg-ink-800/60 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-[10px] text-ink-300">
+            <Icon name="ExternalLink" size={10} />
+            <span>Source: dugoutdata.co</span>
+          </div>
+          <button className="text-[10.5px] font-semibold text-win-500 hover:text-win-400">View on DugoutData →</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- Cross-source rank delta panel -----------------------------------
+function RankDeltaPanel({ teams, age }) {
+  // Show biggest NCS vs DugoutData rank discrepancies — useful signal
+  const withDelta = teams.map(t => ({ ...t, delta: t.dd.rank - t.ncsRank }));
+  const ncsHigh = [...withDelta].sort((a, b) => a.delta - b.delta).slice(0, 3);  // ranked higher by NCS
+  const ddHigh  = [...withDelta].sort((a, b) => b.delta - a.delta).slice(0, 3);  // ranked higher by DD
+
+  return (
+    <div className="bg-gradient-to-br from-ink-700 to-ink-800 border border-ink-500 rounded p-5">
+      <div className="flex items-start justify-between mb-4 gap-3 flex-wrap">
+        <div>
+          <SectionTitle kicker="Cross-Source Signal" title={`Where NCS and DugoutData disagree · ${age}`} accent="sky" />
+          <div className="text-[11px] text-ink-300 tabnum mt-1">Big deltas = either a hidden gem (DD-high) or a team to watch closely (NCS-high)</div>
+        </div>
+        <Pill tone="warn" icon="GitCompare">{withDelta.filter(t => Math.abs(t.delta) >= 3).length} teams with ±3 delta</Pill>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* NCS-favored */}
+        <div className="bg-ink-800 border border-ink-500 rounded p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-7 h-7 rounded bg-sky2-900 border border-sky2-500/40 flex items-center justify-center text-sky2-400">
+              <Icon name="TrendingUp" size={13} />
+            </div>
+            <div>
+              <div className="label-eyebrow text-[9.5px]">NCS ranks higher</div>
+              <div className="text-[12px] text-ink-50 font-semibold">Strong with us, less proven elsewhere</div>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            {ncsHigh.map(t => (
+              <div key={t.name} className="flex items-center justify-between py-1.5 px-2 bg-ink-700/60 rounded">
+                <div className="min-w-0">
+                  <div className="text-[12px] font-semibold text-ink-50 truncate">{t.name}</div>
+                  <div className="text-[10px] text-ink-300 tabnum">{t.region} · {t.record}</div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 ml-2">
+                  <span className="text-[10.5px] tabnum text-sky2-400 font-bold">NCS #{t.ncsRank}</span>
+                  <Icon name="ArrowRight" size={10} className="text-ink-400"/>
+                  <span className="text-[10.5px] tabnum text-ink-200">DD #{t.dd.rank}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* DD-favored */}
+        <div className="bg-ink-800 border border-ink-500 rounded p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-7 h-7 rounded bg-win-900 border border-win-500/40 flex items-center justify-center text-win-500">
+              <Icon name="Sparkles" size={13} />
+            </div>
+            <div>
+              <div className="label-eyebrow text-[9.5px]">DugoutData ranks higher</div>
+              <div className="text-[12px] text-ink-50 font-semibold">Recruit targets · proven across bodies</div>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            {ddHigh.map(t => (
+              <div key={t.name} className="flex items-center justify-between py-1.5 px-2 bg-ink-700/60 rounded">
+                <div className="min-w-0">
+                  <div className="text-[12px] font-semibold text-ink-50 truncate">{t.name}</div>
+                  <div className="text-[10px] text-ink-300 tabnum">{t.region} · {t.dd.body} #{t.dd.bodyRank}</div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 ml-2">
+                  <span className="text-[10.5px] tabnum text-win-500 font-bold">DD #{t.dd.rank}</span>
+                  <Icon name="ArrowRight" size={10} className="text-ink-400"/>
+                  <span className="text-[10.5px] tabnum text-ink-200">NCS #{t.ncsRank}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <TopTeamsPanel tier={tier} />
     </div>
   );
 }
