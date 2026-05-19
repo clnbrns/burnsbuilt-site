@@ -8,6 +8,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # ---- AI crawlers (explicit allow + disallow paths) ----
 # OpenAI
@@ -17,6 +18,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -24,6 +26,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 User-agent: ChatGPT-User
 Allow: /
@@ -31,6 +34,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Anthropic
 User-agent: ClaudeBot
@@ -39,6 +43,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 User-agent: anthropic-ai
 Allow: /
@@ -46,6 +51,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 User-agent: Claude-Web
 Allow: /
@@ -53,6 +59,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Perplexity
 User-agent: PerplexityBot
@@ -61,6 +68,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Google AI training (separate from Googlebot — controls Gemini training only)
 User-agent: Google-Extended
@@ -69,6 +77,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Apple Intelligence
 User-agent: Applebot-Extended
@@ -77,6 +86,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Common Crawl (used by many LLMs as training data)
 User-agent: CCBot
@@ -85,6 +95,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # Meta AI
 User-agent: Meta-ExternalAgent
@@ -93,6 +104,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 User-agent: FacebookBot
 Allow: /
@@ -100,6 +112,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # ByteDance / TikTok
 User-agent: Bytespider
@@ -108,6 +121,7 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 # DuckDuckGo AI
 User-agent: DuckAssistBot
@@ -116,5 +130,6 @@ Disallow: /clients/
 Disallow: /admin/
 Disallow: /board/
 Disallow: /qbr/
+Disallow: /ncs/
 
 Sitemap: https://burnsbuilt.co/sitemap.xml
