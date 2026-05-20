@@ -1088,24 +1088,40 @@ $("#ed-save").addEventListener("click", () => {
   const picked = $("#ed-assignee").querySelector(".assignee-opt.on");
   c.assignee = picked ? (picked.dataset.assignee || null) : null;
   // If assignee changed AND new assignee isn't me, fire notification
-  if (c.assignee !== prevAssignee && c.assignee && c.assignee !== currentUserId) {
-    notifyAssignment(c).catch(err => console.warn("notify failed:", err));
+  const assigneeChanged = c.assignee !== prevAssignee && c.assignee && c.assignee !== currentUserId;
+  if (assigneeChanged) {
+    const targetName = userById(c.assignee)?.name || c.assignee;
+    notifyAssignment(c).then(ok => {
+      toast(ok ? `📧 Emailed ${targetName}` : `⚠️ Couldn't email ${targetName} — check console`);
+    });
   }
   saveState(); render(); closeEditModal();
-  toast(c.assignee !== prevAssignee && c.assignee
+  toast(assigneeChanged
     ? `Saved — assigned to ${userById(c.assignee)?.name || c.assignee}`
     : "Saved");
 });
 
-// Notification stub — wired to backend in Phase 2.
+// Notification — POSTs to /.netlify/functions/board-notify which sends
+// an email via Gmail SMTP. Returns true on success, false on failure.
 async function notifyAssignment(card) {
   const assignee = userById(card.assignee);
   const assigner = getCurrentUser();
-  if (!assignee?.email || !assigner) return;
+  if (!assignee?.email) {
+    console.warn("notifyAssignment: assignee has no email", assignee);
+    return false;
+  }
+  if (!assigner) {
+    console.warn("notifyAssignment: no current user set — sign in first");
+    return false;
+  }
+  if (!syncKey) {
+    console.warn("notifyAssignment: no board key set — open the sync panel and paste it");
+    return false;
+  }
   try {
-    await fetch("/.netlify/functions/board-notify", {
+    const res = await fetch("/.netlify/functions/board-notify", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Board-Key": syncKey || "" },
+      headers: { "Content-Type": "application/json", "X-Board-Key": syncKey },
       body: JSON.stringify({
         toEmail: assignee.email,
         toName: assignee.name,
@@ -1114,8 +1130,17 @@ async function notifyAssignment(card) {
         cardId: card.id,
       }),
     });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      console.warn(`notifyAssignment: ${res.status} ${res.statusText}`, body);
+      return false;
+    }
+    const json = await res.json().catch(() => ({}));
+    console.log("notifyAssignment: sent", json);
+    return true;
   } catch (err) {
     console.warn("notifyAssignment fetch failed:", err);
+    return false;
   }
 }
 $("#ed-delete").addEventListener("click", () => {
