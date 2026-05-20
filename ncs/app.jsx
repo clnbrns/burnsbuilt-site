@@ -3,7 +3,7 @@ const { useState, useEffect, useRef, useMemo, useCallback } = React;
 const { TIERS, NAV } = window.__NCS;
 const { Icon, Pill, SectionTitle, Delta, Bar } = window.__P;
 const { PnLChart, VelocityChart, Sparkline, MarketingAttribution, Funnel } = window.__C;
-const { KpiTile, RegistrationGapCard, TournamentRegistrationCard, TopTeamsTable, InsightsBriefing, LiveTicker } = window.__W;
+const { KpiTile, PaceBar, DailyFive, RegistrationGapCard, TournamentRegistrationCard, TopTeamsTable, InsightsBriefing, LiveTicker } = window.__W;
 
 // --- TIER SWITCHER ---------------------------------------------------
 function TierSwitcher({ tierId, setTierId }) {
@@ -488,8 +488,8 @@ function HeroKpis({ tier }) {
   );
 }
 
-// --- DASHBOARD VIEW ---------------------------------------------------
-function Dashboard({ tier, onAction }) {
+// --- DASHBOARD VIEW (kitchen-sink Command Overview) ------------------
+function Dashboard({ tier, onAction, setActiveNav }) {
   return (
     <div className="space-y-5 tier-fade" key={tier.id}>
       <HeroKpis tier={tier} />
@@ -516,6 +516,253 @@ function Dashboard({ tier, onAction }) {
       </div>
 
       <TopTeamsPanel tier={tier} />
+
+      {/* Daily 5 — action queue at the bottom */}
+      {tier.dailyActions && <DailyFive actions={tier.dailyActions} onRun={(a) => onAction?.(a, 'daily5')} />}
+    </div>
+  );
+}
+
+// ---- QUADRANT: MONEY -------------------------------------------------
+function QuadrantMoney({ tier, onDrill }) {
+  const isTO = tier.id === 'to';
+  const moneyKpi = tier.kpis[0]; // Revenue
+  const total = tier.pnl.reduce((a, b) => a + b.rev, 0);
+  const costs = tier.pnl.reduce((a, b) => a + b.cost, 0);
+  const margin = total - costs;
+  const marginPct = ((margin / total) * 100).toFixed(0);
+  // Pace: where would we expect to be at week 19 of 22 (TO Spring)?
+  // Linear pacing baseline = 19/22 of $728K forecast
+  const forecast = isTO ? 728 : (tier.id === 'regional' ? 11200 : 62000);
+  const expected = isTO ? (forecast * 19 / 22) : (forecast * 0.85);
+  const actual   = isTO ? total * 1000 : (tier.id === 'regional' ? 8900 : 48200);
+  return (
+    <QuadrantShell
+      label="Money"
+      question="How is my financial health?"
+      answer={isTO ? `On pace for $${forecast}K · ${marginPct}% margin` : `$${(actual/1000).toFixed(1)}M · ${marginPct}% margin`}
+      tone="crimson"
+      onDrill={onDrill}
+      drillLabel="Open Financial BI"
+    >
+      <div className="grid grid-cols-3 gap-3 mb-3">
+        <QuadStat label="Booked" value={isTO ? `$${total.toFixed(0)}K` : `$${(actual/1000).toFixed(1)}M`} sub={moneyKpi.delta} tone="crimson" />
+        <QuadStat label="Margin" value={isTO ? `$${margin.toFixed(0)}K` : `$${((actual - costs*1000)/1000).toFixed(1)}M`} sub={`${marginPct}%`} tone="win" />
+        <QuadStat label="Forecast" value={isTO ? `$${forecast}K` : `$${(forecast/1000).toFixed(1)}M`} sub="season end" tone="sky" />
+      </div>
+      <PaceBar
+        value={actual}
+        expected={expected}
+        max={forecast * 1000}
+        label="Pace vs. plan"
+        valueLabel={`${Math.round(actual / (forecast * 1000) * 100)}% of forecast`}
+        height={8}
+      />
+    </QuadrantShell>
+  );
+}
+
+// ---- QUADRANT: FILL --------------------------------------------------
+function QuadrantFill({ tier, onDrill, onAction }) {
+  const isTO = tier.id === 'to' && tier.tournaments;
+  if (!isTO) {
+    // Generic version using gaps
+    const critical = tier.gaps.filter(g => g.risk === 'high').length;
+    const filled = tier.gaps.filter(g => g.need === 0).length;
+    return (
+      <QuadrantShell
+        label="Fill"
+        question="How are we filling tournaments?"
+        answer={`${critical} critical · ${filled} locked`}
+        tone="warn"
+        onDrill={onDrill}
+        drillLabel="Open Registration"
+      >
+        <div className="space-y-2">
+          {tier.gaps.slice(0, 3).map(g => (
+            <div key={g.id} className="flex items-center gap-2 py-1.5 border-b border-ink-500/40 last:border-0">
+              <Pill tone={g.risk === 'high' ? 'crimson' : g.risk === 'med' ? 'warn' : 'win'}>{g.risk === 'high' ? 'CRIT' : g.risk === 'med' ? 'WATCH' : 'OK'}</Pill>
+              <div className="flex-1 min-w-0">
+                <div className="text-[12px] font-semibold text-ink-50 truncate">{g.tourn}</div>
+                <div className="text-[10.5px] tabnum text-ink-300 truncate">{g.div} · {g.when}</div>
+              </div>
+              <div className="text-right tabnum text-[11px] text-ink-200">{g.filled}/{g.total}</div>
+            </div>
+          ))}
+        </div>
+      </QuadrantShell>
+    );
+  }
+  // TO version: pace + top 3 at-risk
+  const upcoming = tier.tournaments.filter(t => t.status !== 'closed');
+  const atRisk = upcoming.filter(t => t.status === 'critical' || t.status === 'warn');
+  const totalFilled = tier.tournaments.reduce((a, t) => a + t.filled, 0);
+  const totalCap    = tier.tournaments.reduce((a, t) => a + t.capacity, 0);
+  const seasonPct   = (totalFilled / totalCap) * 100;
+  // Expected season-wide fill at week 19/22
+  const expectedSeasonPct = 85;
+  // Sort at-risk by daysOut ascending (closest first)
+  const triage = [...atRisk].sort((a, b) => a.daysOut - b.daysOut).slice(0, 3);
+  return (
+    <QuadrantShell
+      label="Fill"
+      question="How are we filling tournaments?"
+      answer={`${atRisk.length} events at risk · ${seasonPct.toFixed(0)}% season fill`}
+      tone="warn"
+      onDrill={onDrill}
+      drillLabel="Open Registration"
+    >
+      <div className="mb-3">
+        <PaceBar
+          value={seasonPct}
+          expected={expectedSeasonPct}
+          label="Season-wide fill pace"
+          valueLabel={`${expectedSeasonPct}% expected by wk 19`}
+          height={8}
+        />
+      </div>
+      <div className="label-eyebrow text-[9.5px] mb-1.5">Triage queue · closest first</div>
+      <div className="space-y-1.5">
+        {triage.map(t => {
+          const fp = (t.filled / t.capacity) * 100;
+          return (
+            <div key={t.id} className="flex items-center gap-2 py-1.5 border-b border-ink-500/40 last:border-0">
+              <Pill tone={t.status === 'critical' ? 'crimson' : 'warn'}>{t.status === 'critical' ? 'CRIT' : 'WATCH'}</Pill>
+              <div className="flex-1 min-w-0">
+                <div className="text-[12px] font-semibold text-ink-50 truncate">{t.name}</div>
+                <div className="text-[10.5px] tabnum text-ink-300 truncate">{t.city} · {t.daysOut}d out · {fp.toFixed(0)}% (target {t.expectedFillPct}%)</div>
+              </div>
+              <button onClick={() => onAction?.(t, 'campaign')} className="shrink-0 px-2 py-1 text-[10.5px] font-bold text-white bg-crimson-500 hover:bg-crimson-600 rounded">Act</button>
+            </div>
+          );
+        })}
+      </div>
+    </QuadrantShell>
+  );
+}
+
+// ---- QUADRANT: REACH -------------------------------------------------
+function QuadrantReach({ tier, onDrill }) {
+  const isTO = tier.id === 'to';
+  // Find best ROAS channel
+  const best = [...tier.marketing].filter(m => !m.organic).sort((a, b) => b.roas - a.roas)[0];
+  // Find any recent send (TO) or fall back
+  const recentSend = isTO && tier.marketingSends?.[0];
+  const totalSpend = tier.marketing.reduce((a, m) => a + (m.spend || 0), 0);
+  const totalRegs  = tier.marketing.reduce((a, m) => a + m.regs, 0);
+  return (
+    <QuadrantShell
+      label="Reach"
+      question="How do I reach teams?"
+      answer={`${best.roas.toFixed(1)}x best ROAS · ${(totalRegs).toLocaleString()} attributed regs`}
+      tone="sky"
+      onDrill={onDrill}
+      drillLabel="Open Marketing"
+    >
+      <div className="grid grid-cols-3 gap-3 mb-3">
+        <QuadStat label="Best Channel" value={best.ch.split(' ')[0]} sub={`${best.roas.toFixed(1)}x`} tone="win" />
+        <QuadStat label="Total Spend" value={`$${(totalSpend/1000).toFixed(0)}K`} sub={`${totalRegs} regs`} tone="sky" />
+        <QuadStat label="Blended CPA" value={`$${(totalSpend/totalRegs).toFixed(0)}`} sub="per reg" tone="warn" />
+      </div>
+      {isTO && recentSend ? (
+        <div className="bg-ink-800 border border-ink-500 rounded p-2.5">
+          <div className="label-eyebrow text-[9.5px] mb-1">Most recent send</div>
+          <div className="text-[12px] font-semibold text-ink-50 truncate">{recentSend.name}</div>
+          <div className="text-[10.5px] text-ink-300 tabnum truncate mt-0.5">{recentSend.when} · {recentSend.audience} · Open {recentSend.opens} · {recentSend.regs} regs</div>
+        </div>
+      ) : (
+        <div className="text-[11px] text-ink-300">Open Marketing to compose new sends or review attribution.</div>
+      )}
+    </QuadrantShell>
+  );
+}
+
+// ---- QUADRANT: TEAMS -------------------------------------------------
+function QuadrantTeams({ tier, onDrill }) {
+  const returning = tier.teams.filter(t => t.returning).length;
+  const total = tier.teams.length;
+  const retentionPct = Math.round((returning / total) * 100);
+  // Top 3 by revenue if TO (uses teamsByAge), else by rating
+  const isTO = tier.id === 'to' && tier.teamsByAge;
+  const topPayers = isTO
+    ? Object.values(tier.teamsByAge).flat().sort((a, b) => b.revenue - a.revenue).slice(0, 3)
+    : tier.teams.slice(0, 3);
+  return (
+    <QuadrantShell
+      label="Teams"
+      question="How are teams doing?"
+      answer={`${retentionPct}% returning · top team contributes $${isTO ? (topPayers[0].revenue/1000).toFixed(1) + 'K' : ''}`}
+      tone="win"
+      onDrill={onDrill}
+      drillLabel="Open Teams & Talent"
+    >
+      <div className="grid grid-cols-3 gap-3 mb-3">
+        <QuadStat label="Returning" value={`${retentionPct}%`} sub={`${returning}/${total}`} tone="win" />
+        <QuadStat label="New" value={`${total - returning}`} sub="this season" tone="sky" />
+        <QuadStat label="Top LTV" value={isTO ? `$${(topPayers[0].revenue/1000).toFixed(1)}K` : `#${topPayers[0].rank || 1}`} sub={isTO ? topPayers[0].name.split(' ').slice(-2).join(' ') : topPayers[0].name.split(' ')[0]} tone="crimson" />
+      </div>
+      <div className="label-eyebrow text-[9.5px] mb-1.5">{isTO ? 'Top payers · season' : 'Top by rating'}</div>
+      <div className="space-y-1">
+        {topPayers.map((t, i) => (
+          <div key={t.name || t.rank} className="flex items-center gap-2 py-1 border-b border-ink-500/40 last:border-0">
+            <span className="scorenum text-[13px] tabnum w-5 text-ink-300">{String(i+1).padStart(2,'0')}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold text-ink-50 truncate">{t.name}</div>
+              <div className="text-[10.5px] tabnum text-ink-300 truncate">{t.region} · {t.record}{isTO && ` · ${t.events} events`}</div>
+            </div>
+            <span className="text-[11px] tabnum font-bold text-crimson-400">
+              {isTO ? `$${(t.revenue/1000).toFixed(1)}K` : t.rating}
+            </span>
+          </div>
+        ))}
+      </div>
+    </QuadrantShell>
+  );
+}
+
+// Shared shell for the four quadrants
+function QuadrantShell({ label, question, answer, tone, children, onDrill, drillLabel }) {
+  const toneMap = {
+    crimson: 'bg-crimson-500',
+    warn:    'bg-warn-500',
+    sky:     'bg-sky2-500',
+    win:     'bg-win-500',
+  };
+  return (
+    <div className="bg-gradient-to-br from-ink-700 to-ink-800 border border-ink-500 rounded p-5 hover:border-ink-400 transition-colors">
+      <div className="flex items-start justify-between mb-3 gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className={`h-[3px] w-7 ${toneMap[tone] || 'bg-ink-400'}`}></span>
+            <span className="label-eyebrow text-[10px]">{label}</span>
+          </div>
+          <div className="text-[12px] text-ink-300 italic mb-1">{question}</div>
+          <h2 className="font-display font-bold text-[16px] text-ink-50 tracking-tight leading-tight">{answer}</h2>
+        </div>
+      </div>
+      <div className="mb-3">{children}</div>
+      <div className="pt-3 border-t border-ink-500 flex items-center justify-between">
+        <button onClick={onDrill} className="text-[11.5px] font-bold text-crimson-400 hover:text-crimson-500 flex items-center gap-1.5">
+          {drillLabel} <Icon name="ArrowRight" size={11} strokeWidth={2.4} />
+        </button>
+        <span className="text-[10px] text-ink-400 tabnum">drill ↗</span>
+      </div>
+    </div>
+  );
+}
+
+function QuadStat({ label, value, sub, tone }) {
+  const toneText = {
+    crimson: 'text-crimson-400',
+    win:     'text-win-500',
+    sky:     'text-sky2-400',
+    warn:    'text-warn-500',
+  }[tone] || 'text-ink-50';
+  return (
+    <div className="bg-ink-800 border border-ink-500 rounded p-2.5">
+      <div className="label-eyebrow text-[9px]">{label}</div>
+      <div className={`scorenum text-[20px] tabnum leading-none mt-1 ${toneText}`}>{value}</div>
+      <div className="text-[10px] text-ink-300 tabnum mt-0.5 truncate">{sub}</div>
     </div>
   );
 }
@@ -625,7 +872,7 @@ function Toast({ toast, onClose }) {
 // =====================================================================
 // VIEW ROUTER
 // =====================================================================
-function ActiveView({ navId, tier, onAction }) {
+function ActiveView({ navId, tier, onAction, setActiveNav }) {
   switch (navId) {
     case 'finance':       return <FinancialBIView   tier={tier} />;
     case 'registration':  return <RegistrationView  tier={tier} onAction={onAction} />;
@@ -638,7 +885,7 @@ function ActiveView({ navId, tier, onAction }) {
     case 'reports':       return <ReportsView       tier={tier} />;
     case 'settings':      return <SettingsView      tier={tier} />;
     case 'overview':
-    default:              return <Dashboard         tier={tier} onAction={onAction} />;
+    default:              return <Dashboard         tier={tier} onAction={onAction} setActiveNav={setActiveNav} />;
   }
 }
 
@@ -676,6 +923,19 @@ function App() {
         title: `Campaign launched: ${title}`,
         body: `Targeting ${scopeLabel} coaches within 75mi. Est. fill: 3–5 days. Budget $1,800 from season marketing pool.`,
       });
+    } else if (action === 'daily5') {
+      // Daily 5 action queue — kind drives toast + routing
+      const a = target;
+      setToast({
+        icon: a.icon || 'Zap',
+        title: `${a.cta}: ${a.title}`,
+        body: `${a.context}${a.value !== '—' ? ` · ${a.value} at stake` : ''}`,
+      });
+      // Optional: route to the relevant section
+      if (a.kind === 'marketing' || a.kind === 'social') setActiveNav('marketing');
+      else if (a.kind === 'crm') setActiveNav('crm');
+      else if (a.kind === 'ops') setActiveNav('schedule');
+      return;
     } else if (action === 'send') {
       // Marketing composer payload: { kind, who, subject, body, platform, prompt, audience }
       const t = target;
@@ -712,7 +972,7 @@ function App() {
         <Header tierId={tierId} setTierId={setTierId} tier={tier} period={period} setPeriod={setPeriod} />
         <LiveTicker items={tier.ticker} />
         <main className="flex-1 px-6 py-5 dot-grid">
-          <ActiveView navId={activeNav} tier={tier} onAction={handleAction} />
+          <ActiveView navId={activeNav} tier={tier} onAction={handleAction} setActiveNav={setActiveNav} />
           <Footer />
         </main>
       </div>

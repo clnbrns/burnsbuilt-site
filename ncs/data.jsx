@@ -203,34 +203,58 @@ const TIERS = {
       delta: '+11 vs prior wk',
       bars: [4,8,6,11,9,14,12,18,16,22,19,24,28,32,29,34,38,41,44,38,46,52,48,54,58,61,57,64],
     },
+    // Top-of-overview action queue — ranked by ROI/urgency
+    dailyActions: [
+      { id:'d1', rank:1, kind:'marketing', icon:'Megaphone', priority:'P0',
+        title:'Launch 10U coach blast — Summit Showdown',
+        context:'$28K revenue at risk · 268 coaches in target · GA 75mi',
+        cta:'Launch campaign', value:'$28K', valueTone:'crimson' },
+      { id:'d2', rank:2, kind:'crm', icon:'Phone', priority:'P0',
+        title:'Call Carla Estrada (Pensacola Pirates)',
+        context:'Hot lead · packet sent 3d ago · Gulf Coast Slam @ 38% behind',
+        cta:'Open contact', value:'$1.6K', valueTone:'warn' },
+      { id:'d3', rank:3, kind:'marketing', icon:'Mail', priority:'P1',
+        title:'Approve Beach Bash early-bird SMS',
+        context:'Expires Friday · 984 parents · returning teams from Coast Cup',
+        cta:'Review & send', value:'$9K', valueTone:'sky' },
+      { id:'d4', rank:4, kind:'social', icon:'Sparkles', priority:'P1',
+        title:'Review Nano Banana bracket reveal · May Madness',
+        context:'Drafted 2h ago · Instagram · ready for approval',
+        cta:'Open draft', value:'—', valueTone:'ink' },
+      { id:'d5', rank:5, kind:'ops', icon:'Calendar', priority:'P2',
+        title:'Confirm Lakepoint umpire roster',
+        context:'Deadline today 15:00 · 14 staff needed · May Madness',
+        cta:'Confirm now', value:'—', valueTone:'ink' },
+    ],
+
     tournaments: [
-      // CLOSED (already happened)
-      { id:'t1', name:'Spring Opener',         city:'Marietta, GA',  dates:'Feb 21–23', daysOut:-87, status:'closed', filled:48, capacity:48, revenue:'$112K',
+      // CLOSED (already happened) — expectedFillPct is the historical fill at this point in lead time
+      { id:'t1', name:'Spring Opener',         city:'Marietta, GA',  dates:'Feb 21–23', daysOut:-87, expectedFillPct:100, status:'closed', filled:48, capacity:48, revenue:'$112K',
         ageGroups:[
           { age:'9U',  filled:8,  cap:8  }, { age:'10U', filled:12, cap:12 },
           { age:'11U', filled:12, cap:12 }, { age:'12U', filled:8,  cap:8  },
           { age:'13U', filled:8,  cap:8  },
         ] },
-      { id:'t2', name:'Magnolia Classic',      city:'Augusta, GA',   dates:'Mar 14–16', daysOut:-66, status:'closed', filled:52, capacity:56, revenue:'$128K',
+      { id:'t2', name:'Magnolia Classic',      city:'Augusta, GA',   dates:'Mar 14–16', daysOut:-66, expectedFillPct:100, status:'closed', filled:52, capacity:56, revenue:'$128K',
         ageGroups:[
           { age:'10U', filled:12, cap:12 }, { age:'11U', filled:14, cap:16 },
           { age:'12U', filled:12, cap:12 }, { age:'13U', filled:8,  cap:8  },
           { age:'14U', filled:6,  cap:8  },
         ] },
-      { id:'t3', name:'Carolina Coast Cup',    city:'Charleston, SC',dates:'Apr 11–13', daysOut:-38, status:'closed', filled:56, capacity:64, revenue:'$142K',
+      { id:'t3', name:'Carolina Coast Cup',    city:'Charleston, SC',dates:'Apr 11–13', daysOut:-38, expectedFillPct:100, status:'closed', filled:56, capacity:64, revenue:'$142K',
         ageGroups:[
           { age:'9U',  filled:6,  cap:8  }, { age:'10U', filled:12, cap:12 },
           { age:'11U', filled:14, cap:16 }, { age:'12U', filled:10, cap:12 },
           { age:'13U', filled:8,  cap:8  }, { age:'14U', filled:6,  cap:8  },
         ] },
-      { id:'t4', name:'Smoky Mtn Showdown',    city:'Knoxville, TN', dates:'May 2–4',   daysOut:-17, status:'closed', filled:60, capacity:64, revenue:'$148K',
+      { id:'t4', name:'Smoky Mtn Showdown',    city:'Knoxville, TN', dates:'May 2–4',   daysOut:-17, expectedFillPct:100, status:'closed', filled:60, capacity:64, revenue:'$148K',
         ageGroups:[
           { age:'10U', filled:12, cap:12 }, { age:'11U', filled:14, cap:16 },
           { age:'12U', filled:12, cap:12 }, { age:'13U', filled:12, cap:12 },
           { age:'14U', filled:10, cap:12 },
         ] },
       // UPCOMING — current focus
-      { id:'t5', name:'Lakepoint May Madness', city:'Cartersville, GA',dates:'May 30–Jun 1', daysOut:11, status:'healthy', filled:46, capacity:56, revenue:'$118K projected',
+      { id:'t5', name:'Lakepoint May Madness', city:'Cartersville, GA',dates:'May 30–Jun 1', daysOut:11, expectedFillPct:88, status:'healthy', filled:46, capacity:56, revenue:'$118K projected',
         ageGroups:[
           { age:'10U', filled:12, cap:12, status:'full' },
           { age:'11U', filled:13, cap:16, status:'healthy' },
@@ -238,7 +262,7 @@ const TIERS = {
           { age:'13U', filled:6,  cap:8,  status:'healthy' },
           { age:'14U', filled:3,  cap:8,  status:'warn' },
         ] },
-      { id:'t6', name:'Summit Showdown',       city:'Atlanta, GA',   dates:'Jun 14–16', daysOut:26, status:'critical', filled:42, capacity:96, revenue:'$108K projected',
+      { id:'t6', name:'Summit Showdown',       city:'Atlanta, GA',   dates:'Jun 14–16', daysOut:26, expectedFillPct:74, status:'critical', filled:42, capacity:96, revenue:'$108K projected',
         ageGroups:[
           { age:'10U', filled:6,  cap:16, status:'critical' },
           { age:'11U', filled:10, cap:16, status:'warn' },
@@ -246,7 +270,7 @@ const TIERS = {
           { age:'13U', filled:8,  cap:24, status:'critical' },
           { age:'14U', filled:4,  cap:16, status:'critical' },
         ] },
-      { id:'t7', name:'Beach Bash',            city:'Myrtle Beach, SC',dates:'Jun 27–29', daysOut:39, status:'warn', filled:34, capacity:56, revenue:'$84K projected',
+      { id:'t7', name:'Beach Bash',            city:'Myrtle Beach, SC',dates:'Jun 27–29', daysOut:39, expectedFillPct:68, status:'warn', filled:34, capacity:56, revenue:'$84K projected',
         ageGroups:[
           { age:'10U', filled:8,  cap:12, status:'warn' },
           { age:'11U', filled:10, cap:16, status:'warn' },
@@ -254,7 +278,7 @@ const TIERS = {
           { age:'13U', filled:4,  cap:8,  status:'critical' },
           { age:'14U', filled:4,  cap:8,  status:'critical' },
         ] },
-      { id:'t8', name:'Independence Invitational', city:'Nashville, TN', dates:'Jul 3–5', daysOut:45, status:'healthy', filled:52, capacity:64, revenue:'$132K projected',
+      { id:'t8', name:'Independence Invitational', city:'Nashville, TN', dates:'Jul 3–5', daysOut:45, expectedFillPct:62, status:'healthy', filled:52, capacity:64, revenue:'$132K projected',
         ageGroups:[
           { age:'10U', filled:12, cap:12, status:'full' },
           { age:'11U', filled:14, cap:16, status:'healthy' },
@@ -262,7 +286,7 @@ const TIERS = {
           { age:'13U', filled:8,  cap:12, status:'warn' },
           { age:'14U', filled:8,  cap:12, status:'warn' },
         ] },
-      { id:'t9', name:'Gulf Coast Slam',       city:'Pensacola, FL', dates:'Jul 11–13', daysOut:53, status:'critical', filled:18, capacity:48, revenue:'$44K projected',
+      { id:'t9', name:'Gulf Coast Slam',       city:'Pensacola, FL', dates:'Jul 11–13', daysOut:53, expectedFillPct:60, status:'critical', filled:18, capacity:48, revenue:'$44K projected',
         ageGroups:[
           { age:'10U', filled:4,  cap:8,  status:'critical' },
           { age:'11U', filled:6,  cap:12, status:'warn' },
@@ -270,7 +294,7 @@ const TIERS = {
           { age:'13U', filled:2,  cap:8,  status:'critical' },
           { age:'14U', filled:2,  cap:8,  status:'critical' },
         ] },
-      { id:'t10', name:'Magnolia Mid-Summer',  city:'Birmingham, AL',dates:'Jul 18–20', daysOut:60, status:'warn', filled:30, capacity:56, revenue:'$72K projected',
+      { id:'t10', name:'Magnolia Mid-Summer',  city:'Birmingham, AL',dates:'Jul 18–20', daysOut:60, expectedFillPct:54, status:'warn', filled:30, capacity:56, revenue:'$72K projected',
         ageGroups:[
           { age:'10U', filled:8,  cap:12, status:'warn' },
           { age:'11U', filled:8,  cap:16, status:'warn' },
@@ -278,7 +302,7 @@ const TIERS = {
           { age:'13U', filled:4,  cap:8,  status:'critical' },
           { age:'14U', filled:4,  cap:8,  status:'critical' },
         ] },
-      { id:'t11', name:'Spring Finale',        city:'Atlanta, GA',   dates:'Jul 25–27', daysOut:67, status:'healthy', filled:24, capacity:72, revenue:'$58K projected',
+      { id:'t11', name:'Spring Finale',        city:'Atlanta, GA',   dates:'Jul 25–27', daysOut:67, expectedFillPct:36, status:'healthy', filled:24, capacity:72, revenue:'$58K projected',
         ageGroups:[
           { age:'10U', filled:6,  cap:12, status:'warn' },
           { age:'11U', filled:6,  cap:16, status:'warn' },

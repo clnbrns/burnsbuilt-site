@@ -95,6 +95,46 @@ function RegistrationGapCard({ gap, onAction }) {
   );
 }
 
+// ---------- PACE BAR (universal primitive) ----------
+// Shows actual progress + an "expected here" tick mark. Color flips
+// green when ahead of pace, red when meaningfully behind.
+function PaceBar({ value, expected, max = 100, height = 6, label, valueLabel, neutralAhead }) {
+  const valPct = Math.max(0, Math.min(100, (value / max) * 100));
+  const expPct = Math.max(0, Math.min(100, (expected / max) * 100));
+  const delta = valPct - expPct;
+  // Tone selection — neutralAhead is for things like spend where being "ahead" isn't necessarily good
+  const tone = delta >= 0
+    ? (neutralAhead ? 'sky' : 'win')
+    : (delta <= -10 ? 'crimson' : 'warn');
+  const toneBg = { win: 'bg-win-500', warn: 'bg-warn-500', crimson: 'bg-crimson-500', sky: 'bg-sky2-500' }[tone];
+  const toneText = { win: 'text-win-500', warn: 'text-warn-500', crimson: 'text-crimson-400', sky: 'text-sky2-400' }[tone];
+  const verb = delta >= 5 ? 'ahead' : delta <= -5 ? 'behind' : 'on pace';
+  return (
+    <div className="w-full">
+      {(label || valueLabel) && (
+        <div className="flex items-baseline justify-between mb-1 gap-2">
+          {label && <span className="label-eyebrow text-[9px]">{label}</span>}
+          {valueLabel && (
+            <span className="text-[10.5px] tabnum text-ink-300">
+              {valueLabel} · <span className={`font-bold ${toneText}`}>{Math.abs(delta).toFixed(0)}pt {verb}</span>
+            </span>
+          )}
+        </div>
+      )}
+      <div className="relative w-full bg-ink-600 rounded-sm overflow-visible" style={{ height }}>
+        {/* Actual progress */}
+        <div className={`absolute inset-y-0 left-0 rounded-sm ${toneBg} transition-all duration-500`} style={{ width: `${valPct}%` }}></div>
+        {/* Expected-by-now tick mark */}
+        <div
+          title={`Expected: ${expected.toFixed(0)} / ${max}`}
+          className="absolute bg-ink-50 border border-ink-900 rounded-sm shadow-md"
+          style={{ left: `calc(${expPct}% - 1px)`, top: -2, bottom: -2, width: 2 }}
+        ></div>
+      </div>
+    </div>
+  );
+}
+
 // ---------- TOURNAMENT REGISTRATION CARD (TO tier — multi-event season view) ----------
 function TournamentRegistrationCard({ tournament, onAction }) {
   const t = tournament;
@@ -140,7 +180,7 @@ function TournamentRegistrationCard({ tournament, onAction }) {
         </div>
       </div>
 
-      {/* Fill bar + headline */}
+      {/* Fill bar + headline + pace */}
       <div className="mb-3">
         <div className="flex items-baseline justify-between mb-1">
           <span className="text-[11px] text-ink-200 tabnum">
@@ -149,7 +189,15 @@ function TournamentRegistrationCard({ tournament, onAction }) {
           </span>
           <span className="text-[11px] tabnum text-ink-100 font-semibold">{fillPct.toFixed(0)}%</span>
         </div>
-        <Bar value={fillPct} tone={tone.bar} />
+        {closed || typeof t.expectedFillPct !== 'number' ? (
+          <Bar value={fillPct} tone={tone.bar} />
+        ) : (
+          <PaceBar
+            value={fillPct}
+            expected={t.expectedFillPct}
+            valueLabel={`expected ${t.expectedFillPct}% by D${t.daysOut > 0 ? '-' : '+'}${Math.abs(t.daysOut)}`}
+          />
+        )}
         <div className="text-[10.5px] text-ink-300 tabnum mt-1.5">{t.revenue}</div>
       </div>
 
@@ -348,4 +396,81 @@ function LiveTicker({ items }) {
   );
 }
 
-window.__W = { KpiTile, RegistrationGapCard, TournamentRegistrationCard, TopTeamsTable, InsightsBriefing, LiveTicker };
+// ---------- DAILY 5 — ACTION QUEUE ----------
+// Top-of-overview ranked todo list. Each item is a one-click action.
+function DailyFive({ actions, onRun }) {
+  if (!actions || actions.length === 0) {
+    return (
+      <div className="bg-ink-700 border border-ink-500 rounded p-4 text-center">
+        <div className="text-[12px] text-ink-300">No urgent actions for this tier today.</div>
+      </div>
+    );
+  }
+  const priorityTones = {
+    P0: { bg: 'bg-crimson-500', text: 'text-white', label: 'P0' },
+    P1: { bg: 'bg-warn-500',    text: 'text-ink-900', label: 'P1' },
+    P2: { bg: 'bg-sky2-500',    text: 'text-white', label: 'P2' },
+  };
+  const kindIcons = {
+    marketing: 'Megaphone', crm: 'Users', social: 'Sparkles', ops: 'Calendar', finance: 'DollarSign',
+  };
+  return (
+    <div className="bg-gradient-to-br from-ink-800 via-ink-700 to-ink-800 border border-crimson-500/30 rounded overflow-hidden">
+      <div className="px-5 py-3 border-b border-ink-500 bg-ink-800/80 flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-crimson-500 flex items-center justify-center text-white">
+            <Icon name="ListChecks" size={14} strokeWidth={2.2} />
+          </div>
+          <div>
+            <div className="font-display font-bold text-[14px] text-ink-50 tracking-tight">Today · Daily 5</div>
+            <div className="text-[10.5px] text-ink-300 tabnum">Ranked by ROI · {actions.filter(a => a.priority === 'P0').length} urgent · refreshed 04:12 ET</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-crimson-500 pulse-dot"></span>
+          <span className="label-eyebrow text-[9.5px] text-crimson-400">AI-prioritized</span>
+        </div>
+      </div>
+      <div className="divide-y divide-ink-500/40">
+        {actions.map((a) => {
+          const p = priorityTones[a.priority] || priorityTones.P2;
+          const valClass = a.valueTone === 'crimson' ? 'text-crimson-400' :
+                           a.valueTone === 'warn'    ? 'text-warn-500' :
+                           a.valueTone === 'sky'     ? 'text-sky2-400' :
+                           a.valueTone === 'win'     ? 'text-win-500' : 'text-ink-300';
+          return (
+            <div key={a.id} className="px-5 py-3 hover:bg-ink-600/40 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="shrink-0 scorenum text-[16px] tabnum text-ink-300 w-5 text-center">{a.rank}</div>
+                <div className={`shrink-0 w-9 h-9 rounded ${p.bg} ${p.text} flex items-center justify-center`}>
+                  <Icon name={a.icon || kindIcons[a.kind] || 'Zap'} size={14} strokeWidth={2.2} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider ${p.bg} ${p.text}`}>{p.label}</span>
+                    <span className="label-eyebrow text-[9px] text-ink-300">{a.kind}</span>
+                  </div>
+                  <div className="text-[13px] font-semibold text-ink-50 truncate">{a.title}</div>
+                  <div className="text-[11px] text-ink-300 truncate mt-0.5">{a.context}</div>
+                </div>
+                <div className="shrink-0 text-right hidden md:block">
+                  <div className={`scorenum text-[16px] tabnum leading-none ${valClass}`}>{a.value}</div>
+                  <div className="label-eyebrow text-[9px] mt-1">at stake</div>
+                </div>
+                <button onClick={() => onRun?.(a)} className="shrink-0 px-3 py-1.5 text-[11.5px] font-bold text-white bg-crimson-500 hover:bg-crimson-600 rounded flex items-center gap-1.5 transition-colors">
+                  {a.cta} <Icon name="ArrowRight" size={11} strokeWidth={2.4} />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="px-5 py-2 border-t border-ink-500 bg-ink-800/60 flex items-center justify-between">
+        <span className="text-[10.5px] text-ink-300">Items scored by revenue at risk × urgency × probability of impact</span>
+        <button className="text-[11px] font-semibold text-crimson-400 hover:text-crimson-500">Show all 14 →</button>
+      </div>
+    </div>
+  );
+}
+
+window.__W = { KpiTile, PaceBar, DailyFive, RegistrationGapCard, TournamentRegistrationCard, TopTeamsTable, InsightsBriefing, LiveTicker };
