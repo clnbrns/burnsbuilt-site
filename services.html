@@ -103,6 +103,99 @@
     .compare-strip ul li { font-size: 0.9375rem; padding-left: 1.5rem; position: relative; }
     .compare-strip ul li::before { content: "→"; position: absolute; left: 0; color: var(--color-denim); font-weight: 700; }
   </style>
+
+  <!-- JSON-LD: Services catalog + Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://burnsbuilt.co/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://burnsbuilt.co/services.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "BurnsBuilt",
+    "url": "https://burnsbuilt.co/services.html",
+    "telephone": "+1-682-999-9240",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Aledo",
+      "addressRegion": "TX",
+      "postalCode": "76008",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Aledo" },
+      { "@type": "City", "name": "Fort Worth" },
+      { "@type": "City", "name": "Weatherford" },
+      { "@type": "AdministrativeArea", "name": "Parker County" },
+      { "@type": "AdministrativeArea", "name": "Tarrant County" }
+    ],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "BurnsBuilt Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Web Design",
+            "description": "Custom small business websites — mobile-first, hand-coded, SEO-ready out of the box. Live in 5–7 business days.",
+            "url": "https://burnsbuilt.co/web-design/",
+            "serviceType": "Web Design",
+            "provider": { "@type": "Organization", "name": "BurnsBuilt" },
+            "areaServed": "Dallas-Fort Worth Metroplex"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "USD",
+            "minPrice": "500"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business Automation",
+            "description": "Lead follow-up automations, missed-call text-back, automated review collection, invoice reminders, custom CRMs.",
+            "url": "https://burnsbuilt.co/business-automation/",
+            "serviceType": "Business Process Automation",
+            "provider": { "@type": "Organization", "name": "BurnsBuilt" },
+            "areaServed": "Dallas-Fort Worth Metroplex"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "USD",
+            "minPrice": "250"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Services",
+            "description": "Production AI tools — lead qualifiers, AI-powered bid engines, dual-LLM marketing platforms, document parsing, internal analytics.",
+            "url": "https://burnsbuilt.co/ai-services/",
+            "serviceType": "AI Integration",
+            "provider": { "@type": "Organization", "name": "BurnsBuilt" },
+            "areaServed": "Dallas-Fort Worth Metroplex"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "USD",
+            "minPrice": "500"
+          }
+        }
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
 

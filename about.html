@@ -30,6 +30,67 @@
     gtag("js", new Date());
     gtag("config", "G-19HZ4SSMQC");
   </script>
+
+  <!-- JSON-LD: AboutPage + Organization with founders + Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://burnsbuilt.co/" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://burnsbuilt.co/about.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "url": "https://burnsbuilt.co/about.html",
+    "name": "About BurnsBuilt",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "BurnsBuilt",
+      "url": "https://burnsbuilt.co",
+      "logo": "https://burnsbuilt.co/images/logo-twinblock-icon.svg",
+      "description": "A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.",
+      "foundingDate": "2026",
+      "founder": [
+        {
+          "@type": "Person",
+          "name": "Colin Burns",
+          "jobTitle": "Co-founder · Sales, ops, project lead",
+          "worksFor": { "@type": "Organization", "name": "BurnsBuilt" }
+        },
+        {
+          "@type": "Person",
+          "name": "Carson Burns",
+          "jobTitle": "Co-founder · Development",
+          "worksFor": { "@type": "Organization", "name": "BurnsBuilt" }
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Aledo",
+        "addressRegion": "TX",
+        "postalCode": "76008",
+        "addressCountry": "US"
+      },
+      "telephone": "+1-682-999-9240",
+      "areaServed": "Dallas-Fort Worth Metroplex",
+      "knowsAbout": [
+        "Web Design",
+        "Business Automation",
+        "Custom CRM Development",
+        "AI Integration",
+        "Anthropic Claude API",
+        "Google Gemini",
+        "Local SEO",
+        "Meta Conversion API"
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
 

@@ -1,42 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://burnsbuilt.co/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://burnsbuilt.co/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/services.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://burnsbuilt.co/contact.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/bearcat-turf.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/bearcat-hq.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/bearcat-estimator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/lndmrk-drone.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/msm-marketing-engine.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/case-studies/burns-shuffle.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/aledo/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/willow-park/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/weatherford/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/parker-county/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/fort-worth/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/granbury/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://burnsbuilt.co/locations/benbrook/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://burnsbuilt.co/web-design/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://burnsbuilt.co/business-automation/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://burnsbuilt.co/services.html</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/landscaping/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/drone-services/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/contractors/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/hvac/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/roofing/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/industries/youth-sports-analytics/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://burnsbuilt.co/pay/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://burnsbuilt.co/articles/</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/articles/website-cost-2026/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/articles/website-timeline-2026/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/articles/ai-for-small-business-2026/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/articles/automation-then-ai/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://burnsbuilt.co/ai-services/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://burnsbuilt.co/compare/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/compare/wix-vs-custom/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://burnsbuilt.co/compare/agency-vs-studio/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://msm.burnsbuilt.co/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://burnsbuilt.co/</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://burnsbuilt.co/about.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/services.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://burnsbuilt.co/contact.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Service category pages -->
+  <url><loc>https://burnsbuilt.co/web-design/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://burnsbuilt.co/business-automation/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://burnsbuilt.co/ai-services/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+
+  <!-- Case studies -->
+  <url><loc>https://burnsbuilt.co/case-studies/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/bearcat-turf.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/bearcat-hq.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/bearcat-estimator.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/lndmrk-drone.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/msm-marketing-engine.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/case-studies/burns-shuffle.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Locations -->
+  <url><loc>https://burnsbuilt.co/locations/aledo/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/willow-park/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/weatherford/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/parker-county/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/fort-worth/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/granbury/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://burnsbuilt.co/locations/benbrook/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+
+  <!-- Industries -->
+  <url><loc>https://burnsbuilt.co/industries/landscaping/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://burnsbuilt.co/industries/drone-services/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/industries/contractors/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/industries/hvac/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/industries/roofing/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/industries/youth-sports-analytics/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- Articles -->
+  <url><loc>https://burnsbuilt.co/articles/</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/articles/website-cost-2026/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/articles/website-timeline-2026/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/articles/ai-for-small-business-2026/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://burnsbuilt.co/articles/automation-then-ai/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- Comparisons -->
+  <url><loc>https://burnsbuilt.co/compare/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/compare/wix-vs-custom/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://burnsbuilt.co/compare/agency-vs-studio/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Utility -->
+  <url><loc>https://burnsbuilt.co/terms/</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://burnsbuilt.co/pay/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- External / subdomain -->
+  <url><loc>https://msm.burnsbuilt.co/</loc><lastmod>2026-05-20</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
 </urlset>

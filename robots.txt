@@ -132,4 +132,75 @@ Disallow: /board/
 Disallow: /qbr/
 Disallow: /ncs/
 
+# Amazon (Alexa, Rufus)
+User-agent: Amazonbot
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+User-agent: cohere-training-data-crawler
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# Mistral AI
+User-agent: MistralAI-User
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# You.com
+User-agent: YouBot
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# Diffbot (powers many AI knowledge graphs)
+User-agent: Diffbot
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# Timpi (decentralized search for AI)
+User-agent: Timpibot
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
+# Webz.io (used by LLM training)
+User-agent: Webzio-Extended
+Allow: /
+Disallow: /clients/
+Disallow: /admin/
+Disallow: /board/
+Disallow: /qbr/
+Disallow: /ncs/
+
 Sitemap: https://burnsbuilt.co/sitemap.xml
