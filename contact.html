@@ -77,11 +77,9 @@
             class="contact-form"
             name="contact"
             method="POST"
-            action="/thanks.html"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
+            action="/.netlify/functions/contact-submit"
             novalidate>
-            <!-- Required by Netlify to associate submissions with the form name -->
+            <!-- Form name kept for any legacy capture/analytics -->
             <input type="hidden" name="form-name" value="contact" />
             <!-- Honeypot field — bots fill it, humans don't see it -->
             <p style="display:none;">

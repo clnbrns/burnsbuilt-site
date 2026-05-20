@@ -91,6 +91,7 @@
       });
     }
 
-    // Valid → let the browser submit to Netlify Forms (redirects to /thanks.html).
+    // Valid → let the browser submit to /.netlify/functions/contact-submit,
+    // which sends the email via Gmail SMTP and 303-redirects to /thanks.html.
   });
 })();
