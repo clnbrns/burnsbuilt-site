@@ -1138,7 +1138,7 @@ $("#quick-add").addEventListener("submit", (e) => {
     catId,
     stage: "inbox",
     due: null,
-    assignee: currentUserId || null,  // default: assign to me
+    assignee: null,  // default: unassigned — pick someone via the edit modal
     createdAt: new Date().toISOString(),
   });
   $("#quick-title").value = "";
