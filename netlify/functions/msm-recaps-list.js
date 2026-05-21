@@ -20,6 +20,23 @@
 import { getStore } from "@netlify/blobs";
 
 const BLOB_STORE = "msm-recaps";
+const SITE_ID_FALLBACK = "21231ebf-f00f-466d-a7f7-47311646da0a"; // burnsbuilt.co
+
+function getRecapStore() {
+  try {
+    return getStore(BLOB_STORE);
+  } catch (err) {
+    const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID || SITE_ID_FALLBACK;
+    const token = process.env.NETLIFY_AUTH_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+    if (!token) {
+      throw new Error(
+        "Netlify Blobs unavailable. Set NETLIFY_AUTH_TOKEN env var to a Netlify PAT. " +
+        `(Underlying: ${err.message})`
+      );
+    }
+    return getStore({ name: BLOB_STORE, siteID, token });
+  }
+}
 
 const json = (statusCode, body) => ({
   statusCode,
@@ -32,7 +49,7 @@ const json = (statusCode, body) => ({
 });
 
 export const handler = async (event) => {
-  const store = getStore(BLOB_STORE);
+  const store = getRecapStore();
 
   if (event.httpMethod === "GET") {
     try {

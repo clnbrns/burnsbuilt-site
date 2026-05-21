@@ -41,6 +41,29 @@ import { getStore } from "@netlify/blobs";
 
 const GEMINI_MODEL = "gemini-2.5-flash";
 const BLOB_STORE = "msm-recaps";
+const SITE_ID_FALLBACK = "21231ebf-f00f-466d-a7f7-47311646da0a"; // burnsbuilt.co — public site UUID
+
+// Robust store accessor: tries Netlify auto-context first, falls back to
+// explicit siteID + token from env. Auto-context (NETLIFY_BLOBS_CONTEXT)
+// is supposed to be injected by Netlify at runtime but isn't always set,
+// depending on bundler config and function format. Explicit config always
+// works as long as NETLIFY_AUTH_TOKEN is a valid Personal Access Token.
+function getRecapStore() {
+  try {
+    return getStore(BLOB_STORE);
+  } catch (err) {
+    const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID || SITE_ID_FALLBACK;
+    const token = process.env.NETLIFY_AUTH_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+    if (!token) {
+      throw new Error(
+        "Netlify Blobs unavailable. Auto-context failed and no NETLIFY_AUTH_TOKEN env var is set. " +
+        "Create a Netlify PAT at app.netlify.com/user/applications and set NETLIFY_AUTH_TOKEN. " +
+        `(Underlying error: ${err.message})`
+      );
+    }
+    return getStore({ name: BLOB_STORE, siteID, token });
+  }
+}
 
 // Shared standout-performance guidance used by both prompts
 const STANDOUT_RULES = `
@@ -60,6 +83,13 @@ Format individual stat lines naturally:
 - "#8 Granato went 2-for-3 with 3 RBI and three steals"
 - "Britain dealt 3.2 innings of one-run ball with 6 K"
 - "#10 Elliott went deep with three driven in"
+
+CRITICAL — stat accuracy rules (read these slowly):
+- Hit format is ALWAYS "H-for-AB" (hits-for-at-bats). H must be ≤ AB. NEVER write "3-for-2" — that is mathematically impossible. If a player has 2 H and 3 AB, write "2-for-3", not "3-for-2".
+- Look at the box-score columns in order: AB, R, H, RBI, BB, SO. Match each column carefully.
+- Only mention extra-base hits (2B / HR / 3B) if the player's name appears in the 2B / HR / 3B summary rows. Don't infer doubles from a hit count.
+- Only mention RBIs if the RBI column shows a number > 0 for that player.
+- If you can't read a stat clearly from the input, OMIT it. Better to leave a player out than to invent numbers.
 
 Do NOT mention pedestrian lines (1-for-3, 1 RBI, etc.). Only call out genuine highlights.`;
 
@@ -260,7 +290,7 @@ Draft a 2-sentence recap and a short title. Return JSON only.`;
     let posted = false;
     if (post === true) {
       // Save to Netlify Blobs so the public page can pull it without a redeploy
-      const store = getStore(BLOB_STORE);
+      const store = getRecapStore();
       const now = new Date().toISOString();
       const id = `${now}_${Math.random().toString(36).slice(2, 8)}`;
       const entry = {
