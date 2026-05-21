@@ -105,6 +105,34 @@
     padding: 5px 10px; font-size: 12px; border-radius: 6px; cursor: pointer;
   }
   ul.recent .del:hover { color: var(--primary); border-color: var(--primary); }
+
+  /* Dropzone */
+  .dropzone {
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    background: var(--paper);
+    outline: none;
+  }
+  .dropzone:hover, .dropzone:focus-visible { border-color: var(--primary); background: #fff; }
+  .dropzone.dragging { border-color: var(--win); background: rgba(30,141,131,0.06); }
+  .dz-icon { font-size: 38px; line-height: 1; margin-bottom: 8px; }
+  .dz-primary { font-weight: 600; color: var(--ink); margin-bottom: 4px; font-size: 14.5px; }
+  .dz-secondary { font-size: 12px; color: var(--mute); }
+  .dz-preview { display: flex; gap: 16px; align-items: center; text-align: left; }
+  .dz-preview img { max-width: 160px; max-height: 120px; border-radius: 8px; border: 1px solid var(--line); display: block; }
+  .dz-meta { flex: 1; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+  .dz-meta strong { color: var(--ink); font-size: 14px; word-break: break-all; }
+  .dz-meta span { color: var(--mute); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .dz-meta .btn { align-self: flex-start; padding: 6px 12px; font-size: 12px; }
+
+  .kbd {
+    display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    background: #fff; border: 1px solid var(--line); padding: 1px 6px; border-radius: 4px;
+  }
 </style>
 </head>
 <body class="locked">
@@ -135,10 +163,28 @@
   <div class="composer">
 
     <div class="card">
-      <h2>Paste a GameChanger recap or box score</h2>
-      <p class="hint">Copy from the GameChanger app — the auto-generated recap, a box score, or both. Anything you'd send to the team chat. The AI will pull out teams + score, then write a 2-sentence MSM-voice recap.</p>
-      <label for="raw-text">Pasted content</label>
-      <textarea id="raw-text" placeholder="Bearcats 6, Stallions 4&#10;Final. 5 innings.&#10;&#10;Bearcats came out hot in the second, plating three on a double from #12 and a sac fly. Stallions battled back with two in the fourth but Bearcats' bullpen shut the door..."></textarea>
+      <h2>Pull from GameChanger</h2>
+      <p class="hint">Drop in a screenshot of the box score (fastest), paste text from the app, or both. Drag a file, choose one, paste from clipboard with <span class="kbd">Ctrl/Cmd-V</span>, or upload from your phone's photo library.</p>
+
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <div class="dz-empty" id="dz-empty">
+          <div class="dz-icon">📸</div>
+          <div class="dz-primary">Drop screenshot here, paste, or click to choose</div>
+          <div class="dz-secondary">PNG / JPG / WEBP · up to ~4 MB</div>
+        </div>
+        <div class="dz-preview" id="dz-preview" hidden>
+          <img id="dz-thumb" alt="" />
+          <div class="dz-meta">
+            <strong id="dz-filename">image.png</strong>
+            <span id="dz-filesize">—</span>
+            <button class="btn btn-ghost" id="dz-remove" type="button">Remove</button>
+          </div>
+        </div>
+        <input type="file" id="file-input" accept="image/*" hidden />
+      </div>
+
+      <label for="raw-text" style="margin-top:18px;">…or paste content as text (optional, can combine with image)</label>
+      <textarea id="raw-text" placeholder="Bearcats 6, Stallions 4. Final. 5 innings.&#10;&#10;Bearcats came out hot in the second..."></textarea>
     </div>
 
     <div class="card">
@@ -206,9 +252,11 @@
 
 <script>
 const KEY_STORE = "msm-admin-key";
+const MAX_IMAGE_BYTES = 4_500_000; // ~4.5 MB raw; base64 inflates ~33%, function limit is 6MB
 const $ = (s) => document.querySelector(s);
 
 let currentDraft = null; // { title, recap, meta }
+let currentImage = null; // { base64, mime, name, size }
 
 function getKey() { return localStorage.getItem(KEY_STORE) || ""; }
 function setKey(k) { localStorage.setItem(KEY_STORE, k); }
@@ -250,25 +298,108 @@ $("#clear-btn").addEventListener("click", () => {
   $("#preview").classList.remove("show");
   $("#post-btn").disabled = true;
   currentDraft = null;
+  clearImage();
   clearStatus("action-status");
+});
+
+// ─── Image upload: file picker, drag-drop, paste ───
+const dz = $("#dropzone");
+const fileInput = $("#file-input");
+
+function fmtBytes(n) {
+  if (n < 1024) return n + " B";
+  if (n < 1024*1024) return (n/1024).toFixed(1) + " KB";
+  return (n/(1024*1024)).toFixed(2) + " MB";
+}
+
+async function readFile(file) {
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    setStatus("action-status", "That doesn't look like an image. Try a PNG/JPG/WEBP.", "err");
+    return;
+  }
+  if (file.size > MAX_IMAGE_BYTES) {
+    setStatus("action-status", `Image too large (${fmtBytes(file.size)}). Max ~4.5 MB. Try a smaller crop or compressed export.`, "err");
+    return;
+  }
+  const buf = await file.arrayBuffer();
+  // Convert to base64 in chunks to avoid stack overflow on big files
+  let binary = "";
+  const bytes = new Uint8Array(buf);
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  }
+  const base64 = btoa(binary);
+  currentImage = { base64, mime: file.type, name: file.name || "screenshot.png", size: file.size };
+  // Show preview
+  const url = URL.createObjectURL(file);
+  $("#dz-thumb").src = url;
+  $("#dz-filename").textContent = currentImage.name;
+  $("#dz-filesize").textContent = `${fmtBytes(file.size)} · ${file.type}`;
+  $("#dz-empty").hidden = true;
+  $("#dz-preview").hidden = false;
+  clearStatus("action-status");
+}
+
+function clearImage() {
+  currentImage = null;
+  $("#dz-thumb").src = "";
+  $("#dz-empty").hidden = false;
+  $("#dz-preview").hidden = true;
+  fileInput.value = "";
+}
+
+dz.addEventListener("click", (e) => {
+  if (e.target.id === "dz-remove" || e.target.tagName === "IMG") return;
+  fileInput.click();
+});
+dz.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }
+});
+fileInput.addEventListener("change", (e) => readFile(e.target.files?.[0]));
+$("#dz-remove").addEventListener("click", (e) => { e.stopPropagation(); clearImage(); });
+
+["dragenter","dragover"].forEach(ev => dz.addEventListener(ev, (e) => {
+  e.preventDefault(); e.stopPropagation(); dz.classList.add("dragging");
+}));
+["dragleave","drop"].forEach(ev => dz.addEventListener(ev, (e) => {
+  e.preventDefault(); e.stopPropagation(); dz.classList.remove("dragging");
+}));
+dz.addEventListener("drop", (e) => {
+  const file = e.dataTransfer?.files?.[0];
+  if (file) readFile(file);
+});
+
+// Paste image from clipboard anywhere on the page
+window.addEventListener("paste", (e) => {
+  const items = e.clipboardData?.items || [];
+  for (const item of items) {
+    if (item.type?.startsWith("image/")) {
+      const file = item.getAsFile();
+      if (file) { readFile(file); e.preventDefault(); return; }
+    }
+  }
 });
 
 $("#draft-btn").addEventListener("click", async () => {
   const rawText = $("#raw-text").value.trim();
-  if (rawText.length < 10) {
-    setStatus("action-status", "Paste a GameChanger recap or box score first.", "err");
+  if (rawText.length < 10 && !currentImage) {
+    setStatus("action-status", "Drop a screenshot, paste content, or both.", "err");
     return;
   }
   $("#draft-btn").disabled = true;
   $("#post-btn").disabled = true;
-  setStatus("action-status", "Drafting with Gemini…", "info");
+  setStatus("action-status", currentImage ? "Reading screenshot with Gemini…" : "Drafting with Gemini…", "info");
 
   try {
     const res = await fetch("/.netlify/functions/msm-recap", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Admin-Key": getKey() },
       body: JSON.stringify({
-        rawText,
+        rawText: rawText || undefined,
+        imageBase64: currentImage?.base64,
+        imageMime: currentImage?.mime,
         division: $("#division").value || undefined,
         round: $("#round").value || undefined,
         post: false,
@@ -310,7 +441,9 @@ $("#post-btn").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Admin-Key": getKey() },
       body: JSON.stringify({
-        rawText: $("#raw-text").value.trim(),
+        rawText: $("#raw-text").value.trim() || undefined,
+        imageBase64: currentImage?.base64,
+        imageMime: currentImage?.mime,
         division: $("#division").value || undefined,
         round: $("#round").value || undefined,
         post: true,

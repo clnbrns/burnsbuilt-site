@@ -58,7 +58,9 @@ Output shape:
 
 const SYSTEM_PROMPT_RAW = `You parse and rewrite youth-baseball game content for Middle School Matchup (MSM), DFW West.
 
-You'll be given raw text pasted from GameChanger — could be a recap, a box score, play-by-play, or some mix. Your job: extract what matters and write a 2-sentence MSM-voice recap.
+You may receive raw text pasted from GameChanger, a screenshot of a GameChanger box score, or both. When given an image, read all visible text carefully: team names, final score, inning-by-inning grid, hitting leaders (look at H, R, RBI columns), pitching lines (IP, H, R, ER, BB, SO), and the 2B/HR/SB/HBP/E summary rows. Use jersey numbers ("#10") when they're shown.
+
+Your job: extract what matters and write a 2-sentence MSM-voice recap.
 
 Voice: warm, neighborly, like a local paper or a parent at the diamond. NOT sports-broadcast hype. NOT corporate. We're #happybaseball — think Banana Ball, not travel ball.
 
@@ -89,15 +91,19 @@ const json = (statusCode, body) => ({
   body: JSON.stringify(body),
 });
 
-const callGemini = async ({ system, user }) => {
+const callGemini = async ({ system, user, imageBase64, imageMime }) => {
   if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not set");
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+  const parts = [{ text: user }];
+  if (imageBase64) {
+    parts.push({ inlineData: { mimeType: imageMime || "image/png", data: imageBase64 } });
+  }
   const r = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: system }] },
-      contents: [{ role: "user", parts: [{ text: user }] }],
+      contents: [{ role: "user", parts }],
       generationConfig: {
         temperature: 0.6,
         maxOutputTokens: 400,
@@ -125,25 +131,36 @@ export const handler = async (event) => {
     return json(400, { error: "Invalid JSON" });
   }
 
-  const { rawText, team1, team2, score1, score2, division, round, notes, post } = body || {};
+  const { rawText, imageBase64, imageMime, team1, team2, score1, score2, division, round, notes, post } = body || {};
 
   let title, recap, winner, loserName, scoreStr;
 
   try {
-    if (rawText && String(rawText).trim().length > 10) {
-      // ─── Mode B: paste from GameChanger ───
-      const trimmed = String(rawText).slice(0, 6000); // cap to keep tokens sane
-      const userPrompt = `Pasted GameChanger content:
+    const hasImage = imageBase64 && String(imageBase64).length > 100;
+    const hasText = rawText && String(rawText).trim().length > 10;
 
-"""
-${trimmed}
-"""
+    if (hasImage || hasText) {
+      // ─── Mode B: paste / upload from GameChanger ───
+      const trimmed = hasText ? String(rawText).slice(0, 6000) : "";
+      const sourceDesc = hasImage && hasText
+        ? "Pasted text PLUS an attached screenshot — use both. The screenshot is usually the box score."
+        : hasImage
+          ? "Attached screenshot of a GameChanger box score / recap. Read all visible text — team names, final score, inning-by-inning grid, hitting/pitching leaders, jersey numbers, positions."
+          : "Pasted GameChanger content.";
 
-Division override: ${division || "(infer from content)"}
+      const userPrompt = `${sourceDesc}
+
+${hasText ? `Pasted content:\n"""\n${trimmed}\n"""\n\n` : ""}Division override: ${division || "(infer from content)"}
 Round override: ${round || "(infer from content; default pool play)"}
 
 Parse it and write the recap. Return JSON only.`;
-      const out = await callGemini({ system: SYSTEM_PROMPT_RAW, user: userPrompt });
+
+      const out = await callGemini({
+        system: SYSTEM_PROMPT_RAW,
+        user: userPrompt,
+        imageBase64: hasImage ? imageBase64 : null,
+        imageMime: imageMime || "image/png",
+      });
       title = out.title;
       recap = out.recap;
       winner = out.winner;
@@ -171,7 +188,7 @@ Draft a 2-sentence recap and a short title. Return JSON only.`;
       scoreStr = `${winS}–${losS}`;
     } else {
       return json(400, {
-        error: "Provide either rawText (paste from GameChanger) or structured fields (team1, team2, score1, score2).",
+        error: "Provide rawText (paste), imageBase64 (screenshot), or structured fields (team1, team2, score1, score2).",
       });
     }
 
