@@ -106,28 +106,74 @@
   }
   ul.recent .del:hover { color: var(--primary); border-color: var(--primary); }
 
-  /* Dropzone */
+  /* Dropzone — two states: empty (default) and has-file */
   .dropzone {
     border: 2px dashed var(--line);
-    border-radius: 10px;
-    padding: 24px;
-    text-align: center;
+    border-radius: 12px;
+    background: var(--paper);
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
-    background: var(--paper);
     outline: none;
+    overflow: hidden;
   }
   .dropzone:hover, .dropzone:focus-visible { border-color: var(--primary); background: #fff; }
   .dropzone.dragging { border-color: var(--win); background: rgba(30,141,131,0.06); }
-  .dz-icon { font-size: 38px; line-height: 1; margin-bottom: 8px; }
-  .dz-primary { font-weight: 600; color: var(--ink); margin-bottom: 4px; font-size: 14.5px; }
+  .dropzone.has-file { border-style: solid; border-color: var(--win); background: #fff; cursor: default; }
+
+  /* Empty state — shown by default, hidden when .has-file */
+  .dz-empty {
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .dropzone.has-file .dz-empty { display: none; }
+  .dz-icon { font-size: 40px; line-height: 1; margin-bottom: 10px; }
+  .dz-primary { font-weight: 600; color: var(--ink); margin-bottom: 4px; font-size: 15px; }
   .dz-secondary { font-size: 12px; color: var(--mute); }
-  .dz-preview { display: flex; gap: 16px; align-items: center; text-align: left; }
-  .dz-preview img { max-width: 160px; max-height: 120px; border-radius: 8px; border: 1px solid var(--line); display: block; }
-  .dz-meta { flex: 1; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
-  .dz-meta strong { color: var(--ink); font-size: 14px; word-break: break-all; }
-  .dz-meta span { color: var(--mute); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
-  .dz-meta .btn { align-self: flex-start; padding: 6px 12px; font-size: 12px; }
+
+  /* Preview state — hidden by default, shown when .has-file */
+  .dz-preview { display: none; }
+  .dropzone.has-file .dz-preview {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+    align-items: center;
+    padding: 16px;
+  }
+  .dz-thumb-wrap {
+    width: 140px;
+    height: 100px;
+    border-radius: 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dz-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dz-meta {
+    display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  }
+  .dz-meta-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dz-check {
+    color: var(--win); font-weight: 700; font-size: 14px;
+    background: rgba(30,141,131,0.12); padding: 2px 8px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .dz-filename {
+    color: var(--ink); font-size: 14.5px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+  }
+  .dz-filesize { color: var(--mute); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .dz-actions { display: flex; gap: 8px; margin-top: 4px; }
+  .dz-actions .btn { padding: 6px 12px; font-size: 12px; min-height: 0; }
+
+  @media (max-width: 540px) {
+    .dropzone.has-file .dz-preview { grid-template-columns: 80px 1fr; gap: 12px; padding: 12px; }
+    .dz-thumb-wrap { width: 80px; height: 80px; }
+  }
 
   .kbd {
     display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -167,17 +213,23 @@
       <p class="hint">Drop in a screenshot of the box score (fastest), paste text from the app, or both. Drag a file, choose one, paste from clipboard with <span class="kbd">Ctrl/Cmd-V</span>, or upload from your phone's photo library.</p>
 
       <div class="dropzone" id="dropzone" tabindex="0">
-        <div class="dz-empty" id="dz-empty">
+        <div class="dz-empty">
           <div class="dz-icon">📸</div>
           <div class="dz-primary">Drop screenshot here, paste, or click to choose</div>
           <div class="dz-secondary">PNG / JPG / WEBP · up to ~4 MB</div>
         </div>
-        <div class="dz-preview" id="dz-preview" hidden>
-          <img id="dz-thumb" alt="" />
+        <div class="dz-preview">
+          <div class="dz-thumb-wrap">
+            <img id="dz-thumb" alt="Screenshot preview" />
+          </div>
           <div class="dz-meta">
-            <strong id="dz-filename">image.png</strong>
-            <span id="dz-filesize">—</span>
-            <button class="btn btn-ghost" id="dz-remove" type="button">Remove</button>
+            <div class="dz-meta-row"><span class="dz-check">✓ Loaded</span></div>
+            <div class="dz-filename" id="dz-filename">image.png</div>
+            <div class="dz-filesize" id="dz-filesize">—</div>
+            <div class="dz-actions">
+              <button class="btn btn-ghost" id="dz-remove" type="button">Remove</button>
+              <button class="btn btn-ghost" id="dz-replace" type="button">Replace</button>
+            </div>
           </div>
         </div>
         <input type="file" id="file-input" accept="image/*" hidden />
@@ -334,24 +386,30 @@ async function readFile(file) {
   currentImage = { base64, mime: file.type, name: file.name || "screenshot.png", size: file.size };
   // Show preview
   const url = URL.createObjectURL(file);
-  $("#dz-thumb").src = url;
+  const thumb = $("#dz-thumb");
+  if (thumb.src && thumb.src.startsWith("blob:")) URL.revokeObjectURL(thumb.src);
+  thumb.src = url;
   $("#dz-filename").textContent = currentImage.name;
-  $("#dz-filesize").textContent = `${fmtBytes(file.size)} · ${file.type}`;
-  $("#dz-empty").hidden = true;
-  $("#dz-preview").hidden = false;
+  $("#dz-filesize").textContent = `${fmtBytes(file.size)} · ${file.type.replace("image/","").toUpperCase()}`;
+  dz.classList.add("has-file");
   clearStatus("action-status");
 }
 
 function clearImage() {
   currentImage = null;
-  $("#dz-thumb").src = "";
-  $("#dz-empty").hidden = false;
-  $("#dz-preview").hidden = true;
+  const thumb = $("#dz-thumb");
+  if (thumb.src && thumb.src.startsWith("blob:")) URL.revokeObjectURL(thumb.src);
+  thumb.removeAttribute("src");
+  dz.classList.remove("has-file");
   fileInput.value = "";
 }
 
+// Click anywhere on the dropzone opens the picker, EXCEPT when clicking
+// a button or the thumbnail itself (lets you tap to remove/replace cleanly)
 dz.addEventListener("click", (e) => {
-  if (e.target.id === "dz-remove" || e.target.tagName === "IMG") return;
+  if (e.target.closest("button")) return;
+  // If we have a file, clicking the thumbnail does nothing — use the buttons
+  if (dz.classList.contains("has-file") && e.target.tagName === "IMG") return;
   fileInput.click();
 });
 dz.addEventListener("keydown", (e) => {
@@ -359,6 +417,7 @@ dz.addEventListener("keydown", (e) => {
 });
 fileInput.addEventListener("change", (e) => readFile(e.target.files?.[0]));
 $("#dz-remove").addEventListener("click", (e) => { e.stopPropagation(); clearImage(); });
+$("#dz-replace").addEventListener("click", (e) => { e.stopPropagation(); fileInput.click(); });
 
 ["dragenter","dragover"].forEach(ev => dz.addEventListener(ev, (e) => {
   e.preventDefault(); e.stopPropagation(); dz.classList.add("dragging");
