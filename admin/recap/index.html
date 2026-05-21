@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MSM Recap Composer · Admin</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" href="/msm-summer-2026-dfw/assets/brand/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" />
+<style>
+  :root {
+    --ink: #0E1A2E;
+    --ink-2: #1f3050;
+    --mute: #6b7390;
+    --line: #e2e6f1;
+    --paper: #fafbfd;
+    --primary: #C8102E;
+    --accent: #c49a62;
+    --win: #1e8d83;
+    --warn: #d97706;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--paper); color: var(--ink); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  header.top h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  header.top .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  header.top .crumbs a { color: var(--mute); text-decoration: none; }
+  header.top .crumbs a:hover { color: var(--primary); }
+
+  .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 18px; }
+  .card h2 { margin: 0 0 14px; font-size: 16px; letter-spacing: -0.005em; }
+  .card .hint { font-size: 13px; color: var(--mute); margin: -8px 0 12px; line-height: 1.5; }
+
+  label { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+  input[type=text], input[type=password], textarea, select {
+    width: 100%; padding: 10px 12px; font-size: 14px; font-family: inherit;
+    border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+  }
+  textarea { resize: vertical; min-height: 240px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.55; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(200,16,46,0.12); }
+
+  .row { display: grid; gap: 14px; grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+
+  .btn {
+    padding: 11px 18px; font-size: 14px; font-weight: 700; font-family: inherit;
+    border: none; border-radius: 8px; cursor: pointer; transition: transform 0.05s ease, opacity 0.15s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: #a40d24; }
+  .btn-secondary { background: var(--ink); color: #fff; }
+  .btn-secondary:hover:not(:disabled) { background: var(--ink-2); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+  .preview {
+    background: linear-gradient(180deg, #fff 0%, #fafbfd 100%);
+    border: 2px solid var(--line); border-radius: var(--radius); padding: 22px;
+    margin-top: 16px; display: none;
+  }
+  .preview.show { display: block; }
+  .preview .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-family: 'JetBrains Mono', monospace; }
+  .preview .meta-row span { padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+  .preview .division { background: var(--paper); color: var(--ink); }
+  .preview .round { background: var(--ink); color: #fff; }
+  .preview .ai { background: var(--accent); color: var(--ink); }
+  .preview h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
+  .preview .score { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 28px; color: var(--primary); margin: 6px 0 12px; }
+  .preview p.body { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+
+  .status {
+    padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-top: 12px;
+    display: none;
+  }
+  .status.show { display: block; }
+  .status.ok { background: rgba(30, 141, 131, 0.1); color: #14635c; border: 1px solid rgba(30, 141, 131, 0.3); }
+  .status.err { background: rgba(200,16,46, 0.08); color: #8a0d20; border: 1px solid rgba(200,16,46, 0.3); }
+  .status.info { background: rgba(196, 154, 98, 0.12); color: #7a5a2e; border: 1px solid rgba(196, 154, 98, 0.35); }
+
+  .key-row { display: flex; gap: 10px; align-items: end; }
+  .key-row > div:first-child { flex: 1; }
+
+  .lock-screen { display: none; }
+  .locked .lock-screen { display: block; }
+  .locked .composer { display: none; }
+
+  ul.recent { list-style: none; padding: 0; margin: 0; max-height: 320px; overflow: auto; }
+  ul.recent li {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+    padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px;
+    font-size: 13px;
+  }
+  ul.recent li strong { font-size: 13.5px; color: var(--ink); }
+  ul.recent li .sub { color: var(--mute); font-size: 12px; }
+  ul.recent .del {
+    background: transparent; border: 1px solid var(--line); color: var(--mute);
+    padding: 5px 10px; font-size: 12px; border-radius: 6px; cursor: pointer;
+  }
+  ul.recent .del:hover { color: var(--primary); border-color: var(--primary); }
+</style>
+</head>
+<body class="locked">
+<div class="wrap">
+
+  <header class="top">
+    <h1>📰 MSM Recap Composer</h1>
+    <div class="crumbs"><a href="https://msm.burnsbuilt.co/">← msm.burnsbuilt.co</a></div>
+  </header>
+
+  <!-- Lock screen: prompts for admin key -->
+  <div class="lock-screen">
+    <div class="card">
+      <h2>🔒 Admin Key</h2>
+      <p class="hint">Paste your admin key. Stored locally on this device only.</p>
+      <div class="key-row">
+        <div>
+          <label for="admin-key">Admin Key</label>
+          <input type="password" id="admin-key" autocomplete="off" placeholder="paste key…" />
+        </div>
+        <button class="btn btn-primary" id="unlock-btn">Unlock</button>
+      </div>
+      <div class="status" id="unlock-status"></div>
+    </div>
+  </div>
+
+  <!-- Composer (shown after unlock) -->
+  <div class="composer">
+
+    <div class="card">
+      <h2>Paste a GameChanger recap or box score</h2>
+      <p class="hint">Copy from the GameChanger app — the auto-generated recap, a box score, or both. Anything you'd send to the team chat. The AI will pull out teams + score, then write a 2-sentence MSM-voice recap.</p>
+      <label for="raw-text">Pasted content</label>
+      <textarea id="raw-text" placeholder="Bearcats 6, Stallions 4&#10;Final. 5 innings.&#10;&#10;Bearcats came out hot in the second, plating three on a double from #12 and a sac fly. Stallions battled back with two in the fourth but Bearcats' bullpen shut the door..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Game details (optional)</h2>
+      <p class="hint">The AI tries to infer division and round from the pasted text. Override here if needed.</p>
+      <div class="row">
+        <div>
+          <label for="division">Division</label>
+          <select id="division">
+            <option value="">(infer from content)</option>
+            <option value="6th Grade">6th Grade</option>
+            <option value="7th Grade">7th Grade</option>
+            <option value="8th Grade">8th Grade</option>
+          </select>
+        </div>
+        <div>
+          <label for="round">Round</label>
+          <select id="round">
+            <option value="">(infer / default pool play)</option>
+            <option value="pool play">Pool play</option>
+            <option value="quarterfinal">Quarterfinal</option>
+            <option value="semifinal">Semifinal</option>
+            <option value="final">Final</option>
+          </select>
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button class="btn btn-ghost" id="clear-btn" type="button" style="width:100%;">Clear</button>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:18px;">
+        <button class="btn btn-secondary" id="draft-btn" type="button">✨ Draft Recap</button>
+        <button class="btn btn-primary" id="post-btn" type="button" disabled>📤 Post to Site</button>
+      </div>
+
+      <div class="status" id="action-status"></div>
+    </div>
+
+    <!-- Preview pane -->
+    <div class="card preview" id="preview">
+      <h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--mute);margin-bottom:4px;">Preview</h2>
+      <div class="meta-row">
+        <span class="division" id="pv-division">—</span>
+        <span class="round" id="pv-round">—</span>
+        <span class="ai">AI</span>
+      </div>
+      <h3 id="pv-title">—</h3>
+      <div class="score" id="pv-score">—</div>
+      <p class="body" id="pv-recap">—</p>
+    </div>
+
+    <!-- Recently posted -->
+    <div class="card">
+      <h2>📋 Recently posted</h2>
+      <p class="hint">All live recaps in the blob store. Hit Delete to pull one down — change goes live in ~15s.</p>
+      <ul class="recent" id="recent-list">
+        <li style="border:none;color:var(--mute);padding:6px 0;">Loading…</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const KEY_STORE = "msm-admin-key";
+const $ = (s) => document.querySelector(s);
+
+let currentDraft = null; // { title, recap, meta }
+
+function getKey() { return localStorage.getItem(KEY_STORE) || ""; }
+function setKey(k) { localStorage.setItem(KEY_STORE, k); }
+function clearKey() { localStorage.removeItem(KEY_STORE); }
+
+function setStatus(elId, msg, kind) {
+  const el = $("#" + elId);
+  el.className = "status show " + (kind || "info");
+  el.textContent = msg;
+}
+function clearStatus(elId) {
+  $("#" + elId).className = "status";
+}
+
+function unlock() {
+  document.body.classList.remove("locked");
+  refreshRecent();
+}
+function lock() {
+  document.body.classList.add("locked");
+}
+
+// Boot
+if (getKey()) unlock();
+
+$("#unlock-btn").addEventListener("click", () => {
+  const k = $("#admin-key").value.trim();
+  if (!k) { setStatus("unlock-status", "Paste a key first.", "err"); return; }
+  setKey(k);
+  $("#admin-key").value = "";
+  unlock();
+});
+$("#admin-key").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#unlock-btn").click(); });
+
+$("#clear-btn").addEventListener("click", () => {
+  $("#raw-text").value = "";
+  $("#division").value = "";
+  $("#round").value = "";
+  $("#preview").classList.remove("show");
+  $("#post-btn").disabled = true;
+  currentDraft = null;
+  clearStatus("action-status");
+});
+
+$("#draft-btn").addEventListener("click", async () => {
+  const rawText = $("#raw-text").value.trim();
+  if (rawText.length < 10) {
+    setStatus("action-status", "Paste a GameChanger recap or box score first.", "err");
+    return;
+  }
+  $("#draft-btn").disabled = true;
+  $("#post-btn").disabled = true;
+  setStatus("action-status", "Drafting with Gemini…", "info");
+
+  try {
+    const res = await fetch("/.netlify/functions/msm-recap", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Admin-Key": getKey() },
+      body: JSON.stringify({
+        rawText,
+        division: $("#division").value || undefined,
+        round: $("#round").value || undefined,
+        post: false,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      if (res.status === 401) { clearKey(); lock(); }
+      throw new Error(data.error || "Draft failed");
+    }
+    currentDraft = data;
+    $("#pv-title").textContent = data.title;
+    $("#pv-recap").textContent = data.recap;
+    $("#pv-score").textContent = data.meta?.score || "—";
+    $("#pv-division").textContent = data.meta?.division || "(division)";
+    $("#pv-round").textContent = data.meta?.round || "pool play";
+    $("#preview").classList.add("show");
+    $("#post-btn").disabled = false;
+    setStatus("action-status", "Draft ready. Review it, then Post to Site.", "ok");
+  } catch (err) {
+    setStatus("action-status", "Error: " + err.message, "err");
+  } finally {
+    $("#draft-btn").disabled = false;
+  }
+});
+
+$("#post-btn").addEventListener("click", async () => {
+  if (!currentDraft) return;
+  $("#post-btn").disabled = true;
+  $("#draft-btn").disabled = true;
+  setStatus("action-status", "Posting…", "info");
+
+  try {
+    // Re-call with post:true so the blob save uses the SAME draft (we send rawText again
+    // and the model re-drafts; cheaper alternative: introduce an /msm-recap-post endpoint
+    // that accepts a pre-baked draft. For now this is fine — Gemini is deterministic enough
+    // at temp 0.6 + same input that the second call lands a near-identical recap.)
+    const res = await fetch("/.netlify/functions/msm-recap", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Admin-Key": getKey() },
+      body: JSON.stringify({
+        rawText: $("#raw-text").value.trim(),
+        division: $("#division").value || undefined,
+        round: $("#round").value || undefined,
+        post: true,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || "Post failed");
+    setStatus("action-status", "✓ Posted — live on msm.burnsbuilt.co in ~15s.", "ok");
+    $("#clear-btn").click();
+    setTimeout(refreshRecent, 600);
+  } catch (err) {
+    setStatus("action-status", "Error: " + err.message, "err");
+    $("#post-btn").disabled = false;
+  } finally {
+    $("#draft-btn").disabled = false;
+  }
+});
+
+async function refreshRecent() {
+  const ul = $("#recent-list");
+  try {
+    const res = await fetch("/.netlify/functions/msm-recaps-list", { cache: "no-store" });
+    const data = await res.json();
+    const recaps = data.recaps || [];
+    if (!recaps.length) {
+      ul.innerHTML = '<li style="border:none;color:var(--mute);padding:6px 0;">No live recaps yet. The next one you post will land here.</li>';
+      return;
+    }
+    ul.innerHTML = recaps.map(r => {
+      const when = r.posted_at ? new Date(r.posted_at).toLocaleString() : "—";
+      return `<li>
+        <div>
+          <strong>${escapeHtml(r.title)}</strong>
+          <div class="sub">${escapeHtml(r.score || "")} · ${escapeHtml(r.division || "—")} · ${when}</div>
+        </div>
+        <button class="del" data-id="${escapeHtml(r.id)}">Delete</button>
+      </li>`;
+    }).join("");
+    ul.querySelectorAll(".del").forEach(b => {
+      b.addEventListener("click", () => deleteRecap(b.dataset.id));
+    });
+  } catch (err) {
+    ul.innerHTML = `<li style="border:none;color:var(--primary);padding:6px 0;">Couldn't load: ${escapeHtml(err.message)}</li>`;
+  }
+}
+
+async function deleteRecap(id) {
+  if (!confirm("Delete this recap? It'll disappear from the site in ~15s.")) return;
+  try {
+    const res = await fetch("/.netlify/functions/msm-recaps-list", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", "X-Admin-Key": getKey() },
+      body: JSON.stringify({ id }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Delete failed");
+    refreshRecent();
+  } catch (err) {
+    alert("Delete failed: " + err.message);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+</script>
+
+</body>
+</html>

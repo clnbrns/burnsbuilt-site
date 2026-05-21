@@ -2301,14 +2301,27 @@ document.addEventListener("keydown", (e) => {
 /* ─── Recaps: load and render ─── */
 (async function() {
   try {
-    const r = await fetch("./recaps/manifest.json", { cache: "no-store" });
-    if (!r.ok) return;
-    const data = await r.json();
-    if (!data.recaps || !data.recaps.length) return;
+    // Fetch both sources in parallel:
+    //  - manifest.json: static archive committed to the repo
+    //  - msm-recaps-list: live blob-store recaps posted from /admin/recap/
+    const [staticRes, liveRes] = await Promise.allSettled([
+      fetch("./recaps/manifest.json", { cache: "no-store" }),
+      fetch("/.netlify/functions/msm-recaps-list", { cache: "no-store" }),
+    ]);
+    let recaps = [];
+    if (staticRes.status === "fulfilled" && staticRes.value.ok) {
+      const j = await staticRes.value.json().catch(() => null);
+      if (j?.recaps?.length) recaps = recaps.concat(j.recaps);
+    }
+    if (liveRes.status === "fulfilled" && liveRes.value.ok) {
+      const j = await liveRes.value.json().catch(() => null);
+      if (j?.recaps?.length) recaps = recaps.concat(j.recaps);
+    }
+    if (!recaps.length) return;
     const grid = document.getElementById("recaps-grid");
     document.getElementById("recaps-empty")?.remove();
     // Newest first
-    const sorted = data.recaps.slice().sort((a, b) => (b.posted_at || "").localeCompare(a.posted_at || ""));
+    const sorted = recaps.slice().sort((a, b) => (b.posted_at || "").localeCompare(a.posted_at || ""));
     grid.innerHTML = sorted.map(r => {
       const score = r.score || (r.score1 != null && r.score2 != null ? `${r.score1}–${r.score2}` : "");
       const shareText = encodeURIComponent(`${r.title} — ${r.recap}`);
