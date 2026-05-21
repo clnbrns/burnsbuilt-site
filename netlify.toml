@@ -6,10 +6,13 @@
   functions = "netlify/functions"
 
 [functions]
-  # Bundler for AI functions (uses twilio + @netlify/blobs; Gemini called via fetch)
+  # Bundler for AI functions (Gemini called via fetch)
   node_bundler = "esbuild"
-  # External dependencies are resolved from package.json node_modules
-  external_node_modules = ["twilio", "@netlify/blobs", "nodemailer"]
+  # External dependencies are resolved from package.json node_modules at runtime.
+  # @netlify/blobs is intentionally bundled inline (not external) so Netlify's
+  # static analysis detects the import and injects NETLIFY_BLOBS_CONTEXT — the
+  # env var that lets getStore() auto-configure without explicit siteID/token.
+  external_node_modules = ["twilio", "nodemailer"]
 
 [[headers]]
   for = "/*"
