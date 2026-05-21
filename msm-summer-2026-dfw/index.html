@@ -980,6 +980,88 @@ input, select, textarea, button { font-size: 16px; }
 @media (max-width: 540px) {
   h1, h2, h3 { letter-spacing: -0.015em; }
 }
+
+/* ============== COACHES SECTION ============== */
+.coach-banner {
+  background: linear-gradient(135deg, var(--msm-primary) 0%, var(--msm-secondary-dk) 100%);
+  color: #fff;
+  border-radius: var(--msm-radius-lg);
+  padding: 22px 26px;
+  margin-bottom: 28px;
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  box-shadow: var(--msm-shadow-sm);
+}
+.coach-banner h3 { color: #fff; margin: 0 0 6px; font-size: 20px; letter-spacing: -0.01em; }
+.coach-banner p { margin: 0; color: rgba(255,255,255,0.85); font-size: 14px; max-width: 56ch; }
+.coach-banner .cb-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.coach-banner .btn { background: var(--msm-accent); color: var(--msm-secondary-dk); border: none; font-weight: 700; }
+.coach-banner .btn.ghost { background: rgba(255,255,255,0.12); color: #fff; }
+@media (max-width: 640px) {
+  .coach-banner { grid-template-columns: 1fr; }
+  .coach-banner .cb-cta { justify-content: stretch; }
+  .coach-banner .cb-cta .btn { flex: 1; text-align: center; }
+}
+
+.coach-grid {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+.coach-card {
+  background: #fff;
+  border: 1px solid var(--msm-line);
+  border-radius: var(--msm-radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--msm-shadow-sm);
+}
+.coach-card .cc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.coach-card .cc-icon { font-size: 22px; line-height: 1; }
+.coach-card h3 { margin: 0; font-size: 17px; letter-spacing: -0.01em; color: var(--msm-secondary-dk); }
+.coach-card > p.cc-sub { margin: 0 0 12px; color: var(--msm-mute); font-size: 13px; line-height: 1.5; }
+
+.coach-card details {
+  border-top: 1px solid var(--msm-line);
+  padding: 10px 0 10px;
+}
+.coach-card details:first-of-type { border-top: none; padding-top: 4px; }
+.coach-card details[open] { padding-bottom: 12px; }
+.coach-card summary {
+  list-style: none; cursor: pointer; font-weight: 600; font-size: 14.5px;
+  color: var(--msm-secondary-dk);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 4px 0;
+}
+.coach-card summary::-webkit-details-marker { display: none; }
+.coach-card summary::after {
+  content: "+"; font-family: var(--msm-font-mono); font-weight: 700; font-size: 18px;
+  color: var(--msm-primary); transition: transform 0.15s ease;
+}
+.coach-card details[open] summary::after { content: "−"; }
+.coach-card details > div, .coach-card details > p, .coach-card details > ul {
+  font-size: 14px; line-height: 1.6; color: var(--msm-text); margin: 8px 0 0;
+}
+.coach-card details ul { padding-left: 20px; }
+.coach-card details li { margin: 4px 0; }
+.coach-card details a { color: var(--msm-primary); font-weight: 600; }
+
+.coach-card .kbd-inline {
+  display: inline-block; font-family: var(--msm-font-mono); font-size: 12px;
+  background: var(--msm-paper-2); border: 1px solid var(--msm-line);
+  padding: 1px 6px; border-radius: 4px; margin: 0 2px;
+}
+.coach-contact-row {
+  display: grid; gap: 8px; grid-template-columns: 1fr; margin-top: 4px;
+}
+.coach-contact-row a {
+  display: block; padding: 10px 14px; background: var(--msm-paper-2);
+  border: 1px solid var(--msm-line); border-radius: var(--msm-radius);
+  color: var(--msm-secondary-dk); font-weight: 600; text-decoration: none; font-size: 14px;
+}
+.coach-contact-row a:hover { border-color: var(--msm-primary); color: var(--msm-primary); }
+.coach-contact-row .label {
+  display: block; font-family: var(--msm-font-mono); font-size: 10.5px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--msm-mute);
+  margin-bottom: 2px;
+}
 </style>
 </head>
 <body>
@@ -989,7 +1071,7 @@ input, select, textarea, button { font-size: 16px; }
   <div class="ub-dates">⚾ Tue–Wed · June 9–10, 2026 · Euless, TX</div>
   <div class="ub-actions">
     <a href="#schedule" class="btn btn-sm btn-ghost">Schedule</a>
-    <a href="https://www.geisphoto.com/" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">Team Photos</a>
+    <a href="#coaches" class="btn btn-sm btn-ghost">Coaches</a>
     <a href="#gallery" class="btn btn-sm" style="background:var(--msm-accent);color:var(--msm-secondary-dk);">Photos</a>
   </div>
 </div>
@@ -1161,6 +1243,244 @@ input, select, textarea, button { font-size: 16px; }
         <strong style="display:block;color:var(--msm-secondary);font-family:var(--msm-font-display);font-size:18px;margin-bottom:6px;">Teams posting soon.</strong>
         Confirmed teams and GameChanger links will appear here in the days leading up to June 9.
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== COACHES HUB ============== -->
+<section id="coaches">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">For Coaches</span>
+        <h2>Coaches HQ.</h2>
+      </div>
+      <p>Everything you need to run your team through MSM — check-in, lineups, rules, pitch counts, and who to text when something goes sideways.</p>
+    </div>
+
+    <!-- Top banner: most-time-critical info -->
+    <div class="coach-banner">
+      <div>
+        <h3>⚾ Check-in opens 60 minutes before your first game.</h3>
+        <p>Bring printed roster, age-verification packet (birth certificates), and a backup lineup card. Director's table is behind the home plate concession at Field 1.</p>
+      </div>
+      <div class="cb-cta">
+        <a href="#coach-contacts" class="btn">📞 Director Contacts</a>
+        <a href="#schedule" class="btn ghost">📅 Schedule</a>
+      </div>
+    </div>
+
+    <div class="coach-grid">
+
+      <!-- CARD: Before the Tournament -->
+      <div class="coach-card">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">📋</span>
+          <h3>Before the Tournament</h3>
+        </div>
+        <p class="cc-sub">Everything that needs to be locked in before Monday night, June 8.</p>
+
+        <details>
+          <summary>Roster submission</summary>
+          <ul>
+            <li>Final roster locked <strong>Sunday, June 7 by 9:00 PM</strong>.</li>
+            <li>Submit via the team's GameChanger page — make sure jersey numbers match what you'll wear on the field.</li>
+            <li>Up to 15 players per roster. Late additions require director approval.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Age verification</summary>
+          <ul>
+            <li>Bring a birth certificate (or state-issued ID) for every rostered player to check-in.</li>
+            <li>Copies are fine — directors will spot-check, not collect.</li>
+            <li>Disputes are resolved at the director's table only. Not at the field.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Insurance & waivers</summary>
+          <p>Every team must have proof of insurance on file. If your club already plays in a sanctioned league (USSSA, PG, AAU), that's enough — forward the certificate to <a href="mailto:director@msmdfw.com">director@msmdfw.com</a> by Friday, June 5.</p>
+        </details>
+        <details>
+          <summary>Forms & downloads</summary>
+          <ul>
+            <li><a href="#" data-todo="lineup-template">Lineup card template (PDF)</a></li>
+            <li><a href="#" data-todo="pitch-log">Pitch count log (PDF)</a></li>
+            <li><a href="#" data-todo="rulebook">MSM 2026 rulebook (PDF)</a></li>
+            <li><a href="#" data-todo="bracket">Bracket / standings link</a></li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- CARD: Game Day Logistics -->
+      <div class="coach-card">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">🏟</span>
+          <h3>Game Day Logistics</h3>
+        </div>
+        <p class="cc-sub">Tuesday &amp; Wednesday, June 9–10 at Parks at Texas Star, Euless.</p>
+
+        <details>
+          <summary>Check-in & lineup card</summary>
+          <ul>
+            <li>Arrive <strong>60 minutes before first pitch</strong>. Confirm roster at the director's table.</li>
+            <li>Lineup cards: deliver to the scorekeeper's table <strong>10 minutes</strong> before first pitch. Bring two copies.</li>
+            <li>Late lineup = automatic forfeit of warm-up infield.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Dugout assignments</summary>
+          <ul>
+            <li>Higher seed gets third-base dugout (visiting team batting first by default — confirm with home plate ump).</li>
+            <li>Three coaches max in the dugout. Wristbands handed out at check-in.</li>
+            <li>Keep the entrance clear — director and EMS access during play.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Warm-up & between-game flow</summary>
+          <ul>
+            <li>Infield: 5 minutes for home, 5 minutes for visitor. No outfield work.</li>
+            <li>Bullpen mounds on the third-base side of Fields 1 & 3 only.</li>
+            <li>Between games: clear the dugout within 15 minutes. Trash bags at the entrance.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Water, ice, and shade</summary>
+          <p>Coolers and ice available at the director's table — free, unlimited refills. Shade tents OK behind the dugout fence but not on the field side. EMS on-site both days, located at the concession.</p>
+        </details>
+      </div>
+
+      <!-- CARD: Rules & Pitch Counts -->
+      <div class="coach-card">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">📜</span>
+          <h3>Rules & Pitch Counts</h3>
+        </div>
+        <p class="cc-sub">The quick-reference. Full rulebook PDF in <em>Forms &amp; Downloads</em>.</p>
+
+        <details>
+          <summary>Pitch counts by age</summary>
+          <ul>
+            <li><strong>6th grade:</strong> 75 pitches/day, 1 day rest at 36+, 2 days at 51+.</li>
+            <li><strong>7th grade:</strong> 85 pitches/day, 1 day rest at 41+, 2 days at 56+.</li>
+            <li><strong>8th grade:</strong> 95 pitches/day, 1 day rest at 46+, 2 days at 61+.</li>
+            <li>Log after every appearance. Tournament director audits before bracket play.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Game length & mercy</summary>
+          <ul>
+            <li>Pool play: 6 innings or 1h 45m time cap (no new inning).</li>
+            <li>Bracket: 7 innings, no time cap. Semis &amp; final: drop-dead 2h.</li>
+            <li>Mercy: 15 after 3, 12 after 4, 10 after 5.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Bats & equipment</summary>
+          <ul>
+            <li>USA Baseball or USSSA-stamped bats only. BBCOR for 8th grade if using -3.</li>
+            <li>Catchers: full gear required during all warm-ups, including bullpen.</li>
+            <li>No metal cleats for 6th grade. 7th/8th OK on dirt only.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Protests & disputes</summary>
+          <p>Rules protests are $50 cash to the director, refunded if upheld. Filed before the next pitch. Judgment calls (balls, strikes, safe/out) are not protestable. Tournament director's decisions are final.</p>
+        </details>
+      </div>
+
+      <!-- CARD: Conduct & Communication -->
+      <div class="coach-card">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">💬</span>
+          <h3>Conduct & Communication</h3>
+        </div>
+        <p class="cc-sub">You set the tone for your dugout, your bench, and your sideline parents.</p>
+
+        <details>
+          <summary>With umpires</summary>
+          <ul>
+            <li>Head coach only. Between innings. Respectful tone.</li>
+            <li>Arguing balls/strikes is an automatic warning, then ejection.</li>
+            <li>No coach on the field of play during action.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>With parents</summary>
+          <ul>
+            <li>Handle disputes privately, after the game — never in the dugout.</li>
+            <li>Direct parent complaints about umpires to the director. Not to you, not to the ump.</li>
+            <li>Remind parents: no coaching from the fence. The dugout coaches the game.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Ejection policy</summary>
+          <p>Player ejection = out for the rest of that game. Coach ejection = out for that game and the next. Two ejections in the tournament = removal from MSM for the season. Director's discretion on heat-of-the-moment vs. egregious.</p>
+        </details>
+        <details>
+          <summary>Coaches' group text</summary>
+          <p>You'll get a text from the director on Sunday with the live group thread for both days — weather calls, field changes, last-minute schedule shifts. <strong>Reply STOP to opt out</strong>, but you'll miss real-time updates if you do.</p>
+        </details>
+      </div>
+
+      <!-- CARD: Photos, Photographers, GameChanger -->
+      <div class="coach-card">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">📸</span>
+          <h3>Photos & GameChanger</h3>
+        </div>
+        <p class="cc-sub">How the official photographer works and what your team owes its parents.</p>
+
+        <details>
+          <summary>GEIS Photography</summary>
+          <p>GEIS is the official tournament photographer. Action shots are free on the <a href="#gallery">MSM gallery</a> after each game. Team and individual portrait packages sold direct through <a href="https://www.geisphoto.com/" target="_blank" rel="noopener">geisphoto.com</a> — share the link with parents pre-tournament.</p>
+        </details>
+        <details>
+          <summary>GameChanger setup</summary>
+          <ul>
+            <li>Assign a scorekeeper — parent or assistant coach, not the head coach.</li>
+            <li>Test the team page link a week before. Make sure roster + jersey numbers are correct.</li>
+            <li>Live audio streaming is optional but parents love it. Free with any paid plan.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Send your team's GC link</summary>
+          <p>Once your team page is live, email the URL to <a href="mailto:teams@msmdfw.com">teams@msmdfw.com</a> and we'll add it to the <a href="#teams">Teams &amp; Rosters</a> section so parents can find live scores in one tap.</p>
+        </details>
+      </div>
+
+      <!-- CARD: Director Contacts (anchor target) -->
+      <div class="coach-card" id="coach-contacts">
+        <div class="cc-head">
+          <span class="cc-icon" aria-hidden="true">📞</span>
+          <h3>Who to Call</h3>
+        </div>
+        <p class="cc-sub">When something goes sideways, here's the fastest line in.</p>
+
+        <div class="coach-contact-row">
+          <a href="tel:+18175551234">
+            <span class="label">Tournament Director</span>
+            Colin Burns — (817) 555-1234
+          </a>
+          <a href="tel:+18175555678">
+            <span class="label">Operations / Schedule</span>
+            Carson Burns — (817) 555-5678
+          </a>
+          <a href="sms:+18175551234?body=MSM%20coach%20issue%3A%20">
+            <span class="label">Text the Director</span>
+            📱 Text-only line — fastest response
+          </a>
+          <a href="mailto:director@msmdfw.com">
+            <span class="label">Email</span>
+            director@msmdfw.com
+          </a>
+        </div>
+
+        <details style="margin-top:14px;">
+          <summary>Weather / cancellation</summary>
+          <p>Calls posted to the coaches' group text by <strong>7:00 AM</strong> game day. The alert ribbon at the top of <a href="https://msm.burnsbuilt.co/">msm.burnsbuilt.co</a> goes live the moment there's a delay or cancellation. Refund policy: full refund if both days are called off pre-first-pitch.</p>
+        </details>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1475,6 +1795,7 @@ input, select, textarea, button { font-size: 16px; }
         <h4>On This Page</h4>
         <p><a href="#schedule">Schedule</a></p>
         <p><a href="#teams">Teams &amp; Rosters</a></p>
+        <p><a href="#coaches">Coaches HQ</a></p>
         <p><a href="#geis">Photography</a></p>
         <p><a href="#conduct">Conduct</a></p>
         <p><a href="#gallery">Photos</a></p>
@@ -1563,6 +1884,7 @@ input, select, textarea, button { font-size: 16px; }
   <a id="help-sheet-sms" href="sms:+15555555555" role="menuitem">📱 Text Tournament Director</a>
   <a href="#schedule" role="menuitem" onclick="msmCloseHelp()">📅 Jump to Schedule</a>
   <a href="#teams" role="menuitem" onclick="msmCloseHelp()">👥 Teams &amp; Rosters</a>
+  <a href="#coaches" role="menuitem" onclick="msmCloseHelp()">📋 Coaches HQ</a>
   <a href="#faq" role="menuitem" onclick="msmCloseHelp()">❓ See FAQ</a>
   <a href="https://www.google.com/maps/dir/?api=1&destination=1501+S+Pipeline+Rd+Euless+TX+76040" target="_blank" rel="noopener" role="menuitem">📍 Get Directions</a>
 </div>
