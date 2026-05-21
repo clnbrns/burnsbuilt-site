@@ -119,7 +119,11 @@ const callGemini = async ({ system, user, imageBase64, imageMime }) => {
 
 export const handler = async (event) => {
   const adminKey = event.headers["x-admin-key"] || event.headers["X-Admin-Key"];
-  if (!adminKey || adminKey !== process.env.ADMIN_KEY) {
+  const expected = process.env.ADMIN_KEY || process.env.admin_key;
+  if (!expected) {
+    return json(500, { error: "Server is missing ADMIN_KEY / admin_key env var" });
+  }
+  if (!adminKey || adminKey !== expected) {
     return json(401, { error: "Unauthorized — missing or invalid X-Admin-Key" });
   }
   if (event.httpMethod !== "POST") return json(405, { error: "POST only" });

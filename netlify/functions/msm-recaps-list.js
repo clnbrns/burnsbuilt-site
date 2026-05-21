@@ -52,7 +52,8 @@ export const handler = async (event) => {
 
   if (event.httpMethod === "DELETE") {
     const adminKey = event.headers["x-admin-key"] || event.headers["X-Admin-Key"];
-    if (!adminKey || adminKey !== process.env.ADMIN_KEY) {
+    const expected = process.env.ADMIN_KEY || process.env.admin_key;
+    if (!adminKey || adminKey !== expected) {
       return json(401, { error: "Unauthorized" });
     }
     let body;
