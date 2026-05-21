@@ -106,15 +106,42 @@ const callGemini = async ({ system, user, imageBase64, imageMime }) => {
       contents: [{ role: "user", parts }],
       generationConfig: {
         temperature: 0.6,
-        maxOutputTokens: 400,
+        // 2.5 Flash with multimodal needs more headroom; thinking tokens count against this too
+        maxOutputTokens: 1200,
         responseMimeType: "application/json",
+        // Disable extended "thinking" so token budget goes to the actual JSON output
+        thinkingConfig: { thinkingBudget: 0 },
       },
     }),
   });
   if (!r.ok) throw new Error(`Gemini API ${r.status}: ${(await r.text()).slice(0, 200)}`);
   const data = await r.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-  return JSON.parse(text);
+
+  // Surface finish reason for diagnostics — common values: STOP, MAX_TOKENS, SAFETY, RECITATION
+  const cand = data?.candidates?.[0];
+  const finish = cand?.finishReason;
+  const text = cand?.content?.parts?.[0]?.text || "";
+
+  if (!text) {
+    throw new Error(`Gemini returned empty response (finishReason=${finish || "?"})`);
+  }
+  try {
+    return JSON.parse(text);
+  } catch (parseErr) {
+    // Last-ditch: try to repair common LLM JSON mistakes (trailing comma, fences)
+    const cleaned = text
+      .replace(/^\s*```(?:json)?\s*/i, "")
+      .replace(/\s*```\s*$/, "")
+      .trim();
+    try {
+      return JSON.parse(cleaned);
+    } catch {
+      // Still broken — throw a useful error so the client can see what Gemini returned
+      throw new Error(
+        `Gemini JSON parse failed (finishReason=${finish || "?"}): ${parseErr.message}. Raw output (first 400 chars): ${text.slice(0, 400)}`
+      );
+    }
+  }
 };
 
 export const handler = async (event) => {
