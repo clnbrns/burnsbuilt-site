@@ -1,33 +1,34 @@
-# MSM Coaches/Directors Photos
+# MSM Coaches — Past-Tournament Atmosphere Photos
 
-Drop photo files in this folder to populate the **Meet the Team** section on
-`https://msm.burnsbuilt.co/coaches/`.
+Drop coach photos in this folder to populate the **MSM in action** visual strip
+on `https://msm.burnsbuilt.co/coaches/`.
 
-## How it works
+These aren't portraits-with-names — they're atmosphere shots that show what
+MSM looks like (coaches at the bench, in the dugout, talking with kids, etc).
+The page renders whatever's there as a clean image grid.
 
-Each photo is referenced by a hard-coded slot in `coaches/index.html`. Drop files
-named however you like, then send me:
+## How to drop
 
-1. The **filename** you dropped (e.g. `colin-burns.jpg`)
-2. The person's **name** (e.g. "Colin Burns")
-3. Their **title or role** (e.g. "Tournament Director")
-4. Optional: a 1-line **bio** ("Aledo native, runs Bearcat Turf, dad of two kids who came up through MSM")
+Name the files in slot order: `coach-1.jpg`, `coach-2.jpg`, `coach-3.jpg`,
+up through `coach-8.jpg`. The page checks those 8 slots; whichever ones exist
+get rendered, and missing ones quietly hide.
 
-I'll wire each one into a card on the page.
+```
+coach-1.jpg
+coach-2.jpg
+coach-3.jpg
+...
+coach-8.jpg
+```
 
 ## File specs
 
-- **Format:** JPG or WEBP preferred. PNG fine but bigger files.
-- **Aspect ratio:** Square (1:1) or vertical portrait (3:4) renders cleanest in the grid.
-- **Size:** Aim for 800×800 minimum, 2000×2000 max. Compress before drop if you want — but the build will pass them through as-is.
-- **Naming:** Anything memorable. lowercase-hyphens is the convention used elsewhere on the site (e.g. `colin-burns.jpg`).
+- **Format:** JPG or WEBP preferred (smaller). PNG fine but bigger.
+- **Aspect ratio:** Landscape (4:3 or 16:9) or square (1:1) both work.
+  Vertical portraits also OK — the grid handles mixed ratios with object-fit cover.
+- **Size:** 1200px on the long edge minimum. 2400px max so we don't ship oversize files.
+- **Compression:** Run through TinyPNG or similar before dropping if files are >500 KB each.
 
-## What I'm imagining for the page
+## Want more than 8?
 
-A 2–4 card horizontal strip up top that shows:
-- Headshot or candid action photo
-- Name
-- Role
-- (Optional) one-line bio
-
-Coaches landing on the page see the faces behind MSM right away.
+Just say the word — I'll add more slots.

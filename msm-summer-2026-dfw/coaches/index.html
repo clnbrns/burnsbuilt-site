@@ -1008,6 +1008,43 @@ input, select, textarea, button { font-size: 16px; }
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--msm-mute);
   margin-bottom: 2px;
 }
+
+/* ============== COACHES IN ACTION strip ============== */
+.coach-action {
+  background: #fff;
+  padding: 36px 0 8px;
+  border-bottom: 1px solid var(--msm-line);
+}
+.coach-action .ca-label {
+  font-family: var(--msm-font-mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--msm-mute); text-align: center; margin: 0 0 18px;
+}
+.ca-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 900px) { .ca-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .ca-grid { grid-template-columns: repeat(2, 1fr); } }
+.ca-figure {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--msm-paper-2);
+  box-shadow: var(--msm-shadow-sm);
+  transition: transform 0.2s ease;
+}
+.ca-figure:hover { transform: translateY(-2px); }
+.ca-figure img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* If every figure inside the grid 404s, the grid will be empty —
+   hide the whole section so we don't render an empty card. */
+.coach-action:has(.ca-grid:empty) { display: none; }
 </style>
 </head>
 <body>
@@ -1051,6 +1088,23 @@ input, select, textarea, button { font-size: 16px; }
              loading="lazy"
              onerror="this.outerHTML='<span style=&quot;font-size:22px;&quot;>💈</span> Aledo Barbershop';" />
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== COACHES IN ACTION (past-tournament atmosphere) ============== -->
+<section class="coach-action">
+  <div class="container">
+    <p class="ca-label">MSM in action</p>
+    <div class="ca-grid">
+      <figure class="ca-figure"><img src="../assets/coaches/coach-1.jpg" alt="MSM coach in the dugout" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-2.jpg" alt="MSM coach at the bench" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-3.jpg" alt="MSM coach talking with players" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-4.jpg" alt="MSM coach at the third-base box" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-5.jpg" alt="MSM coach huddle" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-6.jpg" alt="MSM coach celebrating a play" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-7.jpg" alt="MSM coach signaling a runner" loading="lazy" onerror="this.parentElement.remove()" /></figure>
+      <figure class="ca-figure"><img src="../assets/coaches/coach-8.jpg" alt="MSM coach pregame" loading="lazy" onerror="this.parentElement.remove()" /></figure>
     </div>
   </div>
 </section>
