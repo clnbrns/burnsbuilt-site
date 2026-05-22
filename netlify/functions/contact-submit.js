@@ -14,6 +14,7 @@
  *   CONTACT_TO          — comma-separated override; defaults to Colin + Carson
  */
 import nodemailer from "nodemailer";
+import { rateLimit, rateLimitResponse } from "./_rate-limit.js";
 
 const DEFAULT_TO = "colinmburns@gmail.com,carsonharlowburns@gmail.com";
 
@@ -54,6 +55,11 @@ export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "POST only" });
   }
+
+  // Rate limit: 3 submissions / 5 minutes / IP. Humans don't legitimately
+  // submit a quote form three times in five minutes.
+  const rl = await rateLimit(event, { key: "contact-submit", limit: 3, windowSec: 300 });
+  if (!rl.ok) return rateLimitResponse(rl);
 
   // Parse form-encoded body
   let fields = {};

@@ -13,6 +13,8 @@
  * ==================================================================
  */
 
+import { rateLimit, rateLimitResponse } from "./_rate-limit.js";
+
 const GEMINI_MODEL = "gemini-2.5-flash";
 
 // ---- Tournament context (kept inline so we don't need filesystem reads) ----
@@ -74,6 +76,10 @@ const callGemini = async ({ system, user }) => {
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") return json(405, { error: "POST only" });
+
+  // Rate limit: 20 questions / minute / IP (chat can have follow-ups)
+  const rl = await rateLimit(event, { key: "msm-ask", limit: 20, windowSec: 60 });
+  if (!rl.ok) return rateLimitResponse(rl);
   let body;
   try {
     body = typeof event.body === "string" ? JSON.parse(event.body) : event.body;

@@ -31,6 +31,7 @@
 
 import twilio from "twilio";
 import { getStore } from "@netlify/blobs";
+import { rateLimit, rateLimitResponse } from "./_rate-limit.js";
 
 // ---- Lazy clients (only init when needed; allows function to load if env is partial) ----
 const getTwilio = () => twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -212,6 +213,11 @@ export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
+
+  // Rate limit: 3 submissions / 5 minutes / IP. Webhook-style endpoint —
+  // legitimate calls come from Netlify Forms server-side at low volume.
+  const rl = await rateLimit(event, { key: "lead-qualifier", limit: 3, windowSec: 300 });
+  if (!rl.ok) return rateLimitResponse(rl);
 
   // Parse incoming Netlify Forms webhook payload
   const lead = extractLead(event.body);

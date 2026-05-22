@@ -44,6 +44,7 @@
  */
 
 import crypto from "node:crypto";
+import { rateLimit, rateLimitResponse } from "./_rate-limit.js";
 
 const DEFAULT_HOST = "baseball.exposureevents.com";
 const ALLOWED_PATH_PREFIX = "/api/v1/";
@@ -125,6 +126,11 @@ export const handler = async (event) => {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "GET only" });
   }
+
+  // Rate limit: 60 polls / minute / IP (page polls schedules regularly; this is
+  // generous but still blocks scrapers)
+  const rl = await rateLimit(event, { key: "exposure-proxy", limit: 60, windowSec: 60 });
+  if (!rl.ok) return rateLimitResponse(rl);
 
   // ---- Build upstream URL ----
   const params = event.queryStringParameters || {};

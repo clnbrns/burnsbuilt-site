@@ -16,6 +16,8 @@
  * ==================================================================
  */
 
+import { rateLimit, rateLimitResponse } from "./_rate-limit.js";
+
 const json = (statusCode, body) => ({
   statusCode,
   headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=60" },
@@ -46,6 +48,10 @@ const scorePhoto = (tags) => {
 };
 
 export const handler = async (event) => {
+  // Rate limit: 30 lookups / minute / IP
+  const rl = await rateLimit(event, { key: "msm-highlights", limit: 30, windowSec: 60 });
+  if (!rl.ok) return rateLimitResponse(rl);
+
   const params = event.queryStringParameters || {};
   const jersey = parseInt(params.jersey, 10);
   const team = params.team ? String(params.team).toLowerCase().trim() : null;
