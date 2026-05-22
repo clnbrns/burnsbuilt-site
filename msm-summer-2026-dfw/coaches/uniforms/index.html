@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Uniform Mockups — MSM Summer 2026 DFW West</title>
+<meta name="description" content="Uniform mockups for every school in the Middle School Matchup Summer 2026 DFW West tournament. Find your school and see how the jersey looks." />
+<meta name="theme-color" content="#0A1F44" />
+<meta name="robots" content="noindex,follow" />
+<link rel="canonical" href="https://msm.burnsbuilt.co/coaches/uniforms/" />
+
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" />
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-19HZ4SSMQC");
+</script>
+
+<style>
+  :root {
+    --msm-primary: #C8102E;
+    --msm-secondary: #0A1F44;
+    --msm-secondary-dk: #061226;
+    --msm-accent: #d4a85a;
+    --msm-text: #1a2236;
+    --msm-mute: #6b7390;
+    --msm-line: #e2e6f1;
+    --msm-paper: #fafbfd;
+    --msm-paper-2: #f3f5fb;
+    --msm-radius: 8px;
+    --msm-radius-lg: 12px;
+    --msm-shadow-sm: 0 1px 3px rgba(14,26,46,0.06), 0 1px 2px rgba(14,26,46,0.04);
+    --msm-shadow-lg: 0 20px 60px rgba(14,26,46,0.35);
+    --msm-font-display: 'Archivo', system-ui, sans-serif;
+    --msm-font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--msm-paper); color: var(--msm-text); }
+
+  /* Utility bar */
+  .utility-bar { background: var(--msm-secondary-dk); color: #fff; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .utility-bar .ub-dates { font-family: var(--msm-font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; }
+  .utility-bar .ub-actions { display: flex; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 700; padding: 10px 16px; border-radius: var(--msm-radius); text-decoration: none; transition: transform 0.05s ease, background 0.15s ease; cursor: pointer; border: none; line-height: 1; }
+  .btn:active { transform: scale(0.98); }
+  .btn-sm { padding: 7px 11px; font-size: 12px; min-height: 34px; }
+  .btn-ghost { background: rgba(255,255,255,0.08); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.15); }
+
+  /* Hero strip */
+  .hero {
+    background: linear-gradient(135deg, var(--msm-secondary) 0%, var(--msm-secondary-dk) 100%);
+    color: #fff;
+    padding: 40px 0 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .eyebrow { font-family: var(--msm-font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--msm-accent); font-weight: 700; }
+  .hero h1 { font-family: var(--msm-font-display); font-weight: 900; font-size: clamp(32px, 6vw, 56px); margin: 8px 0 10px; letter-spacing: -0.02em; line-height: 1.02; }
+  .hero p { color: rgba(255,255,255,0.85); max-width: 60ch; margin: 0; font-size: 15px; line-height: 1.55; }
+
+  /* Search */
+  .search-bar { background: #fff; border-bottom: 1px solid var(--msm-line); padding: 18px 0; position: sticky; top: 0; z-index: 5; }
+  .search-wrap { display: flex; gap: 10px; align-items: center; max-width: 700px; }
+  .search-input {
+    flex: 1; padding: 12px 16px; font-size: 15px; font-family: inherit;
+    border: 1px solid var(--msm-line); border-radius: var(--msm-radius); background: var(--msm-paper);
+  }
+  .search-input:focus { outline: none; border-color: var(--msm-primary); box-shadow: 0 0 0 3px rgba(200,16,46,0.12); background: #fff; }
+  .search-count { font-family: var(--msm-font-mono); font-size: 12px; color: var(--msm-mute); white-space: nowrap; }
+
+  /* Grid */
+  main { padding: 28px 0 60px; }
+  .uniform-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .uniform-card {
+    background: #fff;
+    border: 1px solid var(--msm-line);
+    border-radius: var(--msm-radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    display: flex; flex-direction: column;
+  }
+  .uniform-card:hover { transform: translateY(-2px); box-shadow: var(--msm-shadow-sm); border-color: var(--msm-accent); }
+  .uniform-card .img-wrap {
+    aspect-ratio: 4 / 5;
+    background: var(--msm-paper-2);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .uniform-card img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .uniform-card .label {
+    padding: 12px 14px;
+    border-top: 1px solid var(--msm-line);
+    font-family: var(--msm-font-display);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--msm-secondary);
+    text-align: center;
+  }
+  .uniform-card.hidden { display: none; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center; padding: 60px 20px; color: var(--msm-mute);
+  }
+  .empty-state strong { display: block; font-family: var(--msm-font-display); font-size: 18px; color: var(--msm-secondary); margin-bottom: 6px; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(6,18,38,0.92);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000; padding: 20px;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%; max-height: 92vh;
+    border-radius: 8px;
+    box-shadow: var(--msm-shadow-lg);
+    cursor: default;
+  }
+  .lightbox .lb-label {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(255,255,255,0.95); color: var(--msm-secondary);
+    padding: 8px 14px; border-radius: 6px;
+    font-family: var(--msm-font-display); font-weight: 800; font-size: 16px;
+  }
+  .lightbox .lb-close {
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(255,255,255,0.95); color: var(--msm-secondary);
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; cursor: pointer;
+    border: none;
+  }
+
+  /* Footer */
+  footer.foot {
+    background: var(--msm-secondary-dk); color: rgba(255,255,255,0.78);
+    padding: 32px 0; font-size: 14px;
+    border-top: 4px solid var(--msm-accent);
+  }
+  footer.foot .ft-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer.foot a { color: var(--msm-accent); }
+  footer.foot p { margin: 6px 0; }
+
+  @media (max-width: 540px) {
+    .hero h1 { font-size: 32px; }
+    .uniform-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .uniform-card .label { font-size: 13px; padding: 10px 8px; }
+    .search-wrap { flex-direction: column; align-items: stretch; }
+    .search-count { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="ub-dates">⚾ MSM Summer 2026 · June 9–10 · Euless</div>
+  <div class="ub-actions">
+    <a href="/coaches/" class="btn btn-sm btn-ghost">← Coaches HQ</a>
+    <a href="/" class="btn btn-sm btn-ghost">MSM Home</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">Uniform Mockups · For Coaches</span>
+    <h1>Find your school.</h1>
+    <p>Mockups for every school in the field. Start typing your school name to filter, then tap any image to enlarge.</p>
+  </div>
+</header>
+
+<section class="search-bar">
+  <div class="container">
+    <div class="search-wrap">
+      <input type="search" class="search-input" id="search" placeholder="🔍 Type your school name (Brock, Aledo, Keller…)" autocomplete="off" />
+      <span class="search-count" id="count">38 schools</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+    <div class="uniform-grid" id="grid">
+      <!-- Cards rendered by JS below -->
+    </div>
+    <div class="empty-state" id="empty" hidden>
+      <strong>No matches.</strong>
+      Check spelling, or try a partial name (e.g. "Heritage" instead of "Heritage Middle").
+    </div>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lb-label" id="lb-label">—</div>
+  <button class="lb-close" type="button" aria-label="Close" onclick="closeLightbox(event)">×</button>
+  <img id="lb-img" src="" alt="" />
+</div>
+
+<footer class="foot">
+  <div class="container ft-inner">
+    <div>
+      <p><strong style="color:#fff;">Missing your school?</strong></p>
+      <p>Email <a href="mailto:dfwwest@middleschoolmatch.com">dfwwest@middleschoolmatch.com</a> and we'll add it.</p>
+    </div>
+    <div>
+      <p><a href="/coaches/">← Back to Coaches HQ</a></p>
+      <p><a href="/">MSM Tournament Home</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const SCHOOLS = [
+  "Adams","Aledo","Aledo McAnnally","Barksdale","Bear Creek","Bedford","Brock",
+  "Central","Chisholm Trail","Colleyville Middle","Cross Timbers","Dawson",
+  "Eubanks","Fort Worth Christian","Grapevine Faith","Hall","Heritage Middle",
+  "Highland","Hurst","Indian Springs","Keller Middle","Kerr","Lucyle Collins",
+  "Medlin","North Point","North Richland","North Ridge","Pike","Smithfield",
+  "Tidwell","Timberview","Tison","Trinity Meadows","Trinity Springs","Wayside",
+  "Westlake","Wilson","Worthington"
+];
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+const empty = document.getElementById("empty");
+
+// Render all cards once
+function render() {
+  grid.innerHTML = SCHOOLS.map(name => {
+    const file = `/assets/uniforms/${encodeURIComponent(name)}.jpg`;
+    return `<article class="uniform-card" data-name="${name.toLowerCase()}" onclick="openLightbox('${file}', '${name.replace(/'/g, "\\'")}')">
+      <div class="img-wrap"><img src="${file}" alt="${name} uniform mockup" loading="lazy" /></div>
+      <div class="label">${name}</div>
+    </article>`;
+  }).join("");
+}
+render();
+
+// Filter on input
+search.addEventListener("input", () => {
+  const q = search.value.trim().toLowerCase();
+  let visible = 0;
+  grid.querySelectorAll(".uniform-card").forEach(card => {
+    const hit = !q || card.dataset.name.includes(q);
+    card.classList.toggle("hidden", !hit);
+    if (hit) visible++;
+  });
+  count.textContent = `${visible} of ${SCHOOLS.length}`;
+  empty.hidden = visible !== 0;
+});
+
+// Lightbox
+function openLightbox(file, name) {
+  document.getElementById("lb-img").src = file;
+  document.getElementById("lb-img").alt = `${name} uniform mockup`;
+  document.getElementById("lb-label").textContent = name;
+  document.getElementById("lightbox").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox(e) {
+  // Only close if clicking the backdrop or X, not the image itself
+  if (e && e.target.tagName === "IMG" && e.target.id === "lb-img") return;
+  document.getElementById("lightbox").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeLightbox(null);
+});
+</script>
+</body>
+</html>
