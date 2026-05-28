@@ -454,6 +454,52 @@ section.alt { background: var(--msm-paper-2); }
 /* ───── Gallery (masonry) ───── */
 .gallery-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
 .gallery-toolbar p { margin: 0; font-size: 14px; color: var(--msm-mute); }
+
+/* Team filter card */
+.gallery-team-filter {
+  background: #fff; border: 1px solid var(--msm-line); border-radius: var(--msm-radius-lg);
+  padding: 16px 18px; margin-bottom: 18px;
+}
+.gallery-team-filter .gtf-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.gallery-team-filter .gtf-label {
+  font-family: var(--msm-font-display); font-weight: 800; font-size: 15px;
+  color: var(--msm-secondary);
+}
+.gallery-team-filter .ai-tag {
+  font-family: var(--msm-font-mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--msm-accent); font-weight: 700;
+  background: rgba(212, 168, 90, 0.12); padding: 2px 8px; border-radius: 4px;
+}
+.gallery-team-filter .gtf-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.gallery-team-filter label {
+  font-size: 13px; color: var(--msm-mute); font-weight: 600;
+}
+.gallery-team-filter select {
+  flex: 1; min-width: 200px; padding: 10px 12px; font-size: 14.5px;
+  border: 1px solid var(--msm-line); border-radius: 8px;
+  background: var(--msm-paper); font-family: inherit; color: var(--msm-text);
+}
+.gallery-team-filter select:focus {
+  outline: none; border-color: var(--msm-primary);
+  box-shadow: 0 0 0 3px rgba(200,16,46,0.12); background: #fff;
+}
+.gallery-team-filter button.ghost {
+  background: transparent; border: 1px solid var(--msm-line);
+  color: var(--msm-mute); padding: 9px 14px; font-size: 13px;
+  border-radius: 8px; cursor: pointer; font-family: inherit;
+}
+.gallery-team-filter button.ghost:hover { color: var(--msm-primary); border-color: var(--msm-primary); }
+.gallery-team-filter .gtf-status {
+  margin: 8px 0 0; font-size: 12px; color: var(--msm-mute); line-height: 1.4;
+}
+@media (max-width: 540px) {
+  .gallery-team-filter .gtf-row { flex-direction: column; align-items: stretch; }
+  .gallery-team-filter label { font-size: 12px; }
+}
 .gallery-empty {
   background: var(--msm-paper-2); border: 2px dashed var(--msm-line);
   border-radius: var(--msm-radius-lg); padding: 48px 24px; text-align: center; color: var(--msm-mute);
@@ -1461,29 +1507,21 @@ input, select, textarea, button { font-size: 16px; }
       <div id="gallery-actions"></div>
     </div>
 
-    <!-- AI photo search (Find My Kid) — searches tagged photo metadata -->
-    <div class="photo-search-wrap" id="photo-search-wrap" hidden>
-      <div class="photo-search-head">
-        <span>🔎 Find My Kid</span>
-        <span class="ai-tag">AI</span>
+    <!-- Team filter (auto-populated from tagged photos) -->
+    <div class="gallery-team-filter" id="gallery-team-filter" hidden>
+      <div class="gtf-head">
+        <span class="gtf-label">🔎 Find your team</span>
+        <span class="ai-tag">AI · auto-tagged</span>
       </div>
-      <div class="photo-search-row">
-        <input type="text" id="photo-search-input" placeholder='Try "#7" or "Bearcats" or "navy"' aria-label="Search photos by jersey, team, or color" />
-        <button id="photo-search-btn" type="button">Search</button>
-        <button id="photo-search-clear" class="ghost" type="button">Clear</button>
+      <div class="gtf-row">
+        <label for="team-filter">Show photos from</label>
+        <select id="team-filter">
+          <option value="">All teams</option>
+        </select>
+        <button id="team-filter-clear" class="ghost" type="button" hidden>Clear</button>
       </div>
-      <p class="photo-search-status" id="photo-search-status">Type a jersey number, team name, or color. Photos are auto-tagged after upload — newer photos may not be searchable yet.</p>
+      <p class="gtf-status" id="team-filter-status">Photos are auto-tagged by team after upload. Newer photos may not be in the dropdown yet.</p>
     </div>
-
-    <!-- AI highlight reel trigger -->
-    <button class="highlights-trigger" id="highlights-trigger" type="button">
-      <div class="text">
-        <span class="ai-tag">AI · Powered by Gemini</span>
-        <h3>Build a Highlight Reel</h3>
-        <p>Pick your kid's team and jersey — we'll pull every photo of them, ranked by best moment.</p>
-      </div>
-      <span class="arrow">→</span>
-    </button>
 
     <!-- Empty state shown until manifest is populated -->
     <div class="gallery-empty" id="gallery-empty">
@@ -1847,6 +1885,77 @@ function msmRenderGallery(photos) {
   });
 }
 
+/* Team filter state */
+const TEAM_FILTER_KEY = "msm-gallery-team-filter";
+
+function msmApplyTeamFilter(teamId) {
+  const m = window.__msmGallery;
+  if (!m || !m.photos) return;
+  const photos = teamId
+    ? m.photos.filter(p => p.team_id === teamId)
+    : m.photos;
+  msmRenderGallery(photos);
+  const status = document.getElementById("team-filter-status");
+  if (status) {
+    if (teamId) {
+      const label = m.photos.find(p => p.team_id === teamId)?.team_label || teamId;
+      status.textContent = `Showing ${photos.length} photo${photos.length === 1 ? "" : "s"} of ${label}.`;
+    } else {
+      const tagged = m.photos.filter(p => p.team_id && p.team_id !== "unknown").length;
+      status.textContent = tagged
+        ? `${tagged} of ${m.photos.length} photos auto-tagged. Pick a team to filter.`
+        : `Photos are auto-tagged by team after upload. Newer photos may not be in the dropdown yet.`;
+    }
+  }
+  document.getElementById("team-filter-clear").hidden = !teamId;
+}
+
+function msmPopulateTeamFilter(photos) {
+  const select = document.getElementById("team-filter");
+  if (!select) return;
+  // Build a map of team_id → { label, count }
+  const byTeam = new Map();
+  for (const p of photos) {
+    if (!p.team_id || p.team_id === "unknown") continue;
+    const cur = byTeam.get(p.team_id) || { label: p.team_label || p.team_id, count: 0 };
+    cur.count += 1;
+    byTeam.set(p.team_id, cur);
+  }
+  if (byTeam.size === 0) {
+    // No tagged photos yet — keep dropdown hidden
+    document.getElementById("gallery-team-filter").hidden = true;
+    return;
+  }
+  document.getElementById("gallery-team-filter").hidden = false;
+  // Sort alphabetically by label
+  const entries = [...byTeam.entries()].sort((a, b) => a[1].label.localeCompare(b[1].label));
+  select.innerHTML = `<option value="">All teams (${photos.length} photos)</option>` +
+    entries.map(([id, { label, count }]) =>
+      `<option value="${id}">${label} · ${count} photo${count === 1 ? "" : "s"}</option>`
+    ).join("");
+
+  // Restore prior choice
+  const saved = localStorage.getItem(TEAM_FILTER_KEY);
+  if (saved && byTeam.has(saved)) {
+    select.value = saved;
+    msmApplyTeamFilter(saved);
+  } else {
+    msmApplyTeamFilter("");
+  }
+
+  select.addEventListener("change", () => {
+    const v = select.value;
+    if (v) localStorage.setItem(TEAM_FILTER_KEY, v);
+    else localStorage.removeItem(TEAM_FILTER_KEY);
+    msmApplyTeamFilter(v);
+  });
+  document.getElementById("team-filter-clear").addEventListener("click", () => {
+    select.value = "";
+    localStorage.removeItem(TEAM_FILTER_KEY);
+    msmApplyTeamFilter("");
+  });
+}
+
 (async function() {
   const actions = document.getElementById("gallery-actions");
   try {
@@ -1856,6 +1965,7 @@ function msmRenderGallery(photos) {
     if (!m.photos || !m.photos.length) return; // keep empty state visible
     window.__msmGallery = m;
     msmRenderGallery(m.photos);
+    msmPopulateTeamFilter(m.photos);
     if (m.downloadAllZip) {
       actions.innerHTML = `<a class="btn btn-secondary btn-sm" href="./gallery/${m.downloadAllZip}" download>⬇ Download All (.zip)</a>`;
     }
