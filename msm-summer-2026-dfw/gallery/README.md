@@ -22,17 +22,32 @@ This is where parents download free tournament photos. Photos here render automa
 
 ### Option B — auto-generate manifest (recommended)
 
-Run the helper script after dropping files:
+Drop the files in this folder, then run the helper from the repo root:
 
 ```bash
-cd msm-summer-2026-dfw/gallery
-node ../../tools/msm-gallery-build.js
+cd ~/Documents/Projects/burnsbuilt-site
+python3 tools/msm-gallery-build.py
 ```
 
 This:
-- Generates thumbnails into `thumbs/` (requires `sharp`: `npm i -g sharp-cli`)
+- Resizes each full image to a max long-edge of 2400px (in place)
+- Generates an 800px-wide thumbnail at `thumbs/<filename>`
+- Renames files to lowercase-hyphenated form if they aren't already
+  (e.g. `IMG_4582.JPG` → `img-4582.jpg`)
 - Updates `manifest.json` with all photos in this folder
-- Skips any file already in the manifest (preserves your alt text and tags)
+- Skips files already in the manifest (preserves your alt text and tags)
+
+Uses macOS built-in `sips` for image processing — no installs needed.
+
+After running, you can edit `manifest.json` to add `alt`, `day`, and
+`team` for each photo. They render in the gallery either way.
+
+### Tagging for "Find My Kid" AI search
+
+Once photos are uploaded and live, run `tools/msm-tag-photos.sh` to
+have Gemini auto-tag each photo with jersey numbers, team names, and
+jersey colors. Required for the search bar above the gallery to work
+on those photos.
 
 ## Image guidelines
 
