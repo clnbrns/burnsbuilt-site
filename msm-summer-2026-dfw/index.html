@@ -183,6 +183,64 @@ section.alt { background: var(--msm-paper-2); }
 .alert-ribbon.urgent { background: var(--msm-primary); color: #fff; }
 .alert-ribbon[hidden] { display: none; }
 
+/* Weather band — passive info strip just below the alert ribbon.
+   Color shifts with conditions: comfortable=white, hot=amber, advisory=red. */
+.weather-band {
+  background: #fff;
+  border-bottom: 1px solid var(--msm-line);
+  font-size: 13px;
+  color: var(--msm-text);
+}
+.weather-band .wb-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  padding: 8px 16px;
+}
+.weather-band .wb-loc {
+  font-family: var(--msm-font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--msm-mute); font-weight: 700;
+}
+.weather-band .wb-now {
+  font-weight: 700; color: var(--msm-secondary);
+}
+.weather-band .wb-feels,
+.weather-band .wb-precip,
+.weather-band .wb-wind {
+  color: var(--msm-mute); font-size: 12.5px;
+}
+.weather-band .wb-feels:empty,
+.weather-band .wb-precip:empty,
+.weather-band .wb-wind:empty,
+.weather-band .wb-tip:empty { display: none; }
+.weather-band .wb-tip {
+  margin-left: auto; font-size: 12px; color: var(--msm-secondary);
+  font-weight: 600;
+}
+.weather-band .wb-alert {
+  font-family: var(--msm-font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; font-weight: 700;
+  background: var(--msm-primary); color: #fff;
+}
+
+/* Hot — amber tint */
+.weather-band.is-hot {
+  background: linear-gradient(0deg, rgba(212,168,90,0.12), rgba(212,168,90,0.12)), #fff;
+  border-bottom-color: var(--msm-accent);
+}
+/* Heat advisory / dangerous — red tint */
+.weather-band.is-advisory {
+  background: linear-gradient(0deg, rgba(200,16,46,0.08), rgba(200,16,46,0.08)), #fff;
+  border-bottom-color: var(--msm-primary);
+}
+.weather-band.is-advisory .wb-tip { color: var(--msm-primary); }
+
+@media (max-width: 540px) {
+  .weather-band .wb-row { gap: 6px 12px; padding: 7px 12px; }
+  .weather-band .wb-tip { margin-left: 0; width: 100%; font-size: 11.5px; }
+  .weather-band .wb-feels, .weather-band .wb-precip, .weather-band .wb-wind { font-size: 11.5px; }
+}
+
 /* ───── Hero ───── */
 .hero {
   position: relative; overflow: hidden;
@@ -1180,6 +1238,19 @@ input, select, textarea, button { font-size: 16px; }
   <strong>⚠ Heads up:</strong> <span id="alert-text">All games on hold for weather. Updates posted by 9:00 AM.</span>
 </div>
 
+<!-- ============== WEATHER BAND (Parks at Texas Star, Euless TX) ============== -->
+<div id="weather-band" class="weather-band" hidden>
+  <div class="container wb-row">
+    <span class="wb-loc" aria-hidden="true">📍 Euless</span>
+    <span class="wb-now" id="wb-now">—</span>
+    <span class="wb-feels" id="wb-feels"></span>
+    <span class="wb-precip" id="wb-precip"></span>
+    <span class="wb-wind" id="wb-wind"></span>
+    <span class="wb-alert" id="wb-alert" hidden></span>
+    <span class="wb-tip" id="wb-tip"></span>
+  </div>
+</div>
+
 <!-- ============== HERO ============== -->
 <header class="hero">
   <span class="hero-sport-mark" aria-hidden="true">⚾</span>
@@ -1849,6 +1920,117 @@ document.addEventListener("click", (e) => {
   if (!sheet.classList.contains("open")) return;
   if (!sheet.contains(e.target) && !fab.contains(e.target)) msmCloseHelp();
 });
+
+/* ─── Weather band — Parks at Texas Star, Euless TX ─── */
+(async function() {
+  const band = document.getElementById("weather-band");
+  if (!band) return;
+
+  // Parks at Texas Star — 1501 S Pipeline Rd, Euless, TX 76040
+  const LAT = 32.83, LON = -97.07;
+  const HEADERS = { "User-Agent": "(msm.burnsbuilt.co, contact@burnsbuilt.co)" };
+
+  // Rothfusz heat index formula (NOAA). Inputs in °F and %RH. Valid for T >= 80°F.
+  function heatIndex(T, RH) {
+    if (T < 80) return T;
+    const HI = -42.379 + 2.04901523*T + 10.14333127*RH
+      - 0.22475541*T*RH - 0.00683783*T*T - 0.05481717*RH*RH
+      + 0.00122874*T*T*RH + 0.00085282*T*RH*RH - 0.00000199*T*T*RH*RH;
+    // Low-RH adjustment
+    if (RH < 13 && T >= 80 && T <= 112) {
+      return HI - ((13 - RH) / 4) * Math.sqrt((17 - Math.abs(T - 95)) / 17);
+    }
+    // High-RH adjustment
+    if (RH > 85 && T >= 80 && T <= 87) {
+      return HI + ((RH - 85) / 10) * ((87 - T) / 5);
+    }
+    return HI;
+  }
+
+  function classifyHeat(hiF) {
+    if (hiF < 80) return { tier: "comfortable", tip: "" };
+    if (hiF < 90) return { tier: "comfortable", tip: "Hydrate between innings." };
+    if (hiF < 103) return { tier: "hot", tip: "Hydrate every inning. Find shade." };
+    if (hiF < 125) return { tier: "advisory", tip: "Heat stress risk — water, shade, breaks." };
+    return { tier: "advisory", tip: "Extreme heat — limit sun exposure." };
+  }
+
+  async function fetchJSON(url) {
+    const r = await fetch(url, { headers: HEADERS, cache: "no-store" });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  }
+
+  function setText(id, txt) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = txt || "";
+  }
+
+  try {
+    // 1) Resolve grid for our point
+    const pt = await fetchJSON(`https://api.weather.gov/points/${LAT},${LON}`);
+    const hourlyUrl = pt.properties?.forecastHourly;
+    if (!hourlyUrl) throw new Error("No hourly forecast URL");
+
+    // 2) Pull the hourly forecast (use the first / current period)
+    const fc = await fetchJSON(hourlyUrl);
+    const period = fc.properties?.periods?.[0];
+    if (!period) throw new Error("No forecast period");
+
+    const tempF = period.temperature;                        // already °F per request
+    const rh = period.relativeHumidity?.value ?? 50;         // 0–100
+    const precip = period.probabilityOfPrecipitation?.value; // %, may be null
+    const windSpeed = (period.windSpeed || "").split(" ")[0];// e.g. "10"
+    const windDir = period.windDirection || "";
+    const cond = period.shortForecast || "";
+    const isThunder = /thunder/i.test(cond);
+
+    const hi = Math.round(heatIndex(tempF, rh));
+    const { tier, tip } = classifyHeat(hi);
+
+    // 3) Active NWS alerts at this point (heat advisories, severe storm warnings)
+    let alertText = "";
+    try {
+      const alerts = await fetchJSON(`https://api.weather.gov/alerts/active?point=${LAT},${LON}`);
+      const features = alerts.features || [];
+      // Pick the highest-severity headline
+      const ranked = features.sort((a, b) => {
+        const order = { "Extreme": 4, "Severe": 3, "Moderate": 2, "Minor": 1, "Unknown": 0 };
+        return (order[b.properties?.severity] || 0) - (order[a.properties?.severity] || 0);
+      });
+      const top = ranked[0]?.properties?.event;
+      if (top) alertText = top;
+    } catch { /* alerts optional */ }
+
+    // 4) Render
+    const conditionEmoji = isThunder ? "⛈" :
+      /rain|shower/i.test(cond) ? "🌧" :
+      /cloud|overcast/i.test(cond) ? "☁️" :
+      /sun|clear/i.test(cond) ? "☀️" : "🌤";
+
+    setText("wb-now", `${conditionEmoji} ${Math.round(tempF)}°F · ${cond}`);
+    setText("wb-feels", tempF >= 80 && hi > tempF + 1 ? `feels like ${hi}°` : "");
+    setText("wb-precip", precip != null && precip > 0 ? `🌧 ${precip}% rain` : "");
+    setText("wb-wind", windSpeed ? `💨 ${windSpeed} mph ${windDir}` : "");
+
+    if (alertText) {
+      const a = document.getElementById("wb-alert");
+      a.textContent = `⚠ ${alertText}`;
+      a.hidden = false;
+    }
+    setText("wb-tip", tip);
+
+    band.classList.remove("is-hot", "is-advisory");
+    if (alertText || tier === "advisory") band.classList.add("is-advisory");
+    else if (tier === "hot") band.classList.add("is-hot");
+
+    band.hidden = false;
+  } catch (err) {
+    // Silent failure — better to hide than show garbage
+    console.warn("Weather band failed:", err);
+  }
+
+})();
 
 /* ─── Gallery: load manifest, render masonry, lightbox ─── */
 window.__msmGallery = null;
