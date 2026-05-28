@@ -61,11 +61,20 @@ for ((i=0; i<TOTAL && TAGGED<LIMIT; i++)); do
     continue
   fi
   TAGS=$(echo "$RESPONSE" | jq '.tags')
-  # Inject tags back into manifest
+  # Inject tags back into manifest. Also surface team at the top level
+  # so the gallery can filter without digging into .tags.team_id.
+  TEAM_ID=$(echo "$TAGS" | jq -r '.team_id // "unknown"')
+  TEAM_LABEL=$(echo "$TAGS" | jq -r '.team_label // empty')
+  CONFIDENCE=$(echo "$TAGS" | jq -r '.team_confidence // "none"')
+  CAPTION=$(echo "$TAGS" | jq -r '.caption // empty')
   TMP=$(mktemp)
-  jq ".photos[$i].tags = $TAGS" "$MANIFEST" > "$TMP" && mv "$TMP" "$MANIFEST"
-  CAPTION=$(echo "$TAGS" | jq -r '.caption')
-  echo "    ✓ $CAPTION"
+  jq ".photos[$i].tags = $TAGS
+      | .photos[$i].team_id = \"$TEAM_ID\"
+      | .photos[$i].team_label = \"$TEAM_LABEL\"
+      | .photos[$i].team_confidence = \"$CONFIDENCE\"" \
+    "$MANIFEST" > "$TMP" && mv "$TMP" "$MANIFEST"
+  echo "    ✓ ${TEAM_LABEL:-unknown}  (confidence: $CONFIDENCE)"
+  [[ -n "$CAPTION" ]] && echo "      \"$CAPTION\""
   TAGGED=$((TAGGED+1))
 done
 
