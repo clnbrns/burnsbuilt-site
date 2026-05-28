@@ -13,7 +13,7 @@
         { "name": "Birdville Smithfield",          "gameChanger": "https://web.gc.com/teams/hp9jU4DcWidS" },
         { "name": "CMS/HMS",                       "gameChanger": "https://web.gc.com/teams/p7kedDImUjCZ" },
         { "name": "Cross Timbers",                 "gameChanger": "https://web.gc.com/teams/662hOjYIiCmO" },
-        { "name": "Grapevine Faith",               "gameChanger": null },
+        { "name": "Grapevine Faith",               "gameChanger": "https://web.gc.com/teams/8cuMh1bhAmvN" },
         { "name": "HEB",                           "gameChanger": "https://web.gc.com/teams/2aMbmBruLq5g" },
         { "name": "Keller Bear Creek 1",           "gameChanger": "https://web.gc.com/teams/BCiXyNXCY5vQ" },
         { "name": "Keller Bear Creek 2",           "gameChanger": "https://web.gc.com/teams/nYfm1S7l84oA" },
@@ -40,7 +40,7 @@
         { "name": "Birdville/EMS",                 "gameChanger": "https://web.gc.com/teams/ctewjVcrYnoc" },
         { "name": "Brock",                         "gameChanger": null },
         { "name": "Burleson Kerr",                 "gameChanger": "https://web.gc.com/teams/DEu3jLgDAaXz" },
-        { "name": "HEB/LW/Northwest",              "gameChanger": null },
+        { "name": "HEB/LW/Northwest",              "gameChanger": "https://web.gc.com/teams/V2bDtYJJ1b0O" },
         { "name": "Keller Indian Springs",         "gameChanger": "https://web.gc.com/teams/uBulznMJjHax" },
         { "name": "Keller Middle",                 "gameChanger": null },
         { "name": "Parker County",                 "gameChanger": "https://web.gc.com/teams/BrKtHfmlvMLB" },
@@ -57,7 +57,7 @@
         { "name": "Combo 2",                       "gameChanger": null },
         { "name": "GCISD",                         "gameChanger": "https://web.gc.com/teams/DdsxSHyICnD1" },
         { "name": "Keller Middle",                 "gameChanger": "https://web.gc.com/teams/h8qTafnYjbLs" },
-        { "name": "Weatherford Tison",             "gameChanger": null }
+        { "name": "Weatherford Tison",             "gameChanger": "https://web.gc.com/teams/KZriq1V1bx9Q" }
       ]
     }
   ]
