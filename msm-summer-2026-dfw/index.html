@@ -79,7 +79,7 @@
         {"@type": "Question", "name": "How do I get the schedule?", "acceptedAnswer": {"@type": "Answer", "text": "The full schedule is embedded on this page from Exposure Events and updates in real time."}},
         {"@type": "Question", "name": "Are photos free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tournament action photos are free to download from the gallery on this page. Geis Photography also offers paid posed team and individual sessions."}},
         {"@type": "Question", "name": "Can I bring outside food?", "acceptedAnswer": {"@type": "Answer", "text": "Coolers and outside food/drinks are typically allowed at Parks at Texas Star. Concessions are available on-site."}},
-        {"@type": "Question", "name": "What if there is a weather delay?", "acceptedAnswer": {"@type": "Answer", "text": "Weather updates appear in the alert banner at the top of this page. You can also opt in for SMS score and delay alerts."}}
+        {"@type": "Question", "name": "What if there is a weather delay?", "acceptedAnswer": {"@type": "Answer", "text": "Weather updates appear in the alert banner at the top of this page."}}
       ]
     }
   ]
@@ -596,17 +596,6 @@ details.faq-item summary::after { content: "+"; position: absolute; right: 4px; 
 details.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 details.faq-item p { margin: 12px 0 0; color: var(--msm-mute); line-height: 1.65; }
 
-/* ───── Score-alert opt-in ───── */
-.alerts-form {
-  background: var(--msm-secondary); color: #fff; padding: 32px 28px;
-  border-radius: var(--msm-radius-lg); display: grid; gap: 12px;
-  grid-template-columns: 1fr 1fr auto;
-  align-items: end;
-}
-@media (max-width: 700px) { .alerts-form { grid-template-columns: 1fr; } }
-.alerts-form label { font-family: var(--msm-font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--msm-accent); display: block; margin-bottom: 6px; }
-.alerts-form input { width: 100%; padding: 12px 14px; border: 0; border-radius: var(--msm-radius); font-size: 15px; font-family: inherit; }
-.alerts-form .btn { white-space: nowrap; }
 
 /* ───── Footer ───── */
 .site-footer {
@@ -1660,7 +1649,7 @@ input, select, textarea, button { font-size: 16px; }
 
       <details class="faq-item">
         <summary>What happens if there's a weather delay?</summary>
-        <p>The alert ribbon at the top of this page updates with weather holds and field changes. You can also opt in for SMS alerts below.</p>
+        <p>The alert ribbon at the top of this page updates with weather holds and field changes.</p>
       </details>
 
       <details class="faq-item">
@@ -1692,25 +1681,6 @@ input, select, textarea, button { font-size: 16px; }
   </div>
 </section>
 
-<!-- ============== ALERTS OPT-IN ============== -->
-<section id="alerts" style="padding-top:0;">
-  <div class="container" style="max-width:880px;">
-    <form class="alerts-form" name="msm-alerts" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return msmAlertsSubmit(event)">
-      <input type="hidden" name="form-name" value="msm-alerts" />
-      <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
-      <div>
-        <label for="alert-name">Your Name</label>
-        <input id="alert-name" name="name" type="text" placeholder="Jane Parker" required />
-      </div>
-      <div>
-        <label for="alert-phone">Phone (for SMS alerts)</label>
-        <input id="alert-phone" name="phone" type="tel" placeholder="(817) 555-0100" required />
-      </div>
-      <button type="submit" class="btn btn-primary">Get Score &amp; Delay Alerts</button>
-    </form>
-    <p style="text-align:center;font-size:13px;color:var(--msm-mute);margin-top:12px;">SMS only. Standard message rates apply. Reply STOP to unsubscribe.</p>
-  </div>
-</section>
 
 <!-- ============== FOOTER ============== -->
 <footer class="site-footer">
@@ -2458,18 +2428,6 @@ async function msmRunHighlights() {
   }
 }
 
-/* ─── Alerts form (Netlify-handled — graceful UX) ─── */
-function msmAlertsSubmit(e) {
-  // Let Netlify Forms handle the actual POST. Just give the user instant feedback.
-  setTimeout(() => {
-    e.target.innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:12px;">
-        <h3 style="color:#fff;margin:0 0 6px;">You're in. ✅</h3>
-        <p style="color:rgba(255,255,255,0.85);margin:0;">We'll text score and delay updates to your phone during the tournament.</p>
-      </div>`;
-  }, 100);
-  return true;
-}
 </script>
 
 </body>
