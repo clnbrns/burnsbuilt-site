@@ -1241,7 +1241,7 @@ input, select, textarea, button { font-size: 16px; }
 <!-- ============== WEATHER BAND (Parks at Texas Star, Euless TX) ============== -->
 <div id="weather-band" class="weather-band" hidden>
   <div class="container wb-row">
-    <span class="wb-loc" aria-hidden="true">📍 Euless</span>
+    <span class="wb-loc" aria-hidden="true">📍 Euless · Jun 9 Forecast</span>
     <span class="wb-now" id="wb-now">—</span>
     <span class="wb-feels" id="wb-feels"></span>
     <span class="wb-precip" id="wb-precip"></span>
@@ -1440,8 +1440,7 @@ input, select, textarea, button { font-size: 16px; }
         </ol>
 
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
-          <a href="https://www.geisphoto.com/" class="btn btn-primary" target="_blank" rel="noopener">Book Your Session →</a>
-          <a href="https://www.geisphoto.com/" class="btn btn-secondary" target="_blank" rel="noopener">View Pricing</a>
+          <a href="https://tools.geisphoto.com/book" class="btn btn-primary" target="_blank" rel="noopener">View Pricing and Book Your Session →</a>
         </div>
       </div>
       <div class="geis-visual has-photo">
@@ -1972,9 +1971,20 @@ document.addEventListener("click", (e) => {
     const hourlyUrl = pt.properties?.forecastHourly;
     if (!hourlyUrl) throw new Error("No hourly forecast URL");
 
-    // 2) Pull the hourly forecast (use the first / current period)
+    // 2) Pull the hourly forecast — find Jun 9 peak-heat window (noon–3 PM local)
     const fc = await fetchJSON(hourlyUrl);
-    const period = fc.properties?.periods?.[0];
+    const periods = fc.properties?.periods || [];
+    // Target: June 9, 2026 between noon and 3 PM Central (17:00–20:00 UTC)
+    const TARGET_DATE = "2026-06-09";
+    const jun9Periods = periods.filter(p => {
+      const start = p.startTime || "";
+      return start.startsWith(TARGET_DATE);
+    });
+    // Pick the hottest period on Jun 9 (highest temp), falling back to noon-ish
+    let period = jun9Periods.reduce((best, p) =>
+      (!best || p.temperature > best.temperature) ? p : best, null);
+    // Fallback: if forecast doesn't reach Jun 9 yet, use the last available period
+    if (!period) period = periods[periods.length - 1];
     if (!period) throw new Error("No forecast period");
 
     const tempF = period.temperature;                        // already °F per request
