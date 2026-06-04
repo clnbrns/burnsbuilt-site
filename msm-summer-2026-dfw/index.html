@@ -378,29 +378,19 @@ section.alt { background: var(--msm-paper-2); }
 .team-link:hover { transform: translateY(-1px); box-shadow: var(--msm-shadow-md); border-color: var(--msm-secondary); }
 .team-link .gc-mark {
   flex-shrink: 0;
-  width: 40px; height: 40px;
-  background: #008f4c; color: #fff;
-  border-radius: 10px;
+  width: 36px; height: 36px;
+  background: var(--msm-secondary); color: #fff;
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--msm-font-display); font-weight: 900; font-size: 13px;
+  font-family: var(--msm-font-display); font-weight: 900; font-size: 14px;
   letter-spacing: -0.02em;
-  box-shadow: 0 1px 4px rgba(0,143,76,0.30);
 }
-.team-link.no-link .gc-mark { background: var(--msm-paper-3); color: var(--msm-mute); box-shadow: none; }
+.team-link.no-link .gc-mark { background: var(--msm-paper-3); color: var(--msm-mute); }
 .team-link .body { flex: 1; min-width: 0; }
 .team-link .name { font-family: var(--msm-font-display); font-weight: 800; font-size: 15.5px; color: var(--msm-secondary); margin: 0 0 2px; line-height: 1.25; }
 .team-link .meta { font-size: 12.5px; color: var(--msm-mute); margin: 0; }
-.team-link .arrow {
-  flex-shrink: 0;
-  display: flex; align-items: center; gap: 4px;
-  font-family: var(--msm-font-mono); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase;
-  color: #008f4c;
-  transition: transform .15s, color .15s;
-  white-space: nowrap;
-}
-.team-link .arrow::after { content: "→"; font-size: 14px; }
-.team-link:hover .arrow { color: #006b39; transform: translateX(3px); }
+.team-link .arrow { flex-shrink: 0; color: var(--msm-mute); font-size: 18px; transition: transform .15s, color .15s; }
+.team-link:hover .arrow { color: var(--msm-primary); transform: translateX(3px); }
 .team-link.no-link .arrow { display: none; }
 .team-link.no-link { cursor: default; }
 .team-link.no-link:hover { transform: none; box-shadow: var(--msm-shadow-sm); border-color: var(--msm-line); }
@@ -1404,12 +1394,13 @@ input, select, textarea, button { font-size: 16px; }
         <span class="eyebrow">Tournament Teams</span>
         <h2>Who's in the dugout.</h2>
       </div>
-      <p>Tap a team to view their schedule, roster, and live stats.</p>
-      <p style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span style="display:inline-flex;align-items:center;gap:7px;background:#f0faf4;border:1px solid #b3dfc7;border-radius:8px;padding:6px 12px;">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:#008f4c;color:#fff;border-radius:6px;font-weight:900;font-size:11px;letter-spacing:-0.02em;font-family:var(--msm-font-display);">GC</span>
-          <span style="font-size:13px;font-weight:700;color:#005c2e;letter-spacing:0.01em;">Links open in GameChanger</span>
-        </span>
+      <p>Tap a team to open their GameChanger page — schedule, roster, and live stats in one place.</p>
+      <p style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+        <svg width="20" height="20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;">
+          <rect width="200" height="200" rx="44" fill="#008f4c"/>
+          <text x="100" y="138" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="100" fill="#ffffff">GC</text>
+        </svg>
+        <span style="font-size:13px;color:var(--msm-mute);">Team pages powered by <strong style="color:var(--msm-body);">GameChanger</strong></span>
       </p>
     </div>
 
@@ -2194,7 +2185,7 @@ document.addEventListener("keydown", (e) => {
             <p class="name">${t.name}</p>
             ${meta ? `<p class="meta">${meta}</p>` : ""}
           </div>
-          ${isLink ? `<span class="arrow" aria-hidden="true">GameChanger</span>` : ""}
+            <span class="arrow" aria-hidden="true">→</span>
         </${tag}>`;
       }).join("");
       return `<div class="division">
