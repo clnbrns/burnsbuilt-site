@@ -2,5 +2,36 @@
   "version": 1,
   "tournament": "MSM Summer 2026 — DFW West",
   "_notes": "Recaps post here after games wrap. Generate via tools/msm-recap.sh — appends a new entry with title, recap, score, division, round, posted_at.",
-  "recaps": []
+  "recaps": [
+    {
+      "title": "Southlake Durham shuts down Northwest 7–2",
+      "recap": "Southlake Durham's arms were dialed in Tuesday morning, with Hudson K and Lincoln B each spinning two scoreless innings and striking out three apiece to blank 6th-Northwest Worthington 7–2 at The Parks at Texas Star. Jase R did the damage at the plate with a double and an RBI, while the bullpen didn't allow an earned run all game.",
+      "score": "7–2",
+      "division": "6th",
+      "round": "pool play",
+      "winner": "Southlake Durham-6th Grade",
+      "loser": "6th-Northwest Worthington",
+      "posted_at": "2026-06-09T13:00:00.001Z"
+    },
+    {
+      "title": "Grapevine Faith edges Timberview in 17–13 slugfest",
+      "recap": "Grapevine Faith held off a hard-charging Timberview Hawks squad 17–13 in a wild, 30-hit affair Tuesday at 2520 Oak Grove Loop S — the Hawks actually out-hit their opponents 15 to 7 but couldn't overcome a pair of big innings from Grapevine Faith. Casen R led Timberview with three hits, and Jack M's double sparked a 4-run third that briefly gave the Hawks the lead.",
+      "score": "17–13",
+      "division": "6th",
+      "round": "pool play",
+      "winner": "Grapevine Faith",
+      "loser": "Timberview Hawks",
+      "posted_at": "2026-05-26T23:00:00.000Z"
+    },
+    {
+      "title": "Big third lifts MSM Aledo past Timberview 16–4",
+      "recap": "MSM Aledo MMS 6th blew the game open with a 14-run third inning to top the Timberview Hawks 16–4 Tuesday morning at The Parks at Texas Star. Beckham M was the big bat in the frame — three RBI on a single — with Mason B and Logan M each driving in a pair to cap a 19-hit team effort.",
+      "score": "16–4",
+      "division": "6th",
+      "round": "pool play",
+      "winner": "MSM Aledo MMS 6th",
+      "loser": "Timberview Hawks",
+      "posted_at": "2026-06-09T13:00:00.000Z"
+    }
+  ]
 }

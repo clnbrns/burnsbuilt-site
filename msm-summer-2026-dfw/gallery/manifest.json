@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "tournament": "MSM Summer 2026 — DFW West",
+  "tournament": "MSM Summer 2026 \u2014 DFW West",
   "downloadAllZip": null,
   "photos": [
     {
@@ -137,6 +137,62 @@
       "team_id": "unknown",
       "team_label": "",
       "team_confidence": "none"
+    },
+    {
+      "src": "img-7782.jpeg",
+      "thumb": "thumbs/img-7782.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7783.jpeg",
+      "thumb": "thumbs/img-7783.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7784.jpeg",
+      "thumb": "thumbs/img-7784.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7785.jpeg",
+      "thumb": "thumbs/img-7785.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7786.jpeg",
+      "thumb": "thumbs/img-7786.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7787.jpeg",
+      "thumb": "thumbs/img-7787.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7788.jpeg",
+      "thumb": "thumbs/img-7788.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
+    },
+    {
+      "src": "img-7789.jpeg",
+      "thumb": "thumbs/img-7789.jpeg",
+      "alt": "Tournament action photo",
+      "day": "",
+      "team": ""
     }
   ]
 }
