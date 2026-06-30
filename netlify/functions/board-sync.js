@@ -14,6 +14,10 @@
  * Concurrency model: last-write-wins at document level. Personal use, single
  * user, multiple devices — collisions are rare. Each save stamps serverUpdatedAt
  * so the client can detect "server is newer than my local."
+ *
+ * NOTE: This is a V2 (modern) Netlify Function. V2 is required so Netlify Blobs
+ * is configured automatically — legacy V1 functions don't get the Blobs
+ * environment and `getStore()` throws (surfaces to the client as a 502).
  * ==================================================================
  */
 
@@ -22,17 +26,17 @@ import { getStore } from "@netlify/blobs";
 const STORE_NAME = "board";
 const DOC_KEY = "main";
 
-const json = (statusCode, body) => ({
-  statusCode,
-  headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-  body: JSON.stringify(body),
-});
+const json = (status, body) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+  });
 
 const getKey = () => process.env.BOARD_KEY || process.env.ADMIN_KEY || "";
 
-export const handler = async (event) => {
+export default async (req) => {
   // Auth
-  const userKey = event.headers["x-board-key"] || event.headers["X-Board-Key"];
+  const userKey = req.headers.get("x-board-key");
   const expected = getKey();
   if (!expected) {
     return json(500, { error: "Server is missing BOARD_KEY / ADMIN_KEY env var" });
@@ -44,7 +48,7 @@ export const handler = async (event) => {
   const store = getStore(STORE_NAME);
 
   // ── GET: return current board ──
-  if (event.httpMethod === "GET") {
+  if (req.method === "GET") {
     try {
       const data = await store.get(DOC_KEY, { type: "json" });
       return json(200, {
@@ -59,10 +63,10 @@ export const handler = async (event) => {
   }
 
   // ── POST: replace board ──
-  if (event.httpMethod === "POST") {
+  if (req.method === "POST") {
     let body;
     try {
-      body = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+      body = await req.json();
     } catch {
       return json(400, { error: "Invalid JSON" });
     }
