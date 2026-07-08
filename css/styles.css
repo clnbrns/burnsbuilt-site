@@ -1363,6 +1363,8 @@ textarea.form-control { min-height: 140px; resize: vertical; font-family: inheri
 .cp-bt-estim  { background: linear-gradient(135deg, #b88850, #142640); }
 .cp-lndmrk    { background: linear-gradient(135deg, #0e1a2e, #3d5a80); }
 .cp-msm       { background: linear-gradient(135deg, #0e1a2e, #c0392b); }
+.cp-twin-county { background: linear-gradient(135deg, #5c7a4a, #2e3b22); }
+.cp-greystone   { background: linear-gradient(135deg, #2b313a, #8fa18d); }
 .case-card-body { padding: var(--space-md); flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
 .case-card-tag {
   font-family: var(--font-mono);

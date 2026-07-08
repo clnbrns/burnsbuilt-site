@@ -13,6 +13,8 @@ in a single commit.
 | `bearcat-estimator/` | Bearcat Estimator — AI bids  | `/case-studies/bearcat-estimator.html` |
 | `lndmrk-drone/`      | LNDMRK Drone marketing site  | `/case-studies/lndmrk-drone.html` |
 | `dugoutdata/`        | DugoutData analytics         | `/case-studies/dugoutdata.html` |
+| `twin-county-outdoor/` | Twin County Outdoor Services | `/case-studies/twin-county-outdoor.html` |
+| `greystone-counseling/` | GreyStone Counseling         | `/case-studies/greystone-counseling.html` |
 
 ## Naming convention (per folder)
 

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twin County Outdoor Services — Programmatic Local SEO Engine | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built a 92-page Astro site for a single-crew Aledo landscaping contractor — 22 city × service landing pages, an auto-linking registry, and full schema markup, competing against better-funded outdoor living companies." />
+  <link rel="canonical" href="https://burnsbuilt.co/case-studies/twin-county-outdoor.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Twin County Outdoor Services — Local SEO Growth Engine" />
+  <meta property="og:description" content="A single-crew contractor's site grown from a handful of pages to 92 — 22 geo pages, auto internal linking, full schema markup." />
+  <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/twin-county-outdoor/hero.jpg" />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/twin-county-outdoor.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Marketing Site · Local SEO</span>
+        <h1>Twin County Outdoor Services</h1>
+        <p class="case-tagline">A single-crew landscaping &amp; hardscape contractor in Aledo, TX, going up against better-funded outdoor living companies across Fort Worth and Parker County — built as a programmatic local SEO engine, not a static brochure site.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Astro</span>
+          <span class="tech-chip">TypeScript</span>
+          <span class="tech-chip">Tailwind CSS</span>
+          <span class="tech-chip">Netlify</span>
+          <span class="tech-chip">Sharp / heic-convert</span>
+          <span class="tech-chip">Schema.org</span>
+          <span class="tech-chip">IndexNow</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>92</strong><span>Total indexed pages</span></div>
+          <div class="case-stat"><strong>22</strong><span>City × service landing pages</span></div>
+          <div class="case-stat"><strong>15</strong><span>Project pages (up from 3)</span></div>
+          <div class="case-stat"><strong>6</strong><span>Blog posts on commercial-intent queries</span></div>
+          <div class="case-stat"><strong>Days</strong><span>To build 22 geo pages + full internal linking</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-hero-shot">
+      <div class="container">
+        <img src="../images/case-studies/twin-county-outdoor/hero.jpg" alt="Twin County Outdoor Services — main screenshot" loading="eager" onerror="this.style.display='none';" />
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The challenge</span>
+          <h2>One crew. One truck. A market full of bigger names.</h2>
+          <p>Twin County Outdoor Services is a single-crew, owner-operated landscaping and hardscape contractor working out of Aledo, TX. The competition isn't other one-truck operations — it's larger, better-funded outdoor living companies with marketing budgets Twin County doesn't have.</p>
+          <p>The site they started with reflected that gap: a handful of service pages and a 3-project portfolio. No city-level pages, no structured data, nothing built to catch the specific searches homeowners actually run — <em>"French drains in Saginaw"</em> or <em>"retaining wall Keller TX."</em> Search traffic went to whoever showed up for those queries, and it wasn't Twin County.</p>
+          <p>The goal: build a site that could compete on content depth and local specificity — the one advantage a small crew can win on a page-by-page basis, without hiring a marketing team to do it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The solution</span>
+          <h2>Services, cities, and projects as data — not hand-built pages.</h2>
+          <p>We built a statically-generated Astro site where services, service areas, and projects live in structured TypeScript files, not hardcoded HTML. Dynamic route templates (<em>[slug].astro</em>) turn each data entry into a fully-rendered, SEO-complete page. New content is a data entry, not a build task.</p>
+          <ul>
+            <li><strong>Astro</strong> — static output, zero client-side JS where none is needed, fast by default.</li>
+            <li><strong>TypeScript content model</strong> — services, service areas, and projects defined once, rendered everywhere they need to appear.</li>
+            <li><strong>Tailwind CSS</strong> — utility-first styling on top of the BurnsBuilt build pattern.</li>
+            <li><strong>Sharp + heic-convert</strong> — custom image pipeline converting HEIC phone photos into optimized WebP at card and gallery sizes.</li>
+            <li><strong>Schema.org structured data</strong> — LocalBusiness/HomeAndConstructionBusiness, Service, FAQPage, BreadcrumbList, and Article schema across the site.</li>
+            <li><strong>IndexNow</strong> — pings search engines the moment a new page publishes, instead of waiting on a crawl.</li>
+            <li><strong>Netlify</strong> — push to main, live in minutes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">Key features</span>
+        <h2 class="section-title">A local SEO engine, not a single static site.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Geo × service pages</div>
+            <h3>22 city pages that aren't boilerplate.</h3>
+            <p>Pages like "French Drains in Saginaw, TX" and "Retaining Walls in Keller, TX" each carry unique local copy, city-specific FAQs, pricing context, and permit information — not a city name swapped into a template.</p>
+            <span class="feature-impact">A homeowner in Saginaw sees a page written for Saginaw, not a find-and-replace.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Internal-linking registry</div>
+            <h3>Every new page gets found automatically.</h3>
+            <p>A central registry (<em>geoPages.ts</em>) cross-links each city page to its service hub, sibling cities, and relevant project photos the moment it's added. Solves the standard problem of pages that get built but never get linked to — and never get crawled.</p>
+            <span class="feature-impact">No orphan pages. No manual link-building pass after every launch.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Project portfolio</div>
+            <h3>15 pages of real work, from real photos.</h3>
+            <p>Replaced a 3-project starting point with 15 project pages built from real client photos, with before/after sliders. HEIC photos off a phone go through the Sharp/heic-convert pipeline and come out as optimized WebP at card and gallery sizes.</p>
+            <span class="feature-impact">Real jobs, real photos, no stock imagery.</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Structured data</div>
+            <h3>One verified business entity, tied to every page.</h3>
+            <p>A single canonical LocalBusiness/HomeAndConstructionBusiness entity (@id-based) anchors Service, FAQPage, BreadcrumbList, and Article schema across the site — so Google can confidently tie every page back to one business instead of guessing.</p>
+            <span class="feature-impact">Rich-result eligibility across the full site, not a handful of pages.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-detail">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">The technical edge</span>
+          <h2>Built on data. Prioritized by evidence, not guesswork.</h2>
+          <p>The site wasn't built once and left alone. It launched with core services and service areas, then grew in two more passes — 10 additional geo pages, then a further round closing gaps that a competitor analysis surfaced. It's a continuously evolving asset, not a one-and-done launch.</p>
+          <p>Prioritization came from real Google Search Console data — pages were rewritten and new pages were built based on actual impression, click, and position numbers, not assumptions about what might rank.</p>
+          <p>A competitor analysis against 4-5 direct local competitors informed which pages to build next, surfacing specific content gaps — services or cities competitors covered that Twin County didn't — and closing them.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">The result</span>
+        <h2 class="section-title">From a handful of pages to a 92-page local SEO footprint.</h2>
+
+        <div class="result-grid">
+          <div class="result-stat"><strong>92</strong><span>Total pages indexed (up from a handful of core service pages)</span></div>
+          <div class="result-stat"><strong>22</strong><span>City × service landing pages, each with unique local content</span></div>
+          <div class="result-stat"><strong>15</strong><span>Project pages built from real client photos, up from 3</span></div>
+          <div class="result-stat"><strong>Days</strong><span>To build 22 geo pages plus full internal linking, not weeks</span></div>
+        </div>
+
+        <p style="margin-top: var(--space-lg); color: var(--color-text-muted); font-size: 1.0625rem; max-width: 720px;">Traffic and ranking data are still maturing — new geo pages need time in Google's index before the numbers mean anything. <strong style="color: var(--color-denim);">We update this case study with real Search Console numbers once they're in, not before.</strong></p>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div style="max-width:760px;margin:0 auto;text-align:center;">
+          <span class="eyebrow">More work like this</span>
+          <h2 class="section-title">We build local SEO engines for home service contractors.</h2>
+          <p class="section-lede">Geo-targeted landing pages, auto internal linking, and full schema markup for landscaping, hardscape, and outdoor service businesses competing against bigger-budget competitors.</p>
+          <p style="margin-top:1.5rem;">
+            <a href="../contact.html" class="btn btn-outline">Talk to us about your site →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Competing against bigger budgets on search?</h2>
+          <p>If you're a one-crew or one-truck operation losing local search traffic to companies with real marketing spend, tell us your service area and we'll scope what it would take to close the gap.</p>
+          <a href="../contact.html" class="btn btn-accent">Let's Talk</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- Service Areas — local SEO internal link block -->
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          <li><a href="/terms/">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="/web-design/">Web Design</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

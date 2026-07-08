@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreyStone Counseling — Brand, Site &amp; Local SEO for a Statewide Telehealth Practice | BurnsBuilt Case Study</title>
+  <meta name="description" content="How BurnsBuilt built a 27-page Astro site and brand system for a solo Texas telehealth practice — 19 programmatic local SEO pages, a full domain/DNS migration, and two production incidents resolved same-day." />
+  <link rel="canonical" href="https://burnsbuilt.co/case-studies/greystone-counseling.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="GreyStone Counseling — Brand System &amp; Local SEO Engine" />
+  <meta property="og:description" content="A calm, credible home for the hardest conversations in mental health — 27 pages, 19 local SEO landing pages, full domain migration, two incidents resolved same-day." />
+  <meta property="og:image" content="https://burnsbuilt.co/images/case-studies/greystone-counseling/hero.jpg" />
+  <meta property="og:url" content="https://burnsbuilt.co/case-studies/greystone-counseling.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <style>
+    /* Page-scoped: reconstructs GreyStone's own brand tokens for this
+       case study only — not part of the BurnsBuilt design system. */
+    .gs-swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .gs-swatch {
+      border: 1px solid var(--color-sand-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-white);
+    }
+    .gs-swatch-color { height: 64px; }
+    .gs-swatch-info { padding: 0.625rem 0.75rem; }
+    .gs-swatch-label {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--color-denim);
+    }
+    .gs-swatch-hex {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 0.125rem;
+    }
+
+    .gs-hero-mock {
+      background: #F4EFE6;
+      border: 1px solid rgba(43, 49, 58, 0.12);
+      border-radius: var(--radius-lg);
+      padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+    }
+    .gs-hero-mock .gs-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8FA18D;
+      margin-bottom: 0.75rem;
+    }
+    .gs-hero-mock h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      color: #2B313A;
+      max-width: 640px;
+      margin: 0 auto 0.75rem;
+      line-height: 1.25;
+    }
+    .gs-hero-mock p {
+      font-family: var(--font-sans);
+      color: #5b6169;
+      max-width: 480px;
+      margin: 0 auto 1.5rem;
+      font-size: 1rem;
+    }
+    .gs-hero-mock .gs-cta {
+      display: inline-block;
+      background: #C47A5A;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+    }
+    .gs-hero-caption {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      font-style: italic;
+    }
+
+    .gs-sitemap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .gs-sitemap-group {
+      background: var(--color-white);
+      border: 1px solid var(--color-sand-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+    }
+    .gs-sitemap-group h4 {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-tan-deep);
+      margin: 0 0 0.75rem;
+    }
+    .gs-sitemap-group ul { list-style: none; padding: 0; margin: 0; }
+    .gs-sitemap-group li {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-denim);
+      padding: 0.3rem 0;
+      border-top: 1px solid rgba(20, 38, 64, 0.06);
+    }
+    .gs-sitemap-group li:first-child { border-top: 0; }
+    .gs-sitemap-note {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      max-width: 640px;
+    }
+
+    .gs-incident-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .gs-incident-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-sand-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+    .gs-incident-card h3 { margin-bottom: 0.5rem; }
+    .gs-incident-card p { font-size: 0.9375rem; color: var(--color-text-muted); margin: 0 0 0.75rem; }
+    .gs-incident-card p strong { color: var(--color-denim); }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="./index.html" class="active">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="case-hero">
+      <div class="container">
+        <span class="eyebrow">Case Study · Brand System · Telehealth</span>
+        <h1>GreyStone Counseling</h1>
+        <p class="case-tagline">A statewide telehealth practice needed a calm, credible home for the hardest conversations in mental health — and the search visibility to be found by the people having them. We designed the brand system, built a 27-page Astro site with programmatic local SEO, wired up domain and mail infrastructure from scratch, and kept it running through two real production incidents on launch day.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">Brand System</span>
+          <span class="tech-chip">Astro + Tailwind</span>
+          <span class="tech-chip">Technical SEO</span>
+          <span class="tech-chip">Domain / DNS Migration</span>
+          <span class="tech-chip">Netlify Deployment</span>
+          <span class="tech-chip">Incident Response</span>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><strong>27</strong><span>Pages shipped</span></div>
+          <div class="case-stat"><strong>19</strong><span>Programmatic city pages</span></div>
+          <div class="case-stat"><strong>1</strong><span>Design-token source of truth</span></div>
+          <div class="case-stat"><strong>2</strong><span>Production incidents resolved same-day</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="gs-hero-mock">
+          <div class="gs-label">GreyStone Counseling, PLLC</div>
+          <h3>Therapy for the seasons that ask the most of us.</h3>
+          <p>Support, healing, and hope for life's hardest challenges.</p>
+          <span class="gs-cta">Book a consultation →</span>
+        </div>
+        <p class="gs-hero-caption">Homepage hero — reconstructed from production tokens and copy, not a photographic screenshot.</p>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">01 · The client</span>
+          <h2>Findable for the searches that matter most.</h2>
+          <p>GreyStone Counseling, PLLC is a solo telehealth practice run by Tara Ross, M.A., LPC, LSOTP, based in Weatherford, TX and licensed to see clients anywhere in Texas. Her specialties sit in the corners many practices avoid — grief and bereavement, anticipatory grief, court-ordered counseling, and LSOTP treatment for problematic sexual behavior.</p>
+          <p>That work depends on two things at once: being findable by people searching for it, and a site that reads as steady, not clinical. The build had to serve both — a brand that feels calm and credible on a hard day, and search infrastructure that puts the practice in front of the right person at the right moment, statewide.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">02 · Brand system</span>
+        <h2 class="section-title">One tokens file. Every color, typeface, and spacing value traces back to it.</h2>
+        <p class="section-lede">A warm cream ground, a serif for headlines paired with a clean sans for body copy, and a clay terracotta reserved only for the call to action — never body text, never decoration.</p>
+
+        <div class="gs-swatch-grid">
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#F4EFE6"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Cream</span><span class="gs-swatch-hex">#F4EFE6</span></div>
+          </div>
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#C47A5A"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Clay (CTA)</span><span class="gs-swatch-hex">#C47A5A</span></div>
+          </div>
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#8FA18D"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Sage</span><span class="gs-swatch-hex">#8FA18D</span></div>
+          </div>
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#2B313A"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Slate</span><span class="gs-swatch-hex">#2B313A</span></div>
+          </div>
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#F2B27A"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Peach</span><span class="gs-swatch-hex">#F2B27A</span></div>
+          </div>
+          <div class="gs-swatch">
+            <div class="gs-swatch-color" style="background:#C9B7A6"></div>
+            <div class="gs-swatch-info"><span class="gs-swatch-label">Taupe</span><span class="gs-swatch-hex">#C9B7A6</span></div>
+          </div>
+        </div>
+        <p class="gs-hero-caption" style="text-align:left;">Tokens — <em>public/brand/tokens.css</em></p>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">03 · Content architecture</span>
+        <h2 class="section-title">One layout owns every page's SEO head and schema.</h2>
+        <p class="section-lede">A single Astro layout owns every page's SEO head and JSON-LD schema, so nothing drifts page to page. Local reach comes from a data-driven city template: one file generates a unique landing page per Texas metro from an ~80-city dataset, each with its own intro and local framing rather than templated filler.</p>
+
+        <div class="gs-sitemap">
+          <div class="gs-sitemap-group">
+            <h4>Core</h4>
+            <ul>
+              <li>/</li>
+              <li>/about</li>
+              <li>/contact</li>
+              <li>/investment</li>
+              <li>/fine-print</li>
+            </ul>
+          </div>
+          <div class="gs-sitemap-group">
+            <h4>Service focus</h4>
+            <ul>
+              <li>/focus/mental-health</li>
+              <li>/focus/court-services</li>
+              <li>/focus/unmanageable-behaviors</li>
+            </ul>
+          </div>
+          <div class="gs-sitemap-group">
+            <h4>Local SEO — [city].astro × 19</h4>
+            <ul>
+              <li>/dallas-online-counseling</li>
+              <li>/houston-online-counseling</li>
+              <li>/austin-online-counseling</li>
+              <li>/fort-worth-online-counseling</li>
+              <li>/san-antonio-online-counseling</li>
+              <li>+ 14 more</li>
+            </ul>
+          </div>
+        </div>
+        <p class="gs-sitemap-note">Remaining ~60 tracked cities render as a linked service-area list today — a straightforward data-driven expansion when the client is ready.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="case-prose">
+          <span class="eyebrow">04 · Technical &amp; on-page SEO</span>
+          <h2>A strong base, with the remaining gaps closed.</h2>
+          <p>An audit against the live site found a genuinely strong technical base — valid HTTPS, correct sitemap and robots.txt, one H1 per page, MedicalBusiness and Person schema site-wide. The remediation pass closed the remaining gaps.</p>
+        </div>
+
+        <table class="case-table">
+          <thead>
+            <tr><th>Before</th><th>After</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Homepage title</strong><br>68 chars — truncates in SERP</td>
+              <td>Online Grief &amp; Anxiety Therapy Across Texas — GreyStone</td>
+            </tr>
+            <tr>
+              <td><strong>Unmanageable Behaviors title</strong><br>77 chars — truncates</td>
+              <td>Trimmed to fit SERP display width</td>
+            </tr>
+            <tr>
+              <td><strong>About meta description</strong><br>~200 chars — truncates</td>
+              <td>Trimmed to ≤160 chars</td>
+            </tr>
+            <tr>
+              <td><strong>Homepage structure</strong><br>No keyword-bearing H2</td>
+              <td>H2 added under H1</td>
+            </tr>
+            <tr>
+              <td><strong>Homepage + Investment</strong><br>No FAQ content</td>
+              <td>FAQ blocks + FAQPage schema</td>
+            </tr>
+            <tr>
+              <td><strong>Headshot images</strong><br>Eager-loaded</td>
+              <td>loading="lazy"</td>
+            </tr>
+            <tr>
+              <td><strong>Search engine indexing</strong><br>Not submitted</td>
+              <td>IndexNow — 27 URLs, 202 Accepted</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <span class="eyebrow">05 · Domain &amp; infrastructure</span>
+        <h2 class="section-title">DNS, TLS, and redirects verified end to end.</h2>
+        <p class="section-lede">Moved the domain into the client's own registrar account, connected it to Netlify, and verified the full chain end to end — rather than stopping at "it resolves."</p>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Domain</div>
+            <h3>greystonebh.com transferred into client's Porkbun account.</h3>
+          </div>
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> DNS</div>
+            <h3>ALIAS + CNAME → Netlify, verified on authoritative NS.</h3>
+          </div>
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> TLS</div>
+            <h3>Let's Encrypt cert issued, Force HTTPS on.</h3>
+          </div>
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Redirects</div>
+            <h3>http→https and www→apex confirmed 301.</h3>
+          </div>
+          <div class="feature-item">
+            <div class="feature-label"><span class="dot"></span> Search Console</div>
+            <h3>Domain property verified via DNS TXT.</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="eyebrow">06 · Incident log</span>
+        <h2 class="section-title">Two real incidents. Both root-caused and resolved the same day.</h2>
+        <p class="section-lede">One on the site, one on the client's business email — surfaced during this engagement.</p>
+
+        <div class="gs-incident-grid">
+          <div class="gs-incident-card">
+            <span class="portfolio-badge">Resolved · &lt; 1 min downtime</span>
+            <h3>Full-site outage — every route 404'd.</h3>
+            <p><strong>Cause:</strong> Server-side deploy had no root netlify.toml, so the build published a stale local publish path baked into a cached config instead of dist/.</p>
+            <p><strong>Detected:</strong> Immediate post-deploy verification sweep — every route, including the raw .netlify.app subdomain, returned 404.</p>
+            <p><strong>Fix:</strong> Added a canonical netlify.toml (build command, publish = "dist", pinned Node version) and redeployed.</p>
+            <p><strong>Verified:</strong> All 27 routes re-checked at 200, shipped SEO changes confirmed live in the response body.</p>
+          </div>
+          <div class="gs-incident-card">
+            <span class="portfolio-badge">Resolved</span>
+            <h3>Business email stopped receiving mail.</h3>
+            <p><strong>Cause:</strong> The domain account transfer reset DNS, silently wiping all MX, SPF, and DMARC records — no mail routing existed at all.</p>
+            <p><strong>Diagnosed:</strong> Ruled out the registrar's native email service, confirmed the client's real provider was Microsoft 365, and validated the tenant by resolving Microsoft's standard MX hostname pattern to live Exchange Online Protection IPs before touching DNS.</p>
+            <p><strong>Fix:</strong> Restored MX (priority 0), SPF, and autodiscover CNAME records to spec.</p>
+            <p><strong>Verified:</strong> Caught an early false alarm — a backend DNS sync delay, not a bad record — then confirmed all three records live on both the registrar's authoritative nameservers and public resolvers.</p>
+          </div>
+        </div>
+
+        <blockquote style="border-left: 3px solid var(--color-sand); padding: var(--space-sm) var(--space-md); margin: var(--space-lg) 0 0; background: var(--color-paper); color: var(--color-denim); font-weight: 500; border-radius: 0 var(--radius-md) var(--radius-md) 0; max-width: 780px;">
+          The unglamorous half of a launch — DNS, mail, a deploy that goes sideways at the worst moment — is the half that actually determines whether a client's business stays reachable. We treat it with the same rigor as the design.
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div style="max-width:760px;margin:0 auto;text-align:center;">
+          <span class="eyebrow">More work like this</span>
+          <h2 class="section-title">We build for practices where trust is the whole product.</h2>
+          <p class="section-lede">Brand systems, local SEO, and infrastructure that holds up on launch day — for telehealth, counseling, and other practices where the site has to be found and has to be right.</p>
+          <p style="margin-top:1.5rem;">
+            <a href="../contact.html" class="btn btn-outline">Talk to us about your site →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <h2>Need a site that's still up after launch day?</h2>
+          <p>Design and DNS both matter. Tell us what you're running and we'll scope what it would take to get it right — brand, build, and the infrastructure underneath it.</p>
+          <a href="../contact.html" class="btn btn-accent">Let's Talk</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- Service Areas — local SEO internal link block -->
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="./index.html">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          <li><a href="/terms/">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="/web-design/">Web Design</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
