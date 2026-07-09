@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Cost Calculator — What Should Your Site Cost? | BurnsBuilt</title>
+  <meta name="description" content="Free 60-second calculator: answer 5 questions, get a straight price for your small business website. Monthly plans from $40/mo, no setup fees. Aledo, TX." />
+  <link rel="canonical" href="https://burnsbuilt.co/website-cost-calculator/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Website Cost Calculator — 60 Seconds, Real Numbers" />
+  <meta property="og:description" content="Answer 5 questions, get a straight price. No email required, no sales call. From the father-son team at BurnsBuilt." />
+  <meta property="og:url" content="https://burnsbuilt.co/website-cost-calculator/" />
+  <meta property="og:image" content="https://burnsbuilt.co/images/og/burnsbuilt-og-default.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#142640" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BurnsBuilt Website Cost Calculator",
+    "url": "https://burnsbuilt.co/website-cost-calculator/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": {
+      "@type": "ProfessionalService",
+      "@id": "https://burnsbuilt.co/#business",
+      "name": "BurnsBuilt",
+      "url": "https://burnsbuilt.co"
+    },
+    "description": "Free 60-second calculator that recommends a website plan and price for small businesses based on five questions."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://burnsbuilt.co/" },
+      { "@type": "ListItem", "position": 2, "name": "Website Cost Calculator", "item": "https://burnsbuilt.co/website-cost-calculator/" }
+    ]
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-19HZ4SSMQC");
+  </script>
+
+  <style>
+    .quiz-shell { max-width: 720px; margin: 0 auto; }
+    .quiz-progress { display: flex; gap: 6px; margin-bottom: var(--space-md); }
+    .quiz-progress span { flex: 1; height: 5px; border-radius: 3px; background: rgba(20,38,64,0.12); transition: background 0.2s; }
+    .quiz-progress span.done { background: var(--color-sand); }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: qfade 0.25s ease; }
+    @keyframes qfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .quiz-step .q-label {
+      font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-tan-deep);
+      display: block; margin-bottom: 0.5rem;
+    }
+    .quiz-step h2 { margin-bottom: var(--space-md); }
+
+    .q-options { display: grid; gap: 0.75rem; }
+    .q-option {
+      display: block; width: 100%; text-align: left; cursor: pointer;
+      background: var(--color-white); border: 1.5px solid rgba(20,38,64,0.15);
+      border-radius: var(--radius-md); padding: 1rem 1.25rem;
+      font-family: var(--font-sans); font-size: 1rem; color: var(--color-denim);
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+    .q-option:hover { border-color: var(--color-denim); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+    .q-option small { display: block; color: var(--color-text-muted); font-size: 0.875rem; margin-top: 0.2rem; }
+
+    .quiz-back {
+      background: none; border: none; cursor: pointer; margin-top: var(--space-md);
+      font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--color-text-muted);
+    }
+    .quiz-back:hover { color: var(--color-denim); }
+
+    /* Result */
+    .result-card {
+      background: var(--color-white); border: 2px solid var(--color-denim);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .result-card .r-eyebrow {
+      font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--color-tan-deep); display: block; margin-bottom: 0.5rem;
+    }
+    .result-card .r-price {
+      font-family: var(--font-display); font-weight: 900; font-size: 3.5rem;
+      color: var(--color-denim); line-height: 1; letter-spacing: -0.03em;
+    }
+    .result-card .r-price small { font-size: 1.125rem; font-weight: 500; color: var(--color-text-muted); letter-spacing: 0; }
+    .result-card .r-terms { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin: 0.5rem 0 1rem; }
+    .result-card ul { list-style: none; padding: 0; margin: var(--space-sm) 0 var(--space-md); }
+    .result-card ul li { padding: 0.45rem 0 0.45rem 1.6rem; position: relative; font-size: 0.9375rem; border-bottom: 1px solid rgba(20,38,64,0.06); }
+    .result-card ul li:last-child { border-bottom: 0; }
+    .result-card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--color-success); font-weight: 700; }
+    .r-compare {
+      background: var(--color-paper); border-left: 3px solid var(--color-sand);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-sm) var(--space-md); margin: var(--space-md) 0;
+      font-size: 0.9375rem; color: var(--color-text-muted);
+    }
+    .r-compare strong { color: var(--color-denim); }
+    .r-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: var(--space-sm); }
+    .r-restart { margin-top: var(--space-md); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+          <img src="../images/logo-twinblock-inline.svg" alt="BurnsBuilt" class="logo-img" width="360" height="60" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="/services.html#plans">Pricing</a></li>
+          <li><a href="../case-studies/">Work</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-phone"><a href="tel:+16829999240">(682) 999-9240</a></li>
+          <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Free tool · 60 seconds · No email required</span>
+        <h1>What should your website cost?</h1>
+        <p>Five questions. A straight answer with a real number — not "schedule a call to find out." Built by the same two people who'd build your site.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="quiz-shell">
+
+          <div class="quiz-progress" aria-hidden="true">
+            <span data-step="1"></span><span data-step="2"></span><span data-step="3"></span><span data-step="4"></span><span data-step="5"></span>
+          </div>
+
+          <div class="quiz-step active" data-step="1">
+            <span class="q-label">Question 1 of 5</span>
+            <h2>What kind of business do you run?</h2>
+            <div class="q-options">
+              <button class="q-option" data-q="biz" data-v="home">Home services<small>Landscaping, HVAC, roofing, contracting, cleaning</small></button>
+              <button class="q-option" data-q="biz" data-v="pro">Health &amp; professional services<small>Counseling, legal, accounting, consulting, med</small></button>
+              <button class="q-option" data-q="biz" data-v="retail">Retail, restaurant &amp; local shops<small>Storefronts, food, boutiques, gyms</small></button>
+              <button class="q-option" data-q="biz" data-v="other">Something else<small>We've built for drone pilots and youth sports leagues — try us</small></button>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="2">
+            <span class="q-label">Question 2 of 5</span>
+            <h2>How much site do you actually need?</h2>
+            <div class="q-options">
+              <button class="q-option" data-q="pages" data-v="s">Just the essentials<small>Home, services, about, contact — 5–8 pages</small></button>
+              <button class="q-option" data-q="pages" data-v="g">A full presence<small>10–15 pages: every service gets its own page</small></button>
+              <button class="q-option" data-q="pages" data-v="p">Service + city pages that rank<small>20+ pages targeting every town you work in</small></button>
+              <button class="q-option" data-q="pages" data-v="s">Honestly, not sure<small>We'll start you at the essentials — easy to grow later</small></button>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="3">
+            <span class="q-label">Question 3 of 5</span>
+            <h2>Where do new customers come from today?</h2>
+            <div class="q-options">
+              <button class="q-option" data-q="leads" data-v="g">Google — people search, and I need to show up<small>Local search is (or should be) my main channel</small></button>
+              <button class="q-option" data-q="leads" data-v="s">Mostly referrals and word of mouth<small>The site just needs to make me look legit</small></button>
+              <button class="q-option" data-q="leads" data-v="g">Social + some search<small>Instagram/Facebook now, but Google's the goal</small></button>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="4">
+            <span class="q-label">Question 4 of 5</span>
+            <h2>When a lead comes in, what should happen?</h2>
+            <div class="q-options">
+              <button class="q-option" data-q="auto" data-v="s">Email me — I'll take it from there<small>Simple contact form, straight to your inbox</small></button>
+              <button class="q-option" data-q="auto" data-v="g">Hit my phone immediately<small>Lead routed to email + SMS so nothing sits overnight</small></button>
+              <button class="q-option" data-q="auto" data-v="p">Qualify it before it reaches me<small>AI lead qualifier drafts a reply in 60 seconds, syncs to CRM</small></button>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="5">
+            <span class="q-label">Question 5 of 5</span>
+            <h2>Do you run paid ads?</h2>
+            <div class="q-options">
+              <button class="q-option" data-q="ads" data-v="g">Yes — Google or Meta ads are live<small>You need conversion tracking that survives iOS privacy</small></button>
+              <button class="q-option" data-q="ads" data-v="g">Planning to<small>We'll wire the tracking before the first dollar spends</small></button>
+              <button class="q-option" data-q="ads" data-v="s">No<small>Organic and referrals only</small></button>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="result">
+            <div class="result-card">
+              <span class="r-eyebrow">Our recommendation</span>
+              <h2 id="r-plan" style="margin-bottom:0.5rem;">Growth</h2>
+              <div class="r-price"><span id="r-price">$80</span><small> / month</small></div>
+              <p class="r-terms">No setup fees · Cancel any time · Pay annually, save 2 months</p>
+              <p id="r-blurb" style="color:var(--color-text-muted);font-size:1rem;"></p>
+              <ul id="r-features"></ul>
+              <div class="r-compare" id="r-compare"></div>
+              <div class="r-ctas">
+                <a href="../contact.html" class="btn btn-primary" id="r-cta">Get This Quote — Free</a>
+                <a href="/services.html#plans" class="btn btn-outline">See All Plans</a>
+              </div>
+            </div>
+            <button class="quiz-back r-restart" id="r-restart">← Start over</button>
+          </div>
+
+          <button class="quiz-back" id="q-back" style="display:none;">← Back</button>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div style="max-width:720px;margin:0 auto;text-align:center;">
+          <span class="eyebrow">Why trust this number?</span>
+          <h2 class="section-title">Because it's the same one we'd quote you.</h2>
+          <p class="section-lede" style="margin:0 auto var(--space-sm);">There's no "starting at" asterisk here. These are the three plans every BurnsBuilt client is on — including our own three businesses. If your project needs custom work beyond a plan, we'll say so before you pay anything.</p>
+          <p style="margin-top:1rem;"><a href="../contact.html" class="btn btn-accent">Talk to Colin &amp; Carson</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Service Areas — local SEO internal link block -->
+  <aside class="service-areas" aria-label="Service areas">
+    <div class="container">
+      <h5>Local web design &amp; automation across DFW</h5>
+      <ul class="service-area-links">
+        <li><a href="/locations/aledo/">Aledo</a></li>
+        <li><a href="/locations/willow-park/">Willow Park</a></li>
+        <li><a href="/locations/weatherford/">Weatherford</a></li>
+        <li><a href="/locations/parker-county/">Parker County</a></li>
+        <li><a href="/locations/fort-worth/">Fort Worth</a></li>
+        <li><a href="/locations/benbrook/">Benbrook</a></li>
+        <li><a href="/locations/granbury/">Granbury</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo" aria-label="BurnsBuilt home">
+            <img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" />
+          </a>
+          <p>A father-son web development and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../case-studies/">Work</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          <li><a href="/terms/">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul class="footer-links">
+            <li><a href="/web-design/">Web Design</a></li>
+            <li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Get in touch</h5>
+          <ul class="footer-links">
+            <li><a href="tel:+16829999240">(682) 999-9240</a></li>
+            <li>Aledo, Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="footer-year">2026</span> BurnsBuilt. Built by hand in Aledo, TX.</div>
+        <div>If it says Burns Built, we built it.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function () {
+    var TIERS = {
+      s: {
+        name: "Starter", price: "$40",
+        blurb: "The essentials, done right — a hand-coded site that loads fast, looks professional, and gets found for your name and your town.",
+        features: [
+          "5–8 pages, custom-coded (no templates)",
+          "Mobile-first design",
+          "Contact form with instant notifications",
+          "Local SEO + Google Business Profile sync",
+          "Hosting, SSL & monthly content edits included"
+        ],
+        compare: "A DFW agency quotes this scope at <strong>$3,000–$8,000 up front</strong>. Wix Business runs $36/mo and you build it yourself. Starter is <strong>$4/mo more than Wix</strong> — for custom code, built for you, that actually ranks."
+      },
+      g: {
+        name: "Growth", price: "$80",
+        blurb: "For businesses that live on local search — every service and city gets a page built to rank, and every lead hits your phone before it goes cold.",
+        features: [
+          "10–15 pages with hyper-local city + service SEO",
+          "Schema markup for rich Google results",
+          "GA4 + conversion tracking (survives iOS privacy)",
+          "Lead routing to email + SMS",
+          "Biweekly updates + monthly performance report"
+        ],
+        compare: "A DFW agency quotes this scope at <strong>$8,000–$15,000 up front</strong> plus a retainer. Growth is <strong>$2,880 over three years</strong> — no setup fee, cancel any time."
+      },
+      p: {
+        name: "Pro", price: "$200",
+        blurb: "A lead engine, not just a website — unlimited service/location pages, an AI qualifier answering leads in 60 seconds, and your CRM kept in sync.",
+        features: [
+          "20+ pages, unlimited services & locations",
+          "AI lead qualifier — drafts replies in 60 seconds",
+          "A/B testing + CRM integration",
+          "Weekly updates",
+          "Quarterly strategy call"
+        ],
+        compare: "Agencies price this as a <strong>$15,000–$50,000 project</strong> plus $1,000+/mo retainers. Pro is <strong>$200/mo flat</strong> — and we've shipped this exact stack for our own businesses."
+      }
+    };
+    var RANK = { s: 1, g: 2, p: 3 };
+
+    var answers = {};
+    var order = ["1", "2", "3", "4", "5"];
+    var current = 0;
+
+    var steps = document.querySelectorAll(".quiz-step");
+    var bars = document.querySelectorAll(".quiz-progress span");
+    var backBtn = document.getElementById("q-back");
+
+    function show(stepName) {
+      steps.forEach(function (s) { s.classList.toggle("active", s.getAttribute("data-step") === stepName); });
+      bars.forEach(function (b, i) { b.classList.toggle("done", stepName === "result" || i < current); });
+      backBtn.style.display = (stepName !== "1" && stepName !== "result") ? "inline-block" : "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function computeTier() {
+      var best = "s";
+      ["pages", "leads", "auto", "ads"].forEach(function (q) {
+        var v = answers[q] || "s";
+        if (RANK[v] > RANK[best]) best = v;
+      });
+      return best;
+    }
+
+    function renderResult() {
+      var t = TIERS[computeTier()];
+      document.getElementById("r-plan").textContent = t.name;
+      document.getElementById("r-price").textContent = t.price;
+      document.getElementById("r-blurb").textContent = t.blurb;
+      document.getElementById("r-features").innerHTML = t.features.map(function (f) { return "<li>" + f + "</li>"; }).join("");
+      document.getElementById("r-compare").innerHTML = t.compare;
+      if (typeof gtag === "function") {
+        gtag("event", "cost_calculator_complete", { recommended_tier: t.name, business_type: answers.biz || "unknown" });
+      }
+    }
+
+    document.querySelectorAll(".q-option").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        answers[btn.getAttribute("data-q")] = btn.getAttribute("data-v");
+        if (current < order.length - 1) {
+          current++;
+          show(order[current]);
+        } else {
+          renderResult();
+          show("result");
+        }
+      });
+    });
+
+    backBtn.addEventListener("click", function () {
+      if (current > 0) { current--; show(order[current]); }
+    });
+
+    document.getElementById("r-restart").addEventListener("click", function () {
+      answers = {}; current = 0; show("1");
+    });
+  })();
+  </script>
+</body>
+</html>

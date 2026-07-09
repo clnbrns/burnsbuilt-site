@@ -239,6 +239,18 @@ section { padding: var(--space-2xl) 0; }
   border-radius: 2px;
 }
 .nav-cta { margin-left: var(--space-sm); }
+.nav-phone a {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-denim);
+  white-space: nowrap;
+}
+.nav-phone a::before {
+  content: '📞';
+  margin-right: 0.375rem;
+  font-size: 0.8125rem;
+}
 /* .nav-links a sets padding: 0.5rem 0 with higher specificity than .btn,
    which was stripping horizontal padding from the CTA. Restore it here. */
 .nav-links a.btn,

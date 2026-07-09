@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pay for Your Project — BurnsBuilt</title>
-  <meta name="description" content="Pay your deposit or set up monthly maintenance billing for BurnsBuilt projects. Secure payment via Stripe. From $250 deposit." />
+  <meta name="description" content="Set up your monthly website plan or pay a project deposit for BurnsBuilt projects. Secure payment via Stripe. Website plans from $40/month." />
   <link rel="canonical" href="https://burnsbuilt.co/pay/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Pay for Your Project — BurnsBuilt" />
   <meta property="og:description" content="Secure deposit and monthly billing payment via Stripe." />
   <meta property="og:url" content="https://burnsbuilt.co/pay/" />
+  <meta property="og:image" content="https://burnsbuilt.co/images/og/burnsbuilt-og-default.jpg" />
 
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -51,8 +52,10 @@
           <li><a href="../index.html">Home</a></li>
           <li><a href="../about.html">About</a></li>
           <li><a href="../services.html">Services</a></li>
+          <li><a href="/services.html#plans">Pricing</a></li>
           <li><a href="../case-studies/">Work</a></li>
           <li><a href="../contact.html">Contact</a></li>
+          <li class="nav-phone"><a href="tel:+16829999240">(682) 999-9240</a></li>
           <li class="nav-cta"><a href="../contact.html" class="btn btn-primary">Get a Quote</a></li>
         </ul>
       </nav>
@@ -71,101 +74,53 @@
 
     <section>
       <div class="container">
-        <h2>Website packages — one-time setup</h2>
+        <h2>Website plans — monthly</h2>
+        <p style="color:var(--color-text-muted);margin-bottom:1rem;">No setup fees. Hosting, SSL, and updates included. Cancel any time. Pay annually, save 2 months.</p>
         <div class="pay-grid">
 
           <div class="pay-card">
-            <h3>Basic Website</h3>
-            <p class="price">$500</p>
-            <p class="price-meta">one-time setup</p>
+            <span class="recurring-tag">Recurring</span>
+            <h3>Starter</h3>
+            <p class="price">$40</p>
+            <p class="price-meta">per month</p>
             <ul>
-              <li>✓ 5–8 pages</li>
-              <li>✓ Mobile-friendly design</li>
+              <li>✓ 5–8 pages, custom-coded</li>
+              <li>✓ Mobile-first design</li>
               <li>✓ Contact form + notifications</li>
-              <li>✓ Basic on-page SEO</li>
-              <li>✓ Hosting &amp; SSL</li>
+              <li>✓ Local SEO + GBP sync</li>
+              <li>✓ Hosting, SSL &amp; monthly edits</li>
             </ul>
-            <a href="STRIPE_LINK_WEB_BASIC" class="btn btn-primary">Pay $500 deposit</a>
+            <a href="STRIPE_LINK_WEB_STARTER" class="btn btn-primary">Set up subscription</a>
           </div>
 
           <div class="pay-card">
-            <h3>Standard Website</h3>
-            <p class="price">$750</p>
-            <p class="price-meta">one-time setup</p>
+            <span class="recurring-tag">Recurring</span>
+            <h3>Growth</h3>
+            <p class="price">$80</p>
+            <p class="price-meta">per month</p>
             <ul>
               <li>✓ 10–15 pages</li>
-              <li>✓ Custom design</li>
-              <li>✓ Expanded local SEO</li>
-              <li>✓ GA4 conversion tracking</li>
-              <li>✓ Schema markup</li>
+              <li>✓ Hyper-local city + service SEO</li>
+              <li>✓ GA4 + conversion tracking</li>
+              <li>✓ Lead routing to email + SMS</li>
+              <li>✓ Biweekly updates + monthly report</li>
             </ul>
-            <a href="STRIPE_LINK_WEB_STANDARD" class="btn btn-primary">Pay $750 deposit</a>
-          </div>
-
-          <div class="pay-card">
-            <h3>Custom Website</h3>
-            <p class="price">$1,000+</p>
-            <p class="price-meta">starting · quoted by scope</p>
-            <ul>
-              <li>✓ Open scope, quoted by need</li>
-              <li>✓ Hyper-local SEO matrices</li>
-              <li>✓ Meta CAPI tracking</li>
-              <li>✓ Advanced integrations</li>
-              <li>✓ See <a href="../case-studies/bearcat-turf.html">Bearcat Turf</a></li>
-            </ul>
-            <a href="STRIPE_LINK_WEB_CUSTOM" class="btn btn-primary">Pay deposit</a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="section-alt">
-      <div class="container">
-        <h2>Website maintenance — monthly</h2>
-        <p style="color:var(--color-text-muted);margin-bottom:1rem;">Ongoing hosting, security, monitoring, and small content edits. Cancel anytime.</p>
-        <div class="pay-grid">
-
-          <div class="pay-card">
-            <span class="recurring-tag">Recurring</span>
-            <h3>Basic Maintenance</h3>
-            <p class="price">$25</p>
-            <p class="price-meta">per month</p>
-            <ul>
-              <li>✓ Hosting &amp; SSL</li>
-              <li>✓ Uptime monitoring</li>
-              <li>✓ Security patches</li>
-              <li>✓ Small content edits</li>
-            </ul>
-            <a href="STRIPE_LINK_MAINT_BASIC" class="btn btn-primary">Set up subscription</a>
+            <a href="STRIPE_LINK_WEB_GROWTH" class="btn btn-primary">Set up subscription</a>
           </div>
 
           <div class="pay-card">
             <span class="recurring-tag">Recurring</span>
-            <h3>Standard Maintenance</h3>
-            <p class="price">$35</p>
+            <h3>Pro</h3>
+            <p class="price">$200</p>
             <p class="price-meta">per month</p>
             <ul>
-              <li>✓ Everything in Basic</li>
-              <li>✓ Monthly content updates</li>
-              <li>✓ Performance reports</li>
-              <li>✓ Priority response</li>
+              <li>✓ 20+ pages, unlimited services/locations</li>
+              <li>✓ AI lead qualifier</li>
+              <li>✓ A/B testing + CRM integration</li>
+              <li>✓ Weekly updates</li>
+              <li>✓ Quarterly strategy call</li>
             </ul>
-            <a href="STRIPE_LINK_MAINT_STANDARD" class="btn btn-primary">Set up subscription</a>
-          </div>
-
-          <div class="pay-card">
-            <span class="recurring-tag">Recurring</span>
-            <h3>Custom Maintenance</h3>
-            <p class="price">$50</p>
-            <p class="price-meta">per month</p>
-            <ul>
-              <li>✓ Everything in Standard</li>
-              <li>✓ Larger content additions</li>
-              <li>✓ Dedicated quarterly review</li>
-              <li>✓ Pro-tier features</li>
-            </ul>
-            <a href="STRIPE_LINK_MAINT_CUSTOM" class="btn btn-primary">Set up subscription</a>
+            <a href="STRIPE_LINK_WEB_PRO" class="btn btn-primary">Set up subscription</a>
           </div>
 
         </div>
@@ -299,7 +254,8 @@
           <a href="../index.html" class="logo" aria-label="BurnsBuilt home"><img src="../images/logo-twinblock-dark.svg" alt="BurnsBuilt" class="logo-img" width="440" height="90" /></a>
           <p>A father-son web design and business automation company based in Aledo, Texas. Serving the DFW metroplex and beyond.</p>
         </div>
-        <div><h5>Company</h5><ul class="footer-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../case-studies/">Work</a></li><li><a href="/articles/">Articles</a></li>
+        <div><h5>Company</h5><ul class="footer-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li>
+          <li><a href="/services.html#plans">Pricing</a></li><li><a href="../case-studies/">Work</a></li><li><a href="/articles/">Articles</a></li>
             <li><a href="../contact.html">Contact</a></li><li><a href="/terms/">Terms &amp; Conditions</a></li></ul></div>
         <div><h5>Services</h5><ul class="footer-links"><li><a href="/web-design/">Web Design</a></li><li><a href="/business-automation/">Business Automation</a></li><li><a href="/ai-services/">AI Services</a></li><li><a href="/pricing/">Pricing</a></li></ul></div>
         <div><h5>Get in touch</h5><ul class="footer-links"><li><a href="tel:+16829999240">(682) 999-9240</a></li><li>Aledo, Texas</li></ul></div>

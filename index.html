@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BurnsBuilt — Websites & Business Automation in Aledo, TX</title>
-  <meta name="description" content="BurnsBuilt is a father-son team building fast, affordable websites and custom business automations for local businesses across the DFW metroplex. Your site live in days, not months." />
+  <meta name="description" content="Father-son team in Aledo, TX building fast custom websites and business automations for DFW small businesses. Live in days — from $40/month, no setup fees." />
   <link rel="canonical" href="https://burnsbuilt.co/" />
 
   <!-- Open Graph -->
@@ -13,6 +13,7 @@
   <meta property="og:description" content="Fast, affordable websites and custom automations for local businesses. A father-son team based in Aledo, Texas." />
   <meta property="og:url" content="https://burnsbuilt.co/" />
   <meta property="og:site_name" content="BurnsBuilt" />
+  <meta property="og:image" content="https://burnsbuilt.co/images/og/burnsbuilt-og-default.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="BurnsBuilt — Websites & Business Automation" />
   <meta name="twitter:description" content="Fast, affordable websites and custom automations for local businesses in the DFW metroplex." />
@@ -31,6 +32,7 @@
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": "https://burnsbuilt.co/#business",
     "name": "BurnsBuilt",
     "image": "https://burnsbuilt.co/images/logo-twinblock-icon.svg",
     "logo": "https://burnsbuilt.co/images/logo-twinblock-icon.svg",
@@ -80,6 +82,21 @@
   }
   </script>
 
+  <!-- FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "How much does a website cost?", "acceptedAnswer": {"@type": "Answer", "text": "$40–$200 a month, no setup fees. Starter ($40/mo) is a 5–8 page custom site with hosting, SSL, local SEO, and monthly edits included. Growth ($80/mo) adds hyper-local SEO and conversion tracking. Pro ($200/mo) adds an AI lead qualifier and CRM integration. No contracts — cancel any time."}},
+      {"@type": "Question", "name": "How fast will my site be live?", "acceptedAnswer": {"@type": "Answer", "text": "Most sites ship in 5–7 business days from kickoff. Automations usually take about two weeks."}},
+      {"@type": "Question", "name": "Who am I actually working with?", "acceptedAnswer": {"@type": "Answer", "text": "Colin and Carson Burns — a father-son team in Aledo, TX. Your questions go to the people building the thing. No project managers, no ticket queue, no offshore handoff."}},
+      {"@type": "Question", "name": "Do I own my website?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Custom code, no platform lock-in. If you ever leave, the code goes with you — unlike Wix or Squarespace, where the site dies with the subscription."}},
+      {"@type": "Question", "name": "I already have a Wix or Squarespace site. Worth switching?", "acceptedAnswer": {"@type": "Answer", "text": "We'll tell you honestly if it's worth keeping — sometimes it is. When it's not, we rebuild it custom, usually live within a week, and your Google rankings carry over because we handle every redirect."}}
+    ]
+  }
+  </script>
+
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HZ4SSMQC"></script>
   <script>
@@ -105,8 +122,10 @@
           <li><a href="index.html" class="active">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="services.html">Services</a></li>
+          <li><a href="/services.html#plans">Pricing</a></li>
           <li><a href="case-studies/">Work</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li class="nav-phone"><a href="tel:+16829999240">(682) 999-9240</a></li>
           <li class="nav-cta"><a href="contact.html" class="btn btn-primary">Get a Quote</a></li>
         </ul>
       </nav>
@@ -252,6 +271,33 @@
       </div>
     </section>
 
+    <!-- Our own businesses run on this stack -->
+    <section>
+      <div class="container">
+        <span class="eyebrow">Skin in the game</span>
+        <h2 class="section-title">Our stuff runs on this too.</h2>
+        <p class="section-lede">We're not agency people who read about small business — we own three of them in this county. Every one runs on the exact stack we sell.</p>
+
+        <div class="services-grid" style="margin-top:var(--space-md);">
+          <a href="case-studies/bearcat-turf.html" class="service-card service-card-link">
+            <h3>Bearcat Turf &amp; Outdoors</h3>
+            <p>Our family landscaping company. 136-page site, 44 hyper-local landing pages, 8× Google Search impressions in 90 days.</p>
+            <span class="link-arrow">See how it runs →</span>
+          </a>
+          <a href="case-studies/msm-marketing-engine.html" class="service-card service-card-link">
+            <h3>Middle School Matchup DFW West</h3>
+            <p>Our youth baseball tournament. 100,306 emails at a 56.6% open rate, 423 registered players, sold-out bracket.</p>
+            <span class="link-arrow">See how it runs →</span>
+          </a>
+          <a href="case-studies/lndmrk-drone.html" class="service-card service-card-link">
+            <h3>LNDMRK Drone</h3>
+            <p>Colin's FAA Part 107 drone photography business. 36 indexed pages across 16 DFW markets with dual-layer ad tracking.</p>
+            <span class="link-arrow">See how it runs →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Recent case studies -->
     <section class="section-alt">
       <div class="container">
@@ -260,6 +306,26 @@
         <p class="section-lede">Real products for real businesses — websites, custom CRMs, AI-powered internal tools. Every one of these is live and shipping value today.</p>
 
         <div class="case-index">
+          <a href="case-studies/greystone-counseling.html" class="case-card">
+            <div class="case-card-preview cp-greystone"><span>GreyStone Counseling</span></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">Brand System · Telehealth</span>
+              <h3>A calm, credible home for hard conversations</h3>
+              <p>27-page site, 19 city landing pages, full brand system, domain + email migration — and two launch-day incidents fixed same-day.</p>
+              <div class="case-card-meta"><span>Astro · Tailwind · Netlify</span><span class="arrow">Read →</span></div>
+            </div>
+          </a>
+
+          <a href="case-studies/twin-county-outdoor.html" class="case-card">
+            <div class="case-card-preview cp-twin-county"><span>Twin County Outdoor Services</span></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">Marketing Site · Local SEO</span>
+              <h3>92 pages that outrank bigger budgets</h3>
+              <p>Programmatic local SEO engine for a single-crew contractor: 22 city × service pages, auto internal linking, full schema.</p>
+              <div class="case-card-meta"><span>Astro · TypeScript</span><span class="arrow">Read →</span></div>
+            </div>
+          </a>
+
           <a href="case-studies/msm-marketing-engine.html" class="case-card">
             <div class="case-card-preview cp-msm has-image"><img class="cover" src="images/case-studies/msm-marketing-engine/hero.png" alt="MSM Marketing Engine — Email performance dashboard with AI scoring" loading="lazy" /><span>MSM Marketing Engine</span></div>
             <div class="case-card-body">
@@ -419,6 +485,31 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section>
+      <div class="container">
+        <span class="eyebrow">Straight answers</span>
+        <h2 class="section-title">Questions every owner asks.</h2>
+
+        <div class="faq-block" style="margin-top:1.5rem;max-width:780px;">
+          <h3>How much does a website cost?</h3>
+          <p>$40–$200 a month, no setup fees. Starter ($40/mo) is a 5–8 page custom site with hosting, SSL, local SEO, and monthly edits included. Growth ($80/mo) adds hyper-local SEO and conversion tracking. Pro ($200/mo) adds an AI lead qualifier and CRM integration. No contracts — cancel any time. <a href="/website-cost-calculator/">Try the 60-second cost calculator →</a></p>
+
+          <h3>How fast will my site be live?</h3>
+          <p>Most sites ship in 5–7 business days from kickoff. Automations usually take about two weeks. We don't drag projects out to pad invoices.</p>
+
+          <h3>Who am I actually working with?</h3>
+          <p>Colin and Carson Burns — a father-son team in Aledo, TX. Your questions go to the people building the thing. No project managers, no ticket queue, no offshore handoff.</p>
+
+          <h3>Do I own my website?</h3>
+          <p>Yes. Custom code, no platform lock-in. If you ever leave, the code goes with you — unlike Wix or Squarespace, where the site dies with the subscription.</p>
+
+          <h3>I already have a Wix or Squarespace site. Worth switching?</h3>
+          <p>We'll tell you honestly if it's worth keeping — sometimes it is. When it's not, we rebuild it custom, usually live within a week, and your Google rankings carry over because we handle every redirect.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Band -->
     <section class="section-alt">
       <div class="container">
@@ -464,6 +555,7 @@
           <ul class="footer-links">
             <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
+          <li><a href="/services.html#plans">Pricing</a></li>
           <li><a href="case-studies/">Work</a></li>
           <li><a href="/articles/">Articles</a></li>
             <li><a href="contact.html">Contact</a></li>
