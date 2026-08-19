@@ -191,7 +191,9 @@ header.site{
 .area-chip{
   background:var(--paper); border:1px solid var(--line); color:var(--navy);
   font-size:0.875rem; font-weight:700; padding:0.5rem 1rem; border-radius:999px;
+  text-decoration:none; transition:background 0.15s, color 0.15s, border-color 0.15s;
 }
+.area-chip:hover{ background:var(--red); color:var(--snow); border-color:var(--red); }
 
 /* ================= FAQ ================= */
 .faq-list{ max-width:760px; margin:0 auto; }
@@ -225,9 +227,53 @@ header.site{
 }
 .form-group textarea{ min-height:100px; resize:vertical; }
 
+/* ================= INTERIOR PAGE HEADER (locations, etc.) ================= */
+.page-head{
+  background:radial-gradient(140% 100% at 85% 100%, var(--navy-3) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  color:var(--cream); padding:2.75rem 0 3.25rem;
+}
+.crumb{ display:block; color:var(--cream-dim); font-size:0.875rem; text-decoration:none; margin-bottom:1.25rem; }
+.crumb:hover{ color:var(--cream); }
+.page-head .eyebrow{ display:block; }
+.page-head h1{ font-size:2.25rem; margin:0.6rem 0 0.85rem; max-width:640px; }
+.page-sub{ color:var(--cream-dim); font-size:1.0625rem; max-width:600px; margin:0; }
+
+/* ================= INTERIOR CONTENT ================= */
+.content{ padding:3.5rem 0; }
+.content h2{ font-size:1.5rem; color:var(--navy); margin:2rem 0 0.85rem; }
+.content h2:first-child{ margin-top:0; }
+.content p{ color:var(--ink-dim); font-size:1rem; max-width:720px; }
+.content a{ color:var(--red); font-weight:700; text-decoration:underline; }
+
+.feature-list{ list-style:none; max-width:720px; margin:1.25rem 0; }
+.feature-list li{ display:flex; align-items:flex-start; gap:0.75rem; padding:0.6rem 0; color:var(--ink); font-size:0.9375rem; border-bottom:1px solid var(--line); }
+.feature-list li:last-child{ border-bottom:0; }
+.feature-list svg{ width:20px; height:20px; color:var(--red); flex-shrink:0; margin-top:1px; }
+
+.mini-faq{ max-width:720px; margin-top:1rem; }
+.mini-faq .faq-row{ padding:1rem 0; border-bottom:1px solid var(--line); }
+.mini-faq b{ display:block; color:var(--navy); font-size:0.9375rem; margin-bottom:0.3rem; }
+.mini-faq p{ margin:0; font-size:0.9rem; }
+
+.crosslinks{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.25rem; max-width:920px; }
+.crosslink-card{
+  display:block; background:var(--snow); border:1px solid var(--line); border-radius:10px;
+  padding:1.25rem; text-decoration:none !important; box-shadow:0 1px 3px rgba(15,32,57,0.05);
+}
+.crosslink-card b{ display:block; color:var(--navy); font-size:0.9375rem; margin-bottom:0.25rem; font-weight:800; }
+.crosslink-card span{ display:block; color:var(--ink-dim); font-size:0.85rem; }
+
+/* ================= BANNER (interior CTA strip) ================= */
+.banner{
+  background:var(--navy-deep); color:var(--cream); padding:2.5rem 0;
+}
+.banner .wrap{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; }
+.banner h2{ color:var(--cream); font-size:1.5rem; margin:0.35rem 0 0.35rem; }
+.banner p{ color:var(--cream-dim); margin:0; }
+
 /* ================= FOOTER ================= */
 footer{ background:var(--navy-deep); color:var(--cream-dim); padding:3rem 0 2rem; }
-.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:2.5rem; margin-bottom:2rem; }
+.footer-grid{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:2rem; margin-bottom:2rem; }
 .footer-brand p{ font-size:0.9375rem; margin-top:0.75rem; max-width:320px; }
 .footer-col h5{ color:var(--cream); font-size:0.8125rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.9rem; }
 .footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
