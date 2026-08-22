@@ -74,5 +74,9 @@ https://msm.burnsbuilt.co/*            /msm-summer-2026-dfw/:splat            20
 /msm-summer-2026-dfw  https://msm.burnsbuilt.co/   301!
 /msm-summer-2026-dfw/* https://msm.burnsbuilt.co/:splat 301!
 
+# Note: Rockin' L Holiday Lighting (rockinlholidaylighting.com) is its own
+# independent Netlify site — base directory clients/rockin-l-holiday-lighting-2gqi,
+# see the netlify.toml in that folder. No rewrite needed on this site.
+
 # Personal board (noindex via meta + robots.txt)
 /board   /board/   301
