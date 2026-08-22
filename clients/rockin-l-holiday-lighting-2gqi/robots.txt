@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /thanks.html
+Allow: /
+
+Sitemap: https://rockinlholidaylighting.com/sitemap.xml
